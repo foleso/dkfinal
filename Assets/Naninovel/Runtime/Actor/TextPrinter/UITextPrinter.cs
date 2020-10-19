@@ -1,5 +1,6 @@
 ﻿// Copyright 2017-2020 Elringus (Artyom Sovetnikov). All Rights Reserved.
 
+using System;
 using Naninovel.UI;
 using System.Collections.Generic;
 using System.Threading;
@@ -11,23 +12,23 @@ namespace Naninovel
     /// <summary>
     /// A <see cref="ITextPrinterActor"/> implementation using <see cref="UITextPrinterPanel"/> to represent the actor.
     /// </summary>
-    public class UITextPrinter : MonoBehaviourActor, ITextPrinterActor
+    [ActorResources(typeof(UITextPrinterPanel), false)]
+    public class UITextPrinter : MonoBehaviourActor<TextPrinterMetadata>, ITextPrinterActor
     {
-        public override string Appearance { get => PrinterPanel.Apperance; set => PrinterPanel.Apperance = value; }
+        public override string Appearance { get => PrinterPanel.Appearance; set => PrinterPanel.Appearance = value; }
         public override bool Visible { get => PrinterPanel.Visible; set => PrinterPanel.Visible = value; }
-        public string Text { get => text; set => SetText(value); }
-        public string AuthorId { get => authorId; set => SetAuthorId(value); }
-        public List<string> RichTextTags { get => richTextTags; set => SetRichTextTags(value); }
-        public float RevealProgress { get => PrinterPanel.RevealProgress; set { CancelRevealTextRoutine(); PrinterPanel.RevealProgress = value; } }
+        public virtual string Text { get => text; set => SetText(value); }
+        public virtual string AuthorId { get => authorId; set => SetAuthorId(value); }
+        public virtual List<string> RichTextTags { get => richTextTags; set => SetRichTextTags(value); }
+        public virtual float RevealProgress { get => PrinterPanel.RevealProgress; set { CancelRevealTextRoutine(); PrinterPanel.RevealProgress = value; } }
 
-        protected UITextPrinterPanel PrinterPanel { get; private set; }
-        protected bool UsingRichTags => richTextTags.Count > 0;
+        protected virtual UITextPrinterPanel PrinterPanel { get; private set; }
+        protected virtual bool UsingRichTags => richTextTags.Count > 0;
 
         private readonly List<string> richTextTags = new List<string>();
         private readonly IUIManager uiManager;
         private readonly ICharacterManager characterManager;
         private readonly ICameraManager cameraManager;
-        private readonly TextPrinterMetadata metadata;
         private string text, authorId;
         private CancellationTokenSource revealTextCTS;
         private string activeOpenTags, activeCloseTags;
@@ -35,7 +36,6 @@ namespace Naninovel
         public UITextPrinter (string id, TextPrinterMetadata metadata)
             : base(id, metadata)
         {
-            this.metadata = metadata;
             uiManager = Engine.GetService<IUIManager>();
             characterManager = Engine.GetService<ICharacterManager>();
             cameraManager = Engine.GetService<ICameraManager>();
@@ -47,15 +47,12 @@ namespace Naninovel
         {
             await base.InitializeAsync();
 
-            var providerMngr = Engine.GetService<IResourceProviderManager>();
-            var prefabResource = await metadata.Loader.CreateFor<GameObject>(providerMngr).LoadAsync(Id);
-            if (!prefabResource.Valid)
-            {
-                Debug.LogError($"Failed to load `{Id}` UI text printer resource object. Make sure the printer is correctly configured.");
-                return;
-            }
+            var providerManager = Engine.GetService<IResourceProviderManager>();
+            var prefabResource = await ActorMetadata.Loader.CreateFor<GameObject>(providerManager).LoadAsync(Id);
+            if (!prefabResource.Valid) throw new Exception($"Failed to load `{Id}` UI text printer resource object. Make sure the printer is correctly configured.");
 
             PrinterPanel = await uiManager.InstantiatePrefabAsync(prefabResource.Object) as UITextPrinterPanel;
+            if (PrinterPanel == null) throw new Exception($"Failed to initialize `{Id}` printer actor: printer panel UI instantiation failed.");
             PrinterPanel.transform.SetParent(Transform);
             PrinterPanel.PrintedText = string.Empty;
             RevealProgress = 0f;
@@ -75,15 +72,16 @@ namespace Naninovel
 
         public override async UniTask ChangeVisibilityAsync (bool visible, float duration, EasingType easingType = default, CancellationToken cancellationToken = default)
         {
-            await PrinterPanel.ChangeVisibilityAsync(visible, duration);
+            await PrinterPanel.ChangeVisibilityAsync(visible, duration, cancellationToken);
         }
 
         public virtual async UniTask RevealTextAsync (float revealDelay, CancellationToken cancellationToken = default)
         {
             CancelRevealTextRoutine();
 
-            revealTextCTS = cancellationToken.CreateLinkedTokenSource();
-            await PrinterPanel.RevealPrintedTextOverTimeAsync(revealDelay, revealTextCTS.Token);
+            revealTextCTS = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken.LazyToken);
+            var revealTextToken = new CancellationToken(cancellationToken.ASAPToken, revealTextCTS.Token);
+            await PrinterPanel.RevealPrintedTextOverTimeAsync(revealDelay, revealTextToken);
         }
 
         public virtual void SetRichTextTags (List<string> tags)
@@ -107,7 +105,7 @@ namespace Naninovel
             SetText(Text); // Update the printed text with the tags.
         }
 
-        public void SetAuthorId (string authorId)
+        public virtual void SetAuthorId (string authorId)
         {
             this.authorId = authorId;
 
@@ -156,12 +154,12 @@ namespace Naninovel
             if (!PrinterPanel || !PrinterPanel.Content) return;
 
             // Printer position is always relative (0.0-1.0) to parent rect.
-            var anchordPos = new Vector3(
+            var anchoredPos = new Vector3(
                 position.x * PrinterPanel.RectTransform.rect.width,
                 position.y * PrinterPanel.RectTransform.rect.height,
                 PrinterPanel.Content.position.z);
 
-            PrinterPanel.Content.anchoredPosition = anchordPos;
+            PrinterPanel.Content.anchoredPosition = anchoredPos;
         }
 
         protected override Quaternion GetBehaviourRotation ()
@@ -225,7 +223,7 @@ namespace Naninovel
                 return result;
 
             foreach (var tag in RichTextTags)
-                result += string.Format("<{0}>", tag);
+                result += $"<{tag}>";
 
             return result;
         }
@@ -240,7 +238,7 @@ namespace Naninovel
             var reversedActiveTags = RichTextTags;
             reversedActiveTags.Reverse();
             foreach (var tag in reversedActiveTags)
-                result += string.Format("</{0}>", tag.GetBefore("=") ?? tag);
+                result += $"</{tag.GetBefore("=") ?? tag}>";
 
             return result;
         }

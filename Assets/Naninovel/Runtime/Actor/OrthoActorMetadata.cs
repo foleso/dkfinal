@@ -21,5 +21,9 @@ namespace Naninovel
         public float DepthAlphaCutoff = 0.5f;
         [Tooltip("A custom shader to render the actor. Be aware, that the shader is expected to have several specific properties and passes; check default built-in shader (Naninovel/Resources/Naninovel/Shaders/TransitionalSprite) for a reference.")]
         public Shader CustomShader = default;
+        [Tooltip("When assigned and supported by the implementation, the actor will be rendered to the texture instead of a game object on scene.")]
+        public RenderTexture RenderTexture = default;
+        [Tooltip("When rendering to a texture, enable to automatically correct aspect ratio of the source texture to fit it inside the render texture.")]
+        public bool CorrectRenderAspect = true;
     }
 }

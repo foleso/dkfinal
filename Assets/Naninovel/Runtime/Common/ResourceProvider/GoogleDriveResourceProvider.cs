@@ -22,7 +22,7 @@ namespace Naninovel
         [Serializable]
         public class CacheManifest : SerializableLiteralStringMap
         {
-            public string StartToken { get { return ContainsKey(startTokenKey) ? this[startTokenKey] : null; } set { this[startTokenKey] = value; } }
+            public string StartToken { get => ContainsKey(startTokenKey) ? this[startTokenKey] : null; set => this[startTokenKey] = value; }
 
             private const string startTokenKey = "GDRIVE_CACHE_START_TOKEN";
             private static readonly string filePath = string.Concat(CacheDirPath, "/CacheManifest");
@@ -124,7 +124,7 @@ namespace Naninovel
             foreach (var filePath in Directory.GetFiles(CacheDirPath).Where(f => Path.GetFileName(f).StartsWith(resourcesPath)))
             {
                 File.Delete(filePath);
-                LogMessage($"Cached resource '{filePath}' purged.");
+                LogMessage($"Cached resource `{filePath}` purged.");
             }
 
             IOUtils.WebGLSyncFs();
@@ -171,7 +171,7 @@ namespace Naninovel
             ProcessLoadQueue();
         }
 
-        protected override void HandleResourcesLocated<T> (IEnumerable<string> locatedResourcePaths, string path)
+        protected override void HandleResourcesLocated<T> (IReadOnlyCollection<string> locatedResourcePaths, string path)
         {
             base.HandleResourcesLocated<T>(locatedResourcePaths, path);
             ProcessLoadQueue();
@@ -187,10 +187,7 @@ namespace Naninovel
         {
             var resourceType = typeof(T);
             if (!converters.ContainsKey(resourceType))
-            {
-                Debug.LogError($"Converter for resource of type '{resourceType.Name}' is not available.");
-                return null;
-            }
+                throw new Exception($"Converter for resource of type '{resourceType.Name}' is not available.");
             return converters[resourceType] as IRawConverter<T>;
         }
 

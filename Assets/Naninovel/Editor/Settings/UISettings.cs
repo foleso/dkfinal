@@ -14,14 +14,19 @@ namespace Naninovel
         protected override Type ResourcesTypeConstraint => typeof(GameObject);
         protected override string ResourcesCategoryId => Configuration.Loader.PathPrefix;
         protected override string ResourcesSelectionTooltip => "Use `@showUI %name%` to show and `@hideUI %name%` to hide the UI.";
-        protected override Dictionary<string, Action<SerializedProperty>> OverrideConfigurationDrawers => new Dictionary<string, Action<SerializedProperty>> {
-            [nameof(UIConfiguration.ObjectsLayer)] = (property) => {
+
+        protected override Dictionary<string, Action<SerializedProperty>> OverrideConfigurationDrawers ()
+        {
+            var drawers = base.OverrideConfigurationDrawers();
+            drawers[nameof(UIConfiguration.ObjectsLayer)] = property =>
+            {
                 if (!Configuration.OverrideObjectsLayer) return;
                 var label = EditorGUI.BeginProperty(Rect.zero, null, property);
                 property.intValue = EditorGUILayout.LayerField(label, property.intValue);
-            }
-        };
-
+            };
+            return drawers;
+        }
+        
         [MenuItem("Naninovel/Resources/UI")]
         private static void OpenResourcesWindow () => OpenResourcesWindowImpl();
     }

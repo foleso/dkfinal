@@ -1,6 +1,7 @@
 ﻿// Copyright 2017-2020 Elringus (Artyom Sovetnikov). All Rights Reserved.
 
 using UniRx.Async;
+using UnityEngine;
 
 namespace Naninovel.Commands
 {
@@ -13,7 +14,7 @@ namespace Naninovel.Commands
         /// <summary>
         /// Path to the voice clip to play.
         /// </summary>
-        [ParameterAlias(NamelessParameterAlias), RequiredParameter]
+        [ParameterAlias(NamelessParameterAlias), RequiredParameter, IDEResource(AudioConfiguration.DefaultVoicePathPrefix)]
         public StringParameter VoicePath;
         /// <summary>
         /// Volume of the playback.
@@ -30,16 +31,16 @@ namespace Naninovel.Commands
         /// </summary>
         public StringParameter AuthorId;
 
-        public async UniTask HoldResourcesAsync ()
+        public async UniTask PreloadResourcesAsync ()
         {
             if (!Assigned(VoicePath) || VoicePath.DynamicValue) return;
-            await AudioManager.HoldVoiceResourcesAsync(this, VoicePath);
+            await AudioManager.VoiceLoader.LoadAndHoldAsync(VoicePath, this);
         }
 
-        public void ReleaseResources ()
+        public void ReleasePreloadedResources ()
         {
             if (!Assigned(VoicePath) || VoicePath.DynamicValue) return;
-            AudioManager.ReleaseVoiceResources(this, VoicePath);
+            AudioManager?.VoiceLoader?.Release(VoicePath, this);
         }
 
         public override async UniTask ExecuteAsync (CancellationToken cancellationToken = default)
@@ -48,7 +49,7 @@ namespace Naninovel.Commands
             if (Assigned(AuthorId))
             {
                 var authorVolume = AudioManager.GetAuthorVolume(AuthorId);
-                if (authorVolume == -1) LogWarningWithPosition($"Failed to modify @voice volume: volume for `{AuthorId}` author is not assigned.");
+                if (Mathf.Approximately(authorVolume, -1)) LogWarningWithPosition($"Failed to modify @voice volume: volume for `{AuthorId}` author is not assigned.");
                 else volume *= authorVolume;
             }
             await AudioManager.PlayVoiceAsync(VoicePath, volume, GroupPath);

@@ -12,7 +12,7 @@ namespace Naninovel.Commands
     /// <summary>
     /// Represents a <see cref="Script"/> command.
     /// </summary>
-    [System.Serializable]
+    [Serializable]
     public abstract class Command : ISerializationCallbackReceiver
     {
         /// <summary>
@@ -27,18 +27,18 @@ namespace Naninovel.Commands
         public interface ILocalizable { }
 
         /// <summary>
-        /// Implementing <see cref="Command"/> is able to preload, hold and release resources required for execution.
+        /// Implementing <see cref="Command"/> is able to preload resources it uses.
         /// </summary>
         public interface IPreloadable
         {
             /// <summary>
-            /// Preloads resources required for the command execution.
+            /// Preloads the resources used by the command.
             /// </summary>
-            UniTask HoldResourcesAsync ();
+            UniTask PreloadResourcesAsync ();
             /// <summary>
-            /// Unloads resources loaded with <see cref="HoldResourcesAsync"/>.
+            /// Releases the preloaded resources used by the command.
             /// </summary>
-            void ReleaseResources ();
+            void ReleasePreloadedResources ();
         }
 
         /// <summary>
@@ -85,14 +85,14 @@ namespace Naninovel.Commands
         /// </summary>
         public const string NamelessParameterAlias = "";
         /// <summary>
-        /// Literal used to assign paramer values to their IDs.
+        /// Literal used to assign parameter values to their IDs.
         /// </summary>
         public const string ParameterAssignLiteral = ":";
         /// <summary>
         /// Contains all the available <see cref="Command"/> types in the application domain, 
         /// indexed by command alias (if available) or implementing type name. Keys are case-insensitive.
         /// </summary>
-        public static readonly LiteralMap<Type> CommandTypes = GetCommandTypes();
+        public static LiteralMap<Type> CommandTypes => commandTypesCache ?? (commandTypesCache = GetCommandTypes());
 
         /// <summary>
         /// In case the command belongs to a <see cref="Script"/> asset, represents position inside the script.
@@ -118,6 +118,8 @@ namespace Naninovel.Commands
         public StringParameter ConditionalExpression;
 
         [SerializeField] private PlaybackSpot playbackSpot = PlaybackSpot.Invalid;
+
+        private static LiteralMap<Type> commandTypesCache;
 
         /// <summary>
         /// Creates new instance by parsing provided script text fragment representing body of the command.
@@ -146,13 +148,14 @@ namespace Naninovel.Commands
             }
 
             var command = Activator.CreateInstance(commandType) as Command;
+            if (command is null) throw new Exception($"Failed to create instance of `{commandType}` command.");
             command.playbackSpot = new PlaybackSpot(scriptName, lineIndex, inlineIndex);
 
             var commandParameters = ExtractParameters(commandBodyText, out error);
             if (!string.IsNullOrEmpty(error)) return null;
 
             var paramFields = commandType.GetFields(BindingFlags.Public | BindingFlags.Instance)
-                .Where(f => typeof(ICommandParameter).IsAssignableFrom(f.FieldType));
+                .Where(f => typeof(ICommandParameter).IsAssignableFrom(f.FieldType)).ToArray();
             var supportedParamIds = new List<string>(paramFields.Select(f => f.Name));
             foreach (var paramField in paramFields)
             {
@@ -169,6 +172,7 @@ namespace Naninovel.Commands
                 }
 
                 var parameter = Activator.CreateInstance(paramField.FieldType) as ICommandParameter;
+                if (parameter is null) throw new Exception($"Failed to create instance of `{paramId}` parameter for `{commandType}` command.");
                 var paramValueText = commandParameters[paramId];
                 parameter.SetValueFromScriptText(command.PlaybackSpot, paramValueText, out error);
                 if (!string.IsNullOrEmpty(error)) return null;
@@ -201,9 +205,9 @@ namespace Naninovel.Commands
 
         /// <summary>
         /// Due to Unity's serialization design flaw (https://issuetracker.unity3d.com/product/unity/issues/guid/1206352)
-        /// any constructor and field initalization logic should be repeated here. Don't use for anything else, as this will be removed when fixed.
+        /// any constructor and field initialization logic should be repeated here. Don't use for anything else, as this will be removed when fixed.
         /// </summary>
-        // TODO: Keep an eye on https://issuetracker.unity3d.com/issues/serializereference-non-serialized-initialized-fields-lose-their-values-when-entering-play-mode;
+        // TODO: Keep an eye on https://issuetracker.unity3d.com/product/unity/issues/guid/1193322;
         // if won't work, consider performing Object.Instantiate() on each loaded script asset (in the editor only). To reproduce, play Script001 in the editor multiple times.
         // Delete ISerializationCallbackReceiver methods after this is fixed. 
         public virtual void OnAfterDeserialize () { }
@@ -241,7 +245,7 @@ namespace Naninovel.Commands
         private static LiteralMap<Type> GetCommandTypes ()
         {
             var result = new LiteralMap<Type>();
-            var commandTypes = ReflectionUtils.ExportedDomainTypes
+            var commandTypes = Engine.Types
                 .Where(type => type.IsClass && !type.IsAbstract && type.IsSubclassOf(typeof(Command)))
                 // Put built-in commands first so they're overridden by custom commands with same aliases.
                 .OrderByDescending(type => type.Namespace == typeof(Command).Namespace);
@@ -267,12 +271,12 @@ namespace Naninovel.Commands
         }
 
         /// <summary>
-        /// Returns parameters of the command in `paramId -> paramValueText` map.
+        /// Returns parameters of the command in `name -> value text` map (keys casing is ignored).
         /// </summary>
-        private static LiteralMap<string> ExtractParameters (string commandBodyText, out string errors)
+        private static Dictionary<string, string> ExtractParameters (string commandBodyText, out string errors)
         {
             errors = null;
-            var cmdParams = new LiteralMap<string>();
+            var cmdParams = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
             var paramPairs = ExtractParamPairs(commandBodyText);
             if (paramPairs is null) return cmdParams; // No params in the line.
@@ -285,7 +289,7 @@ namespace Naninovel.Commands
                 {
                     if (cmdParams.ContainsKey(string.Empty))
                     {
-                        errors = "There could be only one nameless parameter per command. Make sure there is no spaces in the parameter values; if you want to use spaces, wrap the value in double quotes (\").";
+                        errors = $"Failed to parse `{paramPair}` parameter: There could be only one nameless parameter per command. Make sure there are no spaces in the parameter values; to use spaces, wrap the value in double quotes (\").";
                         return cmdParams;
                     }
                     paramValue = paramPair;
@@ -298,7 +302,7 @@ namespace Naninovel.Commands
 
                 if (paramName is null || paramValue is null)
                 {
-                    errors = $"Failed to parse a `{paramPair}` named parameter.";
+                    errors = $"Failed to parse `{paramPair}` parameter.";
                     return cmdParams;
                 }
 
@@ -311,7 +315,7 @@ namespace Naninovel.Commands
 
                 if (cmdParams.ContainsKey(paramName))
                 {
-                    errors = $"Dublicate parameter with `{paramName}` ID.";
+                    errors = $"Duplicate parameter with `{paramName}` ID.";
                     continue;
                 }
                 else cmdParams.Add(paramName, paramValue);
@@ -359,7 +363,7 @@ namespace Naninovel.Commands
                 var captureStartIndex = -1;
                 var isInsideQuotes = false;
                 bool IsCapturing () => captureStartIndex >= 0;
-                bool IsDelimeterChar (char c) => c == ' ' || c == '\t';
+                bool IsDelimiterChar (char c) => c == ' ' || c == '\t';
                 bool IsQuotesAt (int index)
                 {
                     var c = paramText[index];
@@ -379,14 +383,14 @@ namespace Naninovel.Commands
                 {
                     var c = paramText[i];
 
-                    if (!IsCapturing() && IsDelimeterChar(c)) continue;
+                    if (!IsCapturing() && IsDelimiterChar(c)) continue;
                     if (!IsCapturing()) StartCaptureAt(i);
 
                     if (IsQuotesAt(i))
                         isInsideQuotes = !isInsideQuotes;
                     if (isInsideQuotes) continue;
 
-                    if (IsDelimeterChar(c))
+                    if (IsDelimiterChar(c))
                     {
                         FinishCaptureAt(i - 1);
                         continue;

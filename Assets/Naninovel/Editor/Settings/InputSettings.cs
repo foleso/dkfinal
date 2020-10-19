@@ -8,9 +8,12 @@ namespace Naninovel
 {
     public class InputSettings : ConfigurationSettings<InputConfiguration>
     {
-        protected override Dictionary<string, Action<SerializedProperty>> OverrideConfigurationDrawers => new Dictionary<string, Action<SerializedProperty>> {
-            [nameof(InputConfiguration.CustomEventSystem)] = property => { if (Configuration.SpawnEventSystem) EditorGUILayout.PropertyField(property); },
-            [nameof(InputConfiguration.CustomInputModule)] = property => { if (Configuration.SpawnInputModule) EditorGUILayout.PropertyField(property); },
-        };
+        protected override Dictionary<string, Action<SerializedProperty>> OverrideConfigurationDrawers ()
+        {
+            var drawers = base.OverrideConfigurationDrawers();
+            drawers[nameof(InputConfiguration.CustomEventSystem)] = p => { if (Configuration.SpawnEventSystem) EditorGUILayout.PropertyField(p); };
+            drawers[nameof(InputConfiguration.CustomInputModule)] = p => { if (Configuration.SpawnInputModule) EditorGUILayout.PropertyField(p); };
+            return drawers;
+        }
     }
 }

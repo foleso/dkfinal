@@ -21,6 +21,16 @@ namespace Naninovel
                 list.RemoveAt(elementIndex);
         }
 
+        /// <summary>
+        /// Returns last <paramref name="count"/> elements in the collection.
+        /// In case collection length is less then <paramref name="count"/>, will return less elements.
+        /// </summary>
+        public static IEnumerable<T> TakeLast<T> (this IReadOnlyCollection<T> source, int count)
+        {
+            var skipCount = Mathf.Max(0, source.Count - count);
+            return source.Skip(skipCount);
+        }
+
         public static int GetArrayHashCode<T> (this T[] array)
         {
             return ArrayEqualityComparer<T>.GetHashCode(array);
@@ -68,6 +78,26 @@ namespace Naninovel
             list[indexB] = tmp;
             return list;
         }
+        
+        public static int RemoveAll<T>(this LinkedList<T> list, Predicate<T> match)
+        {
+            if (list == null) throw new ArgumentNullException(nameof(list));
+            if (match == null) throw new ArgumentNullException(nameof(match));
+            
+            var count = 0;
+            var node = list.First;
+            while (node != null)
+            {
+                var next = node.Next;
+                if (match(node.Value))
+                {
+                    list.Remove(node);
+                    count++;
+                }
+                node = next;
+            }
+            return count;
+        }
 
         /// <summary>
         /// Orders the elements of <paramref name="source"/> collection in a way that no element depends on any previous element.
@@ -88,8 +118,7 @@ namespace Naninovel
 
             void Visit (T item)
             {
-                var inProcess = default(bool);
-                var alreadyVisited = visited.TryGetValue(item, out inProcess);
+                var alreadyVisited = visited.TryGetValue(item, out var inProcess);
 
                 if (alreadyVisited)
                 {

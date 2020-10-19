@@ -11,11 +11,11 @@ namespace Naninovel
     public interface IStatefulService<TState> : IEngineService where TState : StateMap
     {
         /// <summary>
-        /// Serializes service state via <see cref="TState.SetState{TState}(TState, string)"/>.
+        /// Serializes service state via <see cref="StateMap.SetState{TState}(TState, string)"/>.
         /// </summary>
         void SaveServiceState (TState state);
         /// <summary>
-        /// De-serializes service state via <see cref="TState.GetState{TState}(string)"/>.
+        /// De-serializes service state via <see cref="StateMap.GetState{TState}(string)"/>.
         /// </summary>
         UniTask LoadServiceStateAsync (TState state);
     }

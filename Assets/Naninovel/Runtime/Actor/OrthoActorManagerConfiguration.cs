@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Naninovel
 {
-    [System.Serializable]
     public abstract class OrthoActorManagerConfiguration<TMeta> : ActorManagerConfiguration<TMeta>
         where TMeta : ActorMetadata
     {

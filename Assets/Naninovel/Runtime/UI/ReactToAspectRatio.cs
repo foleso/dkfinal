@@ -35,7 +35,7 @@ namespace Naninovel
 
         private void HandleAspectChanged (float ratio)
         {
-            if (lastRatio == ratio) return;
+            if (Mathf.Approximately(lastRatio, ratio)) return;
 
             onThresholdReached?.Invoke(ratio >= aspectThreshold);
 

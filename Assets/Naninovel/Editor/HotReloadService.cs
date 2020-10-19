@@ -23,7 +23,7 @@ namespace Naninovel
         /// </summary>
         public static async UniTask ReloadPlayedScriptAsync ()
         {
-            if (player is null || !ObjectUtils.IsValid(player.PlayedScript) || player.Playlist?.Count == 0)
+            if (player?.Playlist is null || player.Playlist.Count == 0 || !player.PlayedScript)
             {
                 Debug.LogError("Failed to perform hot reload: script player is not available or no script is currently played.");
                 return;
@@ -32,7 +32,7 @@ namespace Naninovel
             var requireReload = string.IsNullOrEmpty(AssetDatabase.GetAssetPath(player.PlayedScript));
             if (requireReload) // In case the played script is stored outside of Unity project, force reload it.
             {
-                var prevLineHashes = playedLineHashes; // Otherwise they're overrided when playing the loaded script below.
+                var prevLineHashes = playedLineHashes; // Otherwise they're overridden when playing the loaded script below.
                 var scriptName = player.PlayedScript.Name;
                 scriptManager.UnloadScript(scriptName);
                 var script = await scriptManager.LoadScriptAsync(scriptName);

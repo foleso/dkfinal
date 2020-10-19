@@ -13,7 +13,7 @@ namespace Naninovel
     /// <summary>
     /// Represents a node of <see cref="ScriptGraphView"/>.
     /// </summary>
-    public class ScriptGraphNode : Node
+    public sealed class ScriptGraphNode : Node
     {
         public struct OutputPortData { public string ScriptName, Label; public Port Port; }
 

@@ -7,94 +7,56 @@ using UniRx.Async;
 namespace Naninovel
 {
     /// <summary>
-    /// The localizable loader will attempt to use <see cref="Naninovel.ILocalizationManager"/> to retrieve localized versions 
-    /// of the requested resources and fallback to default loader behaviour when localized versions are not available.
+    /// A <see cref="ResourceLoader{TResource}"/>, that will attempt to use <see cref="Naninovel.ILocalizationManager"/> to retrieve localized versions 
+    /// of the requested resources and (optionally) fallback to the source (original) versions when localized versions are not available.
     /// </summary>
-    public class LocalizableResourceLoader<TResource> : ResourceLoader<TResource> 
+    public class LocalizableResourceLoader<TResource> : ResourceLoader<TResource>
         where TResource : UnityEngine.Object
     {
         protected readonly ILocalizationManager LocalizationManager;
-        protected readonly List<Resource<TResource>> LoadedLocalizedResources;
-
-        public LocalizableResourceLoader (List<IResourceProvider> providersList, ILocalizationManager localizationManager, string prefix = null)
-            : base(providersList, prefix)
+        protected readonly List<IResourceProvider> SourceProviders;
+        protected readonly string SourcePrefix;
+        protected readonly bool FallbackToSource;
+        
+        /// <param name="providersList">Prioritized list of the source providers.</param>
+        /// <param name="localizationManager">Localization manager instance.</param>
+        /// <param name="sourcePrefix">Resource path prefix for the source providers.</param>
+        /// <param name="fallbackToSource">Whether to fallback to the source versions of the resources when localized versions are not available.</param>
+        public LocalizableResourceLoader (List<IResourceProvider> providersList, ILocalizationManager localizationManager, 
+            string sourcePrefix = null, bool fallbackToSource = true) : base(providersList, sourcePrefix)
         {
             LocalizationManager = localizationManager;
-            LoadedLocalizedResources = new List<Resource<TResource>>();
+            SourceProviders = providersList.ToList();
+            SourcePrefix = sourcePrefix;
+            FallbackToSource = fallbackToSource;
+            
+            LocalizationManager.AddChangeLocaleTask(InitializeProvisionSources);
+            InitializeProvisionSources();
         }
 
-        public override bool IsLoaded (string path, bool isFullPath = false)
+        ~LocalizableResourceLoader ()
         {
-            if (!isFullPath) path = BuildFullPath(path);
-
-            if (LocalizationManager != null && LocalizationManager.LocalizedResourceLoaded(path)) return true;
-
-            return base.IsLoaded(path, true);
+            LocalizationManager?.RemoveChangeLocaleTask(InitializeProvisionSources);
         }
 
-        public override Resource<TResource> GetLoadedOrNull (string path, bool isFullPath = false)
+        protected UniTask InitializeProvisionSources ()
         {
-            if (!isFullPath) path = BuildFullPath(path);
+            UnloadAll();
+            
+            ProvisionSources.Clear();
 
-            return LocalizationManager?.GetLoadedLocalizedResourceOrNull<TResource>(path) ?? base.GetLoadedOrNull(path, true);
-        }
+            if (!LocalizationManager.IsSourceLocaleSelected())
+            {
+                var localePrefix = $"{LocalizationManager.Configuration.Loader.PathPrefix}/{LocalizationManager.SelectedLocale}/{SourcePrefix}";
+                foreach (var provider in LocalizationManager.ProviderList)
+                    ProvisionSources.Add(new ProvisionSource(provider, localePrefix));
+            }
 
-        public override async UniTask<Resource<TResource>> LoadAsync (string path, bool isFullPath = false)
-        {
-            if (!isFullPath) path = BuildFullPath(path);
-
-            if (LocalizationManager is null || !await LocalizationManager.LocalizedResourceAvailableAsync<TResource>(path))
-                return await base.LoadAsync(path, true);
-
-            var localizedResource = await LocalizationManager.LoadLocalizedResourceAsync<TResource>(path);
-            if (localizedResource != null && localizedResource.Valid)
-                LoadedLocalizedResources.Add(localizedResource);
-            return localizedResource;
-        }
-
-        public override async UniTask<IEnumerable<Resource<TResource>>> LoadAllAsync (string path = null, bool isFullPath = false)
-        {
-            if (!isFullPath) path = BuildFullPath(path);
-
-            if (LocalizationManager is null)
-                return await base.LoadAllAsync(path, true);
-
-            // 1. Locate all the original resources.
-            var locatedResourcePaths = await base.LocateAsync(path, true);
-            // 2. Load localized resources when available, original otherwise.
-            return await UniTask.WhenAll(locatedResourcePaths.Select(p => LoadAsync(p, true)));
-        }
-
-        public override void Unload (string path, bool isFullPath = false)
-        {
-            if (!isFullPath) path = BuildFullPath(path);
-
-            LocalizationManager?.UnloadLocalizedResource(path);
-            LoadedLocalizedResources.RemoveAll(r => r is null || r.Path.EqualsFast(path));
-
-            base.Unload(path, true);
-        }
-
-        /// <summary>
-        /// Unloads all the resources (both localized and originals) previously loaded by this loader.
-        /// </summary>
-        public override void UnloadAll ()
-        {
-            foreach (var resource in LoadedLocalizedResources)
-                LocalizationManager?.UnloadLocalizedResource(resource.Path);
-            LoadedLocalizedResources.Clear();
-
-            base.UnloadAll();
-        }
-
-        /// <summary>
-        /// Retrieves all the resources (both localized and originals) loaded by this loader.
-        /// </summary>
-        public override List<Resource<TResource>> GetAllLoaded ()
-        {
-            var result = base.GetAllLoaded();
-            result.AddRange(LoadedLocalizedResources.Where(r => r != null));
-            return result;
+            if (FallbackToSource)
+                foreach (var provider in SourceProviders)
+                    ProvisionSources.Add(new ProvisionSource(provider, SourcePrefix));
+            
+            return UniTask.CompletedTask;
         }
     }
 }

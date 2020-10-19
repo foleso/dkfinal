@@ -49,7 +49,7 @@ namespace Naninovel
                 var gitPath = $"{GitHubProjectPath}/.git/refs/tags";
                 if (Directory.Exists(gitPath)) 
                     engineVersionProperty.stringValue = Directory.GetFiles(gitPath)
-                        ?.Where(p => !p.EndsWith("beta"))?.Select(p => p.GetAfter("v1."))?.Max();
+                        .Where(p => !p.EndsWith("beta"))?.Select(p => p.GetAfter("v1.")).Max();
 
                 // Try resolve git version option #2.
                 if (string.IsNullOrWhiteSpace(engineVersionProperty.stringValue))

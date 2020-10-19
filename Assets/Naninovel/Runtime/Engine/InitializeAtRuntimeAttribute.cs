@@ -24,6 +24,9 @@ namespace Naninovel
         {
             InitializationPriority = initializationPriority;
             Override = @override;
+            
+            if (@override != null && @override.IsInterface) 
+                throw new ArgumentException("To override a built-in engine service provide type of that service, not an interface.", nameof(@override));
         }
     }
 }

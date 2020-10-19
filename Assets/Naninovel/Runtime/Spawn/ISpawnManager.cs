@@ -40,10 +40,10 @@ namespace Naninovel
         /// <summary>
         /// Preloads and holds resources required to spawn an object with the provided path.
         /// </summary>
-        UniTask HoldResourcesAsync (object holder, string path);
+        UniTask HoldResourcesAsync (string path, object holder);
         /// <summary>
         /// Releases resources required to spawn an object with the provided path.
         /// </summary>
-        void ReleaseResources (object holder, string path);
+        void ReleaseResources (string path, object holder);
     }
 }

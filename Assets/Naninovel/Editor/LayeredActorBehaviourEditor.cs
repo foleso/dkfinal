@@ -11,31 +11,38 @@ namespace Naninovel
     public class LayeredActorBehaviourEditor : Editor
     {
         private const string mapFieldName = "compositionMap";
+        private const string buildMethodName = "BuildLayerData";
 
         private void OnEnable ()
         {
-            EditorApplication.contextualPropertyMenu += HanlePropertyContextMenu;
+            EditorApplication.contextualPropertyMenu += HandlePropertyContextMenu;
         }
 
         private void OnDisable ()
         {
-            EditorApplication.contextualPropertyMenu -= HanlePropertyContextMenu;
+            EditorApplication.contextualPropertyMenu -= HandlePropertyContextMenu;
         }
 
-        void HanlePropertyContextMenu (GenericMenu menu, SerializedProperty property)
+        private void HandlePropertyContextMenu (GenericMenu menu, SerializedProperty property)
         {
             if (property.propertyType != SerializedPropertyType.Generic || 
-                property.serializedObject.targetObject.GetType() != typeof(LayeredActorBehaviour) ||
                 !property.propertyPath.Contains($"{mapFieldName}.Array.data[")) return;
 
             var propertyCopy = property.Copy();
             menu.AddItem(new GUIContent("Preview Composition"), false, () =>
             {
                 var targetObj = propertyCopy.serializedObject.targetObject as LayeredActorBehaviour;
-                var map = targetObj.GetType().GetField(mapFieldName, BindingFlags.NonPublic | BindingFlags.Instance).GetValue(targetObj) as List<LayeredActorBehaviour.CompositionMapItem>;
+                if (targetObj == null) return;
+                var map = typeof(LayeredActorBehaviour).GetField(mapFieldName, BindingFlags.NonPublic | BindingFlags.Instance)?.GetValue(targetObj) as List<LayeredActorBehaviour.CompositionMapItem>;
+                if (map == null) return;
                 var index = propertyCopy.propertyPath.GetAfterFirst($"{mapFieldName}.Array.data[").GetBefore("]").AsInvariantInt();
-                var mapItem = map[index.Value];
-                targetObj.ApplyComposition(mapItem.Composition);
+                if (index != null)
+                {
+                    typeof(LayeredActorBehaviour).GetMethod(buildMethodName, BindingFlags.NonPublic | BindingFlags.Instance)?.Invoke(targetObj, null);
+                    var mapItem = map[index.Value];
+                    targetObj.ApplyComposition(mapItem.Composition);
+                }
+
                 EditorUtility.SetDirty(propertyCopy.serializedObject.targetObject);
             });
         }

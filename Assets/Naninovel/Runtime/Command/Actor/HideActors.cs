@@ -8,7 +8,7 @@ namespace Naninovel.Commands
 {
     /// <summary>
     /// Hides (makes invisible) actors (character, background, text printer, choice handler, etc) with the specified IDs.
-    /// In case mutliple actors with the same ID found (eg, a character and a printer), will affect only the first found one.
+    /// In case multiple actors with the same ID found (eg, a character and a printer), will affect only the first found one.
     /// </summary>
     /// <example>
     /// ; Given an actor with ID `SomeActor` is visible, hide (fade-out) it over 3 seconds.
@@ -23,7 +23,7 @@ namespace Naninovel.Commands
         /// <summary>
         /// IDs of the actors to hide.
         /// </summary>
-        [ParameterAlias(NamelessParameterAlias), RequiredParameter]
+        [ParameterAlias(NamelessParameterAlias), RequiredParameter, IDEActor]
         public StringListParameter ActorIds;
         /// <summary>
         /// Duration (in seconds) of the fade animation. Default value: 0.35 seconds.

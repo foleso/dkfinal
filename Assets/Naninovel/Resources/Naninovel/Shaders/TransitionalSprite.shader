@@ -6,6 +6,7 @@ Shader "Naninovel/TransitionalSprite"
     {
         _MainTex("Main Texture", 2D) = "black" {}
         _TransitionTex("Transition Texture", 2D) = "black" {}
+        _CloudsTex("Clouds Texture", 2D) = "black" {}
         _DissolveTex("Dissolve Texture", 2D) = "black" {}
         _TransitionProgress("Transition Progress", Float) = 0
         _TransitionParams("Transition Parameters", Vector) = (1,1,1,1)
@@ -24,6 +25,7 @@ Shader "Naninovel/TransitionalSprite"
     #pragma multi_compile _ NANINOVEL_TRANSITION_BANDEDSWIRL NANINOVEL_TRANSITION_BLINDS NANINOVEL_TRANSITION_CIRCLEREVEAL NANINOVEL_TRANSITION_CIRCLESTRETCH NANINOVEL_TRANSITION_CLOUDREVEAL NANINOVEL_TRANSITION_CRUMBLE NANINOVEL_TRANSITION_DISSOLVE NANINOVEL_TRANSITION_DROPFADE NANINOVEL_TRANSITION_LINEREVEAL NANINOVEL_TRANSITION_PIXELATE NANINOVEL_TRANSITION_RADIALBLUR NANINOVEL_TRANSITION_RADIALWIGGLE NANINOVEL_TRANSITION_RANDOMCIRCLEREVEAL NANINOVEL_TRANSITION_RIPPLE NANINOVEL_TRANSITION_ROTATECRUMBLE NANINOVEL_TRANSITION_SATURATE NANINOVEL_TRANSITION_SHRINK NANINOVEL_TRANSITION_SLIDEIN NANINOVEL_TRANSITION_SWIRLGRID NANINOVEL_TRANSITION_SWIRL NANINOVEL_TRANSITION_WATER NANINOVEL_TRANSITION_WATERFALL NANINOVEL_TRANSITION_WAVE NANINOVEL_TRANSITION_CUSTOM
 
     sampler2D _MainTex, _TransitionTex, _DissolveTex, _CloudsTex;
+    float4 _MainTex_ST, _TransitionTex_ST; 
     float _TransitionProgress, _DepthAlphaCutoff;
     float2 _RandomSeed;
     fixed4 _TintColor;
@@ -51,8 +53,8 @@ Shader "Naninovel/TransitionalSprite"
 
         vertexInput.Vertex.xy *= _Flip.xy;
         vertexOutput.Vertex = UnityObjectToClipPos(vertexInput.Vertex);
-        vertexOutput.MainTexCoord = vertexInput.MainTexCoord;
-        vertexOutput.TransitionTexCoord = vertexInput.TransitionTexCoord;
+        vertexOutput.MainTexCoord = TRANSFORM_TEX(vertexInput.MainTexCoord, _MainTex);
+        vertexOutput.TransitionTexCoord = TRANSFORM_TEX(vertexInput.TransitionTexCoord, _TransitionTex);
         vertexOutput.Color = vertexInput.Color * _TintColor;
 
         return vertexOutput;

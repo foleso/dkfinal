@@ -585,15 +585,15 @@ namespace Naninovel.Searcher
 
         void SetSelectedElementInResultsList(KeyDownEvent evt)
         {
-            if (m_ListView.childCount == 0)
-                return;
-
             if (evt.keyCode == config.InsertLineKey && (evt.modifiers & config.InsertLineModifier) != 0)
             {
                 m_SelectionCallback(new SearcherItem("Generic Text"));
                 return;
             }
 
+            if (m_ListView.childCount == 0)
+                return;
+            
             int index;
             switch (evt.keyCode)
             {

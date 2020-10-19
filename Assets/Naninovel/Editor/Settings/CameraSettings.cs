@@ -8,10 +8,13 @@ namespace Naninovel
 {
     public class CameraSettings : ConfigurationSettings<CameraConfiguration>
     {
-        protected override Dictionary<string, Action<SerializedProperty>> OverrideConfigurationDrawers => new Dictionary<string, Action<SerializedProperty>> {
-            [nameof(CameraConfiguration.DefaultOrthoSize)] = property => { if (!Configuration.AutoCorrectOrthoSize) EditorGUILayout.PropertyField(property); },
-            [nameof(CameraConfiguration.Orthographic)] = property => { if (!ObjectUtils.IsValid(Configuration.CustomCameraPrefab)) EditorGUILayout.PropertyField(property); },
-            [nameof(CameraConfiguration.CustomUICameraPrefab)] = property => { if (Configuration.UseUICamera) EditorGUILayout.PropertyField(property); },
-        };
+        protected override Dictionary<string, Action<SerializedProperty>> OverrideConfigurationDrawers ()
+        {
+            var drawers = base.OverrideConfigurationDrawers();
+            drawers[nameof(CameraConfiguration.DefaultOrthoSize)] = p => { if (!Configuration.AutoCorrectOrthoSize) EditorGUILayout.PropertyField(p); };
+            drawers[nameof(CameraConfiguration.Orthographic)] = p => { if (!ObjectUtils.IsValid(Configuration.CustomCameraPrefab)) EditorGUILayout.PropertyField(p); };
+            drawers[nameof(CameraConfiguration.CustomUICameraPrefab)] = p => { if (Configuration.UseUICamera) EditorGUILayout.PropertyField(p); };
+            return drawers;
+        }
     }
 }

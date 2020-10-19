@@ -375,9 +375,9 @@ namespace Naninovel.Commands
     [Serializable]
     public class StringListParameter : ParameterList<NullableString>
     {
-        public static implicit operator StringListParameter (List<string> value) => new StringListParameter { Value = value?.Select(v => new NullableString { Value = v })?.ToList() };
-        public static implicit operator List<string> (StringListParameter param) => param?.Value?.Select(v => v?.Value)?.ToList();
-        public static implicit operator string[] (StringListParameter param) => param?.Value?.Select(v => v?.Value)?.ToArray();
+        public static implicit operator StringListParameter (List<string> value) => new StringListParameter { Value = value?.Select(v => new NullableString { Value = v }).ToList() };
+        public static implicit operator List<string> (StringListParameter param) => param?.Value?.Select(v => v?.Value).ToList();
+        public static implicit operator string[] (StringListParameter param) => param?.Value?.Select(v => v?.Value).ToArray();
 
         protected override NullableString ParseItemValueText (string valueText, out string errors) => ParseStringText(valueText, out errors);
     }
@@ -388,9 +388,9 @@ namespace Naninovel.Commands
     [Serializable]
     public class IntegerListParameter : ParameterList<NullableInteger>
     {
-        public static implicit operator IntegerListParameter (List<int?> value) => new IntegerListParameter { Value = value?.Select(v => v.HasValue ? new NullableInteger { Value = v.Value } : new NullableInteger())?.ToList() };
-        public static implicit operator List<int?> (IntegerListParameter param) => param?.Value?.Select(v => v?.Value)?.ToList();
-        public static implicit operator int?[] (IntegerListParameter param) => param?.Value?.Select(v => v?.Value)?.ToArray();
+        public static implicit operator IntegerListParameter (List<int?> value) => new IntegerListParameter { Value = value?.Select(v => v.HasValue ? new NullableInteger { Value = v.Value } : new NullableInteger()).ToList() };
+        public static implicit operator List<int?> (IntegerListParameter param) => param?.Value?.Select(v => v?.Value).ToList();
+        public static implicit operator int?[] (IntegerListParameter param) => param?.Value?.Select(v => v?.Value).ToArray();
 
         protected override NullableInteger ParseItemValueText (string valueText, out string errors) => ParseIntegerText(valueText, out errors);
     }
@@ -401,9 +401,9 @@ namespace Naninovel.Commands
     [Serializable]
     public class DecimalListParameter : ParameterList<NullableFloat>
     {
-        public static implicit operator DecimalListParameter (List<float?> value) => new DecimalListParameter { Value = value?.Select(v => v.HasValue ? new NullableFloat { Value = v.Value } : new NullableFloat())?.ToList() };
-        public static implicit operator List<float?> (DecimalListParameter param) => param?.Value?.Select(v => v?.Value)?.ToList();
-        public static implicit operator float?[] (DecimalListParameter param) => param?.Value?.Select(v => v?.Value)?.ToArray();
+        public static implicit operator DecimalListParameter (List<float?> value) => new DecimalListParameter { Value = value?.Select(v => v.HasValue ? new NullableFloat { Value = v.Value } : new NullableFloat()).ToList() };
+        public static implicit operator List<float?> (DecimalListParameter param) => param?.Value?.Select(v => v?.Value).ToList();
+        public static implicit operator float?[] (DecimalListParameter param) => param?.Value?.Select(v => v?.Value).ToArray();
 
         protected override NullableFloat ParseItemValueText (string valueText, out string errors) => ParseFloatText(valueText, out errors);
     }
@@ -414,9 +414,9 @@ namespace Naninovel.Commands
     [Serializable]
     public class BooleanListParameter : ParameterList<NullableBoolean>
     {
-        public static implicit operator BooleanListParameter (List<bool?> value) => new BooleanListParameter { Value = value?.Select(v => v.HasValue ? new NullableBoolean { Value = v.Value } : new NullableBoolean())?.ToList() };
-        public static implicit operator List<bool?> (BooleanListParameter param) => param?.Value?.Select(v => v?.Value)?.ToList();
-        public static implicit operator bool?[] (BooleanListParameter param) => param?.Value?.Select(v => v?.Value)?.ToArray();
+        public static implicit operator BooleanListParameter (List<bool?> value) => new BooleanListParameter { Value = value?.Select(v => v.HasValue ? new NullableBoolean { Value = v.Value } : new NullableBoolean()).ToList() };
+        public static implicit operator List<bool?> (BooleanListParameter param) => param?.Value?.Select(v => v?.Value).ToList();
+        public static implicit operator bool?[] (BooleanListParameter param) => param?.Value?.Select(v => v?.Value).ToArray();
 
         protected override NullableBoolean ParseItemValueText (string valueText, out string errors) => ParseBooleanText(valueText, out errors);
     }

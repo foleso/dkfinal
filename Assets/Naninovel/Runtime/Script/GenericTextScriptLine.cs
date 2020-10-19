@@ -1,22 +1,22 @@
 ﻿// Copyright 2017-2020 Elringus (Artyom Sovetnikov). All Rights Reserved.
 
-using Naninovel.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Naninovel.Commands;
 using UnityEngine;
 
 namespace Naninovel
 {
     /// <summary>
     /// A <see cref="Script"/> line representing text to print.
-    /// Could contain author (actor) ID and (optionally) appearance delimeted by <see cref="AuthorAppearanceLiteral"/> 
+    /// Could contain author (actor) ID and (optionally) appearance delimited by <see cref="AuthorAppearanceLiteral"/> 
     /// at the start of the line followed by <see cref="AuthorIdLiteral"/>. Can also have multiple injected (inlined)
     /// <see cref="Command"/> enclosed in `[` and `]`/>.
     /// </summary>
-    [System.Serializable]
+    [Serializable]
     public class GenericTextScriptLine : ScriptLine
     {
         /// <summary>
@@ -39,13 +39,15 @@ namespace Naninovel
             .FirstOrDefault(t => typeof(PrintText).IsAssignableFrom(t) && t != typeof(PrintText));
 
         /// <inheritdoc/>
-        public GenericTextScriptLine (string scriptName, int lineIndex, string lineText, List<ScriptParseError> errors = null)
-            : base(scriptName, lineIndex, lineText, errors) { }
+        public GenericTextScriptLine (string scriptName, int lineIndex, string lineText, ICollection<ScriptParseError> errors = null)
+            : base(scriptName, lineIndex, lineText, errors)
+        {
+            ParseGenericLineText(lineText);
+        }
 
-        protected override void ParseLineText (string lineText, out string error)
+        protected void ParseGenericLineText (string lineText)
         {
             inlinedCommands = new List<Command>();
-            error = null;
 
             // Extract author ID (if present).
             var authorId = lineText.GetBefore(AuthorIdLiteral);
@@ -66,13 +68,13 @@ namespace Naninovel
             }
 
             // Collect all inlined command strings (text inside not-escaped square brackets).
-            var inlinedCommandMatches = Regex.Matches(lineText, @"(?<!\\)\[.+?(?<!\\)\]").Cast<Match>().ToList();
+            var inlinedCommandMatches = Regex.Matches(lineText, @"(?<!\\)\[.*?(?<!\\)\]").Cast<Match>().ToList();
 
             // In case no inlined commands found, just add a single @print command line.
             if (inlinedCommandMatches.Count == 0)
             {
-                var print = CreatePrintTextCommand(lineText, out error, authorId);
-                if (!string.IsNullOrEmpty(error)) return;
+                var print = CreatePrintTextCommand(lineText, authorId);
+                if (print == null) return;
                 inlinedCommands.Add(print);
                 return;
             }
@@ -86,16 +88,16 @@ namespace Naninovel
                     inlinedCommandMatches[i].Index - 1);
                 if (!string.IsNullOrEmpty(precedingGenericText))
                 {
-                    var prePrint = CreatePrintTextCommand(precedingGenericText, out error, authorId, printedTextBefore ? (bool?)false : null, false, printedTextBefore ? (int?)0 : null);
-                    if (!string.IsNullOrEmpty(error)) return;
+                    var prePrint = CreatePrintTextCommand(precedingGenericText, authorId, printedTextBefore ? (bool?)false : null, false, printedTextBefore ? (int?)0 : null);
+                    if (prePrint == null) return;
                     inlinedCommands.Add(prePrint);
                     printedTextBefore = true;
                 }
 
                 // Extract inlined command body text.
                 var commandText = inlinedCommandMatches[i].ToString().GetBetween("[", "]").TrimFull();
-                var command = Command.FromScriptText(ScriptName, LineIndex, inlinedCommands.Count, commandText, out error);
-                if (!string.IsNullOrEmpty(error)) return;
+                var command = Command.FromScriptText(ScriptName, LineIndex, inlinedCommands.Count, commandText, out var error);
+                if (!string.IsNullOrEmpty(error)) { AddParseError(error); return;}
                 if (command is WaitForInput wait && inlinedCommands.LastOrDefault() is PrintText print)
                     print.WaitForInput = true;
                 else inlinedCommands.Add(command);
@@ -107,13 +109,13 @@ namespace Naninovel
                      lineText.Length - 1);
             if (!string.IsNullOrEmpty(lastGenericText))
             {
-                var postPrint = CreatePrintTextCommand(lastGenericText, out error, authorId, printedTextBefore ? (bool?)false : null, false, printedTextBefore ? (int?)0 : null);
-                if (!string.IsNullOrEmpty(error)) return;
+                var postPrint = CreatePrintTextCommand(lastGenericText, authorId, printedTextBefore ? (bool?)false : null, false, printedTextBefore ? (int?)0 : null);
+                if (postPrint == null) return;
                 inlinedCommands.Add(postPrint);
             }
 
             // Add wait input command at the end; except when generic text contains a [skipInput] flag.
-            if (lineText?.IndexOf(nameof(SkipInput), StringComparison.OrdinalIgnoreCase) == -1 &&
+            if (lineText.IndexOf(nameof(SkipInput), StringComparison.OrdinalIgnoreCase) == -1 &&
                 !(inlinedCommands.LastOrDefault() is WaitForInput)) // ...or wait is already requested, eg `[i]` is the only content of the line.
             {
                 if (inlinedCommands.LastOrDefault() is PrintText print)
@@ -126,22 +128,23 @@ namespace Naninovel
             }
         }
 
-        private PrintText CreatePrintTextCommand (string printTextValue, out string errors, string authorIdTextValue = null, bool? resetPrinter = null, bool? waitForInput = null, int? br = null)
+        private PrintText CreatePrintTextCommand (string printTextValue, string authorIdTextValue = null, bool? resetPrinter = null, bool? waitForInput = null, int? br = null)
         {
-            // Un-escape square brackets ment to be printed.
+            // Un-escape square brackets meant to be printed.
             printTextValue = printTextValue.Replace("\\[", "[").Replace("\\]", "]");
 
             var printCommand = overriddenPrintCommandType != null ? Activator.CreateInstance(overriddenPrintCommandType) as PrintText : new PrintText();
+            if (printCommand == null) throw new Exception($"Failed to create instance of `{overriddenPrintCommandType.FullName}` command.");
             printCommand.PlaybackSpot = new PlaybackSpot(ScriptName, LineIndex, inlinedCommands.Count);
             printCommand.Text = new StringParameter();
             printCommand.AuthorId = new StringParameter();
 
             printCommand.Text.SetValueFromScriptText(printCommand.PlaybackSpot, printTextValue, out var paramErrors);
-            if (paramErrors != null) { errors = paramErrors; return null; }
+            if (paramErrors != null) { AddParseError(paramErrors); return null; }
             if (authorIdTextValue != null)
             {
                 printCommand.AuthorId.SetValueFromScriptText(printCommand.PlaybackSpot, authorIdTextValue, out paramErrors);
-                if (paramErrors != null) { errors = paramErrors; return null; }
+                if (paramErrors != null) { AddParseError(paramErrors); return null; }
             }
 
             if (resetPrinter.HasValue)
@@ -151,7 +154,6 @@ namespace Naninovel
             if (br.HasValue)
                 printCommand.LineBreaks = br.Value;
 
-            errors = null;
             return printCommand;
         }
     }

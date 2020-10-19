@@ -18,10 +18,11 @@ namespace Naninovel.UI
         protected IScriptManager ScriptManager { get; private set; }
         protected bool LoadedScriptsOnce { get; private set; }
 
-        public override async UniTask ChangeVisibilityAsync (bool visible, float? duration = null)
+        public override async UniTask ChangeVisibilityAsync (bool visible, float? duration = null, CancellationToken cancellationToken = default)
         {
-            await base.ChangeVisibilityAsync(visible, duration);
-
+            await base.ChangeVisibilityAsync(visible, duration, cancellationToken);
+            if (cancellationToken.CancelASAP) return;
+            
             if (visible && !LoadedScriptsOnce)
             {
                 LoadedScriptsOnce = true;
@@ -35,13 +36,12 @@ namespace Naninovel.UI
 
             foreach (var script in scripts)
             {
-                var scriptButton = Instantiate(playButtonPrototype);
-                scriptButton.transform.SetParent(buttonsContainer, false);
-                scriptButton.GetComponent<NavigatorPlaytButton>().Initialize(this, script, Player);
+                var scriptButton = Instantiate(playButtonPrototype, buttonsContainer, false);
+                scriptButton.GetComponent<NavigatorPlayButton>().Initialize(this, script, Player);
             }
         }
 
-        public virtual void DestroyScriptButtons () => ObjectUtils.DestroyAllChilds(buttonsContainer);
+        public virtual void DestroyScriptButtons () => ObjectUtils.DestroyAllChildren(buttonsContainer);
 
         protected override void Awake ()
         {

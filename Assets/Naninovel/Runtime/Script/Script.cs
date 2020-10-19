@@ -1,10 +1,10 @@
 ﻿// Copyright 2017-2020 Elringus (Artyom Sovetnikov). All Rights Reserved.
 
-using Naninovel.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Naninovel.Commands;
 using UnityEngine;
 
 namespace Naninovel
@@ -12,7 +12,7 @@ namespace Naninovel
     /// <summary>
     /// Representation of a text file used to author naninovel scenario flow.
     /// </summary>
-    [System.Serializable]
+    [Serializable]
     public class Script : ScriptableObject
     {
         /// <summary>
@@ -73,7 +73,7 @@ namespace Naninovel
         public static string[] SplitScriptText (string scriptText)
         {
             // uFEFF - BOM, u200B - zero-width space.
-            return scriptText?.Trim(new char[] { '\uFEFF', '\u200B' })?.SplitByNewLine() ?? new[] { string.Empty };
+            return scriptText?.Trim('\uFEFF', '\u200B').SplitByNewLine() ?? new[] { string.Empty };
         }
 
         /// <summary>
@@ -103,22 +103,23 @@ namespace Naninovel
         /// # Localized (source) line hash (as label line)
         /// ; Text to localize from the source script (as comment line, optional)
         /// The localized text to use as replacement (as generic or command lines)
-        /// More localized text (mutliple localized lines are possible per one source line)
         /// </remarks>
         public List<Command> ExtractCommands (Script localizationScript = null)
         {
             var commands = new List<Command>();
             var usedLocalizedLineIndexes = new HashSet<int>();
+            var rollbackEnabled = Engine.Initialized ? Engine.GetConfiguration<StateConfiguration>().EnableStateRollback : 
+                ProjectConfigurationProvider.LoadOrDefault<StateConfiguration>().EnableStateRollback;
 
             for (int i = 0; i < lines.Count; i++)
             {
-                var line = lines[i];
-                if (line is CommentScriptLine || line is LabelScriptLine) continue;
+                var sourceLine = lines[i];
+                if (sourceLine is CommentScriptLine || sourceLine is LabelScriptLine) continue;
 
-                var li = localizationScript ? (localizationScript.FindLine<LabelScriptLine>(l =>
+                var li = localizationScript != null ? (localizationScript.FindLine<LabelScriptLine>(l =>
                     // Exclude used localized lines to prevent overriding lines with equal content hashes.
-                    !usedLocalizedLineIndexes.Contains(l.LineIndex) && l.LabelText == line.LineHash)?.LineIndex ?? -1) : -1;
-                if (li > -1) // Localized lines available.
+                    !usedLocalizedLineIndexes.Contains(l.LineIndex) && l.LabelText == sourceLine.LineHash)?.LineIndex ?? -1) : -1;
+                if (localizationScript != null && li > -1) // Localized lines available.
                 {
                     usedLocalizedLineIndexes.Add(li);
                     var replacedAnything = false;
@@ -129,6 +130,16 @@ namespace Naninovel
                         var localizedLine = localizationScript.lines[li];
                         if (localizedLine is CommentScriptLine) continue;
                         if (localizedLine is LabelScriptLine) break;
+                        if (!rollbackEnabled && replacedAnything) 
+                        {
+                            Debug.LogWarning($"Multiple localized lines mapped to a single source line detected in localization script `{localizationScript.Name}` at line #{localizedLine.LineNumber}. " +
+                                             "That is not supported when state rollback is disabled. The extra lines won't be included to the localized version of the script.");
+                            break;
+                        }
+                        if (!rollbackEnabled && localizedLine is GenericTextScriptLine localizedGenericLine
+                                             && (!(sourceLine is GenericTextScriptLine sourceGenericLine) || sourceGenericLine.InlinedCommands.Count != localizedGenericLine.InlinedCommands.Count)) 
+                            Debug.LogWarning($"Inlined commands count in the localized content not equals to the source in `{localizationScript.Name}` script at line #{localizedLine.LineNumber}. " +
+                                             "That could break the playback when changing the locale while state rollback is disabled. Either enable state rollback or fix the localized content.");
                         OverrideCommandIndexInLine(localizedLine, i, ref inlineIndex);
                         AddCommandsFromLine(localizedLine);
                         replacedAnything = true;
@@ -138,7 +149,7 @@ namespace Naninovel
                     // Else: no localized lines found; fallback to the source line.
                 }
 
-                AddCommandsFromLine(line);
+                AddCommandsFromLine(sourceLine);
             }
 
             return commands;

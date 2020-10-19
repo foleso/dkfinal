@@ -33,7 +33,7 @@ namespace Naninovel.Commands
         /// ID of the character to modify (specify `*` to affect all visible characters) and an appearance (or [pose](/guide/characters.md#poses)) to set.
         /// When appearance is not provided, will use either a `Default` (is exists) or a random one.
         /// </summary>
-        [ParameterAlias(NamelessParameterAlias), RequiredParameter]
+        [ParameterAlias(NamelessParameterAlias), RequiredParameter, IDEActor(CharactersConfiguration.DefaultPathPrefix, 0), IDEAppearance(1)]
         public NamedStringParameter IdAndAppearance;
         /// <summary>
         /// Look direction of the actor; supported values: left, right, center.
@@ -51,7 +51,7 @@ namespace Naninovel.Commands
         // Allows specifying ID via the nameless parameter.
         protected override string AssignedId => IdAndAppearance?.Name;
         // Allows specifying appearance via the nameless parameter.
-        protected override string AssignedAppearance => Pose?.Appearance ?? IdAndAppearance?.NamedValue;
+        protected override string AssignedAppearance => Assigned(Appearance) ? Appearance.Value : Pose?.Appearance ?? IdAndAppearance?.NamedValue;
         protected override CharacterState Pose => ActorManager.Configuration.GetMetadataOrDefault(IdAndAppearance?.Name).GetPoseOrNull<CharacterState>(IdAndAppearance?.NamedValue);
         protected virtual CharacterLookDirection? AssignedLookDirection => Assigned(LookDirection) ? ParseLookDirection(LookDirection) : Pose?.LookDirection;
 

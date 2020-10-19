@@ -21,7 +21,7 @@ namespace Naninovel
         public event Action<bool> OnVisibilityChanged;
 
         /// <summary>
-        /// Fade duration (in seconds) when changing visiblity of the UI;
+        /// Fade duration (in seconds) when changing visibility of the UI;
         /// requires a <see cref="UnityEngine.CanvasGroup"/> on the same game object.
         /// </summary>
         public virtual float FadeTime { get => fadeTime; set => fadeTime = value; }
@@ -53,10 +53,10 @@ namespace Naninovel
         /// </summary>
         public virtual float Opacity => CanvasGroup ? CanvasGroup.alpha : 1f;
         /// <summary>
-        /// Whether the UI is currently interctable.
+        /// Whether the UI is currently interactable.
         /// requires a <see cref="UnityEngine.CanvasGroup"/> on the same game object.
         /// </summary>
-        public virtual bool Interactable { get => CanvasGroup ? CanvasGroup.interactable : true; set => SetInteractable(value); }
+        public virtual bool Interactable { get => !CanvasGroup || CanvasGroup.interactable; set => SetInteractable(value); }
         /// <summary>
         /// Transform used by the UI element.
         /// </summary>
@@ -80,10 +80,10 @@ namespace Naninovel
 
         protected static GameObject FocusOnNavigation { get; set; }
 
-        protected CanvasGroup CanvasGroup { get; private set; }
-        protected bool ControlOpacity => controlOpacity;
+        protected virtual CanvasGroup CanvasGroup { get; private set; }
+        protected virtual bool ControlOpacity => controlOpacity;
 
-        [Tooltip("Whether to permamently disable interaction with the object, no matter the visibility. Requires `Canvas Group` component on the same game object.")]
+        [Tooltip("Whether to permanently disable interaction with the object, no matter the visibility. Requires `Canvas Group` component on the same game object.")]
         [SerializeField] private bool disableInteraction = false;
         [Tooltip("Whether UI element should be visible or hidden on awake.")]
         [SerializeField] private bool visibleOnAwake = true;
@@ -110,7 +110,7 @@ namespace Naninovel
         /// <summary>
         /// Gradually changes <see cref="Visible"/> with fade animation over <see cref="FadeTime"/> or specified time (in seconds).
         /// </summary>
-        public virtual async UniTask ChangeVisibilityAsync (bool visible, float? duration = null)
+        public virtual async UniTask ChangeVisibilityAsync (bool visible, float? duration = null, CancellationToken cancellationToken = default)
         {
             if (fadeTweener.Running)
                 fadeTweener.Stop();
@@ -139,7 +139,7 @@ namespace Naninovel
             }
 
             var tween = new FloatTween(CanvasGroup.alpha, targetOpacity, fadeDuration, SetOpacity, IgnoreTimeScale, target: this);
-            await fadeTweener.RunAsync(tween);
+            await fadeTweener.RunAsync(tween, cancellationToken);
         }
 
         /// <summary>
@@ -282,6 +282,7 @@ namespace Naninovel
 
             var navDown = false;
 
+            // ReSharper disable ConditionIsAlwaysTrueOrFalse
             #if ENABLE_INPUT_SYSTEM && INPUT_SYSTEM_AVAILABLE
             var gamepad = UnityEngine.InputSystem.Gamepad.current;
             if (gamepad != null && !navDown)
@@ -295,6 +296,7 @@ namespace Naninovel
             if (!navDown)
                 navDown = Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow);
             #endif
+            // ReSharper restore ConditionIsAlwaysTrueOrFalse
 
             if (navDown)
             {

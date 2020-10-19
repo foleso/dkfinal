@@ -1,11 +1,16 @@
 ﻿// Copyright 2017-2020 Elringus (Artyom Sovetnikov). All Rights Reserved.
 
+using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using UnityEditor;
+#if UNITY_2020_2_OR_NEWER
+using UnityEditor.AssetImporters;
+#else
 using UnityEditor.Experimental.AssetImporters;
+#endif
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -30,8 +35,9 @@ namespace Naninovel
 
         static ScriptImporterEditor ()
         {
-            drawHeaderMethod = typeof(Editor).GetMethods(BindingFlags.NonPublic | BindingFlags.Static)
-                ?.Where(m => m.Name == "DrawHeaderGUI" && m.GetParameters().Length == 2)?.FirstOrDefault();
+            drawHeaderMethod = typeof(Editor)
+                .GetMethods(BindingFlags.NonPublic | BindingFlags.Static)
+                .FirstOrDefault(m => m.Name == "DrawHeaderGUI" && m.GetParameters().Length == 2);
         }
 
         public override void OnEnable ()
@@ -41,6 +47,8 @@ namespace Naninovel
             if (config is null)
                 config = ProjectConfigurationProvider.LoadOrDefault<ScriptsConfiguration>();
             ScriptAsset = assetTarget as Script;
+            if (ScriptAsset == null) throw new Exception($"Failed to initialize script editor for `{assetTarget}`.");
+            
             scriptText = File.ReadAllText(AssetDatabase.GetAssetPath(ScriptAsset));
 
             if (config.EnableVisualEditor)
@@ -70,7 +78,7 @@ namespace Naninovel
             if (ObjectUtils.IsValid(ScriptAsset) && ScriptView.ScriptModified && 
                 EditorUtility.DisplayDialog("Save changes?", $"Script `{ScriptAsset.Name}` has some un-saved changes. Would you like to keep or revert them?", "Save", "Revert"))
             {
-                Apply();
+                ApplyAndImportChecked();
             }
 
             base.OnDisable();

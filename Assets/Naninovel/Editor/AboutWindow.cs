@@ -77,7 +77,7 @@ namespace Naninovel
 
             EditorGUILayout.LabelField("Rate Naninovel", EditorStyles.boldLabel);
             EditorGUILayout.LabelField("We really hope you like Naninovel! If you feel like it, please leave a review on the Asset Store, that helps us out a lot.", EditorStyles.wordWrappedLabel);
-            if (GUILayout.Button("Review On Asset Store")) Application.OpenURL(reviewUri);
+            if (GUILayout.Button("Review on Asset Store")) Application.OpenURL(reviewUri);
 
             GUILayout.EndArea();
         }

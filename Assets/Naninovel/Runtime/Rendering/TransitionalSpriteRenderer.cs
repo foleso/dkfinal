@@ -2,162 +2,73 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using UniRx.Async;
 using UnityEngine;
 
 namespace Naninovel
 {
+    /// <summary>
+    /// A <see cref="TransitionalRenderer"/> implementation, that outputs the result to a quad mesh (sprite).
+    /// </summary>
     [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer)), DisallowMultipleComponent]
-    public class TransitionalSpriteRenderer : MonoBehaviour
+    public class TransitionalSpriteRenderer : TransitionalRenderer
     {
-        public Texture MainTexture { get => material.MainTexture; set { material.MainTexture = depthMaterial.MainTexture = value; RebuildMeshQuad (); } }
-        public Texture TransitionTexture { get => material.TransitionTexture; set { material.TransitionTexture = value; depthMaterial.TransitionTexture = value; RebuildMeshQuad (); } }
-        public Texture DissolveTexture { get => material.DissolveTexture; set { material.DissolveTexture = value; depthMaterial.DissolveTexture = value; } }
-        public string TransitionName { get => material.TransitionName; set { material.TransitionName = value; depthMaterial.TransitionName = value; } }
-        public float TransitionProgress { get => material.TransitionProgress; set { material.TransitionProgress = value; depthMaterial.TransitionProgress = value; } }
-        public Vector4 TransitionParams { get => material.TransitionParams; set { material.TransitionParams = value; depthMaterial.TransitionParams = value; } }
-        public Vector2 RandomSeed { get => material.RandomSeed; set { material.RandomSeed = value; depthMaterial.RandomSeed = value; } }
-        public Color TintColor { get => material.TintColor; set { material.TintColor = value; depthMaterial.TintColor = value; } }
-        public float Opacity { get => material.Opacity; set { material.Opacity = value; depthMaterial.Opacity = value; } }
-        public bool FlipX { get => material.FlipX; set { material.FlipX = value; depthMaterial.FlipX = value; } }
-        public bool FlipY { get => material.FlipY; set { material.FlipY = value; depthMaterial.FlipY = value; } }
-        public bool DepthPassEnabled { get => depthMaterial.DepthPassEnabled; set => depthMaterial.DepthPassEnabled = value; }
-        public float DepthAlphaCutoff { get => depthMaterial.DepthAlphaCutoff; set => depthMaterial.DepthAlphaCutoff = value; }
-        public Shader CustomShader { get => customShader; set { customShader = value; if (value) InitializeMeshRenderer(); } }
-        public Vector2 Pivot { get => pivot; set { if (value != Pivot) { pivot = value; RebuildMeshQuad(); }; } }
-        public int PixelsPerUnit { get => pixelsPerUnit; set { if (value != PixelsPerUnit) { pixelsPerUnit = value; RebuildMeshQuad(); }; } }
-        public Transition Transition
-        {
-            get => new Transition(TransitionName, TransitionParams, DissolveTexture);
-            set { TransitionName = value.Name; TransitionParams = value.Parameters; DissolveTexture = value.DissolveTexture; }
-        }
+        public override Texture MainTexture { get => base.MainTexture; set { base.MainTexture = value; RebuildMeshQuad(); } }
+        public override Texture TransitionTexture { get => base.TransitionTexture; set { base.TransitionTexture = value; RebuildMeshQuad(); } }
+        public virtual Vector2 Pivot { get => pivot; set { if (value != Pivot) { pivot = value; RebuildMeshQuad(); } } }
+        public virtual int PixelsPerUnit { get => pixelsPerUnit; set { if (value != PixelsPerUnit) { pixelsPerUnit = value; RebuildMeshQuad(); } } }
 
-        private readonly Tweener<FloatTween> transitionTweener = new Tweener<FloatTween>();
-        private readonly Tweener<ColorTween> colorTweener = new Tweener<ColorTween>();
-        private readonly Tweener<FloatTween> fadeTweener = new Tweener<FloatTween>();
+        protected override string DefaultShaderName => "Naninovel/TransitionalSprite";
+
         private readonly List<Vector3> vertices = new Vector3[4].ToList();
         private readonly List<Vector2> mainUVs = new Vector2[4].ToList();
         private readonly List<Vector2> transitionUVs = new Vector2[4].ToList();
         private readonly List<int> triangles = new List<int> { 0, 1, 2, 3, 2, 1 };
-        private Shader customShader;
         private MeshFilter meshFilter;
         private MeshRenderer meshRenderer;
-        private TransitionalSpriteMaterial material, depthMaterial;
-        private Vector2 pivot = Vector2.one * .5f;
-        private int pixelsPerUnit = 100;
+        private Vector2 pivot;
+        private int pixelsPerUnit;
 
-        private void Awake ()
+        /// <inheritdoc cref="TransitionalRenderer.Initialize"/>
+        /// <param name="pivot">Pivot (anchors) of the sprite.</param>
+        /// <param name="pixelsPerUnit">How many texture pixels correspond to one unit of the sprite geometry.</param>
+        public virtual void Initialize (Vector2 pivot, int pixelsPerUnit, Shader customShader = default)
         {
-            InitializeMeshFilter();
-            InitializeMeshRenderer();
-        }
+            Initialize(customShader);
 
-        private void OnEnable ()
-        {
-            meshRenderer.enabled = true;
-            material.UpdateRandomSeed();
-        }
-
-        private void OnDisable ()
-        {
-            meshRenderer.enabled = false;
-        }
-
-        public async UniTask TransitionToAsync (Texture texture, float duration, EasingType easingType = default,
-            Transition? transition = default, CancellationToken cancellationToken = default)
-        {
-            if (transitionTweener.Running)
-            {
-                transitionTweener.CompleteInstantly();
-                await AsyncUtils.WaitEndOfFrame; // Materials are updated later in render loop, so wait before further modifications.
-                if (cancellationToken.CancelASAP) return;
-            }
-
-            if (transition.HasValue)
-                Transition = transition.Value;
-
-            if (duration <= 0)
-            {
-                MainTexture = texture;
-                TransitionProgress = 0;
-                return;
-            }
-            else
-            {
-                if (!ObjectUtils.IsValid(MainTexture))
-                    MainTexture = texture;
-
-                TransitionTexture = texture;
-                var tween = new FloatTween(TransitionProgress, 1, duration, value => TransitionProgress = value, false, easingType, this);
-                await transitionTweener.RunAsync(tween, cancellationToken);
-                if (cancellationToken.CancelASAP) return;
-                MainTexture = TransitionTexture;
-                TransitionProgress = 0;
-            }
-        }
-
-        public async UniTask TintToAsync (Color color, float duration, EasingType easingType = default, CancellationToken cancellationToken = default)
-        {
-            if (colorTweener.Running) colorTweener.CompleteInstantly();
-
-            if (duration <= 0)
-            {
-                TintColor = color;
-                return;
-            }
-
-            var tween = new ColorTween(TintColor, color, ColorTweenMode.All, duration, value => TintColor = value, false, easingType, this);
-            await colorTweener.RunAsync(tween, cancellationToken);
-        }
-
-        public async UniTask FadeToAsync (float opacity, float duration, EasingType easingType = default, CancellationToken cancellationToken = default)
-        {
-            if (fadeTweener.Running) fadeTweener.CompleteInstantly();
-
-            if (duration <= 0)
-            {
-                Opacity = opacity;
-                return;
-            }
-
-            var tween = new FloatTween(Opacity, opacity, duration, value => Opacity = value, false, easingType, this);
-            await fadeTweener.RunAsync(tween, cancellationToken);
-        }
-
-        public async UniTask FadeOutAsync (float duration, EasingType easingType = default, CancellationToken cancellationToken = default) => await FadeToAsync(0, duration, easingType, cancellationToken);
-
-        public async UniTask FadeInAsync (float duration, EasingType easingType = default, CancellationToken cancellationToken = default) => await FadeToAsync(1, duration, easingType, cancellationToken);
-
-        private void InitializeMeshFilter ()
-        {
-            if (!meshFilter)
-            {
-                meshFilter = GetComponent<MeshFilter>();
-                if (!meshFilter) meshFilter = gameObject.AddComponent<MeshFilter>();
-                meshFilter.hideFlags = HideFlags.HideInInspector;
-            }
-
+            this.pivot = pivot;
+            this.pixelsPerUnit = pixelsPerUnit;
+            
+            TryGetComponent<MeshFilter>(out meshFilter);
+            if (!meshFilter) meshFilter = gameObject.AddComponent<MeshFilter>();
+            meshFilter.hideFlags = HideFlags.HideInInspector;
             meshFilter.mesh = new Mesh();
             meshFilter.mesh.hideFlags = HideFlags.DontSaveInBuild | HideFlags.DontSaveInEditor;
             meshFilter.mesh.name = "Generated Quad Mesh (Instance)";
+            
+            TryGetComponent<MeshRenderer>(out meshRenderer);
+            if (!meshRenderer) meshRenderer = gameObject.AddComponent<MeshRenderer>();
+            meshRenderer.hideFlags = HideFlags.HideInInspector;
+            meshRenderer.materials = new Material[] {
+                Material,
+                DepthMaterial
+            };
         }
 
-        private void InitializeMeshRenderer ()
+        protected new void Initialize (Shader customShader)
         {
-            if (!meshRenderer)
-            {
-                meshRenderer = GetComponent<MeshRenderer>();
-                if (!meshRenderer) meshRenderer = gameObject.AddComponent<MeshRenderer>();
-                meshRenderer.hideFlags = HideFlags.HideInInspector;
-            }
+            base.Initialize(customShader);
+        }
 
-            material = new TransitionalSpriteMaterial(TransitionalSpriteMaterial.Variant.Default, customShader);
-            depthMaterial = new TransitionalSpriteMaterial(TransitionalSpriteMaterial.Variant.Depth, customShader);
+        protected virtual void OnEnable ()
+        {
+            if (meshRenderer)
+                meshRenderer.enabled = true;
+        }
 
-            meshRenderer.materials = new[] {
-                material,
-                depthMaterial,
-            };
+        protected virtual void OnDisable ()
+        {
+            if (meshRenderer)
+                meshRenderer.enabled = false;
         }
 
         private void RebuildMeshQuad ()

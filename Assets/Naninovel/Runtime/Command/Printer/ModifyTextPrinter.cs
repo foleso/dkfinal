@@ -23,7 +23,7 @@ namespace Naninovel.Commands
         /// ID of the printer to modify and the appearance to set. 
         /// When ID or appearance are not provided, will use default ones.
         /// </summary>
-        [ParameterAlias(NamelessParameterAlias)]
+        [ParameterAlias(NamelessParameterAlias), IDEActor(TextPrintersConfiguration.DefaultPathPrefix, 0), IDEAppearance(1)]
         public NamedStringParameter IdAndAppearance;
         /// <summary>
         /// Whether to make the printer the default one.
@@ -68,7 +68,7 @@ namespace Naninovel.Commands
             var appearance = Assigned(IdAndAppearance) ? IdAndAppearance.NamedValue : null;
             if (!string.IsNullOrEmpty(appearance))
             {
-                if (printer is null) printer = await GetOrAddPrinterAsync();
+                printer = await GetOrAddPrinterAsync();
                 await printer.ChangeAppearanceAsync(appearance, Duration, cancellationToken: cancellationToken);
             }
 

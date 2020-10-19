@@ -22,18 +22,16 @@ namespace Naninovel
 
         private readonly ITextManager textManager;
         private readonly ILocalizationManager localizationManager;
-        private readonly ICustomVariableManager customVariableManager;
         private readonly ITextPrinterManager textPrinterManager;
-        private SerializableLiteralStringMap charIdToAvatarPathMap = new SerializableLiteralStringMap();
-        private LocalizableResourceLoader<Texture2D> avatarTextureLoader;
+        private readonly SerializableLiteralStringMap charIdToAvatarPathMap = new SerializableLiteralStringMap();
+        private ResourceLoader<Texture2D> avatarTextureLoader;
 
         public CharacterManager (CharactersConfiguration config, CameraConfiguration cameraConfig, ITextManager textManager, 
-            ILocalizationManager localizationManager, ICustomVariableManager customVariableManager, ITextPrinterManager textPrinterManager)
+            ILocalizationManager localizationManager, ITextPrinterManager textPrinterManager)
             : base(config, cameraConfig)
         {
             this.textManager = textManager;
             this.localizationManager = localizationManager;
-            this.customVariableManager = customVariableManager;
             this.textPrinterManager = textPrinterManager;
         }
 
@@ -48,15 +46,14 @@ namespace Naninovel
         {
             await base.InitializeServiceAsync();
 
-            var providerMngr = Engine.GetService<IResourceProviderManager>();
-            avatarTextureLoader = Configuration.AvatarLoader.CreateLocalizableFor<Texture2D>(providerMngr, localizationManager);
+            var providerManager = Engine.GetService<IResourceProviderManager>();
+            avatarTextureLoader = Configuration.AvatarLoader.CreateFor<Texture2D>(providerManager);
 
             textPrinterManager.OnPrintTextStarted += HandleAuthorHighlighting;
 
-            // TODO: Load only the required avatar textures.
-            var avatarResources = await avatarTextureLoader.LoadAllAsync();
-            foreach (var resource in avatarResources)
-                resource.Hold(this);
+            // Loading only the required avatar resources is not possible, as we can't use async to provide them later.
+            // In case of heavy usage of the avatar resources, consider using `render character to texture` feature instead.
+            await avatarTextureLoader.LoadAndHoldAllAsync(this);
         }
 
         public override void DestroyService ()
@@ -66,16 +63,14 @@ namespace Naninovel
             if (textPrinterManager != null)
                 textPrinterManager.OnPrintTextStarted -= HandleAuthorHighlighting;
 
-            if (avatarTextureLoader != null)
-                foreach (var resource in avatarTextureLoader.GetAllLoaded())
-                    resource.Release(this);
+            avatarTextureLoader?.ReleaseAll(this);
         }
 
         public override void SaveServiceState (GameStateMap stateMap)
         {
             base.SaveServiceState(stateMap);
 
-            var gameState = new GameState() {
+            var gameState = new GameState {
                 CharIdToAvatarPathMap = new SerializableLiteralStringMap(charIdToAvatarPathMap)
             };
             stateMap.SetState(gameState);
@@ -160,8 +155,7 @@ namespace Naninovel
         /// <remarks>
         /// When using a non-source locale, will first attempt to find a corresponding record 
         /// in the managed text documents, and, if not found, check the character metadata.
-        /// In case the display name is found and is wrapped in curely braces, attempt to extract the value 
-        /// from a custom variable.
+        /// In case the display name is found and is wrapped in curly braces, will attempt to evaluate the value from the expression.
         /// </remarks>
         public virtual string GetDisplayName (string characterId)
         {
@@ -169,7 +163,7 @@ namespace Naninovel
 
             var displayName = default(string);
 
-            if (!localizationManager.SourceLocaleSelected())
+            if (!localizationManager.IsSourceLocaleSelected())
                 displayName = textManager.GetRecordValue(characterId, CharactersConfiguration.DisplayNamesCategory);
 
             if (string.IsNullOrEmpty(displayName))
@@ -177,13 +171,8 @@ namespace Naninovel
 
             if (!string.IsNullOrEmpty(displayName) && displayName.StartsWithFast("{") && displayName.EndsWithFast("}"))
             {
-                var customVarName = displayName.GetAfterFirst("{").GetBeforeLast("}");
-                if (!customVariableManager.VariableExists(customVarName))
-                {
-                    Debug.LogWarning($"Failed to retrieve `{customVarName}` custom variable binded to `{characterId}` character display name.");
-                    return null;
-                }
-                displayName = customVariableManager.GetVariableValue(customVarName);
+                var expression = displayName.GetAfterFirst("{").GetBeforeLast("}");
+                displayName = ExpressionEvaluator.Evaluate<string>(expression, desc => Debug.LogError($"Failed to evaluate `{characterId}` character display name: {desc}"));
             }
 
             return string.IsNullOrEmpty(displayName) ? null : displayName;
@@ -197,7 +186,7 @@ namespace Naninovel
 
         public virtual async UniTask ArrangeCharactersAsync (bool lookAtOrigin = true, float duration = 0, EasingType easingType = default, CancellationToken cancellationToken = default)
         {
-            var actors = ManagedActors?.Values?.Where(c => c.Visible)?.OrderBy(c => c.Id)?.ToList();
+            var actors = ManagedActors?.Values.Where(c => c.Visible).OrderBy(c => c.Id).ToList();
             if (actors is null || actors.Count == 0) return;
             var stepSize = CameraConfiguration.ReferenceSize.x / actors.Count;
             var halfRefSize = CameraConfiguration.ReferenceSize.x / 2f;
@@ -265,7 +254,7 @@ namespace Naninovel
             if (authorMeta.HighlightWhenSpeaking && authorMeta.HighlightCharacterCount <= visibleActors && authorMeta.PlaceOnTop)
             {
                 var topmostChar = ManagedActors.Values.OrderBy(c => c.Position.z).FirstOrDefault();
-                if (!topmostChar.Id.EqualsFast(args.AuthorId))
+                if (topmostChar != null && !topmostChar.Id.EqualsFast(args.AuthorId))
                 {
                     var authorChar = GetActor(args.AuthorId);
                     var authorZPos = authorChar.Position.z;

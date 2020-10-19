@@ -43,8 +43,8 @@ namespace Naninovel
         {
             #if ADDRESSABLES_AVAILABLE
             var address = PathToAddress(path);
-            var label = ResourceProviderConfiguration.AddressableId;
-            var groupName = ResourceProviderConfiguration.AddressableId;
+            const string label = ResourceProviderConfiguration.AddressableId;
+            const string groupName = ResourceProviderConfiguration.AddressableId;
 
             var group = FindOrCreateGroup(groupName);
             var entry = settings.CreateOrMoveEntry(assetGuid, group);
@@ -68,7 +68,7 @@ namespace Naninovel
         [InitializeOnLoadMethod]
         private static void Initialize ()
         {
-            EditorApplication.delayCall += HandleInitialize; // To prevent accessing the settings during editor recompile/setup (could create dublicate settings otherwise).
+            EditorApplication.delayCall += HandleInitialize; // To prevent accessing the settings during editor recompile/setup (could create duplicate settings otherwise).
         }
 
         private static void HandleInitialize ()
@@ -79,9 +79,7 @@ namespace Naninovel
 
         private static UnityEditor.AddressableAssets.Settings.AddressableAssetGroup FindOrCreateGroup (string groupName)
         {
-            var group = settings.FindGroup(groupName);
-            if (group is null) group = settings.CreateGroup(groupName, false, false, true, settings.DefaultGroup.Schemas);
-            return group;
+            return settings.FindGroup(groupName) ?? settings.CreateGroup(groupName, false, false, true, settings.DefaultGroup.Schemas);
         }
 
         private static string PathToAddress (string path) => PathUtils.Combine(ResourceProviderConfiguration.AddressableId, path);

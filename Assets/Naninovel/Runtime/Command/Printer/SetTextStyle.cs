@@ -5,7 +5,7 @@ using UniRx.Async;
 namespace Naninovel.Commands
 {
     /// <summary>
-    /// Permamently applies [text styles](/guide/text-printers.md#text-styles) to the contents of a text printer.
+    /// Permanently applies [text styles](/guide/text-printers.md#text-styles) to the contents of a text printer.
     /// </summary>
     /// <remarks>
     /// You can also use rich text tags inside text messages to apply the styles selectively.
@@ -26,14 +26,14 @@ namespace Naninovel.Commands
     public class SetTextStyle : PrinterCommand
     {
         /// <summary>
-        /// Text formatting tags to apply. Angle brackets should be ommited, eg use `b` for &lt;b&gt; and `size=100` for &lt;size=100&gt;. Use `default` keyword to reset the style.
+        /// Text formatting tags to apply. Angle brackets should be omitted, eg use `b` for &lt;b&gt; and `size=100` for &lt;size=100&gt;. Use `default` keyword to reset the style.
         /// </summary>
         [ParameterAlias(NamelessParameterAlias), RequiredParameter]
         public StringListParameter TextStyles;
         /// <summary>
         /// ID of the printer actor to use. Will use a default one when not provided.
         /// </summary>
-        [ParameterAlias("printer")]
+        [ParameterAlias("printer"), IDEActor(TextPrintersConfiguration.DefaultPathPrefix)]
         public StringParameter PrinterId;
 
         protected override string AssignedPrinterId => PrinterId;

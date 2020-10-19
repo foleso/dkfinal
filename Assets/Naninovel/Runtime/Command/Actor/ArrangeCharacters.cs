@@ -26,7 +26,7 @@ namespace Naninovel.Commands
         /// A collection of character ID to scene X-axis position (relative to the left screen border, in percents) named values.
         /// Position 0 relates to the left border and 100 to the right border of the screen; 50 is the center.
         /// </summary>
-        [ParameterAlias(NamelessParameterAlias)]
+        [ParameterAlias(NamelessParameterAlias), IDEActor(CharactersConfiguration.DefaultPathPrefix, 0)]
         public NamedDecimalListParameter CharacterPositions;
         /// <summary>
         /// When performing auto-arrange, controls whether to also make the characters look at the scene origin (enabled by default).

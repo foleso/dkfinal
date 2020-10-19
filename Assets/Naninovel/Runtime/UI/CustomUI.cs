@@ -1,8 +1,11 @@
 ﻿// Copyright 2017-2020 Elringus (Artyom Sovetnikov). All Rights Reserved.
 
+using System;
 using System.Collections.Generic;
+using TMPro;
 using UniRx.Async;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Naninovel.UI
 {
@@ -12,13 +15,13 @@ namespace Naninovel.UI
     /// </summary>
     public class CustomUI : ScriptableUIBehaviour, IManagedUI
     {
-        [System.Serializable]
+        [Serializable]
         public class GameState
         {
             public bool Visible;
         }
 
-        [System.Serializable]
+        [Serializable]
         protected class FontChangeConfiguration
         {
             [Tooltip("The game object with a text component, which should be affected by font changes.")]
@@ -29,20 +32,18 @@ namespace Naninovel.UI
             public bool AllowFontSizeChange = true;
             [Tooltip("Sizes list should contain actual font sizes to apply for text component. Each element in the list corresponds to font size dropdown list index: Small -> 0, Default -> 1, Large -> 2, Extra Large -> 3 (can be changed via SettingsUI). Default value will be ignored and font size initially set in the prefab will be used instead.")]
             public List<int> FontSizes;
-            [System.NonSerialized]
+            [NonSerialized]
             public int DefaultSize;
-            [System.NonSerialized]
+            [NonSerialized]
             public Font DefaultFont;
-            #if TMPRO_AVAILABLE
-            [System.NonSerialized]
-            public TMPro.TMP_FontAsset DefaultTMProFont;
-            #endif
+            [NonSerialized]
+            public TMP_FontAsset DefaultTMPFont;
         }
 
-        public bool HideOnLoad => hideOnLoad;
-        public bool SaveVisibilityState => saveVisibilityState;
-        public bool BlockInputWhenVisible => blockInputWhenVisible;
-        public bool ModalUI => modalUI;
+        public virtual bool HideOnLoad => hideOnLoad;
+        public virtual bool SaveVisibilityState => saveVisibilityState;
+        public virtual bool BlockInputWhenVisible => blockInputWhenVisible;
+        public virtual bool ModalUI => modalUI;
 
         protected virtual List<FontChangeConfiguration> FontChangeConfigurations => fontChangeConfiguration;
         protected virtual string[] AllowedSamplers => allowedSamplers;
@@ -51,7 +52,7 @@ namespace Naninovel.UI
         [SerializeField] private bool hideOnLoad = true;
         [Tooltip("Whether to preserve visibility of the UI when saving/loading game.")]
         [SerializeField] private bool saveVisibilityState = true;
-        [Tooltip("Whether to halt user input processing while the UI is visible.")]
+        [Tooltip("Whether to halt user input processing while the UI is visible. Will also exit auto read and skip script player modes when the UI becomes visible.")]
         [SerializeField] private bool blockInputWhenVisible = false;
         [Tooltip("Which input samplers should still be allowed in case the input is blocked while the UI is visible.")]
         [SerializeField] private string[] allowedSamplers = default;
@@ -63,16 +64,58 @@ namespace Naninovel.UI
         private IStateManager stateManager;
         private IInputManager inputManager;
         private IUIManager uiManager;
+        private IScriptPlayer scriptPlayer;
 
         public virtual UniTask InitializeAsync () => UniTask.CompletedTask;
 
+        public virtual void SetFont (Font font, TMP_FontAsset tmpFont)
+        {
+            if (FontChangeConfigurations is null || FontChangeConfigurations.Count == 0) return;
+
+            foreach (var config in FontChangeConfigurations)
+            {
+                if (!config.AllowFontChange) continue;
+
+                if (config.Object.TryGetComponent<Text>(out var text))
+                    text.font = ObjectUtils.IsValid(font) ? font : config.DefaultFont;
+                else if (config.Object.TryGetComponent<TextMeshProUGUI>(out var tmroText))
+                {
+                    var shader = tmroText.fontMaterial.shader;
+                    tmroText.font = ObjectUtils.IsValid(tmpFont) ? tmpFont : config.DefaultTMPFont;
+                    foreach (var material in tmroText.fontMaterials)
+                        material.shader = shader;
+                }
+            }
+        }
+
+        public void SetFontSize (int dropdownIndex)
+        {
+            if (FontChangeConfigurations is null || FontChangeConfigurations.Count == 0) return;
+
+            foreach (var config in FontChangeConfigurations)
+            {
+                if (!config.AllowFontSizeChange) continue;
+
+                if (dropdownIndex != -1 && !config.FontSizes.IsIndexValid(dropdownIndex))
+                    throw new Exception($"Failed to apply selected font size dropdown index (`{dropdownIndex}`) to `{gameObject.name}` UI: index is not available in `Font Sizes` list.");
+
+                var size = dropdownIndex == -1 ? config.DefaultSize : config.FontSizes[dropdownIndex];
+
+                if (config.Object.TryGetComponent<Text>(out var text))
+                    text.fontSize = size;
+                else if (config.Object.TryGetComponent<TextMeshProUGUI>(out var tmproText))
+                    tmproText.fontSize = size;
+            }
+        }
+
         protected override void Awake ()
         {
-            base.Awake();
-
             stateManager = Engine.GetService<IStateManager>();
             inputManager = Engine.GetService<IInputManager>();
             uiManager = Engine.GetService<IUIManager>();
+            scriptPlayer = Engine.GetService<IScriptPlayer>();
+
+            base.Awake();
 
             InitializeFontChangeConfiguration();
         }
@@ -81,7 +124,7 @@ namespace Naninovel.UI
         {
             base.OnEnable();
 
-            if (hideOnLoad)
+            if (HideOnLoad)
             {
                 stateManager.OnGameLoadStarted += HandleGameLoadStarted;
                 stateManager.OnResetStarted += Hide;
@@ -90,7 +133,7 @@ namespace Naninovel.UI
             stateManager.AddOnGameSerializeTask(SerializeState);
             stateManager.AddOnGameDeserializeTask(DeserializeState);
 
-            if (blockInputWhenVisible)
+            if (BlockInputWhenVisible)
                 inputManager.AddBlockingUI(this, AllowedSamplers);
         }
 
@@ -98,7 +141,7 @@ namespace Naninovel.UI
         {
             base.OnDisable();
 
-            if (hideOnLoad && stateManager != null)
+            if (HideOnLoad && stateManager != null)
             {
                 stateManager.OnGameLoadStarted -= HandleGameLoadStarted;
                 stateManager.OnResetStarted -= Hide;
@@ -110,91 +153,15 @@ namespace Naninovel.UI
                 stateManager.RemoveOnGameDeserializeTask(DeserializeState);
             }
 
-            if (blockInputWhenVisible)
+            if (BlockInputWhenVisible)
                 inputManager?.RemoveBlockingUI(this);
-        }
-
-        /// <summary>
-        /// Applies provided font to the <see cref="UnityEngine.UI.Text"/>
-        /// and TMPro text components configured via <see cref="FontChangeConfigurations"/>.
-        /// </summary>
-        public virtual void SetFont (Font font)
-        {
-            if (FontChangeConfigurations is null || FontChangeConfigurations.Count == 0) return;
-
-            foreach (var config in FontChangeConfigurations)
-            {
-                if (!config.AllowFontChange) continue;
-
-                if (config.Object.TryGetComponent<UnityEngine.UI.Text>(out var text))
-                    text.font = ObjectUtils.IsValid(font) ? font : config.DefaultFont;
-                else
-                {
-                    #if TMPRO_AVAILABLE
-                    if (!config.Object.TryGetComponent<TMPro.TextMeshProUGUI>(out var tmroComponent)) continue;
-                    
-                    if (!ObjectUtils.IsValid(font))
-                    {
-                        tmroComponent.font = config.DefaultTMProFont;
-                        continue;
-                    }
-
-                    // TMPro requires font with a full path, while Unity doesn't store it by default; trying to guess it from the font name.
-                    var fontPath = default(string);
-                    var localFonts = Font.GetPathsToOSFonts();
-                    for (int i = 0; i < localFonts.Length; i++)
-                        if (localFonts[i].Replace("-", " ").Contains(font.name)) { fontPath = localFonts[i]; break; }
-                    if (string.IsNullOrEmpty(fontPath)) continue;
-                    var localFont = new Font(fontPath);
-                    var fontAsset = TMPro.TMP_FontAsset.CreateFontAsset(localFont);
-                    if (!ObjectUtils.IsValid(fontAsset)) continue;
-
-                    var shader = tmroComponent.font.material.shader;
-                    tmroComponent.font = fontAsset;
-                    foreach (var mat in tmroComponent.fontMaterials)
-                        mat.shader = shader; // Transfer custom material shaders to the new font.
-                    #endif
-                }
-            }
-        }
-
-        /// <summary>
-        /// Applies provided font size to the <see cref="UnityEngine.UI.Text"/>
-        /// and TMPro text components configured via <see cref="FontChangeConfigurations"/>.
-        /// </summary>
-        public void SetFontSize (int dropdownIndex)
-        {
-            if (FontChangeConfigurations is null || FontChangeConfigurations.Count == 0) return;
-
-            foreach (var config in FontChangeConfigurations)
-            {
-                if (!config.AllowFontSizeChange) continue;
-
-                if (dropdownIndex != -1 && !config.FontSizes.IsIndexValid(dropdownIndex))
-                {
-                    Debug.LogError($"Failed to apply selected font size dropdown index (`{dropdownIndex}`) to `{gameObject.name}` UI: index is not available in `Font Sizes` list.");
-                    continue;
-                }
-
-                var size = dropdownIndex == -1 ? config.DefaultSize : config.FontSizes[dropdownIndex];
-
-                if (config.Object.TryGetComponent<UnityEngine.UI.Text>(out var text))
-                    text.fontSize = size;
-                else
-                {
-                    #if TMPRO_AVAILABLE
-                    if (config.Object.TryGetComponent<TMPro.TextMeshProUGUI>(out var tmproText))
-                        tmproText.fontSize = size;
-                    #endif
-                }
-            }
         }
 
         protected virtual void SerializeState (GameStateMap stateMap)
         {
-            if (saveVisibilityState)
+            if (SaveVisibilityState)
             {
-                var state = new GameState() {
+                var state = new GameState {
                     Visible = Visible
                 };
                 stateMap.SetState(state, name);
@@ -203,7 +170,7 @@ namespace Naninovel.UI
 
         protected virtual UniTask DeserializeState (GameStateMap stateMap)
         {
-            if (saveVisibilityState)
+            if (SaveVisibilityState)
             {
                 var state = stateMap.GetState<GameState>(name);
                 if (state is null) return UniTask.CompletedTask;
@@ -216,8 +183,14 @@ namespace Naninovel.UI
         {
             base.HandleVisibilityChanged(visible);
 
-            if (modalUI)
+            if (ModalUI)
                 uiManager?.SetModalUI(visible ? this : null);
+
+            if (BlockInputWhenVisible)
+            {
+                if (scriptPlayer.SkipActive) scriptPlayer.SetSkipEnabled(false);
+                if (scriptPlayer.AutoPlayActive) scriptPlayer.SetAutoPlayEnabled(false);
+            }
         }
 
         protected virtual void InitializeFontChangeConfiguration ()
@@ -225,23 +198,17 @@ namespace Naninovel.UI
             for (int i = 0; i < FontChangeConfigurations.Count; i++) // Store default fonts and sizes.
             {
                 var item = FontChangeConfigurations[i];
-                if (!ObjectUtils.IsValid(item.Object))
-                {
-                    Debug.LogError($"Failed to initialize font size list of `{gameObject.name}` UI: game object is missing.");
-                    continue;
-                }
-                if (item.Object.TryGetComponent<UnityEngine.UI.Text>(out var text))
+                if (!item.Object) throw new Exception($"Failed to initialize font size list of `{gameObject.name}` UI: game object is missing.");
+                if (item.Object.TryGetComponent<Text>(out var text))
                 {
                     item.DefaultSize = text.fontSize;
                     item.DefaultFont = text.font;
                 }
-                #if TMPRO_AVAILABLE
-                if (item.Object.TryGetComponent<TMPro.TextMeshProUGUI>(out var tmproText))
+                if (item.Object.TryGetComponent<TextMeshProUGUI>(out var tmproText))
                 { 
                     item.DefaultSize = (int)tmproText.fontSize;
-                    item.DefaultTMProFont = tmproText.font;
+                    item.DefaultTMPFont = tmproText.font;
                 }
-                #endif
             }
         }
 

@@ -31,7 +31,7 @@ namespace Naninovel.Commands
         [ParameterAlias(NamelessParameterAlias), RequiredParameter]
         public StringParameter Path;
         /// <summary>
-        /// Parameters to set before destoying the prefab.
+        /// Parameters to set before destroying the prefab.
         /// Requires the prefab to have a <see cref="IParameterized"/> component attached the root object.
         /// </summary>
         public StringListParameter Params;

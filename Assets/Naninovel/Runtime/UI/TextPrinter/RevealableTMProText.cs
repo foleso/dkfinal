@@ -1,15 +1,18 @@
 ﻿// Copyright 2017-2020 Elringus (Artyom Sovetnikov). All Rights Reserved.
 
 using System.Text.RegularExpressions;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 namespace Naninovel.UI
 {
-    #if TMPRO_AVAILABLE
-    using TMPro;
-
-    public class RevealableTMProText : TextMeshProUGUI, IRevealableText
+    public class RevealableTMProText : TextMeshProUGUI, IRevealableText, IPointerClickHandler, IInputTrigger
     {
+        [System.Serializable]
+        private class TipClickedEvent : UnityEvent<string> { }
+
         public virtual string Text { get => assignedText; set => SetTextToReveal(value); }
         public virtual Color TextColor { get => color; set => color = value; }
         public virtual GameObject GameObject => gameObject;
@@ -19,6 +22,7 @@ namespace Naninovel.UI
         protected virtual int LastRevealedCharIndex { get; private set; }
         protected virtual int LastCharIndex => textInfo.characterCount - 1;
         protected virtual Transform CanvasTransform => canvasTransformCache != null ? canvasTransformCache : (canvasTransformCache = canvas.GetComponent<Transform>());
+        protected virtual Canvas TopmostCanvas => ObjectUtils.IsValid(topmostCanvasCache) ? topmostCanvasCache : (topmostCanvasCache = gameObject.FindTopmostComponent<Canvas>());
         protected virtual float SlideProgress => slideClipRect && lastRevealDuration > 0 ? Mathf.Clamp01((Time.time - lastRevealTime) / lastRevealDuration) : 1f;
 
         protected virtual float RevealFadeWidth => revealFadeWidth;
@@ -38,7 +42,13 @@ namespace Naninovel.UI
         [SerializeField] private string rubyVerticalOffset = "1em";
         [Tooltip("Font size scale (relative to the main text font size) to apply for the ruby (furigana) text.")]
         [SerializeField] private float rubySizeScale = .5f;
-        [Tooltip("Whether to modify the text to support arabic langauges (fix letters connectivity issues).")]
+        [Tooltip("Whether to automatically unlock associated tip records when text wrapped in <tip> tags is printed.")]
+        [SerializeField] private bool unlockTipsOnPrint = true;
+        [Tooltip("Template to use when processing text wrapped in <tip> tags. " + tipTemplateLiteral + " will be replaced with the actual tip content.")]
+        [SerializeField] private string tipTemplate = $"<u>{tipTemplateLiteral}</u>";
+        [Tooltip("Invoked when a text wrapped in <tip> tags is clicked; returned string argument is the ID of the clicked tip. Be aware, that the default behaviour (showing `ITipsUI` when a tip is clicked) won't be invoked when a custom handler is assigned.")]
+        [SerializeField] private TipClickedEvent onTipClicked = default;
+        [Tooltip("Whether to modify the text to support arabic languages (fix letters connectivity issues).")]
         [SerializeField] private bool fixArabicText = false;
         [Tooltip("When `Fix Arabic Text` is enabled, controls to whether also fix Farsi characters.")]
         [SerializeField] private bool fixArabicFarsi = true;
@@ -47,12 +57,15 @@ namespace Naninovel.UI
         [Tooltip("When `Fix Arabic Text` is enabled, controls to whether preserve numbers.")]
         [SerializeField] private bool fixArabicPreserveNumbers = false;
 
+        private const string tipIdPrefix = "NANINOVEL.TIP.";
+        private const string tipTemplateLiteral = "%TIP%";
         private static readonly int lineClipRectPropertyId = Shader.PropertyToID("_LineClipRect");
         private static readonly int charClipRectPropertyId = Shader.PropertyToID("_CharClipRect");
         private static readonly int charFadeWidthPropertyId = Shader.PropertyToID("_CharFadeWidth");
         private static readonly int charSlantAnglePropertyId = Shader.PropertyToID("_CharSlantAngle");
         private static readonly TMP_CharacterInfo invalidChar = new TMP_CharacterInfo { lineNumber = -1, index = -1 };
         private static readonly Regex captureRubyRegex = new Regex(@"<ruby=""([\s\S]*?)"">([\s\S]*?)<\/ruby>");
+        private static readonly Regex captureTipRegex = new Regex(@"<tip=""([\w]*?)"">([\s\S]*?)<\/tip>");
 
         private readonly TextRevealState revealState = new TextRevealState();
         private readonly ArabicSupport.FastStringBuilder arabicBuilder = new ArabicSupport.FastStringBuilder(ArabicSupport.RTLSupport.DefaultBufferSize);
@@ -66,6 +79,7 @@ namespace Naninovel.UI
         private TMP_CharacterInfo revealStartChar = invalidChar;
         private float lastRevealDuration, lastRevealTime, lastCharClipPos, lastCharFadeWidth;
         private Vector3 positionLastFrame;
+        private Canvas topmostCanvasCache;
 
         public virtual void RevealNextChars (int count, float duration, CancellationToken cancellationToken)
         {
@@ -91,6 +105,43 @@ namespace Naninovel.UI
             return Text[LastRevealedCharIndex];
         }
 
+        public void OnPointerClick (PointerEventData eventData)
+        {
+            var renderCamera = TopmostCanvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : TopmostCanvas.worldCamera;
+            var linkIndex = TMP_TextUtilities.FindIntersectingLink(this, eventData.position, renderCamera);
+            if (linkIndex == -1) return;
+
+            var linkInfo = textInfo.linkInfo[linkIndex];
+            var linkId = linkInfo.GetLinkID();
+            if (!linkId.StartsWithFast(tipIdPrefix)) return;
+
+            var tipId = linkId.GetAfter(tipIdPrefix);
+            if (onTipClicked?.GetPersistentEventCount() > 0)
+            {
+                onTipClicked.Invoke(tipId);
+                return;
+            }
+
+            var tipsUI = Engine.GetService<IUIManager>()?.GetUI<ITipsUI>();
+            tipsUI?.Show();
+            tipsUI?.SelectTipRecord(tipId);
+        }
+
+        public bool CanTriggerInput ()
+        {
+            var evtSystem = EventSystem.current;
+            if (!evtSystem) return true;
+            var inputModule = evtSystem.currentInputModule;
+            if (!inputModule) return true;
+            var input = inputModule.input;
+            if (!input) return true;
+
+            var position = input.mousePosition;
+            var renderCamera = TopmostCanvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : TopmostCanvas.worldCamera;
+            var linkIndex = TMP_TextUtilities.FindIntersectingLink(this, position, renderCamera);
+            return linkIndex == -1;
+        }
+
         protected override void OnRectTransformDimensionsChange ()
         {
             base.OnRectTransformDimensionsChange();
@@ -109,6 +160,55 @@ namespace Naninovel.UI
             base.Start();
 
             positionLastFrame = transform.position;
+        }
+
+        /// <summary>
+        /// Given the input text, extracts text wrapped in ruby tags and replace it with expression natively supported by TMPro.
+        /// </summary>
+        protected virtual string ProcessRubyTags (string content)
+        {
+            // Replace <ruby> tags with TMPro-supported rich text tags
+            // to simulate ruby (furigana) text layout.
+            var matches = captureRubyRegex.Matches(content);
+            foreach (Match match in matches)
+            {
+                if (match.Groups.Count != 3) continue;
+                var fullMatch = match.Groups[0].ToString();
+                var rubyValue = match.Groups[1].ToString();
+                var baseText = match.Groups[2].ToString();
+
+                var baseTextWidth = GetPreferredValues(baseText).x;
+                var rubyTextWidth = GetPreferredValues(rubyValue).x * rubySizeScale;
+                var rubyTextOffset = baseTextWidth / 2f + rubyTextWidth / 2f;
+                var compensationOffset = (baseTextWidth - rubyTextWidth) / 2f;
+                var replace = $"<space={compensationOffset}><voffset={rubyVerticalOffset}><size={rubySizeScale * 100f}%>{rubyValue}</size></voffset><space=-{rubyTextOffset}>{baseText}";
+                content = content.Replace(fullMatch, replace);
+            }
+
+            return content;
+        }
+
+        /// <summary>
+        /// Given the input text, extracts text wrapped in tip tags and replace it with expression natively supported by TMPro.
+        /// </summary>
+        protected virtual string ProcessTipTags (string content)
+        {
+            var matches = captureTipRegex.Matches(content);
+            foreach (Match match in matches)
+            {
+                if (match.Groups.Count != 3) continue;
+                var fullMatch = match.Groups[0].ToString();
+                var tipID = match.Groups[1].ToString();
+                var tipContent = match.Groups[2].ToString();
+
+                if (unlockTipsOnPrint)
+                    Engine.GetService<IUnlockableManager>()?.UnlockItem($"Tips/{tipID}");
+
+                var replace = $"<link={tipIdPrefix + tipID}>{tipTemplate.Replace(tipTemplateLiteral, tipContent)}</link>";
+                content = content.Replace(fullMatch, replace);
+            }
+
+            return content;
         }
 
         private void Update ()
@@ -175,6 +275,7 @@ namespace Naninovel.UI
         {
             SetLastRevealedCharIndex(LastCharIndex);
             lastRevealDuration = 0f; // Force the slide to complete instantly.
+            revealState.Reset();
         }
 
         private void HideAll ()
@@ -183,12 +284,13 @@ namespace Naninovel.UI
             lastRevealDuration = 0f; // Force the slide to complete instantly.
             revealStartChar = invalidChar; // Invalidate the reveal start position.
             Update(); // Otherwise the unrevealed yet text could be visible for a moment.
+            revealState.Reset();
         }
 
         private void SetMaterialProperties (Vector4 lineClipRect, Vector4 charClipRect, float charFadeWidth, float charSlantAngle)
         {
-            if (!ObjectUtils.IsValid(cachedFontMaterials) || cachedFontMaterials.Length != textInfo.materialCount)
-                cachedFontMaterials = fontMaterials; // Material count can change when using fallback fonts.
+            if (cachedFontMaterials is null || cachedFontMaterials.Length != textInfo.materialCount)
+                cachedFontMaterials = fontMaterials; // Material count change when using fallback fonts or font variants (weights).
 
             for (int i = 0; i < cachedFontMaterials.Length; i++)
             {
@@ -203,8 +305,8 @@ namespace Naninovel.UI
         {
             assignedText = value;
 
-            // Pre-process the assigned text handling <ruby> tags.
-            text = HandleRubyTags(value);
+            // Pre-process the assigned text handling <ruby> and <tip> tags.
+            text = ProcessTipTags(ProcessRubyTags(value));
 
             if (FixArabicText && !string.IsNullOrWhiteSpace(text))
             {
@@ -215,11 +317,7 @@ namespace Naninovel.UI
             }
 
             // If visible text content changed...
-            #if UNITY_2020_1_OR_NEWER
             if (m_isLayoutDirty)
-            #else
-            if (m_layoutAlreadyDirty)
-            #endif
             {
                 // Recalculate all the TMPro properties before rendering next frame, 
                 // as the reveal clip rects rely on them. 
@@ -228,29 +326,6 @@ namespace Naninovel.UI
                 // prevent it from affecting this char again when resuming the revealing without resetting the text.
                 revealStartChar = (LastRevealedCharIndex < 0 || LastRevealedCharIndex >= textInfo.characterInfo.Length) ? invalidChar : textInfo.characterInfo[LastRevealedCharIndex];
             }
-        }
-
-        private string HandleRubyTags (string content)
-        {
-            // Replace <ruby> tags with TMPro-supported rich text tags
-            // to simulate ruby (furigana) text layout.
-            var matches = captureRubyRegex.Matches(content);
-            foreach (Match match in matches)
-            {
-                if (match.Groups.Count != 3) continue;
-                var fullMatch = match.Groups[0].ToString();
-                var rubyValue = match.Groups[1].ToString();
-                var baseText = match.Groups[2].ToString();
-
-                var baseTextWidth = GetPreferredValues(baseText).x;
-                var rubyTextWidth = GetPreferredValues(rubyValue).x * rubySizeScale;
-                var rubyTextOffset = baseTextWidth / 2f + rubyTextWidth / 2f;
-                var compensationOffset = (baseTextWidth - rubyTextWidth) / 2f;
-                var replace = $"<space={compensationOffset}><voffset={rubyVerticalOffset}><size={rubySizeScale * 100f}%>{rubyValue}</size></voffset><space=-{rubyTextOffset}>{baseText}";
-                content = content.Replace(fullMatch, replace);
-            }
-
-            return content;
         }
 
         private void SetLastRevealedCharIndex (int charIndex)
@@ -307,7 +382,7 @@ namespace Naninovel.UI
 
         private void UpdateClipRects ()
         {
-            if (LastRevealedCharIndex >= (textInfo?.characterInfo?.Length ?? -1)) return;
+            if (textInfo == null || LastRevealedCharIndex >= textInfo.characterInfo.Length) return;
 
             var fullClipRect = GetTextCornersInCanvasSpace();
 
@@ -337,7 +412,7 @@ namespace Naninovel.UI
                                                  (currentChar.lineNumber == revealStartChar.lineNumber ? currentChar.origin - revealStartChar.origin : currentChar.xAdvance - lineFirstChar.origin);
             var endLimit = isRightToLeftText ? currentChar.xAdvance - lineLastChar.xAdvance : 
                                                lineLastChar.xAdvance - currentChar.xAdvance;
-            var widthLimit = Mathf.Min(startLimit, endLimit);
+            var widthLimit = Mathf.Max(0, Mathf.Min(startLimit, endLimit));
             curCharFadeWidth = Mathf.Clamp(revealFadeWidth, 0f, widthLimit);
 
             curCharSlantAngle = currentChar.style == FontStyles.Italic ? italicSlantAngle : 0f;
@@ -353,7 +428,4 @@ namespace Naninovel.UI
             return new Vector4(canvasCorners[0].x, canvasCorners[0].y, canvasCorners[2].x, canvasCorners[2].y);
         }
     }
-    #else
-    public class RevealableTMProText : MonoBehaviour { }
-    #endif
 }

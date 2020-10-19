@@ -18,7 +18,7 @@ namespace Naninovel
         /// </summary>
         public readonly bool Unlocked;
         /// <summary>
-        /// Whether the item has beed added to the unlockables map for the first time.
+        /// Whether the item has been added to the unlockables map for the first time.
         /// </summary>
         public readonly bool Added;
 

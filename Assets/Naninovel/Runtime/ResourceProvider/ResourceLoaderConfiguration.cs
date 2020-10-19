@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Naninovel
 {
     /// <summary>
-    /// Represents serializable data used for <see cref="ResourceLoader"/> construction.
+    /// Represents serializable data used for <see cref="ResourceLoader{TResource}"/> construction.
     /// </summary>
     [System.Serializable]
     public class ResourceLoaderConfiguration 
@@ -28,10 +28,11 @@ namespace Naninovel
             return new ResourceLoader<TResource>(providerList, PathPrefix);
         }
 
-        public LocalizableResourceLoader<TResource> CreateLocalizableFor<TResource> (IResourceProviderManager providerManager, ILocalizationManager localizationManager) where TResource : Object
+        public LocalizableResourceLoader<TResource> CreateLocalizableFor<TResource> (IResourceProviderManager providerManager, 
+            ILocalizationManager localizationManager, bool fallbackToSource = true) where TResource : Object
         {
             var providerList = providerManager.GetProviders(ProviderTypes);
-            return new LocalizableResourceLoader<TResource>(providerList, localizationManager, PathPrefix);
+            return new LocalizableResourceLoader<TResource>(providerList, localizationManager, PathPrefix, fallbackToSource);
         }
 
         public override string ToString () => $"{PathPrefix}- ({string.Join(", ", ProviderTypes.Select(t => t.GetBetween(".", "Resource") ?? t.GetBefore(",")))})";

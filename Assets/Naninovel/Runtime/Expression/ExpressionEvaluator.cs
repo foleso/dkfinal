@@ -40,14 +40,14 @@ namespace Naninovel
             [Doc("Return a float number in 0.0 to 1.0 range, representing how many unique commands were ever executed compared to the total number of commands in all the available naninovel scripts. 1.0 means the player had `read through` or `seen` all the available game content. Make sure to enable `Count Total Commands` in the script configuration menu before using this function.", "CalculateProgress()")]
             public static float CalculateProgress ()
             {
-                var scriptMngr = Engine.GetService<IScriptManager>();
+                var scriptManager = Engine.GetService<IScriptManager>();
                 var player = Engine.GetService<IScriptPlayer>();
-                if (scriptMngr.TotalCommandsCount == 0)
+                if (scriptManager.TotalCommandsCount == 0)
                 {
-                    Debug.LogWarning("`CalculateProgress` script expression function were used, while to total number of script commands is zero. You've most likely disabled `UpdateActionCountOnInit` in the script player configuration menu or didn't add any naninovel sctipts to the project resources.");
+                    Debug.LogWarning("`CalculateProgress` script expression function were used, while to total number of script commands is zero. You've most likely disabled `UpdateActionCountOnInit` in the script player configuration menu or didn't add any naninovel scripts to the project resources.");
                     return 0;
                 }
-                return player.PlayedCommandsCount / (float)scriptMngr.TotalCommandsCount;
+                return player.PlayedCommandsCount / (float)scriptManager.TotalCommandsCount;
             }
         }
 
@@ -56,12 +56,12 @@ namespace Naninovel
 
         private static readonly List<MethodInfo> functions = new List<MethodInfo>();
 
-        static ExpressionEvaluator ()
+        public static void Initialize ()
         {
             functions.AddRange(typeof(Mathf).GetMethods(BindingFlags.Public | BindingFlags.Static));
             functions.AddRange(typeof(Math).GetMethods(BindingFlags.Public | BindingFlags.Static));
 
-            var customFunctions = ReflectionUtils.ExportedDomainTypes
+            var customFunctions = Engine.Types
                 .Where(t => t.IsDefined(typeof(ExpressionFunctionsAttribute)))
                 .SelectMany(t => t.GetMethods(BindingFlags.Public | BindingFlags.Static)).ToList();
             functions.AddRange(customFunctions);
@@ -75,6 +75,9 @@ namespace Naninovel
 
         public static object Evaluate (string expressionString, Type resultType, Action<string> onError = null)
         {
+            if (functions.Count == 0)
+                Initialize();
+            
             try
             {
                 if (string.IsNullOrWhiteSpace(expressionString))

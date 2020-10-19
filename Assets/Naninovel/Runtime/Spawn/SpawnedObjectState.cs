@@ -7,32 +7,18 @@ using UnityEngine;
 namespace Naninovel
 {
     [Serializable]
-    public struct SpawnedObjectState : ISerializationCallbackReceiver, IEquatable<SpawnedObjectState>
+    public struct SpawnedObjectState : IEquatable<SpawnedObjectState>
     {
-        public string Path { get; private set; }
-        public string[] Params { get; private set; }
+        public string Path => path;
+        public string[] Parameters => parameters;
 
         [SerializeField] private string path;
-        [SerializeField] private string paramsString;
+        [SerializeField] private string[] parameters;
 
-        public SpawnedObjectState (string path, string[] @params)
+        public SpawnedObjectState (string path, string[] parameters)
         {
-            this.path = default;
-            paramsString = default;
-            Path = path;
-            Params = @params;
-        }
-
-        public void OnBeforeSerialize ()
-        {
-            path = Path;
-            paramsString = (Params is null || Params.Length == 0) ? null : string.Join(",", Params);
-        }
-
-        public void OnAfterDeserialize ()
-        {
-            Path = path;
-            Params = string.IsNullOrEmpty(paramsString) ? null : paramsString.Split(',');
+            this.path = path;
+            this.parameters = parameters;
         }
 
         public override bool Equals (object obj)
@@ -43,14 +29,14 @@ namespace Naninovel
         public bool Equals (SpawnedObjectState other)
         {
             return Path == other.Path &&
-                   EqualityComparer<string[]>.Default.Equals(Params, other.Params);
+                   EqualityComparer<string[]>.Default.Equals(Parameters, other.Parameters);
         }
 
         public override int GetHashCode ()
         {
             var hashCode = 289869881;
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Path);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string[]>.Default.GetHashCode(Params);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string[]>.Default.GetHashCode(Parameters);
             return hashCode;
         }
 

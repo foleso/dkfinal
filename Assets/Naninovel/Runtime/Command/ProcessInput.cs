@@ -35,7 +35,7 @@ namespace Naninovel.Commands
         {
             if (!Assigned(InputEnabled) && !Assigned(SetEnabled))
             {
-                LogWarningWithPosition($"No parameters were specified in `@processInput`; command won't have any effect.");
+                LogWarningWithPosition("No parameters were specified in `@processInput`; command won't have any effect.");
                 return UniTask.CompletedTask;
             }
 
@@ -50,7 +50,7 @@ namespace Naninovel.Commands
                 {
                     if (!kv.HasValue || !kv.NamedValue.HasValue)
                     {
-                        LogErrorWithPosition($"An invalid item in `set` parameter detected in `@processInput` command. Make sure all items have both name and value specified.");
+                        LogErrorWithPosition("An invalid item in `set` parameter detected in `@processInput` command. Make sure all items have both name and value specified.");
                         continue;
                     }
 

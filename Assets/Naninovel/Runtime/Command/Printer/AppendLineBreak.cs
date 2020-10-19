@@ -7,6 +7,9 @@ namespace Naninovel.Commands
     /// <summary>
     /// Adds a line break to a text printer.
     /// </summary>
+    /// <remarks>
+    /// Consider using &lt;br&gt; tag instead with [TMPro printers](/guide/text-printers.md#textmesh-pro).
+    /// </remarks>
     /// <example>
     /// ; Second sentence will be printed on a new line
     /// Lorem ipsum dolor sit amet.[br]Consectetur adipiscing elit.
@@ -25,12 +28,12 @@ namespace Naninovel.Commands
         /// <summary>
         /// ID of the printer actor to use. Will use a default one when not provided.
         /// </summary>
-        [ParameterAlias("printer")]
+        [ParameterAlias("printer"), IDEActor(TextPrintersConfiguration.DefaultPathPrefix)]
         public StringParameter PrinterId;
         /// <summary>
         /// ID of the actor, which should be associated with the appended line break.
         /// </summary>
-        [ParameterAlias("author")]
+        [ParameterAlias("author"), IDEActor(CharactersConfiguration.DefaultPathPrefix)]
         public StringParameter AuthorId;
 
         protected override string AssignedPrinterId => PrinterId;

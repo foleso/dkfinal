@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Naninovel
 {
-    [System.Serializable]
+    [EditInProjectSettings]
     public class CameraConfiguration : Configuration
     {
         [Tooltip("The reference resolution is used to evaluate proper rendering dimensions, so that sprite assets (like backgrounds and characters) are correctly positioned on scene. As a rule of thumb, set this equal to the resolution of the background textures you make for the game.")]
@@ -23,7 +23,7 @@ namespace Naninovel
         public bool UseUICamera = true;
         [Tooltip("A prefab with a camera component to use for UI rendering. Will use a default one when not specified. Has no effect when `UseUICamera` is disabled")]
         public Camera CustomUICameraPrefab = null;
-        [Tooltip("Eeasing function to use by default for all the camera modifications (changing zoom, position, rotation, etc).")]
+        [Tooltip("Easing function to use by default for all the camera modifications (changing zoom, position, rotation, etc).")]
         public EasingType DefaultEasing = EasingType.Linear;
 
         [Header("Thumbnails")]
@@ -69,7 +69,7 @@ namespace Naninovel
             var originPosition = -ReferenceSize / 2f;
             var resultXY = new Vector2 {
                 x = (worldPosition.x - originPosition.x) / ReferenceSize.x,
-                y = (worldPosition.y - originPosition.y) / ReferenceSize.y,
+                y = (worldPosition.y - originPosition.y) / ReferenceSize.y
             };
 
             return new Vector3(resultXY.x, resultXY.y, worldPosition.z);

@@ -9,11 +9,7 @@ namespace Naninovel
     public class BackgroundsSettings : OrthoActorManagerSettings<BackgroundsConfiguration, IBackgroundActor, BackgroundMetadata>
     {
         protected override string HelpUri => "guide/backgrounds.html";
-        protected override Type ResourcesTypeConstraint => GetTypeConstraint();
         protected override string ResourcesSelectionTooltip => GetTooltip();
-        protected override bool AllowMultipleResources =>
-            Type.GetType(EditedMetadata?.Implementation)?.FullName != typeof(GenericBackground).FullName &&
-            Type.GetType(EditedMetadata?.Implementation)?.FullName != typeof(LayeredBackground).FullName;
         protected override HashSet<string> LockedActorIds => new HashSet<string> { BackgroundsConfiguration.MainActorId };
 
         private static bool editMainRequested;
@@ -28,18 +24,14 @@ namespace Naninovel
 
             base.OnGUI(searchContext);
         }
-
-        private Type GetTypeConstraint ()
+        
+        protected override Dictionary<string, Action<SerializedProperty>> OverrideMetaDrawers ()
         {
-            switch (Type.GetType(EditedMetadata?.Implementation)?.Name)
-            {
-                case nameof(SpriteBackground): return typeof(UnityEngine.Texture2D);
-                case nameof(GenericBackground): return typeof(BackgroundActorBehaviour);
-                case nameof(SceneBackground): return typeof(SceneAsset);
-                case nameof(VideoBackground): return typeof(UnityEngine.Video.VideoClip);
-                case nameof(LayeredBackground): return typeof(LayeredActorBehaviour);
-                default: return null;
-            }
+            var drawers = base.OverrideMetaDrawers();
+            drawers[nameof(BackgroundMetadata.CustomShader)] = p => { if (ResourcesTypeConstraint != typeof(GenericBackgroundBehaviour)) EditorGUILayout.PropertyField(p); };
+            drawers[nameof(BackgroundMetadata.RenderTexture)] = p => { if (ResourcesTypeConstraint != typeof(GenericBackgroundBehaviour)) EditorGUILayout.PropertyField(p); };
+            drawers[nameof(BackgroundMetadata.CorrectRenderAspect)] = p => { if (ResourcesTypeConstraint != typeof(GenericBackgroundBehaviour) && EditedMetadata.RenderTexture) EditorGUILayout.PropertyField(p); };
+            return drawers;
         }
 
         private string GetTooltip ()

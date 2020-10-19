@@ -26,7 +26,7 @@ namespace Naninovel
         public Vector2 LookSpeed { get; set; }
         /// <summary>
         /// Whether to automatically move camera to the initial position when the look input is not active 
-        /// (eg, mouse is in the center of the sreen or analog stick is in default position).
+        /// (eg, mouse is in the center of the screen or analog stick is in default position).
         /// </summary>
         public bool Gravity { get; set; }
 

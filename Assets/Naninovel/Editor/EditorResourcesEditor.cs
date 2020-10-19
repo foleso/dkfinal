@@ -18,12 +18,12 @@ namespace Naninovel
 
         private const string categoryIdPropertyName = nameof(EditorResources.ResourceCategory.Id);
         private const string categoryResourcesPropertyName = nameof(EditorResources.ResourceCategory.Resources);
-        private static readonly GUIContent pathContent = new GUIContent("Name  <i><size=10>(hover for hotkey info)</size></i>", "Local path (relative to the path prefix) of the resource.\n\nHotkeys:\n • Delete key — Remove selected record.\n • Up/Down keys — Navigate selected records.\n\nIt's possible to add resources in batch by drag-dropping mutliple assets or folders to an area below the list (appears when compatible assets are dragged).");
+        private static readonly GUIContent pathContent = new GUIContent("Name  <i><size=10>(hover for hotkey info)</size></i>", "Local path (relative to the path prefix) of the resource.\n\nHotkeys:\n • Delete key — Remove selected record.\n • Up/Down keys — Navigate selected records.\n\nIt's possible to add resources in batch by drag-dropping multiple assets or folders to an area below the list (appears when compatible assets are dragged).");
         private static readonly GUIContent objectContent = new GUIContent("Object", "Object of the resource.\n\nThe assigned objects are loaded only when hovered for better performance.");
         private static readonly GUIContent invalidObjectContent = new GUIContent("", "Assign a valid object or remove the record.");
-        private static readonly GUIContent dublicateNameContent = new GUIContent("", "Dublicate names could cause issues. Change name for one of the affected records.");
-        private static readonly Color invalidOjectColor = new Color(1, .8f, .8f);
-        private static readonly Color dublicateNameColor = new Color(1, 1, .8f);
+        private static readonly GUIContent duplicateNameContent = new GUIContent("", "Duplicate names could cause issues. Change name for one of the affected records.");
+        private static readonly Color invalidObjectColor = new Color(1, .8f, .8f);
+        private static readonly Color duplicateNameColor = new Color(1, 1, .8f);
 
         private bool singleMode => resourceName != null;
 
@@ -83,7 +83,7 @@ namespace Naninovel
 
         /// <summary>
         /// Attempts to remove a resources category with the provided ID and all the associated records.
-        /// Use this indead of <see cref="EditorResources.RemoveCategory(string)"/> to correctly handle undo/redo while this editor is initialized.
+        /// Use this instead of <see cref="EditorResources.RemoveCategory(string)"/> to correctly handle undo/redo while this editor is initialized.
         /// </summary>
         /// <returns>Whether the category has been found and deleted.</returns>
         public bool RemoveCategory (string categoryId)
@@ -108,7 +108,7 @@ namespace Naninovel
             return true;
         }
 
-        private ReorderableList InitilizeListForCategory (string categoryId)
+        private ReorderableList InitializeListForCategory (string categoryId)
         {
             var resourcesProperty = default(SerializedProperty);
 
@@ -156,7 +156,7 @@ namespace Naninovel
                     return existingList;
             }
 
-            var newList = InitilizeListForCategory(categoryId); 
+            var newList = InitializeListForCategory(categoryId); 
             reorderableLists[categoryId] = newList;
             return newList;
         }
@@ -188,8 +188,9 @@ namespace Naninovel
             var elementGuid = elementGuidProperty.stringValue;
             var elementHovered = rect.Contains(Event.current.mousePosition);
 
-            // Delete record when pressing delete key and an element is selected.
-            if (reorderableList.index == index && Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Delete && selected)
+            // Delete record when pressing delete key while an element is selected, but not editing text field.
+            if (reorderableList.index == index && Event.current.type == EventType.KeyDown && 
+                Event.current.keyCode == KeyCode.Delete && selected && !EditorGUIUtility.editingTextField)
             {
                 HandleElementRemoved(reorderableList);
                 Event.current.Use();
@@ -213,13 +214,13 @@ namespace Naninovel
 
             // Draw resource name (local path) property.
             var initialNameColor = GUI.color;
-            var dublicate = names.Contains(elementName);
-            if (dublicate) GUI.color = dublicateNameColor;
-            EditorGUI.LabelField(propertyRect, dublicate ? dublicateNameContent : GUIContent.none);
+            var duplicate = names.Contains(elementName);
+            if (duplicate) GUI.color = duplicateNameColor;
+            EditorGUI.LabelField(propertyRect, duplicate ? duplicateNameContent : GUIContent.none);
             EditorGUI.BeginDisabledGroup(singleMode || !allowRename);
             var oldNameValue = elementName;
             var newNameValue = EditorGUI.TextField(propertyRect, GUIContent.none, singleMode ? resourceName : oldNameValue);
-            if (newNameValue.Contains("\\")) // Force-replace backward slahes.
+            if (newNameValue.Contains("\\")) // Force-replace backward slashes.
                 newNameValue = newNameValue.Replace("\\", "/");
             if (oldNameValue != newNameValue)
                 elementNameProperty.stringValue = newNameValue;
@@ -238,7 +239,7 @@ namespace Naninovel
                 var initialGuidColor = GUI.color;
                 if (!ObjectUtils.IsValid(oldObjectValue) && !string.IsNullOrEmpty(newNameValue))
                 {
-                    GUI.color = invalidOjectColor;
+                    GUI.color = invalidObjectColor;
                     EditorGUI.LabelField(propertyRect, invalidObjectContent);
                 }
                 var newObjectValue = EditorGUI.ObjectField(propertyRect, GUIContent.none, oldObjectValue, objectType, false);

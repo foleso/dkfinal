@@ -20,7 +20,7 @@ namespace Naninovel.Commands
         /// <summary>
         /// ID of the unlockable item. Use `*` to unlock all the registered unlockable items. 
         /// </summary>
-        [ParameterAlias(NamelessParameterAlias), RequiredParameter]
+        [ParameterAlias(NamelessParameterAlias), RequiredParameter, IDEResource(UnlockablesConfiguration.DefaultPathPrefix)]
         public StringParameter Id;
 
         public override async UniTask ExecuteAsync (CancellationToken cancellationToken = default)

@@ -96,6 +96,7 @@ MonoBehaviour:
   blockInputWhenVisible: 1
   allowedSamplers: []
   modalUI: 1
+  fontChangeConfiguration: []
   messagesContainer: {fileID: 6306036017474415836}
   scrollRect: {fileID: 6306036017945260837}
   messagePrefab: {fileID: 2163593796353188294, guid: 5951be07f549bb04aa2f6d1655093de2,
@@ -109,6 +110,8 @@ MonoBehaviour:
   selectedChoiceTemplate: '    <b>%SUMMARY%</b>'
   otherChoiceTemplate: '    <color=#ffffff88>%SUMMARY%</color>'
   choiceSeparator: <br>
+  allowReplayVoice: 1
+  allowRollback: 1
 --- !u!225 &6306036015961478118
 CanvasGroup:
   m_ObjectHideFlags: 0

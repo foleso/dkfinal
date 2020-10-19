@@ -1,10 +1,10 @@
 ﻿// Copyright 2017-2020 Elringus (Artyom Sovetnikov). All Rights Reserved.
 
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using System;
-using System.Collections;
 
 namespace Naninovel
 {
@@ -13,7 +13,7 @@ namespace Naninovel
     /// </summary>
     public class StateRollbackStack : IEnumerable<GameStateMap>
     {
-        [System.Serializable]
+        [Serializable]
         private class SerializedStack
         {
             public List<GameStateMap> List = default;
@@ -117,11 +117,11 @@ namespace Naninovel
 
         public string ToJson (int maxSize, Predicate<GameStateMap> filter = null)
         {
-            var filtererdList = rollbackList.Where(s => filter is null || filter(s)).Reverse().ToList();
-            var rangeCount = Mathf.Min(maxSize, filtererdList.Count);
+            var filtererList = rollbackList.Where(s => filter is null || filter(s)).Reverse().ToList();
+            var rangeCount = Mathf.Min(maxSize, filtererList.Count);
             if (rangeCount == 0) return null;
 
-            var list = filtererdList.GetRange(filtererdList.Count - rangeCount, rangeCount);
+            var list = filtererList.GetRange(filtererList.Count - rangeCount, rangeCount);
             var serializedStack = new SerializedStack(list);
             return JsonUtility.ToJson(serializedStack);
         }

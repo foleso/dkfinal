@@ -1,5 +1,6 @@
 ﻿// Copyright 2017-2020 Elringus (Artyom Sovetnikov). All Rights Reserved.
 
+using System;
 using Naninovel.Commands;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +47,8 @@ namespace Naninovel
             var paramFields = commandType.GetFields(BindingFlags.Public | BindingFlags.Instance)
                 .Where(f => typeof(ICommandParameter).IsAssignableFrom(f.FieldType));
             var paramValues = typeof(Command).GetMethod("ExtractParameters", BindingFlags.Static | BindingFlags.NonPublic)
-                .Invoke(null, new[] { commandBodyText, string.Empty }) as LiteralMap<string>;
+                ?.Invoke(null, new object[] { commandBodyText, string.Empty }) as Dictionary<string, string>;
+            if (paramValues is null) return Error("Failed to extract parameters.");
             foreach (var paramField in paramFields)
             {
                 var paramAlias = paramField.GetCustomAttribute<Command.ParameterAliasAttribute>()?.Alias;

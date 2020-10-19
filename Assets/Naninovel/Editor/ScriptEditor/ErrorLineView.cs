@@ -6,7 +6,7 @@ namespace Naninovel
 {
     public class ErrorLineView : ScriptLineView
     {
-        public string CommandId { get; private set; }
+        public string CommandId { get; }
 
         private readonly LineTextField valueField = default;
 

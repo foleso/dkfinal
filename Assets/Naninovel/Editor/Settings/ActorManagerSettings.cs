@@ -21,70 +21,72 @@ namespace Naninovel
         where TActor : IActor
         where TMeta : ActorMetadata
     {
-        private class CustomData { public string MetadataGuid = default; public ScriptableObject Object; public Editor Editor; }
-
         protected SerializedProperty MetadataMapProperty { get; private set; }
         protected string EditedActorId => EditingMetadata ? MetadataMapEditor.SelectedActorId : null;
         protected TMeta EditedMetadata => EditingMetadata ? MetadataMapEditor.EditedMetadataProperty.GetGenericValue<TMeta>() : DefaultMetadata;
         protected TMeta DefaultMetadata { get; private set; }
         protected bool EditingMetadata => MetadataMapEditor.EditedMetadataProperty != null;
-        protected GUIContent FromMetaButtonLabel { get; }
+        protected GUIContent FromMetaButtonLabel { get; private set; }
         protected MetadataMapEditor MetadataMapEditor { get; private set; }
         protected virtual string MetadataMapPropertyName => "Metadata";
         protected virtual string DefaultMetadataPropertyName => "DefaultMetadata";
-        protected virtual Dictionary<string, Action<SerializedProperty>> OverrideMetaDrawers { get; }
-        protected virtual bool AllowMultipleResources => false;
         protected virtual HashSet<string> LockedActorIds => null;
+        protected virtual bool AllowMultipleResources => implementationToResourcesAttribute.TryGetValue(EditedMetadata.Implementation, out var attr) && attr.AllowMultiple;
+        protected override Type ResourcesTypeConstraint => implementationToResourcesAttribute.TryGetValue(EditedMetadata.Implementation, out var attr) ? attr.TypeConstraint : null;
         protected override string ResourcesPathPrefix => AllowMultipleResources ? $"{EditedMetadata.Loader.PathPrefix}/{EditedActorId}" : EditedMetadata.Loader.PathPrefix;
         protected override string ResourcesCategoryId => MetadataToResourcesCategoryId(EditedMetadata);
         protected override string ResourceName => AllowMultipleResources ? null : EditedActorId;
-        protected override Dictionary<string, Action<SerializedProperty>> OverrideConfigurationDrawers => new Dictionary<string, Action<SerializedProperty>> {
-            [MetadataMapPropertyName] = null,
-            [DefaultMetadataPropertyName] = property => {
-                var label = EditorGUI.BeginProperty(Rect.zero, null, property);
-                property.isExpanded = EditorGUILayout.Foldout(property.isExpanded, label, true);
-                if (!property.isExpanded) return;
-                EditorGUI.indentLevel++;
-                DrawDefaultMetaEditor(property);
-                EditorGUI.indentLevel--;
-            }
-        };
 
         private static readonly List<string> actorImplementations = new List<string>();
         private static readonly string[] actorImplementationLabels;
         private static readonly Dictionary<string, Type> implementationToCustomDataType = new Dictionary<string, Type>();
+        private static readonly Dictionary<string, ActorResourcesAttribute> implementationToResourcesAttribute = new Dictionary<string, ActorResourcesAttribute>();
 
-        private readonly Dictionary<string, Action<SerializedProperty>> overrideDrawers;
-        private readonly HashSet<string> lockedActorIds;
-        private readonly CustomData customData = new CustomData();
+        private Dictionary<string, Action<SerializedProperty>> overrideDrawers;
+        private HashSet<string> lockedActorIds;
 
         static ActorManagerSettings ()
         {
-            foreach (var type in ReflectionUtils.ExportedDomainTypes)
+            foreach (var type in Engine.Types)
             {
-                if (!type.IsAbstract && type.GetInterfaces().Contains(typeof(TActor)))
+                if (type.IsAbstract || type.IsGenericType) continue;
+                
+                // Collect implementation types.
+                if (typeof(TActor).IsAssignableFrom(type))
                 { 
-                    actorImplementations.Add(type.AssemblyQualifiedName); 
+                    actorImplementations.Add(type.AssemblyQualifiedName);
+                    if (type.GetCustomAttribute<ActorResourcesAttribute>() is ActorResourcesAttribute resourcesAttribute)
+                        implementationToResourcesAttribute[type.AssemblyQualifiedName] = resourcesAttribute;
                     continue; 
                 }
-                var customDataAttr = type.GetCustomAttribute<CustomMetadataAttribute>();
-                if (customDataAttr is null || type.BaseType != typeof(ScriptableObject)) continue;
-                implementationToCustomDataType[customDataAttr.ImplementationType.AssemblyQualifiedName] = type;
+
+                // Collect custom metadata types.
+                if (!typeof(CustomMetadata).IsAssignableFrom(type)) continue;
+                var customMetaImplType = default(string);
+                var curType = type;
+                while (curType.BaseType != null)
+                {
+                    if (curType.IsGenericType && curType.GetGenericTypeDefinition() == typeof(CustomMetadata<>))
+                    {
+                        customMetaImplType = curType.GetGenericArguments()[0].AssemblyQualifiedName;
+                        break;
+                    }
+                    curType = curType.BaseType;
+                }
+                if (!string.IsNullOrEmpty(customMetaImplType))
+                    implementationToCustomDataType[customMetaImplType] = type;
             }
 
             actorImplementationLabels = actorImplementations.Select(s => s.GetBefore(",")).ToArray();
         }
 
-        public ActorManagerSettings ()
-        {
-            overrideDrawers = OverrideMetaDrawers ?? new Dictionary<string, Action<SerializedProperty>>();
-            lockedActorIds = LockedActorIds ?? new HashSet<string>();
-            FromMetaButtonLabel = new GUIContent ($"< Back To {EditorTitle} List");
-        }
-
         public override void OnActivate (string searchContext, VisualElement rootElement)
         {
             base.OnActivate(searchContext, rootElement);
+            
+            overrideDrawers = OverrideMetaDrawers();
+            lockedActorIds = LockedActorIds;
+            FromMetaButtonLabel = new GUIContent ($"< Back To {EditorTitle} List");
 
             MetadataMapProperty = SerializedObject.FindProperty(MetadataMapPropertyName);
             MetadataMapEditor = new MetadataMapEditor(SerializedObject, MetadataMapProperty, typeof(TMeta), EditorTitle, lockedActorIds);
@@ -99,6 +101,30 @@ namespace Naninovel
 
             if (MetadataMapEditor != null)
                 MetadataMapEditor.OnElementModified -= HandleMetadataElementModified;
+        }
+        
+        protected override Dictionary<string, Action<SerializedProperty>> OverrideConfigurationDrawers ()
+        {
+            var drawers = base.OverrideConfigurationDrawers();
+            drawers[MetadataMapPropertyName] = null;
+            drawers[DefaultMetadataPropertyName] = property =>
+            {
+                var label = EditorGUI.BeginProperty(Rect.zero, null, property);
+                property.isExpanded = EditorGUILayout.Foldout(property.isExpanded, label, true);
+                if (!property.isExpanded) return;
+                EditorGUI.indentLevel++;
+                DrawDefaultMetaEditor(property);
+                EditorGUI.indentLevel--;
+            };
+            return drawers;
+        }
+        
+        protected virtual Dictionary<string, Action<SerializedProperty>> OverrideMetaDrawers ()
+        {
+            return new Dictionary<string, Action<SerializedProperty>>
+            {
+                [nameof(ActorMetadata.Loader)] = property => { if (ResourcesTypeConstraint != null) EditorGUILayout.PropertyField(property); }
+            };
         }
 
         protected virtual string MetadataToResourcesCategoryId (ActorMetadata metadata) => $"{metadata.Loader.PathPrefix}/{metadata.Guid}";
@@ -147,8 +173,11 @@ namespace Naninovel
 
             EditorGUILayout.Space();
 
-            EditorGUILayout.LabelField(actorTitle + (AllowMultipleResources ? " Resources" : " Resource"), EditorStyles.boldLabel);
-            ResourcesEditor.DrawGUILayout(ResourcesCategoryId, AllowRename, ResourcesPathPrefix, ResourceName, ResourcesTypeConstraint, ResourcesSelectionTooltip);
+            if (ResourcesTypeConstraint != null)
+            {
+                EditorGUILayout.LabelField(actorTitle + (AllowMultipleResources ? " Resources" : " Resource"), EditorStyles.boldLabel);
+                ResourcesEditor.DrawGUILayout(ResourcesCategoryId, AllowRename, ResourcesPathPrefix, ResourceName, ResourcesTypeConstraint, ResourcesSelectionTooltip);
+            }
 
             // Return to meta list when pressing return key and no text fields are edited.
             if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Backspace && !EditorGUIUtility.editingTextField)
@@ -188,28 +217,24 @@ namespace Naninovel
                     continue;
                 }
 
-                if (property.propertyPath.EndsWithFast("customDataJson"))
+                if (property.propertyPath.EndsWithFast("customData"))
                 {
                     if (!implementationToCustomDataType.TryGetValue(EditedMetadata.Implementation, out var customDataType)) continue;
 
-                    if (customData.MetadataGuid != EditedMetadata.Guid && ObjectUtils.IsValid(customData.Object))
-                    {
-                        ObjectUtils.DestroyOrImmediate(customData.Object);
-                        ObjectUtils.DestroyOrImmediate(customData.Editor);
-                    }
-                    if (!ObjectUtils.IsValid(customData.Object))
-                    {
-                        customData.Object = ScriptableObject.CreateInstance(customDataType);
-                        JsonUtility.FromJsonOverwrite(property.stringValue, customData.Object);
-                        customData.Editor = Editor.CreateEditor(customData.Object);
-                        customData.MetadataGuid = EditedMetadata.Guid;
-                    }
+                    if (!property.hasVisibleChildren || property.managedReferenceFullTypename?.GetAfter(" ")?.Replace("/", "+") != customDataType.FullName)
+                        property.managedReferenceValue = Activator.CreateInstance(customDataType);
 
-                    EditorGUI.BeginChangeCheck();
-                    customData.Editor.OnInspectorGUI();
-                    if (EditorGUI.EndChangeCheck())
-                        property.stringValue = JsonUtility.ToJson(customData.Object);
-
+                    var customMetaProperty = property.Copy();
+                    var endCustomMetaProperty = customMetaProperty.GetEndProperty();
+                    customMetaProperty.NextVisible(true);
+                    do
+                    {
+                        if (SerializedProperty.EqualContents(customMetaProperty, endCustomMetaProperty))
+                            break;
+                        EditorGUILayout.PropertyField(customMetaProperty, true);
+                    }
+                    while (customMetaProperty.NextVisible(false));
+                    
                     continue;
                 }
 

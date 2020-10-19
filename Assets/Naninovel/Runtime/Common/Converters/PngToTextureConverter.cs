@@ -10,9 +10,9 @@ namespace Naninovel
     /// </summary>
     public class PngToTextureConverter : IRawConverter<Texture2D>
     {
-        public RawDataRepresentation[] Representations { get { return new RawDataRepresentation[] {
+        public RawDataRepresentation[] Representations { get; } = {
             new RawDataRepresentation(".png", "image/png")
-        }; } }
+        };
 
         public Texture2D Convert (byte[] obj, string name)
         {

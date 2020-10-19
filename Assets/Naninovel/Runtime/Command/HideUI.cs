@@ -11,7 +11,7 @@ namespace Naninovel.Commands
     /// </summary>
     /// <remarks>
     /// When hiding the entire UI with this command and `allowToggle` parameter is false (default), user won't be able to re-show the UI 
-    /// back with hotkeys or by clicking anywhere on the screen; use [@showUI] command to make the UI ~~great~~ visible again.
+    /// back with hotkeys or by clicking anywhere on the screen; use [@showUI] command to make the UI visible again.
     /// </remarks>
     /// <example>
     /// ; Given a custom `Calendar` UI, the following command will hide it.
@@ -34,7 +34,7 @@ namespace Naninovel.Commands
         /// <summary>
         /// Name of the UI elements to hide.
         /// </summary>
-        [ParameterAlias(NamelessParameterAlias)]
+        [ParameterAlias(NamelessParameterAlias), IDEResource(UIConfiguration.DefaultPathPrefix)]
         public StringListParameter UINames;
         /// <summary>
         /// When hiding the entire UI, controls whether to allow the user to re-show the UI with hotkeys or by clicking anywhere on the screen (false by default).

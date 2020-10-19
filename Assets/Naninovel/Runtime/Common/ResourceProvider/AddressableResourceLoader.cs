@@ -35,15 +35,15 @@ namespace Naninovel
             if (locations.Exists(l => l.PrimaryKey.EqualsFast(resourceAddress)))
             {
                 var task = Addressables.LoadAssetAsync<TResource>(resourceAddress);
-                while (!task.IsDone) // When awaiting the method directly it fails on WebGL (they're using mutlithreaded Task fot GetAwaiter)
+                while (!task.IsDone) // When awaiting the method directly it fails on WebGL (they're using multithreaded Task fot GetAwaiter)
                     await AsyncUtils.WaitEndOfFrame;
                 asset = task.Result;
             }
 
-            var result = new Resource<TResource>(Path, asset, Provider);
+            var result = new Resource<TResource>(Path, asset);
             SetResult(result);
 
-            logAction?.Invoke($"Resource '{Path}' loaded over {Time.time - startTime:0.###} seconds.");
+            logAction?.Invoke($"Resource `{Path}` loaded over {Time.time - startTime:0.###} seconds.");
         }
     }
 }

@@ -13,14 +13,17 @@ namespace Naninovel
     /// The implementation currently requires scenes to be at `./Assets/Scenes` project folder; resource providers are not supported.
     /// Scenes should be added to the build settings.
     /// </remarks>
-    public class SceneBackground : MonoBehaviourActor, IBackgroundActor
+    #if UNITY_EDITOR
+    [ActorResources(typeof(UnityEditor.SceneAsset), true)]
+    #endif
+    public class SceneBackground : MonoBehaviourActor<BackgroundMetadata>, IBackgroundActor
     {
-        private class SceneData { public Scene Scene; public GameObject RootObject; public RenderTexture RenderTexture; }
+        private class SceneData { public Scene Scene; public RenderTexture RenderTexture; }
 
         public override string Appearance { get => appearance; set => SetAppearance(value); }
         public override bool Visible { get => visible; set => SetVisibility(value); }
 
-        protected TransitionalSpriteRenderer SpriteRenderer { get; }
+        protected virtual TransitionalRenderer TransitionalRenderer { get; private set; }
 
         private const string pathPrefix = "Assets/Scenes/";
         private static bool sharedResourcesInitialized;
@@ -40,13 +43,31 @@ namespace Naninovel
 
             InitializeSharedResources();
             sharedRefCounter++;
+        }
 
-            SpriteRenderer = GameObject.AddComponent<TransitionalSpriteRenderer>();
-            SpriteRenderer.Pivot = metadata.Pivot;
-            SpriteRenderer.PixelsPerUnit = metadata.PixelsPerUnit;
-            SpriteRenderer.DepthPassEnabled = metadata.EnableDepthPass;
-            SpriteRenderer.DepthAlphaCutoff = metadata.DepthAlphaCutoff;
-            SpriteRenderer.CustomShader = metadata.CustomShader;
+        public override async UniTask InitializeAsync ()
+        {
+            await base.InitializeAsync();
+            
+            if (ActorMetadata.RenderTexture)
+            {
+                ActorMetadata.RenderTexture.Clear();
+                var textureRenderer = GameObject.AddComponent<TransitionalTextureRenderer>();
+                textureRenderer.Initialize(ActorMetadata.CustomShader);
+                textureRenderer.RenderTexture = ActorMetadata.RenderTexture;
+                textureRenderer.CorrectAspect = ActorMetadata.CorrectRenderAspect;
+                textureRenderer.DepthPassEnabled = ActorMetadata.EnableDepthPass;
+                textureRenderer.DepthAlphaCutoff = ActorMetadata.DepthAlphaCutoff;
+                TransitionalRenderer = textureRenderer;
+            }
+            else
+            {
+                var spriteRenderer = GameObject.AddComponent<TransitionalSpriteRenderer>();
+                spriteRenderer.Initialize(ActorMetadata.Pivot, ActorMetadata.PixelsPerUnit, ActorMetadata.CustomShader);
+                spriteRenderer.DepthPassEnabled = ActorMetadata.EnableDepthPass;
+                spriteRenderer.DepthAlphaCutoff = ActorMetadata.DepthAlphaCutoff;
+                TransitionalRenderer = spriteRenderer;
+            }
 
             SetVisibility(false);
         }
@@ -58,22 +79,20 @@ namespace Naninovel
 
             if (string.IsNullOrEmpty(appearance)) return;
 
-            if (transition.HasValue) SpriteRenderer.Transition = transition.Value;
-
             var scene = await GetOrLoadSceneDataAsync(appearance);
             if (cancellationToken.CancelASAP) return;
 
-            await SpriteRenderer.TransitionToAsync(scene.RenderTexture, duration, easingType, cancellationToken: cancellationToken);
+            await TransitionalRenderer.TransitionToAsync(scene.RenderTexture, duration, easingType, transition, cancellationToken);
         }
 
         public override async UniTask ChangeVisibilityAsync (bool visible, float duration, EasingType easingType = default, CancellationToken cancellationToken = default)
         {
             this.visible = visible;
 
-            await SpriteRenderer.FadeToAsync(visible ? 1 : 0, duration, easingType, cancellationToken);
+            await TransitionalRenderer.FadeToAsync(visible ? 1 : 0, duration, easingType, cancellationToken);
         }
 
-        public override async UniTask HoldResourcesAsync (object holder, string appearance)
+        public override async UniTask HoldResourcesAsync (string appearance, object holder)
         {
             if (string.IsNullOrEmpty(appearance)) return;
 
@@ -122,7 +141,7 @@ namespace Naninovel
             camera.targetTexture = renderTexture;
 
             // Commit shared data.
-            var sceneData = new SceneData { Scene = scene, RootObject = rootObject, RenderTexture = renderTexture };
+            var sceneData = new SceneData { Scene = scene, RenderTexture = renderTexture };
             sceneDataMap[sceneName] = sceneData;
 
             return sceneData;

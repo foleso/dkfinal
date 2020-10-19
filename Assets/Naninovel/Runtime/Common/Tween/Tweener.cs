@@ -67,7 +67,7 @@ namespace Naninovel
             var currentRunGuid = lastRunGuid;
             while (!cancellationToken.CancellationRequested && TweenValue.TargetValid && elapsedTime <= TweenValue.TweenDuration)
             {
-                PeformTween();
+                PerformTween();
                 await AsyncUtils.WaitEndOfFrame;
                 if (lastRunGuid != currentRunGuid) return; // The tweener was completed instantly or stopped.
             }
@@ -87,7 +87,7 @@ namespace Naninovel
             var currentRunGuid = lastRunGuid;
             while (!cancellationToken.CancellationRequested && TweenValue.TargetValid && elapsedTime <= TweenValue.TweenDuration)
             {
-                PeformTween();
+                PerformTween();
                 await AsyncUtils.WaitEndOfFrame;
                 if (lastRunGuid != currentRunGuid) return; // The tweener was completed instantly or stopped.
             }
@@ -106,7 +106,7 @@ namespace Naninovel
             lastRunGuid = Guid.NewGuid();
         }
 
-        private void PeformTween ()
+        private void PerformTween ()
         {
             elapsedTime += TweenValue.TimeScaleIgnored ? Time.unscaledDeltaTime : Time.deltaTime;
             var tweenPercent = Mathf.Clamp01(elapsedTime / TweenValue.TweenDuration);

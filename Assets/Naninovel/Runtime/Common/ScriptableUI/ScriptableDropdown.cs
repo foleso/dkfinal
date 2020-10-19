@@ -25,8 +25,7 @@ namespace Naninovel
 
         private void InvokeOnDropdownValueChanged (int value)
         {
-            if (OnDropdownValueChanged != null)
-                OnDropdownValueChanged.Invoke(value);
+            OnDropdownValueChanged?.Invoke(value);
         }
     }
 }

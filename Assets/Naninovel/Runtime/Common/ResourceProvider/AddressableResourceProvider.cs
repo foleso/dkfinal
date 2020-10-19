@@ -43,13 +43,13 @@ namespace Naninovel
             return await base.LoadResourceAsync<T>(path);
         }
 
-        public override async UniTask<IEnumerable<string>> LocateResourcesAsync<T> (string path)
+        public override async UniTask<IReadOnlyCollection<string>> LocateResourcesAsync<T> (string path)
         {
             if (locations is null) locations = await LoadAllLocations();
             return await base.LocateResourcesAsync<T>(path);
         }
 
-        public override async UniTask<IEnumerable<Folder>> LocateFoldersAsync (string path)
+        public override async UniTask<IReadOnlyCollection<Folder>> LocateFoldersAsync (string path)
         {
             if (locations is null) locations = await LoadAllLocations();
             return await base.LocateFoldersAsync(path);
@@ -79,8 +79,9 @@ namespace Naninovel
 
         private async UniTask<List<IResourceLocation>> LoadAllLocations ()
         {
+            // ReSharper disable once CoVariantArrayConversion
             var task = ExtraLabels != null ? Addressables.LoadResourceLocationsAsync(ExtraLabels, Addressables.MergeMode.Intersection) : Addressables.LoadResourceLocationsAsync(MainLabel);
-            while (!task.IsDone) // When awaiting the method directly it fails on WebGL (they're using mutlithreaded Task fot GetAwaiter)
+            while (!task.IsDone) // When awaiting the method directly it fails on WebGL (they're using multithreaded Task fot GetAwaiter)
                 await AsyncUtils.WaitEndOfFrame;
             var locations = task.Result;
             return locations?.ToList() ?? new List<IResourceLocation>();

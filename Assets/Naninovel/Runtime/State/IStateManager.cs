@@ -143,7 +143,6 @@ namespace Naninovel
         UniTask ResetStateAsync (Type[] exclude, params Func<UniTask>[] tasks);
         /// <summary>
         /// Takes a snapshot of the current game state and adds it to the rollback stack.
-        /// The state can then be rolled back to the stored snapshots with <see cref="RollbackAsync"/>.
         /// </summary>
         /// <param name="allowPlayerRollback">Whether player is allowed rolling back to the snapshot; see <see cref="GameStateMap.PlayerRollbackAllowed"/> for more info.</param>
         void PushRollbackSnapshot (bool allowPlayerRollback = true);

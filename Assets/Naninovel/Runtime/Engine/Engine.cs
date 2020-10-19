@@ -27,6 +27,12 @@ namespace Naninovel
         public static event Action OnInitializationFinished;
 
         /// <summary>
+        /// Types (both built-in and user-created) available for the engine
+        /// when looking for available actor implementations, serialization handlers, managed text, etc.
+        /// </summary>
+        /// <remarks>It's safe to access this property when the engine is not initialized.</remarks>
+        public static IReadOnlyCollection<Type> Types => typesCache ?? (typesCache = GetEngineTypes());
+        /// <summary>
         /// Configuration object used to initialize the engine.
         /// </summary>
         public static EngineConfiguration Configuration { get; private set; }
@@ -53,7 +59,8 @@ namespace Naninovel
         private static readonly List<Func<UniTask>> preInitializationTasks = new List<Func<UniTask>>();
         private static readonly List<Func<UniTask>> postInitializationTasks = new List<Func<UniTask>>();
         private static IConfigurationProvider configurationProvider;
-        private static UniTaskCompletionSource<object> initializeTCS;
+        private static UniTaskCompletionSource initializeTCS;
+        private static IReadOnlyCollection<Type> typesCache;
 
         /// <summary>
         /// Adds an async function delegate to invoke before the engine initialization.
@@ -83,13 +90,13 @@ namespace Naninovel
         /// </summary>
         /// <param name="configurationProvider">Configuration provider to use when resolving configuration objects.</param>
         /// <param name="behaviour">Unity's <see cref="MonoBehaviour"/> proxy to use.</param>
-        /// <param name="services">Ordered list of engine services to initialize.</param>
-        public static async UniTask InitializeAsync (IConfigurationProvider configurationProvider, IEngineBehaviour behaviour, List<IEngineService> services)
+        /// <param name="services">List of engine services to initialize (order will be preserved).</param>
+        public static async UniTask InitializeAsync (IConfigurationProvider configurationProvider, IEngineBehaviour behaviour, IList<IEngineService> services)
         {
             if (Initialized) return;
             if (Initializing) { await initializeTCS.Task; return; }
 
-            initializeTCS = new UniTaskCompletionSource<object>();
+            initializeTCS = new UniTaskCompletionSource();
             OnInitializationStarted?.Invoke();
 
             for (int i = preInitializationTasks.Count - 1; i >= 0; i--)
@@ -120,14 +127,14 @@ namespace Naninovel
                 if (!Initializing) return;
             }
 
-            initializeTCS?.TrySetResult(null);
+            initializeTCS?.TrySetResult();
             OnInitializationFinished?.Invoke();
         }
 
         /// <summary>
         /// Resets state of all the engine services.
         /// </summary>
-        public static void Reset () => services?.ForEach(s => s.ResetService());
+        public static void Reset () => services.ForEach(s => s.ResetService());
 
         /// <summary>
         /// Resets state of engine services.
@@ -135,10 +142,10 @@ namespace Naninovel
         /// <param name="exclude">Type of the engine services (interfaces) to exclude from reset.</param>
         public static void Reset (params Type[] exclude)
         {
-            if (services is null || services.Count == 0) return;
+            if (services.Count == 0) return;
 
             foreach (var service in services)
-                if (exclude is null || exclude.Length == 0 || !exclude.Any(t => t.IsAssignableFrom(service.GetType())))
+                if (exclude is null || exclude.Length == 0 || !exclude.Any(t => t.IsInstanceOfType(service)))
                     service.ResetService();
         }
 
@@ -162,8 +169,8 @@ namespace Naninovel
 
             foreach (var obj in objects)
             {
-                if (!ObjectUtils.IsValid(obj)) continue;
-                var go = obj is GameObject gobj ? gobj : (obj as Component).gameObject;
+                if (!obj) continue;
+                var go = obj is GameObject gameObject ? gameObject : (obj as Component)?.gameObject;
                 ObjectUtils.DestroyOrImmediate(go);
             }
             objects.Clear();
@@ -187,37 +194,31 @@ namespace Naninovel
         public static Configuration GetConfiguration (Type type)
         {
             if (configurationProvider is null)
-            {
-                Debug.LogError($"Failed to provide `{type.Name}` configuration object: Configuration provider is not available or the engine is not initialized.");
-                return default;
-            }
+                throw new Exception($"Failed to provide `{type.Name}` configuration object: Configuration provider is not available or the engine is not initialized.");
 
             return configurationProvider.GetConfiguration(type);
         }
 
         /// <summary>
-        /// Attempts to resolve a <see cref="IEngineService"/> object from the services list; returns first matching result when found, null otherwise.
-        /// Results per requested types are cached, so it's fine to use this method frequently.
+        /// Attempts to resolve first matching <see cref="IEngineService"/> object from the services list using provided <paramref name="predicate"/>.
         /// </summary>
+        /// <remarks>
+        /// Results per requested types are cached, so it's fine to use this method frequently without a <paramref name="predicate"/>.
+        /// </remarks>
         /// <typeparam name="TService">Type of the requested service.</typeparam>
         /// <param name="predicate">Additional filter to apply when looking for a match.</param>
+        /// <returns>First matching service or null, when no matches found.</returns>
         public static TService GetService<TService> (Predicate<TService> predicate = null)
             where TService : class, IEngineService
         {
             var requestedType = typeof(TService);
-
-            if (services is null)
-            {
-                Debug.LogError($"Failed to provide `{requestedType.Name}` engine service. Make sure the engine is initialized.");
-                return default;
-            }
 
             if (predicate is null && cachedGetServiceResults.TryGetValue(requestedType, out var cachedResult))
                 return cachedResult as TService;
 
             foreach (var service in services)
             {
-                if (!requestedType.IsAssignableFrom(service.GetType())) continue;
+                if (!requestedType.IsInstanceOfType(service)) continue;
                 if (predicate != null && !predicate(service as TService)) continue;
 
                 var result = service as TService;
@@ -227,6 +228,16 @@ namespace Naninovel
             }
 
             return null;
+        }
+        
+        /// <inheritdoc cref="GetService{TService}(System.Predicate{TService})"/>
+        /// <param name="result">First matching service or null, when no matches found.</param>
+        /// <returns>whether a match was found.</returns>
+        public static bool TryGetService<TService> (out TService result, Predicate<TService> predicate = null)
+            where TService : class, IEngineService
+        {
+            result = GetService<TService>(predicate);
+            return result != null;
         }
 
         /// <summary>
@@ -240,14 +251,8 @@ namespace Naninovel
             var result = new List<TService>();
             var resolvingType = typeof(TService);
 
-            if (services is null)
-            {
-                Debug.LogError($"Failed to provide engine services of type `{resolvingType.Name}`. Make sure the engine is initialized.");
-                return default;
-            }
-
-            var servicesOfType = services.FindAll(s => resolvingType.IsAssignableFrom(s.GetType()));
-            if (servicesOfType != null && servicesOfType.Count > 0)
+            var servicesOfType = services.FindAll(s => resolvingType.IsInstanceOfType(s));
+            if (servicesOfType.Count > 0)
                 result = servicesOfType.FindAll(s => predicate is null || predicate(s as TService)).Cast<TService>().ToList();
 
             return result;
@@ -258,17 +263,15 @@ namespace Naninovel
         /// </summary>
         /// <param name="prototype">Prototype of the object to instantiate.</param>
         /// <param name="name">Name to assign for the instantiated object. Will use name of the prototype when not provided.</param>
-        /// <param name="layer">Layer to assign for the instantiated object. Will assign <see cref="ObjectsLayer"/> (when <see cref="OverrideObjectsLayer"/>, otherwise will preserve prototype's layer) when not provided or less than zero.</param>
+        /// <param name="layer">Layer to assign for the instantiated object. When not provided and override layer is enabled in the engine configuration, will assign the layer specified in the configuration.</param>
         public static T Instantiate<T> (T prototype, string name = default, int? layer = default) where T : UnityEngine.Object
         {
             if (Behaviour is null)
-            {
-                Debug.LogError($"Failed to instatiate `{name ?? prototype.name}`: engine is not ready. Make sure you're not using this inside an engine service constructor (use InitializeServiceAsync() instead).");
-                return null;
-            }
+                throw new Exception($"Failed to instantiate `{name ?? prototype.name}`: engine is not ready. " +
+                                    $"Make sure you're not attempting to instantiate and object inside an engine service constructor (use `{nameof(IEngineService.InitializeServiceAsync)}` method instead).");
 
             var newObj = UnityEngine.Object.Instantiate(prototype);
-            var gameObj = newObj is GameObject newGObj ? newGObj : (newObj as Component).gameObject;
+            var gameObj = newObj is GameObject newGObj ? newGObj : (newObj as Component)?.gameObject;
             Behaviour.AddChildObject(gameObj);
 
             if (!string.IsNullOrEmpty(name)) newObj.name = name;
@@ -285,15 +288,13 @@ namespace Naninovel
         /// Creates a new <see cref="GameObject"/>, making it a child of the engine object and (optionally) adding provided components.
         /// </summary>
         /// <param name="name">Name to assign for the instantiated object. Will use a default name when not provided.</param>
-        /// <param name="layer">Layer to assign for the instantiated object. Will assign <see cref="ObjectsLayer"/> (when <see cref="OverrideObjectsLayer"/>, otherwise will preserve prototype's layer) when not provided or less than zero.</param>
+        /// <param name="layer">Layer to assign for the instantiated object. When not provided and override layer is enabled in the engine configuration, will assign the layer specified in the configuration.</param>
         /// <param name="components">Components to add on the created object.</param>
         public static GameObject CreateObject (string name = default, int? layer = default, params Type[] components)
         {
             if (Behaviour is null)
-            {
-                Debug.LogError($"Failed to create `{name ?? string.Empty}` object: engine is not ready. Make sure you're not using this inside an engine service constructor (use InitializeServiceAsync() instead).");
-                return null;
-            }
+                throw new Exception($"Failed to create `{name ?? string.Empty}` object: engine is not ready. " +
+                                    $"Make sure you're not attempting to create and object inside an engine service constructor (use `{nameof(IEngineService.InitializeServiceAsync)}` method instead).");
 
             var objName = name ?? "NaninovelObject";
             GameObject newObj;
@@ -313,14 +314,12 @@ namespace Naninovel
         /// Creates a new <see cref="GameObject"/>, making it a child of the engine object and adding specified component type.
         /// </summary>
         /// <param name="name">Name to assign for the instantiated object. Will use a default name when not provided.</param>
-        /// <param name="layer">Layer to assign for the instantiated object. Will assign <see cref="ObjectsLayer"/> (when <see cref="OverrideObjectsLayer"/>, otherwise will preserve prototype's layer) when not provided or less than zero.</param>
+        /// <param name="layer">Layer to assign for the instantiated object. When not provided and override layer is enabled in the engine configuration, will assign the layer specified in the configuration.</param>
         public static T CreateObject<T> (string name = default, int? layer = default) where T : Component
         {
             if (Behaviour is null)
-            {
-                Debug.LogError($"Failed to create `{name ?? string.Empty}` object of type `{typeof(T).Name}`: engine is not ready. Make sure you're not using this inside an engine service constructor (use InitializeServiceAsync() instead).");
-                return null;
-            }
+                throw new Exception($"Failed to create `{name ?? string.Empty}` object of type `{typeof(T).Name}`: engine is not ready. " +
+                                    $"Make sure you're not attempting to create and object inside an engine service constructor (use `{nameof(IEngineService.InitializeServiceAsync)}` method instead).");
 
             var newObj = new GameObject(name ?? typeof(T).Name);
             Behaviour.AddChildObject(newObj);
@@ -331,6 +330,20 @@ namespace Naninovel
             objects.Add(newObj);
 
             return newObj.AddComponent<T>();
+        }
+
+        private static IReadOnlyCollection<Type> GetEngineTypes ()
+        {
+            var engineTypes = new List<Type>(1000);
+            var engineConfig = ProjectConfigurationProvider.LoadOrDefault<EngineConfiguration>();
+            var domainAssemblies = ReflectionUtils.GetDomainAssemblies(true, true, true);
+            foreach (var assemblyName in engineConfig.TypeAssemblies)
+            {
+                var assembly = domainAssemblies.FirstOrDefault(a => a.FullName.StartsWithFast($"{assemblyName},"));
+                if (assembly is null) continue;
+                engineTypes.AddRange(assembly.GetExportedTypes());
+            }
+            return engineTypes;
         }
     }
 }

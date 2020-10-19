@@ -32,7 +32,8 @@ namespace Naninovel
             text = actor.Text;
             authorId = actor.AuthorId;
             richTextTags.Clear();
-            richTextTags.AddRange(actor.RichTextTags);
+            if (actor.RichTextTags != null && actor.RichTextTags.Count > 0)
+                richTextTags.AddRange(actor.RichTextTags);
             revealProgress = actor.RevealProgress;
         }
 

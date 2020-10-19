@@ -7,7 +7,7 @@ using UnityEngine.Events;
 namespace Naninovel
 {
     /// <summary>
-    /// Hosts events routed by <see cref="GenericActor{TBehaviour}"/>.
+    /// Hosts events routed by <see cref="GenericActor{TBehaviour,TMeta}"/>.
     /// </summary>
     public abstract class GenericActorBehaviour : MonoBehaviour
     {

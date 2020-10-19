@@ -8,7 +8,7 @@ namespace Naninovel
 {
     /// <remarks>
     /// On build pre-process: 
-    ///   - When addresable provider is used: assign an addressable address and label to the assets referenced in <see cref="EditorResources"/>;
+    ///   - When addressable provider is used: assign an addressable address and label to the assets referenced in <see cref="EditorResources"/>;
     ///   - Otherwise: copy the <see cref="EditorResources"/> assets to a temp `Resources` folder (except the assets already stored in `Resources` folders).
     /// On build post-process or build fail: 
     ///   - restore any affected assets and delete the created temporary `Resources` folder.
@@ -85,8 +85,8 @@ namespace Naninovel
                     throw new System.OperationCanceledException("Build was cancelled by the user.");
                 }
 
-                if (resourceAsset is SceneAsset)
-                    ProcessSceneResource(resourcePath, resourceAsset as SceneAsset);
+                if (resourceAsset is SceneAsset asset)
+                    ProcessSceneResource(resourcePath, asset);
                 else if (resourceAsset is UnityEngine.Video.VideoClip && options.target == BuildTarget.WebGL)
                     ProcessVideoResourceForWebGL(resourcePath, resourceAsset);
                 else ProcessResourceAsset(assetGuid, resourcePath, resourceAsset, projectResources);

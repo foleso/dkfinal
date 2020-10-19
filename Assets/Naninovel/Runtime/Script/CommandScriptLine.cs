@@ -24,13 +24,13 @@ namespace Naninovel
         [SerializeReference] private Command command = default;
 
         /// <inheritdoc/>
-        public CommandScriptLine (string scriptName, int lineIndex, string lineText, List<ScriptParseError> errors = null)
-            : base(scriptName, lineIndex, lineText, errors) { }
-
-        protected override void ParseLineText (string lineText, out string error)
+        public CommandScriptLine (string scriptName, int lineIndex, string lineText, ICollection<ScriptParseError> errors = null)
+            : base(scriptName, lineIndex, lineText, errors)
         {
             var commandText = lineText.GetAfterFirst(IdentifierLiteral);
-            command = Command.FromScriptText(ScriptName, LineIndex, 0, commandText, out error);
+            command = Command.FromScriptText(ScriptName, LineIndex, 0, commandText, out var error);
+            if (!string.IsNullOrEmpty(error)) 
+                AddParseError(error);
         }
     }
 }

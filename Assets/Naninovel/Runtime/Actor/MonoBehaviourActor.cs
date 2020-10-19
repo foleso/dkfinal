@@ -9,9 +9,11 @@ namespace Naninovel
     /// <summary>
     /// A <see cref="IActor"/> implementation using <see cref="MonoBehaviour"/> to represent the actor.
     /// </summary>
-    public abstract class MonoBehaviourActor : IActor, IDisposable
+    public abstract class MonoBehaviourActor<TMeta> : IActor, IDisposable
+        where TMeta : ActorMetadata
     {
         public virtual string Id { get; }
+        public virtual TMeta ActorMetadata { get; }
         public abstract string Appearance { get; set; }
         public abstract bool Visible { get; set; }
         public virtual Vector3 Position
@@ -34,9 +36,8 @@ namespace Naninovel
             get => tintColor;
             set { CompleteTintColorTween(); tintColor = value; SetBehaviourTintColor(value); }
         }
-
-        protected virtual GameObject GameObject { get; private set; }
-        protected virtual Transform Transform => GameObject.transform;
+        public virtual GameObject GameObject { get; }
+        public virtual Transform Transform => GameObject.transform;
 
         private readonly Tweener<VectorTween> positionTweener = new Tweener<VectorTween>();
         private readonly Tweener<VectorTween> rotationTweener = new Tweener<VectorTween>();
@@ -47,9 +48,10 @@ namespace Naninovel
         private Quaternion rotation = Quaternion.identity;
         private Color tintColor = Color.white;
 
-        public MonoBehaviourActor (string id, ActorMetadata metadata)
+        protected MonoBehaviourActor (string id, TMeta metadata)
         {
             Id = id;
+            ActorMetadata = metadata;
             GameObject = Engine.CreateObject(id);
         }
 
@@ -96,9 +98,9 @@ namespace Naninovel
             await tintColorTweener.RunAsync(tween, cancellationToken);
         }
 
-        public virtual UniTask HoldResourcesAsync (object holder, string appearance) => UniTask.CompletedTask;
+        public virtual UniTask HoldResourcesAsync (string appearance, object holder) => UniTask.CompletedTask;
 
-        public virtual void ReleaseResources (object holder, string appearance) { }
+        public virtual void ReleaseResources (string appearance, object holder) { }
 
         public virtual void Dispose () => ObjectUtils.DestroyOrImmediate(GameObject);
 

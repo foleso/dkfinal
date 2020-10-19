@@ -105,7 +105,7 @@ namespace Naninovel.UI
 
             rebuildPending = false;
 
-            if (revealAfterRebuild != -1)
+            if (!Mathf.Approximately(revealAfterRebuild, -1))
             {
                 SetRevealProgress(revealAfterRebuild);
                 UpdateClipRects();
@@ -178,7 +178,7 @@ namespace Naninovel.UI
             while (rebuildPending && !revealState.CancellationToken.CancelASAP) return;
             if (revealState.CancellationToken.CancelASAP) { revealState.Reset(); return; }
 
-            // Skip invisible characters (eg, formating tags).
+            // Skip invisible characters (eg, formatting tags).
             var nextVisibleCharIndex = FindNextVisibleCharIndex(LastRevealedVisibleCharIndex);
             if (nextVisibleCharIndex == -1) // No visible characters left to reveal.
             {
@@ -254,7 +254,7 @@ namespace Naninovel.UI
         {
             var result = 0f;
             if (LastVisibleCharIndex <= 0) result = LastRevealedVisibleCharIndex >= 0 ? 1f : 0f;
-            result = Mathf.Clamp01(LastRevealedVisibleCharIndex / (float)LastVisibleCharIndex);
+            else result = Mathf.Clamp01(LastRevealedVisibleCharIndex / (float)LastVisibleCharIndex);
             if (rebuildPending) result = Mathf.Clamp(result, 0, .999f);
             return result;
         }
@@ -303,10 +303,9 @@ namespace Naninovel.UI
             // Additionally, we need to handle cases when appending text, so that last revealed char won't get hidden again when resuming (revealStartChar is used instead of lineFirstChar).
             var startLimit = currentChar.LineIndex == revealStartChar.LineIndex ? currentChar.Origin - revealStartChar.Origin : currentChar.XAdvance - lineFirstChar.Origin;
             var endLimit = lineLastChar.XAdvance - currentChar.XAdvance;
-            var widthLimit = Mathf.Min(startLimit, endLimit);
+            var widthLimit = Mathf.Max(0, Mathf.Min(startLimit, endLimit));
             curCharFadeWidth = Mathf.Clamp(revealFadeWidth, 0f, widthLimit);
 
-            // TODO: Find a way to find the slant (italic) angle of the last revealed character.
             curCharSlantAngle = italicSlantAngle;
         }
 

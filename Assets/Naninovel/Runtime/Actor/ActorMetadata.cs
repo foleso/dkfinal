@@ -22,7 +22,7 @@ namespace Naninovel
 
         [HideInInspector]
         [SerializeField] private string guid = System.Guid.NewGuid().ToString();
-        [SerializeField] private string customDataJson = default;
+        [SerializeReference] private CustomMetadata customData = default;
 
         /// <summary>
         /// Attempts to retrieve an actor state associated with the provided pose name;
@@ -30,14 +30,12 @@ namespace Naninovel
         /// </summary>
         public abstract TState GetPoseOrNull<TState> (string poseName) where TState : ActorState;
         /// <summary>
-        /// Attempts to retrieve a custom data of type <typeparamref name="TData"/> assigned via <see cref="CustomMetadataAttribute"/>.
+        /// Attempts to retrieve a custom data of type <typeparamref name="TData"/>.
         /// </summary>
         /// <typeparam name="TData">Type of the custom data to retrieve.</typeparam>
-        public virtual TData GetCustomData<TData> () where TData : ScriptableObject
+        public virtual TData GetCustomData<TData> () where TData : CustomMetadata
         {
-            var data = ScriptableObject.CreateInstance<TData>();
-            JsonUtility.FromJsonOverwrite(customDataJson, data);
-            return data;
+            return customData as TData;
         }
     }
 }

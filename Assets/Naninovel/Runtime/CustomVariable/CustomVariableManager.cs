@@ -2,22 +2,23 @@
 
 using System;
 using System.Collections.Generic;
+using Naninovel.Commands;
 using UniRx.Async;
 using UnityEngine;
 
 namespace Naninovel
 {
     /// <inheritdoc cref="ICustomVariableManager"/>
-    [InitializeAtRuntime, Commands.Goto.DontReset]
+    [InitializeAtRuntime, Goto.DontResetAttribute]
     public class CustomVariableManager : IStatefulService<GameStateMap>, IStatefulService<GlobalStateMap>, ICustomVariableManager
     {
-        [System.Serializable]
+        [Serializable]
         public class GlobalState
         {
             public SerializableLiteralStringMap GlobalVariableMap;
         }
 
-        [System.Serializable]
+        [Serializable]
         public class GameState
         {
             public SerializableLiteralStringMap LocalVariableMap;
@@ -86,7 +87,11 @@ namespace Naninovel
             return UniTask.CompletedTask;
         }
 
-        public virtual bool VariableExists (string name) => CustomVariablesConfiguration.IsGlobalVariable(name) ? globalVariableMap.ContainsKey(name) : localVariableMap.ContainsKey(name);
+        public virtual bool VariableExists (string name)
+        {
+            if (string.IsNullOrEmpty(name)) throw new ArgumentException("Variable name cannot be null or empty.", nameof(name));
+            return CustomVariablesConfiguration.IsGlobalVariable(name) ? globalVariableMap.ContainsKey(name) : localVariableMap.ContainsKey(name);
+        }
 
         public virtual string GetVariableValue (string name)
         {
@@ -94,7 +99,7 @@ namespace Naninovel
             return CustomVariablesConfiguration.IsGlobalVariable(name) ? globalVariableMap[name] : localVariableMap[name];
         }
 
-        public virtual IEnumerable<CustomVariable> GetAllVariables ()
+        public virtual IReadOnlyCollection<CustomVariable> GetAllVariables ()
         {
             var result = new List<CustomVariable>();
             foreach (var kv in globalVariableMap)
@@ -106,6 +111,8 @@ namespace Naninovel
 
         public virtual void SetVariableValue (string name, string value)
         {
+            if (string.IsNullOrEmpty(name)) throw new ArgumentException("Variable name cannot be null or empty.", nameof(name));
+            
             var isGlobal = CustomVariablesConfiguration.IsGlobalVariable(name);
             var initialValue = default(string);
 
@@ -148,6 +155,6 @@ namespace Naninovel
             }
         }
 
-        private void LogInitializeVarError (string varName, string expr, string error) => Debug.LogWarning($"Failed to initialize `{varName}` varaible with `{expr}` expression: {error}");
+        private void LogInitializeVarError (string varName, string expr, string error) => Debug.LogWarning($"Failed to initialize `{varName}` variable with `{expr}` expression: {error}");
     }
 }

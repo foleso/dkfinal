@@ -18,7 +18,7 @@ namespace Naninovel
         }
 
         private static readonly GUIContent scriptContent = new GUIContent("Script", "Naninovel script for which to edit auto voice associations.");
-        private static readonly Color invalidOjectColor = new Color(1, .8f, .8f);
+        private static readonly Color invalidObjectColor = new Color(1, .8f, .8f);
         private static readonly Type clipType = typeof(AudioClip);
         private static readonly Type scriptType = typeof(Script);
 
@@ -98,7 +98,7 @@ namespace Naninovel
 
                     EditorGUI.BeginChangeCheck();
                     var initialGuidColor = GUI.color;
-                    if (!ObjectUtils.IsValid(data.ClipObject)) GUI.color = invalidOjectColor;
+                    if (!ObjectUtils.IsValid(data.ClipObject)) GUI.color = invalidObjectColor;
                     data.ClipObject = EditorGUILayout.ObjectField(GUIContent.none, data.ClipObject, clipType, false) as AudioClip;
                     GUI.color = initialGuidColor;
                     if (EditorGUI.EndChangeCheck())

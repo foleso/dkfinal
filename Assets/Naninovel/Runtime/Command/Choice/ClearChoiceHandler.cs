@@ -29,7 +29,7 @@ namespace Naninovel.Commands
         /// ID of the choice handler to clear. Will use a default handler if not provided.
         /// Specify `*` to clear all the existing handlers.
         /// </summary>
-        [ParameterAlias(NamelessParameterAlias)]
+        [ParameterAlias(NamelessParameterAlias), IDEActor(ChoiceHandlersConfiguration.DefaultPathPrefix)]
         public StringParameter HandlerId;
         /// <summary>
         /// Whether to also hide the affected choice handlers.
@@ -38,11 +38,11 @@ namespace Naninovel.Commands
 
         public override UniTask ExecuteAsync (CancellationToken cancellationToken = default)
         {
-            var mngr = Engine.GetService<IChoiceHandlerManager>();
+            var choiceManager = Engine.GetService<IChoiceHandlerManager>();
 
             if (Assigned(HandlerId) && HandlerId == "*")
             {
-                foreach (var handler in mngr.GetAllActors())
+                foreach (var handler in choiceManager.GetAllActors())
                 {
                     RemoveAllChoices(handler);
                     if (Hide) handler.Visible = false;
@@ -50,14 +50,14 @@ namespace Naninovel.Commands
                 return UniTask.CompletedTask;
             }
 
-            var handlerId = Assigned(HandlerId) ? HandlerId.Value : mngr.Configuration.DefaultHandlerId;
-            if (!mngr.ActorExists(handlerId))
+            var handlerId = Assigned(HandlerId) ? HandlerId.Value : choiceManager.Configuration.DefaultHandlerId;
+            if (!choiceManager.ActorExists(handlerId))
             {
                 LogWarningWithPosition($"Failed to clear `{handlerId}` choice handler: handler actor with the provided ID doesn't exist.");
                 return UniTask.CompletedTask;
             }
 
-            var choiceHandler = mngr.GetActor(handlerId);
+            var choiceHandler = choiceManager.GetActor(handlerId);
             RemoveAllChoices(choiceHandler);
             if (Hide) choiceHandler.Visible = false;
             return UniTask.CompletedTask;

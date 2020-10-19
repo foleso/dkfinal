@@ -12,21 +12,21 @@ namespace Naninovel
         /// <summary>
         /// Returns a managed actor with the provided ID. If the actor doesn't exist, will add it.
         /// </summary>
-        public static async UniTask<IActor> GetOrAddActorAsync (this IActorManager mngr, string actorId)
+        public static async UniTask<IActor> GetOrAddActorAsync (this IActorManager manager, string actorId)
         {
-            return mngr.ActorExists(actorId) ? mngr.GetActor(actorId) : await mngr.AddActorAsync(actorId);
+            return manager.ActorExists(actorId) ? manager.GetActor(actorId) : await manager.AddActorAsync(actorId);
         }
 
         /// <summary>
         /// Returns a managed actor with the provided ID. If the actor doesn't exist, will add it.
         /// </summary>
-        public static async UniTask<TActor> GetOrAddActorAsync<TActor, TState, TMeta, TConfig> (this IActorManager<TActor, TState, TMeta, TConfig> mngr, string actorId)
+        public static async UniTask<TActor> GetOrAddActorAsync<TActor, TState, TMeta, TConfig> (this IActorManager<TActor, TState, TMeta, TConfig> manager, string actorId)
             where TActor : IActor
             where TState : ActorState<TActor>, new()
             where TMeta : ActorMetadata
             where TConfig : ActorManagerConfiguration<TMeta>
         {
-            return mngr.ActorExists(actorId) ? mngr.GetActor(actorId) : await mngr.AddActorAsync(actorId);
+            return manager.ActorExists(actorId) ? manager.GetActor(actorId) : await manager.AddActorAsync(actorId);
         }
     }
 }

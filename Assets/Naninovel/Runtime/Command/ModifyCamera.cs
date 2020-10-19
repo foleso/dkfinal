@@ -51,7 +51,7 @@ namespace Naninovel.Commands
         /// </summary>
         public DecimalListParameter Rotation;
         /// <summary>
-        /// Relatize camera zoom (orthographic size or field of view, depending on the render mode), in 0.0 (no zoom) to 1.0 (full zoom) range.
+        /// Relative camera zoom (orthographic size or field of view, depending on the render mode), in 0.0 (no zoom) to 1.0 (full zoom) range.
         /// </summary>
         public DecimalParameter Zoom;
         /// <summary>
@@ -60,13 +60,13 @@ namespace Naninovel.Commands
         [ParameterAlias("ortho")]
         public BooleanParameter Orthographic;
         /// <summary>
-        /// Names of the components to toggle (enable if disabled and vice-versa). The components should be attached to the same gameobject as the camera.
+        /// Names of the components to toggle (enable if disabled and vice-versa). The components should be attached to the same game object as the camera.
         /// This can be used to toggle [custom post-processing effects](/guide/special-effects.md#camera-effects).
         /// </summary>
         [ParameterAlias("toggle")]
         public StringListParameter ToggleTypeNames;
         /// <summary>
-        /// Names of the components to enable or disable. The components should be attached to the same gameobject as the camera.
+        /// Names of the components to enable or disable. The components should be attached to the same game object as the camera.
         /// This can be used to explicitly enable or disable [custom post-processing effects](/guide/special-effects.md#camera-effects).
         /// Specified components enabled state will override effect of `toggle` parameter.
         /// </summary>
@@ -79,7 +79,7 @@ namespace Naninovel.Commands
         /// <br/><br/>
         /// When not specified, will use a default easing function set in the camera configuration settings.
         /// </summary>
-        [ParameterAlias("easing")]
+        [ParameterAlias("easing"), IDEConstant(IDEConstantAttribute.Easing)]
         public StringParameter EasingTypeName;
         /// <summary>
         /// Duration (in seconds) of the modification. Default value: 0.35 seconds.
@@ -127,7 +127,7 @@ namespace Naninovel.Commands
                 var cmp = cameraManager.Camera.gameObject.GetComponent(componentName) as MonoBehaviour;
                 if (!cmp)
                 {
-                    LogWithPosition($"Failed to toggle `{componentName}` camera component; the component is not found on the camera's gameobject.");
+                    LogWithPosition($"Failed to toggle `{componentName}` camera component; the component is not found on the camera's game object.");
                     return;
                 }
                 action.Invoke(cmp);

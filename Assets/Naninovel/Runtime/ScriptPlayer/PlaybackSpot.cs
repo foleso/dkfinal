@@ -52,9 +52,9 @@ namespace Naninovel
         public override int GetHashCode ()
         {
             var hashCode = 646664838;
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(scriptName);
-            hashCode = hashCode * -1521134295 + lineIndex.GetHashCode();
-            hashCode = hashCode * -1521134295 + inlineIndex.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ScriptName);
+            hashCode = hashCode * -1521134295 + LineIndex.GetHashCode();
+            hashCode = hashCode * -1521134295 + InlineIndex.GetHashCode();
             return hashCode;
         }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Naninovel
 {
-    [System.Serializable]
+    [EditInProjectSettings]
     public class ManagedTextConfiguration : Configuration
     {
         public const string DefaultManagedTextPathPrefix = "Text";

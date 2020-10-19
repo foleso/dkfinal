@@ -27,7 +27,7 @@ namespace Naninovel.Commands
         /// <summary>
         /// Name (path) of the prefab resource to spawn.
         /// </summary>
-        [ParameterAlias(NamelessParameterAlias), RequiredParameter]
+        [ParameterAlias(NamelessParameterAlias), RequiredParameter, IDEResource(SpawnConfiguration.DefaultPathPrefix)]
         public StringParameter Path;
         /// <summary>
         /// Parameters to set when spawning the prefab.
@@ -37,16 +37,16 @@ namespace Naninovel.Commands
 
         protected virtual ISpawnManager SpawnManager => Engine.GetService<ISpawnManager>();
 
-        public async UniTask HoldResourcesAsync ()
+        public async UniTask PreloadResourcesAsync ()
         {
             if (!Assigned(Path) || Path.DynamicValue || string.IsNullOrWhiteSpace(Path)) return;
-            await SpawnManager.HoldResourcesAsync(this, Path);
+            await SpawnManager.HoldResourcesAsync(Path, this);
         }
 
-        public void ReleaseResources ()
+        public void ReleasePreloadedResources ()
         {
             if (!Assigned(Path) || Path.DynamicValue || string.IsNullOrWhiteSpace(Path)) return;
-            SpawnManager.ReleaseResources(this, Path);
+            SpawnManager.ReleaseResources(Path, this);
         }
 
         public override async UniTask ExecuteAsync (CancellationToken cancellationToken = default)

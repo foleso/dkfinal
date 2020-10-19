@@ -44,10 +44,10 @@ namespace Naninovel
         /// <summary>
         /// Preloads the resources required to play a movie with the provided path.
         /// </summary>
-        UniTask HoldResourcesAsync (object holder, string movieName);
+        UniTask HoldResourcesAsync (string movieName, object holder);
         /// <summary>
         /// Unloads the resources required to play a movie with the provided path.
         /// </summary>
-        void ReleaseResources (object holder, string movieName);
+        void ReleaseResources (string movieName, object holder);
     }
 }

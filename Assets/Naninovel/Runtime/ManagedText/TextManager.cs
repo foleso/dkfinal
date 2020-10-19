@@ -16,7 +16,7 @@ namespace Naninovel
         private readonly IResourceProviderManager providersManager;
         private readonly ILocalizationManager localizationManager;
         private readonly HashSet<ManagedTextRecord> records = new HashSet<ManagedTextRecord>();
-        private ResourceLoader<TextAsset> documentLoader;
+        private LocalizableResourceLoader<TextAsset> documentLoader;
 
         public TextManager (ManagedTextConfiguration config, IResourceProviderManager providersManager, ILocalizationManager localizationManager)
         {
@@ -27,8 +27,8 @@ namespace Naninovel
 
         public virtual UniTask InitializeServiceAsync ()
         {
-            localizationManager.AddChangeLocaleTask(ApplyManagedTextAsync);
             documentLoader = Configuration.Loader.CreateLocalizableFor<TextAsset>(providersManager, localizationManager);
+            localizationManager.AddChangeLocaleTask(ApplyManagedTextAsync);
             return UniTask.CompletedTask;
         }
 
@@ -48,7 +48,7 @@ namespace Naninovel
             return null;
         }
 
-        public virtual IEnumerable<ManagedTextRecord> GetAllRecords (params string[] categoryFilter)
+        public virtual IReadOnlyCollection<ManagedTextRecord> GetAllRecords (params string[] categoryFilter)
         {
             if (categoryFilter is null || categoryFilter.Length == 0)
                 return records.ToList();
@@ -63,7 +63,6 @@ namespace Naninovel
         public virtual async UniTask ApplyManagedTextAsync ()
         {
             records.Clear();
-            documentLoader.UnloadAll();
             var documentResources = await documentLoader.LoadAllAsync();
             foreach (var documentResource in documentResources)
             {
@@ -72,7 +71,7 @@ namespace Naninovel
                     Debug.LogWarning($"Failed to load `{documentResource.Path}` managed text document.");
                     continue;
                 }
-                var managedTextSet = ManagedTextUtils.ParseDocument(documentResource.Object.text, documentLoader.BuildLocalPath(documentResource.Path));
+                var managedTextSet = ManagedTextUtils.ParseDocument(documentResource.Object.text, documentLoader.GetLocalPath(documentResource));
 
                 foreach (var text in managedTextSet)
                     records.Add(new ManagedTextRecord(text.Key, text.Value, text.Category));

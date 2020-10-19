@@ -62,10 +62,16 @@ namespace Naninovel
             return UniTask.CompletedTask;
         }
 
-        public virtual bool ItemUnlocked (string itemId) => unlockablesMap.TryGetValue(itemId, out var item) && item;
+        public virtual bool ItemUnlocked (string itemId)
+        {
+            if (string.IsNullOrEmpty(itemId)) throw new ArgumentNullException(nameof(itemId), "Can't get unlock status of item with empty ID.");
+            return unlockablesMap.TryGetValue(itemId, out var item) && item;
+        }
 
         public virtual void SetItemUnlocked (string itemId, bool unlocked)
         {
+            if (string.IsNullOrEmpty(itemId)) throw new ArgumentNullException(nameof(itemId), "Can't set unlock status of item with empty ID.");
+            
             if (unlocked && ItemUnlocked(itemId)) return;
             if (!unlocked && unlockablesMap.ContainsKey(itemId) && !ItemUnlocked(itemId)) return;
 

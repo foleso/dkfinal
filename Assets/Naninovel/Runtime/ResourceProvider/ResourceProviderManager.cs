@@ -28,8 +28,8 @@ namespace Naninovel
 
         public virtual UniTask InitializeServiceAsync ()
         {
-            if (ResourceProviderConfiguration.EditorProvider != null)
-                ResourceProviderConfiguration.EditorProvider.OnMessage += (message) => HandleProviderMessage(ResourceProviderConfiguration.EditorProvider, message);
+            if (Configuration.MasterProvider != null)
+                Configuration.MasterProvider.OnMessage += message => HandleProviderMessage(Configuration.MasterProvider, message);
 
             Application.lowMemory += HandleLowMemoryAsync;
             return UniTask.CompletedTask;
@@ -42,7 +42,7 @@ namespace Naninovel
             Application.lowMemory -= HandleLowMemoryAsync;
             foreach (var provider in providers.Values)
                 provider?.UnloadResources();
-            ResourceProviderConfiguration.EditorProvider?.UnloadResources();
+            Configuration.MasterProvider?.UnloadResources();
         }
 
         public virtual bool ProviderInitialized (string providerType) => providers.ContainsKey(providerType);
@@ -59,8 +59,8 @@ namespace Naninovel
             var result = new List<IResourceProvider>();
 
             // Include editor provider if assigned.
-            if (ResourceProviderConfiguration.EditorProvider != null)
-                result.Add(ResourceProviderConfiguration.EditorProvider);
+            if (Configuration.MasterProvider != null)
+                result.Add(Configuration.MasterProvider);
 
             // Include requested providers in order.
             foreach (var providerType in providerTypes.Distinct())
@@ -101,7 +101,7 @@ namespace Naninovel
             return localProvider;
         }
 
-        private IResourceProvider InitializeAddresableProvider ()
+        private IResourceProvider InitializeAddressableProvider ()
         {
             #if ADDRESSABLES_AVAILABLE
             if (Application.isEditor && !Configuration.AllowAddressableInEditor) return null; // Otherwise could be issues with addressables added on previous build, but renamed after.
@@ -122,7 +122,7 @@ namespace Naninovel
                     provider = InitializeProjectProvider();
                     break;
                 case ResourceProviderConfiguration.AddressableTypeName:
-                    provider = InitializeAddresableProvider();
+                    provider = InitializeAddressableProvider();
                     break;
                 case ResourceProviderConfiguration.LocalTypeName:
                     provider = InitializeLocalProvider();
@@ -132,18 +132,14 @@ namespace Naninovel
                     break;
                 default:
                     var customType = Type.GetType(providerType);
-                    if (customType is null)
-                    {
-                        Debug.LogError($"Failed to initialize '{providerType}' resource provider. Make sure provider types are set correctly in `Loader` properties of the Naninovel configuration menus.");
-                        return null;
-                    }
+                    if (customType is null) throw new Exception($"Failed to initialize '{providerType}' resource provider. Make sure provider types are set correctly in `Loader` properties of the Naninovel configuration menus.");
                     provider = (IResourceProvider)Activator.CreateInstance(customType);
-                    if (provider is null) Debug.LogError($"Failed to initialize '{providerType}' custom resource provider. Make sure the implementation has a parameterless constructor.");
+                    if (provider is null) throw new Exception($"Failed to initialize '{providerType}' custom resource provider. Make sure the implementation has a parameterless constructor.");
                     return provider;
             }
 
             if (provider != null)
-                provider.OnMessage += (message) => HandleProviderMessage(provider, message);
+                provider.OnMessage += message => HandleProviderMessage(provider, message);
 
             return provider;
         }

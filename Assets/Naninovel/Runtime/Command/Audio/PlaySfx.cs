@@ -30,7 +30,7 @@ namespace Naninovel.Commands
         /// <summary>
         /// Path to the sound effect asset to play.
         /// </summary>
-        [ParameterAlias(NamelessParameterAlias)]
+        [ParameterAlias(NamelessParameterAlias), IDEResource(AudioConfiguration.DefaultAudioPathPrefix)]
         public StringParameter SfxPath;
         /// <summary>
         /// Volume of the sound effect.
@@ -57,16 +57,16 @@ namespace Naninovel.Commands
         [ParameterAlias("time")]
         public DecimalParameter Duration = .35f;
 
-        public async UniTask HoldResourcesAsync ()
+        public async UniTask PreloadResourcesAsync ()
         {
             if (!Assigned(SfxPath) || SfxPath.DynamicValue) return;
-            await AudioManager.HoldAudioResourcesAsync(this, SfxPath);
+            await AudioManager.AudioLoader.LoadAndHoldAsync(SfxPath, this);
         }
 
-        public void ReleaseResources ()
+        public void ReleasePreloadedResources ()
         {
             if (!Assigned(SfxPath) || SfxPath.DynamicValue) return;
-            AudioManager.ReleaseAudioResources(this, SfxPath);
+            AudioManager?.AudioLoader?.Release(SfxPath, this);
         }
 
         public override async UniTask ExecuteAsync (CancellationToken cancellationToken = default)
@@ -75,10 +75,10 @@ namespace Naninovel.Commands
             else await UniTask.WhenAll(AudioManager.GetPlayedSfxPaths().ToList().Select(path => PlayOrModifyTrackAsync(AudioManager, path, Volume, Loop, Duration, FadeInDuration, null, cancellationToken)));
         }
 
-        private static async UniTask PlayOrModifyTrackAsync (IAudioManager mngr, string path, float volume, bool loop, float time, float fade, string group, CancellationToken cancellationToken)
+        private static async UniTask PlayOrModifyTrackAsync (IAudioManager manager, string path, float volume, bool loop, float time, float fade, string group, CancellationToken cancellationToken)
         {
-            if (mngr.SfxPlaying(path)) await mngr.ModifySfxAsync(path, volume, loop, time, cancellationToken);
-            else await mngr.PlaySfxAsync(path, volume, fade, loop, group, cancellationToken);
+            if (manager.IsSfxPlaying(path)) await manager.ModifySfxAsync(path, volume, loop, time, cancellationToken);
+            else await manager.PlaySfxAsync(path, volume, fade, loop, group, cancellationToken);
         }
     } 
 }

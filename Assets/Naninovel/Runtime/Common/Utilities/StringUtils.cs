@@ -148,7 +148,7 @@ namespace Naninovel
 
         /// <summary>
         /// Splits the string using new line symbol as a separator.
-        /// Will split by all type of new lines, independant of environment.
+        /// Will split by all type of new lines, independent of environment.
         /// </summary>
         public static string[] SplitByNewLine (this string content, StringSplitOptions splitOptions = StringSplitOptions.None)
         {
@@ -159,18 +159,18 @@ namespace Naninovel
             // "\r"     (\u000D)        Mac
             // Not using Environment.NewLine here, as content could've been produced 
             // in not the same environment we running the program in.
-            return content.Split(new string[] { "\r\n", "\n", "\r" }, splitOptions);
+            return content.Split(new[] { "\r\n", "\n", "\r" }, splitOptions);
         }
 
         /// <summary>
-        /// Removes mathing trailing string.
+        /// Removes matching trailing string.
         /// </summary>
         public static string TrimEnd (this string source, string value)
         {
             if (!source.EndsWithFast(value))
                 return source;
 
-            return source.Remove(source.LastIndexOf(value));
+            return source.Remove(source.LastIndexOf(value, StringComparison.InvariantCulture));
         }
 
         /// <summary>
@@ -178,10 +178,10 @@ namespace Naninovel
         /// </summary>
         public static bool IsNullEmptyOrWhiteSpace (string content)
         {
-            if (String.IsNullOrEmpty(content))
+            if (string.IsNullOrEmpty(content))
                 return true;
 
-            return String.IsNullOrEmpty(content.TrimFull());
+            return string.IsNullOrEmpty(content.TrimFull());
         }
 
         /// <summary>
@@ -219,7 +219,7 @@ namespace Naninovel
 
             return source;
             #else
-            return source.Trim().Trim(new char[] { '\uFEFF', '\u200B' });
+            return source.Trim().Trim('\uFEFF', '\u200B');
             #endif
         }
 
@@ -238,7 +238,7 @@ namespace Naninovel
                 ++unit;
             }
 
-            return string.Format("{0:G4} {1}", size, units[unit]);
+            return $"{size:G4} {units[unit]}";
         }
 
         /// <summary>
@@ -261,7 +261,7 @@ namespace Naninovel
             {
                 if (IsUpperOrNumber(source[i]))
                 {
-                    if ((source[i - 1] != insert && !IsUpperOrNumber(source[i - 1])) || (preserveAcronyms && IsUpperOrNumber(source[i - 1]) && i < source.Length - 1 && !IsUpperOrNumber(source[i + 1])))
+                    if (source[i - 1] != insert && !IsUpperOrNumber(source[i - 1]) || (preserveAcronyms && IsUpperOrNumber(source[i - 1]) && i < source.Length - 1 && !IsUpperOrNumber(source[i + 1])))
                         builder.Append(insert);
                 }
                 builder.Append(source[i]);

@@ -49,8 +49,6 @@ namespace Naninovel.Searcher
 
         public IEnumerable<SearcherItem> Search(string query)
         {
-            // TODO: Fix properly!
-            // See: https://gitlab.internal.unity3d.com/upm-packages/editor/com.unity.searcher/issues/22
             query = query.ToLower();
 
             var results = new List<SearcherItem>();

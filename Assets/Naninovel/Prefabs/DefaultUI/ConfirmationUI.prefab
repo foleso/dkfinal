@@ -61,6 +61,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -171,6 +172,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.39215687}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -286,6 +288,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -365,10 +368,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   disableInteraction: 0
   visibleOnAwake: 1
+  controlOpacity: 1
   fadeTime: 0.3
+  ignoreTimeScale: 1
   focusObject: {fileID: 0}
   focusMode: 0
-  onVisibilityChanged:
+  onShow:
+    m_PersistentCalls:
+      m_Calls: []
+  onHide:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &6306036015961478139
@@ -387,7 +395,7 @@ GameObject:
   - component: {fileID: 6306036015961478117}
   - component: {fileID: 6306036015961478116}
   m_Layer: 5
-  m_Name: IConfirmationUI
+  m_Name: ConfirmationUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -450,17 +458,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   disableInteraction: 0
   visibleOnAwake: 0
+  controlOpacity: 1
   fadeTime: 0.3
+  ignoreTimeScale: 1
   focusObject: {fileID: 6617187980297251242}
   focusMode: 1
-  onVisibilityChanged:
+  onShow:
+    m_PersistentCalls:
+      m_Calls: []
+  onHide:
     m_PersistentCalls:
       m_Calls: []
   hideOnLoad: 0
   saveVisibilityState: 0
-  blockInputWhenVisible: 0
-  modalUI: 1
+  blockInputWhenVisible: 1
   allowedSamplers: []
+  modalUI: 1
+  fontChangeConfiguration: []
   messageText: {fileID: 5078263606959904337}
   confirmButton: {fileID: 1084794563696203716}
   cancelButton: {fileID: 2673349915401508994}
@@ -584,6 +598,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -660,6 +675,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -739,10 +755,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   disableInteraction: 0
   visibleOnAwake: 1
+  controlOpacity: 1
   fadeTime: 0.3
+  ignoreTimeScale: 1
   focusObject: {fileID: 0}
   focusMode: 0
-  onVisibilityChanged:
+  onShow:
+    m_PersistentCalls:
+      m_Calls: []
+  onHide:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &7326192123093840477
@@ -806,6 +827,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -977,6 +999,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1086,6 +1109,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1165,10 +1189,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   disableInteraction: 0
   visibleOnAwake: 1
+  controlOpacity: 1
   fadeTime: 0.3
+  ignoreTimeScale: 1
   focusObject: {fileID: 0}
   focusMode: 0
-  onVisibilityChanged:
+  onShow:
+    m_PersistentCalls:
+      m_Calls: []
+  onHide:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &8887223364175600442
@@ -1231,6 +1260,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

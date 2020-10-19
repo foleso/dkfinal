@@ -13,10 +13,10 @@ namespace Naninovel
     public interface IUIManager : IEngineService<UIConfiguration>
     {
         /// <summary>
-        /// Font to apply for the affected text elements contained in the managed UIs.
+        /// Name of the font option (<see cref="UIConfiguration.FontOptions"/>) to apply for the affected text elements contained in the managed UIs.
         /// Null identifies that a default font is used.
         /// </summary>
-        string Font { get; set; }
+        string FontName { get; set; }
         /// <summary>
         /// Font size index to apply for the affected text elements contained in the managed UIs.
         /// -1 identifies that a default font size is used.
@@ -24,7 +24,7 @@ namespace Naninovel
         int FontSize { get; set; }
 
         /// <summary>
-        /// Instatiates provided prefab, initializes and adds <see cref="IManagedUI"/> component (should be on the root object of the prefab)
+        /// Instantiates provided prefab, initializes and adds <see cref="IManagedUI"/> component (should be on the root object of the prefab)
         /// to the managed objects; applies UI-related engine configuration and game settings. Don't forget to <see cref="RemoveUI(IManagedUI)"/> when destroying the game object.
         /// </summary>
         /// <param name="prefab">The prefab to spawn. Should have a <see cref="IManagedUI"/> component attached to the root object.</param>

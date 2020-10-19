@@ -26,7 +26,7 @@ namespace Naninovel
         private readonly HashSet<GameObject> objectTriggers;
         private readonly float touchCooldown;
         private UniTaskCompletionSource<bool> onInputTCS;
-        private UniTaskCompletionSource<object> onInputStartTCS, onInputEndTCS;
+        private UniTaskCompletionSource onInputStartTCS, onInputEndTCS;
         private CancellationTokenSource onInputStartCTS, onInputEndCTS;
         private float lastTouchTime;
         private int lastActiveFrame;
@@ -65,13 +65,13 @@ namespace Naninovel
 
         public virtual async UniTask WaitForInputStartAsync ()
         {
-            if (onInputStartTCS is null) onInputStartTCS = new UniTaskCompletionSource<object>();
+            if (onInputStartTCS is null) onInputStartTCS = new UniTaskCompletionSource();
             await onInputStartTCS.Task;
         }
 
         public virtual async UniTask WaitForInputEndAsync ()
         {
-            if (onInputEndTCS is null) onInputEndTCS = new UniTaskCompletionSource<object>();
+            if (onInputEndTCS is null) onInputEndTCS = new UniTaskCompletionSource();
             await onInputEndTCS.Task;
         }
 
@@ -111,7 +111,7 @@ namespace Naninovel
                     if (Mathf.Abs(axisValue) > Mathf.Abs(maxValue))
                         maxValue = axisValue;
                 }
-                if (maxValue != Value)
+                if (!Mathf.Approximately(maxValue, Value))
                     SetInputValue(maxValue);
             }
 
@@ -134,7 +134,8 @@ namespace Naninovel
                 {
                     var hoveredObject = EventSystem.current.GetHoveredGameObject();
                     if (hoveredObject && objectTriggers.Contains(hoveredObject))
-                        SetInputValue(1f);
+                        if (!hoveredObject.TryGetComponent<IInputTrigger>(out var trigger) || trigger.CanTriggerInput())
+                            SetInputValue(1f);
                 }
 
                 var touchEnded = Input.touchCount > 0
@@ -166,7 +167,7 @@ namespace Naninovel
             onInputTCS = null;
             if (Active)
             {
-                onInputStartTCS?.TrySetResult(null);
+                onInputStartTCS?.TrySetResult();
                 onInputStartTCS = null;
                 onInputStartCTS?.Cancel();
                 onInputStartCTS?.Dispose();
@@ -174,7 +175,7 @@ namespace Naninovel
             }
             else
             {
-                onInputEndTCS?.TrySetResult(null);
+                onInputEndTCS?.TrySetResult();
                 onInputEndTCS = null;
                 onInputEndCTS?.Cancel();
                 onInputEndCTS?.Dispose();

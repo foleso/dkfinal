@@ -10,7 +10,7 @@ namespace Naninovel
     {
         private enum PositionModeType { World, Scene }
 
-        private static readonly GUIContent positionModeContent = new GUIContent("Position Mode", "You can choose to specify position in world-space units (as seen in Transfrom component of game objects) or in Naninovel scene space relative to current reference resolution set in camera config, where `0,0` is the bottom left, `50,50` is the center and `100,100` is the top right corner of the screen (as set in `pos` parameters of some script commands).");
+        private static readonly GUIContent positionModeContent = new GUIContent("Position Mode", "You can choose to specify position in world-space units (as seen in Transform component of game objects) or in Naninovel scene space relative to current reference resolution set in camera config, where `0,0` is the bottom left, `50,50` is the center and `100,100` is the top right corner of the screen (as set in `pos` parameters of some script commands).");
         private static readonly GUIContent scenePositionContent = new GUIContent("Scene Position");
 
         private readonly CameraConfiguration cameraConfiguration;

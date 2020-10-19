@@ -56,12 +56,12 @@ namespace Naninovel
         [MenuItem("Assets/Create/Naninovel/Character/Generic")]
         private static void CreateCharacterGeneric () => CreatePrefabCopy("Templates/GenericCharacter", "NewGenericCharacter");
         [MenuItem("Assets/Create/Naninovel/Character/Layered")]
-        private static void CreateCharacterLayered() => CreatePrefabCopy("Templates/Layered", "NewLayeredCharacter");
+        private static void CreateCharacterLayered() => CreatePrefabCopy("Templates/LayeredCharacter", "NewLayeredCharacter");
 
         [MenuItem("Assets/Create/Naninovel/Background/Generic")]
         private static void CreateBackgroundGeneric () => CreatePrefabCopy("Templates/GenericBackground", "NewGenericBackground");
         [MenuItem("Assets/Create/Naninovel/Background/Layered")]
-        private static void CreateBackgroundLayered () => CreatePrefabCopy("Templates/Layered", "NewLayeredBackground");
+        private static void CreateBackgroundLayered () => CreatePrefabCopy("Templates/LayeredBackground", "NewLayeredBackground");
 
         [MenuItem("Assets/Create/Naninovel/Default UI/BacklogUI")]
         private static void CreateBacklogUI () => CreatePrefabCopy("DefaultUI/BacklogUI", "NewBacklogUI");

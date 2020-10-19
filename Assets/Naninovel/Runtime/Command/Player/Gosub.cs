@@ -50,10 +50,10 @@ namespace Naninovel.Commands
     {
         /// <summary>
         /// Path to navigate into in the following format: `ScriptName.LabelName`.
-        /// When label name is ommited, will play provided script from the start.
-        /// When script name is ommited, will attempt to find a label in the currently played script.
+        /// When label name is omitted, will play provided script from the start.
+        /// When script name is omitted, will attempt to find a label in the currently played script.
         /// </summary>
-        [ParameterAlias(NamelessParameterAlias), RequiredParameter]
+        [ParameterAlias(NamelessParameterAlias), RequiredParameter, IDEResource(ScriptsConfiguration.DefaultScriptsPathPrefix, 0)]
         public NamedStringParameter Path;
         /// <summary>
         /// When specified, will reset the engine services state before loading a script (in case the path is leading to another script).

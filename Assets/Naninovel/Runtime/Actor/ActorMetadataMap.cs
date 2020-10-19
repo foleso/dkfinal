@@ -18,9 +18,9 @@ namespace Naninovel
         [SerializeField] private string[] ids = new string[0];
         [SerializeField] private TMeta[] metas = new TMeta[0];
 
-        public ActorMetadataMap () { }
+        protected ActorMetadataMap () { }
 
-        public ActorMetadataMap (IDictionary<string, TMeta> dictionary)
+        protected ActorMetadataMap (IDictionary<string, TMeta> dictionary)
         {
             ids = new string[dictionary.Count];
             metas = new TMeta[dictionary.Count];

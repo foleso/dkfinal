@@ -16,18 +16,6 @@ namespace Naninovel
 
         [SerializeField] private SerializableLiteralStringMap objectJsonMap = new SerializableLiteralStringMap();
 
-        public StateMap () { }
-
-        /// <summary>
-        /// Creates a new instance deep-copying another provided instance.
-        /// </summary>
-        public StateMap (StateMap stateMap)
-        {
-            stateMap.OnBeforeSerialize();
-            objectJsonMap = new SerializableLiteralStringMap(stateMap.objectJsonMap);
-            OnAfterDeserialize();
-        }
-
         public virtual void OnBeforeSerialize ()
         {
             objectJsonMap.Clear();

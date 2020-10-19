@@ -8,8 +8,8 @@ namespace Naninovel
     [CustomEditor(typeof(LabeledButton), true), CanEditMultipleObjects]
     public class LabeledButtonEditor : ButtonEditor
     {
-        SerializedProperty labelTextProperty;
-        SerializedProperty labelColorsProperty;
+        private SerializedProperty labelTextProperty;
+        private SerializedProperty labelColorsProperty;
 
         protected override void OnEnable ()
         {

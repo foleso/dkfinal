@@ -21,8 +21,14 @@ namespace Naninovel
         public bool AutoWait = true;
         [Tooltip("Number of line breaks to automatically insert before the printed text on each `@print` command when the printer already contains some text (unless `br` parameter is explicitly specified).")]
         public int AutoLineBreak = 0;
+        [Tooltip("Whether to add printed messages to the printer backlog.")]
+        public bool AddToBacklog = true;
+        [Tooltip("Whether to always split added backlog messages, even when the printer is not reset.")]
+        public bool SplitBacklogMessages = false;
         [Tooltip("Default visibility change animation duration; used when corresponding parameter is not specified in script command.")]
         public float ChangeVisibilityDuration = .3f;
+        [Tooltip("Number of frames to wait before completing @print command. A value greater than zero is required to make the printed text visible while in skip mode.")]
+        public int PrintFrameDelay = 1;
 
         public TextPrinterMetadata ()
         {

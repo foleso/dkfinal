@@ -406,8 +406,6 @@ MonoBehaviour:
   controlOpacity: 1
   fadeTime: 0.3
   ignoreTimeScale: 1
-  allowFontChange: 1
-  allowFontSizeChange: 1
   focusObject: {fileID: 0}
   focusMode: 0
   onShow:

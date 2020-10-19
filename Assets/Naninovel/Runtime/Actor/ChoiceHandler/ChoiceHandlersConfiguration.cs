@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Naninovel
 {
-    [System.Serializable]
+    [EditInProjectSettings]
     public class ChoiceHandlersConfiguration : ActorManagerConfiguration<ChoiceHandlerMetadata>
     {
         public const string DefaultPathPrefix = "ChoiceHandlers";
@@ -23,7 +23,7 @@ namespace Naninovel
         protected override ActorMetadataMap<ChoiceHandlerMetadata> ActorMetadataMap => Metadata;
 
         private static ChoiceHandlerMetadata CreateBuiltinMeta () => new ChoiceHandlerMetadata {
-            Implementation = typeof(UIChoiceHandler).AssemblyQualifiedName,
+            Implementation = typeof(UIChoiceHandler).AssemblyQualifiedName
         };
     }
 }

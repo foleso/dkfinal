@@ -26,9 +26,10 @@ namespace Naninovel
         /// <param name="slotId">ID of the clicked slot.</param>
         public delegate void OnClicked (string slotId);
 
-        public string Id { get; private set; }
-        public int NumberInGrid => transform.GetSiblingIndex() + 1;
+        public virtual string Id { get; private set; }
+        public virtual int NumberInGrid => transform.GetSiblingIndex() + 1;
 
+        [Tooltip("Opacity to fade to when the slot is hovered or selected; set to zero to disable the fade behaviour.")]
         [SerializeField] private float hoverOpacityFade = .25f;
 
         private Tweener<FloatTween> fadeTweener;
@@ -45,7 +46,8 @@ namespace Naninovel
         {
             base.Start();
 
-            SetOpacity(1 - hoverOpacityFade);
+            if (hoverOpacityFade > 0)
+                SetOpacity(1 - hoverOpacityFade);
         }
 
         public virtual void OnPointerEnter (PointerEventData eventData) => FadeInSlot();
@@ -65,6 +67,7 @@ namespace Naninovel
 
         protected virtual void FadeInSlot ()
         {
+            if (hoverOpacityFade <= 0) return;
             if (fadeTweener.Running) fadeTweener.CompleteInstantly();
             var tween = new FloatTween(Opacity, 1f, FadeTime, SetOpacity, true, target: this);
             fadeTweener.Run(tween);
@@ -72,6 +75,7 @@ namespace Naninovel
 
         protected virtual void FadeOutSlot ()
         {
+            if (hoverOpacityFade <= 0) return;
             if (fadeTweener.Running) fadeTweener.CompleteInstantly();
             var tween = new FloatTween(Opacity, 1f - hoverOpacityFade, FadeTime, SetOpacity, true, target: this);
             fadeTweener.Run(tween);

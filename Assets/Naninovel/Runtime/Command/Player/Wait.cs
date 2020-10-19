@@ -19,7 +19,7 @@ namespace Naninovel.Commands
     /// ; You can also use the following shortcut (@i command) for this wait mode.
     /// Lorem ipsum[i] dolor sit amet.
     /// 
-    /// ; Start an SFX, print a message and wait for a skippable 5 seconds delay, then stop the SFX.
+    /// ; Start an SFX, print a message and wait for a skip-able 5 seconds delay, then stop the SFX.
     /// @sfx Noise loop:true
     /// Jeez, what a disgusting noise. Shut it down![wait i5][skipInput]
     /// @stopSfx Noise
@@ -35,7 +35,7 @@ namespace Naninovel.Commands
         /// Wait conditions:<br/>
         ///  - `i` user press continue or skip input key;<br/>
         ///  - `0.0` timer (seconds);<br/>
-        ///  - `i0.0` timer, that is skippable by continue or skip input keys.
+        ///  - `i0.0` timer, that is skip-able by continue or skip input keys.
         /// </summary>
         [ParameterAlias(NamelessParameterAlias), RequiredParameter]
         public StringParameter WaitMode;
@@ -47,7 +47,7 @@ namespace Naninovel.Commands
         {
             // Don't just return here if skip is enabled; state snapshot is marked as allowed for player rollback when setting waiting for input.
 
-            // Always wait for at least a frame; otherwise skippable timer (eg, @wait i3) may not behave correctly
+            // Always wait for at least a frame; otherwise skip-able timer (eg, @wait i3) may not behave correctly
             // when used before/after a generic text line: https://forum.naninovel.com/viewtopic.php?p=156#p156
             await AsyncUtils.WaitEndOfFrame;
 

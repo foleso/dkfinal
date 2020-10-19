@@ -7,9 +7,9 @@ namespace Naninovel
 {
     public class NaniToScriptAssetConverter : IRawConverter<Script>
     {
-        public RawDataRepresentation[] Representations { get { return new RawDataRepresentation[] {
+        public RawDataRepresentation[] Representations { get; } = {
             new RawDataRepresentation(".nani", "text/plain")
-        }; } }
+        };
 
         public Script Convert (byte[] obj, string name) => Script.FromScriptText(name, Encoding.UTF8.GetString(obj));
 

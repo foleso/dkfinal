@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 namespace Naninovel
 {
-    [System.Serializable]
+    [EditInProjectSettings]
     public class ScriptsConfiguration : Configuration
     {
         public enum GraphOrientationType { Vertical, Horizontal }
@@ -17,7 +17,7 @@ namespace Naninovel
         public ResourceLoaderConfiguration Loader = new ResourceLoaderConfiguration { PathPrefix = DefaultScriptsPathPrefix };
         [Tooltip("Name of the script to play right after the engine initialization.")]
         public string InitializationScript = default;
-        [Tooltip("Name of the script to play when showing the Title UI. Can be used to setup the title screen scene (backgound, music, etc).")]
+        [Tooltip("Name of the script to play when showing the Title UI. Can be used to setup the title screen scene (background, music, etc).")]
         public string TitleScript = default;
         [Tooltip("Name of the script to play when starting a new game. Will use first available when not provided.")]
         public string StartGameScript = default;
@@ -25,7 +25,7 @@ namespace Naninovel
         public bool AutoAddScripts = true;
         [Tooltip("Whether to reload modified (both via visual and external editors) scripts and apply changes during playmode without restarting the playback.")]
         public bool HotReloadScripts = true;
-        [Tooltip("Whether to calculate number of commands existing in all the available naninovel scripts on service initalization. If you don't use `TotalCommandsCount` property of a script manager and `CalculateProgress` function in naninovel script expressions, disable to reduce engine initalization time.")]
+        [Tooltip("Whether to calculate number of commands existing in all the available naninovel scripts on service initialization. If you don't use `TotalCommandsCount` property of a script manager and `CalculateProgress` function in naninovel script expressions, disable to reduce engine initialization time.")]
         public bool CountTotalCommands = false;
 
         [Header("Visual Editor")]
@@ -41,6 +41,10 @@ namespace Naninovel
         public KeyCode SaveScriptKey = KeyCode.S;
         [Tooltip("Modifier for the `Save Script Key`. Set to `None` to disable.")]
         public EventModifiers SaveScriptModifier = EventModifiers.Control;
+        [Tooltip("When clicked a line in visual editor, which mouse button should activate rewind: `0` is left, `1` right, `2` middle; set to `-1` to disable.")]
+        public int RewindMouseButton = 0;
+        [Tooltip("Modifier for `Rewind Mouse Button`. Set to `None` to disable.")]
+        public EventModifiers RewindModifier = EventModifiers.Shift;
         [Tooltip("How many script lines should be rendered per visual editor page.")]
         public int EditorPageLength = 1000;
         [Tooltip("Allows modifying default style of the visual editor.")]
@@ -64,7 +68,7 @@ namespace Naninovel
         };
 
         [Header("Script Navigator")]
-        [Tooltip("Whether to initializte script navigator to browse available naninovel scripts.")]
+        [Tooltip("Whether to initialize script navigator to browse available naninovel scripts.")]
         public bool EnableNavigator = true;
         [Tooltip("Whether to show naninovel script navigator when script manager is initialized.")]
         public bool ShowNavigatorOnInit = false;

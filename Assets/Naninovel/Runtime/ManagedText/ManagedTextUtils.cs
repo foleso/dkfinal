@@ -59,7 +59,7 @@ namespace Naninovel
                 var typeFullName = key.GetBeforeLast(".") ?? key;
                 var fieldName = key.GetAfter(".") ?? key;
 
-                var type = ReflectionUtils.ExportedDomainTypes.FirstOrDefault(t => t.FullName.EqualsFast(typeFullName));
+                var type = Engine.Types.FirstOrDefault(t => t.FullName.EqualsFast(typeFullName));
                 if (type is null) continue;
 
                 var fieldInfo = type.GetField(fieldName, ManagedFieldBindings);

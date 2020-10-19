@@ -40,10 +40,10 @@ namespace Naninovel
             if (!Engine.Initialized)
             {
                 isWorking = true;
-                Engine.OnInitializationFinished += InializeEditor;
+                Engine.OnInitializationFinished += InitializeEditor;
                 EditorInitializer.InitializeAsync().Forget();
             }
-            else InializeEditor();
+            else InitializeEditor();
         }
 
         private void OnDisable ()
@@ -51,9 +51,9 @@ namespace Naninovel
             Engine.Destroy();
         }
 
-        private void InializeEditor ()
+        private void InitializeEditor ()
         {
-            Engine.OnInitializationFinished -= InializeEditor;
+            Engine.OnInitializationFinished -= InitializeEditor;
 
             scriptsManager = Engine.GetService<IScriptManager>();
             localizationManager = Engine.GetService<ILocalizationManager>();

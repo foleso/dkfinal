@@ -16,7 +16,7 @@ namespace Naninovel
     {
         protected static bool ShowResourcesEditor { get; set; }
 
-        protected GUIContent ToResourcesButtonContent { get; }
+        protected GUIContent ToResourcesButtonContent { get; private set; }
         protected GUIContent FromResourcesButtonContent { get; }
         protected EditorResources EditorResources { get; private set; }
         protected EditorResourcesEditor ResourcesEditor { get; private set; }
@@ -27,9 +27,8 @@ namespace Naninovel
         protected virtual Type ResourcesTypeConstraint => null;
         protected virtual string ResourcesSelectionTooltip => null;
 
-        public ResourcefulSettings ()
+        protected ResourcefulSettings ()
         {
-            ToResourcesButtonContent = new GUIContent($"Manage {EditorTitle} Resources");
             FromResourcesButtonContent = new GUIContent("< Back To Configuration");
         }
 
@@ -37,6 +36,7 @@ namespace Naninovel
         {
             base.OnActivate(searchContext, rootElement);
 
+            ToResourcesButtonContent = new GUIContent($"Manage {EditorTitle} Resources");
             EditorResources = EditorResources.LoadOrDefault();
             ResourcesEditor = new EditorResourcesEditor(EditorResources);
         }

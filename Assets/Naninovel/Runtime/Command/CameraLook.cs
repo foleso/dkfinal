@@ -18,7 +18,7 @@ namespace Naninovel.Commands
     /// @look zone:6.5,4 speed:3,2.5 gravity:true
     /// 
     /// ; Disable camera look mode and reset camera offset
-    /// @look enabled:false
+    /// @look enable:false
     /// @camera offset:0,0
     /// </example>
     [CommandAlias("look")]
@@ -47,9 +47,9 @@ namespace Naninovel.Commands
 
         public override UniTask ExecuteAsync (CancellationToken cancellationToken = default)
         {
-            var cameraMngr = Engine.GetService<ICameraManager>();
+            var cameraManager = Engine.GetService<ICameraManager>();
 
-            cameraMngr.SetLookMode(Enable, ArrayUtils.ToVector2(LookZone, new Vector2(5, 3)), ArrayUtils.ToVector2(LookSpeed, new Vector2(1.5f, 1f)), Gravity);
+            cameraManager.SetLookMode(Enable, ArrayUtils.ToVector2(LookZone, new Vector2(5, 3)), ArrayUtils.ToVector2(LookSpeed, new Vector2(1.5f, 1f)), Gravity);
 
             return UniTask.CompletedTask;
         }

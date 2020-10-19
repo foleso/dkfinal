@@ -102,7 +102,7 @@ namespace Naninovel
         /// </summary>
         public static string PersistentHexCode (string value)
         {
-            return string.Format("{0:x}", PersistentHashCode(value));
+            return $"{PersistentHashCode(value):x}";
         }
 
     }

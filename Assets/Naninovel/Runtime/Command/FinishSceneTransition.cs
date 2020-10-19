@@ -16,7 +16,7 @@ namespace Naninovel.Commands
         /// <summary>
         /// Type of the [transition effect](/guide/transition-effects.md) to use (crossfade is used by default).
         /// </summary>
-        [ParameterAlias(NamelessParameterAlias)]
+        [ParameterAlias(NamelessParameterAlias), IDEConstant(IDEConstantAttribute.Transition)]
         public StringParameter Transition;
         /// <summary>
         /// Parameters of the transition effect.
@@ -36,7 +36,7 @@ namespace Naninovel.Commands
         /// <br/><br/>
         /// When not specified, will use a default easing function set in the actor's manager configuration settings.
         /// </summary>
-        [ParameterAlias("easing")]
+        [ParameterAlias("easing"), IDEConstant(IDEConstantAttribute.Easing)]
         public StringParameter EasingTypeName;
         /// <summary>
         /// Duration (in seconds) of the transition. Default value: 0.35 seconds.
@@ -46,7 +46,7 @@ namespace Naninovel.Commands
 
         private Texture2D preloadedDissolveTexture;
 
-        public virtual async UniTask HoldResourcesAsync ()
+        public virtual async UniTask PreloadResourcesAsync ()
         {
             if (Assigned(DissolveTexturePath) && !DissolveTexturePath.DynamicValue)
             {
@@ -56,7 +56,7 @@ namespace Naninovel.Commands
             }
         }
 
-        public virtual void ReleaseResources ()
+        public virtual void ReleasePreloadedResources ()
         {
             preloadedDissolveTexture = null;
         }

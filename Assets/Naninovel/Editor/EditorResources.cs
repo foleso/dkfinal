@@ -1,8 +1,9 @@
 ﻿// Copyright 2017-2020 Elringus (Artyom Sovetnikov). All Rights Reserved.
 
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
@@ -16,19 +17,19 @@ namespace Naninovel
     /// Before entering play mode in the editor, all the stored references are added to a <see cref="EditorResourceProvider"/> instance, which is included to the provider lists when the app is running under the editor.
     /// When building the player, the referenced assets are copied to a temp `Resources` folder; this allows the assets to be packaged with the build and makes them available for <see cref="ProjectResourceProvider"/>.
     /// </remarks>
-    [System.Serializable]
+    [Serializable, InitializeOnLoad]
     public class EditorResources : ScriptableObject
     {
         // Following types are modified by the editor via reflection.
         #pragma warning disable CS0649
-        [System.Serializable]
+        [Serializable]
         public class ResourceCategory
         {
             public string Id;
             public List<EditorResource> Resources;
         }
 
-        [System.Serializable]
+        [Serializable]
         public struct EditorResource
         {
             public string Name, PathPrefix, Guid;
@@ -37,6 +38,11 @@ namespace Naninovel
         #pragma warning restore CS0649
 
         [SerializeField] private List<ResourceCategory> resourceCategories = new List<ResourceCategory>();
+
+        static EditorResources ()
+        {
+            InitializeEditorProvider();
+        }
 
         /// <summary>
         /// Loads an existing asset from package data folder or creates a new default instance.
@@ -53,7 +59,7 @@ namespace Naninovel
             {
                 obj = CreateInstance<EditorResources>();
                 obj.AddBuiltinAssets();
-                System.IO.Directory.CreateDirectory(directoryPath);
+                Directory.CreateDirectory(directoryPath);
                 AssetDatabase.CreateAsset(obj, assetPath);
                 AssetDatabase.Refresh();
                 AssetDatabase.SaveAssets();
@@ -222,10 +228,9 @@ namespace Naninovel
 
             if (property.stringValue != newValue)
                 property.stringValue = newValue;
-
         }
 
-        [InitializeOnLoadMethod]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void InitializeEditorProvider ()
         {
             void InitializeProvider ()
@@ -235,8 +240,7 @@ namespace Naninovel
                 foreach (var record in records)
                     if (EditorUtils.AssetExistsByGuid(record.Value))
                         provider.AddResourceGuid(record.Key, record.Value);
-                var providerField = typeof(ResourceProviderConfiguration).GetField(nameof(ResourceProviderConfiguration.EditorProvider), BindingFlags.Static | BindingFlags.Public);
-                providerField.SetValue(null, provider);
+                ResourceProviderConfiguration.EditorProvider = provider;
             }
 
             Engine.OnInitializationStarted -= InitializeProvider;
@@ -293,7 +297,7 @@ namespace Naninovel
 
             void AddActorAsset (ActorManagerConfiguration managerConfig, string relativeAssetPath)
             {
-                var actorId = System.IO.Path.GetFileNameWithoutExtension(relativeAssetPath);
+                var actorId = Path.GetFileNameWithoutExtension(relativeAssetPath);
                 var actorMeta = managerConfig.GetMetadataOrDefault(actorId);
                 var category = $"{actorMeta.Loader.PathPrefix}/{actorMeta.Guid}";
                 var pathPrefix = actorMeta.Loader.PathPrefix;
@@ -304,7 +308,7 @@ namespace Naninovel
 
             void AddAsset (string categoryId, string relativeAssetPath)
             {
-                var resourceName = System.IO.Path.GetFileNameWithoutExtension(relativeAssetPath);
+                var resourceName = Path.GetFileNameWithoutExtension(relativeAssetPath);
                 var assetPath = $"{PathUtils.AbsoluteToAssetPath(PackagePath.PackageRootPath)}/{relativeAssetPath}";
                 var assetGuid = AssetDatabase.AssetPathToGUID(assetPath);
                 AddRecord(categoryId, categoryId, resourceName, assetGuid);

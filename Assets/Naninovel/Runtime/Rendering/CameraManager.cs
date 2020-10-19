@@ -166,14 +166,15 @@ namespace Naninovel
 
         public virtual void DestroyService ()
         {
-            engineBehaviour.OnBehaviourLateUpdate -= MonitorAspect;
-            engineBehaviour.OnBehaviourUpdate -= lookController.Update;
+            if (engineBehaviour != null)
+            {
+                engineBehaviour.OnBehaviourLateUpdate -= MonitorAspect;
+                engineBehaviour.OnBehaviourUpdate -= lookController.Update;
+            }
 
             ObjectUtils.DestroyOrImmediate(thumbnailRenderTexture);
-            if (ObjectUtils.IsValid(Camera))
-                ObjectUtils.DestroyOrImmediate(Camera.gameObject);
-            if (ObjectUtils.IsValid(UICamera))
-                ObjectUtils.DestroyOrImmediate(UICamera.gameObject);
+            ObjectUtils.DestroyOrImmediate(Camera.gameObject);
+            ObjectUtils.DestroyOrImmediate(UICamera.gameObject);
         }
 
         public virtual void SaveServiceState (SettingsStateMap stateMap)
@@ -196,7 +197,7 @@ namespace Naninovel
         public virtual void SaveServiceState (GameStateMap stateMap)
         {
             Camera.gameObject.GetComponents(cameraComponentsCache);
-            var gameState = new GameState() {
+            var gameState = new GameState {
                 OrthoSize = OrthoSize,
                 Offset = Offset,
                 Rotation = Rotation,
@@ -218,7 +219,7 @@ namespace Naninovel
                 ResetService();
                 return UniTask.CompletedTask;
             }
-
+            
             if (state.OrthoSize > 0) OrthoSize = state.OrthoSize;
             Offset = state.Offset;
             Rotation = state.Rotation;
@@ -231,7 +232,7 @@ namespace Naninovel
                 foreach (var compState in state.CameraComponents)
                 {
                     var comp = Camera.gameObject.GetComponent(compState.TypeName) as MonoBehaviour;
-                    if (!comp) continue;
+                    if (comp == null) continue;
                     comp.enabled = compState.Enabled;
                 }
 
@@ -333,7 +334,7 @@ namespace Naninovel
 
         private void MonitorAspect ()
         {
-            if (lastAspect != AspectRatio)
+            if (!Mathf.Approximately(lastAspect, AspectRatio))
             {
                 OnAspectChanged?.Invoke(AspectRatio);
                 lastAspect = AspectRatio;

@@ -23,17 +23,17 @@ namespace Naninovel
             return UniTask.CompletedTask;
         }
 
-        public static List<Folder> LocateFoldersAtPath (string rootPath, string resourcesPath)
+        public static IReadOnlyCollection<Folder> LocateFoldersAtPath (string rootPath, string resourcesPath)
         {
             var locatedFolders = new List<Folder>();
 
             var folderPath = rootPath;
             if (!string.IsNullOrEmpty(resourcesPath))
                 folderPath += string.Concat('/', resourcesPath);
-            var parendFolder = new DirectoryInfo(folderPath);
-            if (!parendFolder.Exists) return locatedFolders;
+            var parentFolder = new DirectoryInfo(folderPath);
+            if (!parentFolder.Exists) return locatedFolders;
 
-            foreach (var dir in parendFolder.GetDirectories())
+            foreach (var dir in parentFolder.GetDirectories())
             {
                 var path = dir.FullName.Replace("\\", "/").GetAfterFirst(rootPath + "/");
                 var folder = new Folder(path);

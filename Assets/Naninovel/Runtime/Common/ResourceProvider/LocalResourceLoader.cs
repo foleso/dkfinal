@@ -43,13 +43,11 @@ namespace Naninovel
             if (rawData is null)
             {
                 var usedExtensions = string.Join("/", converter.Representations.Select(r => r.Extension));
-                Debug.LogError($"Failed to load `{filePath}({usedExtensions})` resource using local file system: File not found.");
-                SetResult(new Resource<TResource>(Path, null, Provider));
-                return;
+                throw new Exception($"Failed to load `{filePath}({usedExtensions})` resource using local file system: File not found.");
             }
 
             var obj = await converter.ConvertAsync(rawData, System.IO.Path.GetFileNameWithoutExtension(Path));
-            var result = new Resource<TResource>(Path, obj, Provider);
+            var result = new Resource<TResource>(Path, obj);
 
             SetResult(result);
 

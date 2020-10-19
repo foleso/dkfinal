@@ -28,7 +28,7 @@ namespace Naninovel.UI
         /// Crossfades current image's texture with the provided one over <see cref="ScriptableUIBehaviour.FadeTime"/>.
         /// When null is provided, will hide the image instead.
         /// </summary>
-        public virtual async UniTask ChangeTextureAsync (Texture texture, CancellationToken cancellationToken = default)
+        public virtual async UniTask ChangeTextureAsync (Texture texture)
         {
             if (transitionTweener.Running)
             {
@@ -39,10 +39,9 @@ namespace Naninovel.UI
 
             TransitionTexture = texture;
             var tween = new FloatTween(TransitionProgress, 1, FadeTime, value => TransitionProgress = value, false, target: material);
-            await transitionTweener.RunAsync(tween, cancellationToken);
-            if (cancellationToken.CancelASAP) return;
+            await transitionTweener.RunAsync(tween);
 
-            // TODO: Provide cancellation token instead of null checking.
+            // Check objects validity after the above async routine.
             if (ObjectUtils.IsValid(rawImage))
                 MainTexture = TransitionTexture;
             if (ObjectUtils.IsValid(material))

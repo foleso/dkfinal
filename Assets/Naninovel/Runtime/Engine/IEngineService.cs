@@ -27,7 +27,7 @@ namespace Naninovel
     /// <summary>
     /// Implementation represents an <see cref="Engine"/> service with an associated <see cref="Naninovel.Configuration"/>.
     /// </summary>
-    public interface IEngineService<out TConfig> : IEngineService 
+    public interface IEngineService<TConfig> : IEngineService 
         where TConfig : Configuration
     {
         /// <summary>

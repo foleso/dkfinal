@@ -5,7 +5,7 @@ using UniRx.Async;
 namespace Naninovel
 {
     /// <summary>
-    /// Implentation is able to convert objects.
+    /// Implantation is able to convert objects.
     /// </summary>
     public interface IConverter
     {
@@ -15,7 +15,7 @@ namespace Naninovel
     }
 
     /// <summary>
-    /// Implentation is able to convert <typeparamref name="TSource"/> to <typeparamref name="TResult"/>.
+    /// Implantation is able to convert <typeparamref name="TSource"/> to <typeparamref name="TResult"/>.
     /// </summary>
     public interface IConverter<TSource, TResult> : IConverter
     {

@@ -37,7 +37,7 @@ namespace Naninovel
         /// <summary>
         /// Loads all the script assets stored under <see cref="ScriptsConfiguration.ExternalLoader"/> (community modding feature).
         /// </summary>
-        UniTask<IEnumerable<Script>> LoadExternalScriptsAsync ();
+        UniTask<IReadOnlyCollection<Script>> LoadExternalScriptsAsync ();
         /// <summary>
         /// Loads script asset with the provided name and related localization script (when available).
         /// </summary>
@@ -45,7 +45,7 @@ namespace Naninovel
         /// <summary>
         /// Loads all the available script assets and related localization scripts (when available).
         /// </summary>
-        UniTask<IEnumerable<Script>> LoadAllScriptsAsync ();
+        UniTask<IReadOnlyCollection<Script>> LoadAllScriptsAsync ();
         /// <summary>
         /// Unloads a previously loaded script asset with the provided name and related localization script (when available).
         /// </summary>
@@ -54,10 +54,6 @@ namespace Naninovel
         /// Unloads all previously loaded script assets and related localization scripts (when available).
         /// </summary>
         void UnloadAllScripts ();
-        /// <summary>
-        /// Peforms <see cref="UnloadAllScripts"/> followed by <see cref="LoadAllScriptsAsync"/>.
-        /// </summary>
-        UniTask ReloadAllScriptsAsync ();
         /// <summary>
         /// Attempts to retrieve a localization script for the provided script.
         /// Returns null if localization script doesn't exist, provided script not loaded 

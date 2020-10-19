@@ -31,7 +31,7 @@ namespace Naninovel.Commands
         }
 
         /// <summary>
-        /// When invoked while inside a condtional block, will navigate the playback to the appropriate command.
+        /// When invoked while inside a conditional block, will navigate the playback to the appropriate command.
         /// </summary>
         /// <param name="conditionMet">Whether condition of the current block branch is met.</param>
         public static void HandleConditionalBlock (bool conditionMet)
@@ -58,7 +58,7 @@ namespace Naninovel.Commands
                 }
             }
 
-            player.PlayedCommand.LogErrorWithPosition($"Conditional (`@if`) block is malformed. Make sure it has a closing `@endif` command.");
+            player.PlayedCommand.LogErrorWithPosition("Conditional (`@if`) block is malformed. Make sure it has a closing `@endif` command.");
         }
 
         private void LogEvalError (string desc = null) => LogErrorWithPosition($"Failed to evaluate conditional (`@if`) expression `{Expression}`. {desc ?? string.Empty}");

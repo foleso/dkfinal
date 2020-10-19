@@ -94,23 +94,7 @@ namespace Naninovel
         /// Total number of unique commands ever played by the player (global state scope).
         /// </summary>
         int PlayedCommandsCount { get; }
-
-        /// <summary>
-        /// Adds an delegate to invoke before a command is going to be executed.
-        /// </summary>
-        void AddPreExecutionTask (Func<Command, UniTask> taskFunc);
-        /// <summary>
-        /// Removes an delegate to invoke before a command is going to be executed.
-        /// </summary>
-        void RemovePreExecutionTask (Func<Command, UniTask> taskFunc);
-        /// <summary>
-        /// Adds an delegate to invoke after a command is executed.
-        /// </summary>
-        void AddPostExecutionTask (Func<Command, UniTask> taskFunc);
-        /// <summary>
-        /// Removes an delegate to invoke after a command is executed.
-        /// </summary>
-        void RemovePostExecutionTask (Func<Command, UniTask> taskFunc);
+        
         /// <summary>
         /// Starts <see cref="PlayedScript"/> playback at <see cref="PlayedIndex"/>.
         /// </summary>
@@ -160,5 +144,26 @@ namespace Naninovel
         /// Sets the player waiting for input mode.
         /// </summary>
         void SetWaitingForInputEnabled (bool enabled);
+        /// <summary>
+        /// Adds a task to perform before a command is executed.
+        /// </summary>
+        void AddPreExecutionTask (Func<Command, UniTask> task);
+        /// <summary>
+        /// Removes a task to perform before a command is executed.
+        /// </summary>
+        void RemovePreExecutionTask (Func<Command, UniTask> task);
+        /// <summary>
+        /// Adds a task to perform after a command is executed.
+        /// </summary>
+        void AddPostExecutionTask (Func<Command, UniTask> task);
+        /// <summary>
+        /// Removes a task to perform after a command is executed.
+        /// </summary>
+        void RemovePostExecutionTask (Func<Command, UniTask> task);
+        /// <summary>
+        /// Requests lazy cancellation of all the concurrently-running commands (via <see cref="CancellationToken.CancelLazy"/>)
+        /// and waits for them to finish before performing the provided task and executing next commands.
+        /// </summary>
+        UniTask SynchronizeAndDoAsync (Func<UniTask> task);
     } 
 }

@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using UniRx.Async;
+using UnityEngine;
 using UnityEngine.Audio;
 
 namespace Naninovel
@@ -11,6 +12,10 @@ namespace Naninovel
     /// </summary>
     public interface IAudioManager : IEngineService<AudioConfiguration>
     {
+        /// <summary>
+        /// Audio listener component currently used by the service.
+        /// </summary>
+        AudioListener AudioListener { get; }
         /// <summary>
         /// Audio mixer asset currently used by the service.
         /// Custom mixers can be assigned in the audio configuration.
@@ -32,44 +37,27 @@ namespace Naninovel
         /// Current volume (in 0.0 to 1.0 range) of a voice channel.
         /// </summary>
         float VoiceVolume { get; set; }
-
         /// <summary>
-        /// Whether a BGM track with the provided resource path is currently playing.
+        /// Used by the service to load audio (BGM and SFX) clips.
         /// </summary>
-        /// <param name="path">Name (local path) of the audio resource.</param>
-        bool BgmPlaying (string path);
+        IResourceLoader<AudioClip> AudioLoader { get; }
         /// <summary>
-        /// Whether an SFX track with the provided resource path is currently playing.
+        /// Used by the service to load voice clips.
         /// </summary>
-        /// <param name="path">Name (local path) of the audio resource.</param>
-        bool SfxPlaying (string path);
-        /// <summary>
-        /// Whether a voice track with the provided resource path is currently playing.
-        /// </summary>
-        /// <param name="path">Name (local path) of the voice resource.</param>
-        bool VoicePlaying (string path);
+        IResourceLoader<AudioClip> VoiceLoader { get; }
+        
         /// <summary>
         /// Returns currently played BGM track resource paths.
         /// </summary>
-        IEnumerable<string> GetPlayedBgmPaths ();
+        IReadOnlyCollection<string> GetPlayedBgmPaths ();
         /// <summary>
         /// Returns currently played SFX track resource paths.
         /// </summary>
-        IEnumerable<string> GetPlayedSfxPaths ();
+        IReadOnlyCollection<string> GetPlayedSfxPaths ();
         /// <summary>
         /// Returns currently played voice track resource path or null if not playing any.
         /// </summary>
         string GetPlayedVoicePath ();
-        /// <summary>
-        /// Checks whether an audio (BGM or SFX) resource with the provided path exists (can be loaded).
-        /// </summary>
-        /// <param name="path">Name (local path) of the audio resource.</param>
-        UniTask<bool> AudioExistsAsync (string path);
-        /// <summary>
-        /// Checks whether a voice resource with the provided path exists (can be loaded).
-        /// </summary>
-        /// <param name="path">Name (local path) of the voice resource.</param>
-        UniTask<bool> VoiceExistsAsync (string path);
         /// <summary>
         /// Modifies properties of a BGM track with the provided resource path.
         /// </summary>
@@ -87,13 +75,14 @@ namespace Naninovel
         /// <param name="time">Animation (fade) time of the modification.</param>
         UniTask ModifySfxAsync (string path, float volume, bool loop, float time, CancellationToken cancellationToken = default);
         /// <summary>
-        /// Will play an SFX track with the provided resource path if it's already loaded and won't save the state.
+        /// Plays an SFX track with the provided resource path in case it's loaded; won't save the playback state.
         /// </summary>
         /// <param name="path">Name (local path) of the audio resource.</param>
         /// <param name="volume">Volume of the audio playback.</param>
         /// <param name="group">Path of an <see cref="AudioMixerGroup"/> of the current <see cref="AudioMixer"/> to use when playing the audio.</param>
-        /// <param name="restartIfPlaying">Whether to start playing the audio from start in case it's already playing.</param>
-        void PlaySfxFast (string path, float volume = 1f, string group = default, bool restartIfPlaying = true);
+        /// <param name="restart">Whether to start playing the audio from start in case it's already playing.</param>
+        /// <param name="additive">Whether to allow playing multiple instances of the same clip; has no effect when <paramref name="restart"/> is enabled.</param>
+        void PlaySfxFast (string path, float volume = 1f, string group = default, bool restart = true, bool additive = true);
         /// <summary>
         /// Starts playing a BGM track with the provided path.
         /// </summary>
@@ -154,13 +143,13 @@ namespace Naninovel
         /// </summary>
         void StopVoice ();
         /// <summary>
-        /// Returns <see cref="IAudioTrack"/> assoicated with a playing audio (SFX or BGM) resource 
+        /// Returns <see cref="IAudioTrack"/> associated with a playing audio (SFX or BGM) resource 
         /// with the provided path; returns null if not found or the audio is not currently playing.
         /// </summary>
         /// <param name="path">Name (local path) of the audio resource.</param>
         IAudioTrack GetAudioTrack (string path);
         /// <summary>
-        /// Returns <see cref="IAudioTrack"/> assoicated with a playing voice resource 
+        /// Returns <see cref="IAudioTrack"/> associated with a playing voice resource 
         /// with the provided path; returns null if not found or the voice is not currently playing.
         /// </summary>
         /// <param name="path">Name (local path) of the voice resource.</param>
@@ -174,22 +163,5 @@ namespace Naninovel
         /// Sets current voice volume (in 0.0 to 1.0 range) of a printed message author (character actor) with the provided ID.
         /// </summary>
         void SetAuthorVolume (string authorId, float volume);
-
-        /// <summary>
-        /// Preloads and holds resources required to play an audio (SFX or BGM) with the provided path.
-        /// </summary>
-        UniTask HoldAudioResourcesAsync (object holder, string path);
-        /// <summary>
-        /// Releases resources required to play an audio (SFX or BGM) with the provided path.
-        /// </summary>
-        void ReleaseAudioResources (object holder, string path);
-        /// <summary>
-        /// Preloads and holds resources required to play a voice with the provided path.
-        /// </summary>
-        UniTask HoldVoiceResourcesAsync (object holder, string path);
-        /// <summary>
-        /// Releases resources required to play a voice with the provided path.
-        /// </summary>
-        void ReleaseVoiceResources (object holder, string path);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Naninovel
 {
-    [System.Serializable]
+    [EditInProjectSettings]
     public class StateConfiguration : Configuration
     {
         [Tooltip("The folder will be created in the game data folder.")]

@@ -12,7 +12,7 @@ namespace Naninovel.Commands
     /// </summary>
     /// <remarks>
     /// This command is used under the hood when processing generic text lines, eg generic line `Kohaku: Hello World!` will be 
-    /// automatically tranformed into `@print "Hello World!" author:Kohaku` when parsing the naninovel scripts.<br/>
+    /// automatically transformed into `@print "Hello World!" author:Kohaku` when parsing the naninovel scripts.<br/>
     /// Will reset (clear) the printer before printing the new message by default; set `reset` parameter to *false* or disable `Auto Reset` in the printer actor configuration to prevent that and append the text instead.<br/>
     /// Will make the printer default and hide other printers by default; set `default` parameter to *false* or disable `Auto Default` in the printer actor configuration to prevent that.<br/>
     /// Will wait for user input before finishing the task by default; set `waitInput` parameter to *false* or disable `Auto Wait` in the printer actor configuration to return as soon as the text is fully revealed.<br/>
@@ -41,12 +41,12 @@ namespace Naninovel.Commands
         /// <summary>
         /// ID of the printer actor to use. Will use a default one when not provided.
         /// </summary>
-        [ParameterAlias("printer")]
+        [ParameterAlias("printer"), IDEActor(TextPrintersConfiguration.DefaultPathPrefix)]
         public StringParameter PrinterId;
         /// <summary>
         /// ID of the actor, which should be associated with the printed message.
         /// </summary>
-        [ParameterAlias("author")]
+        [ParameterAlias("author"), IDEActor(CharactersConfiguration.DefaultPathPrefix)]
         public StringParameter AuthorId;
         /// <summary>
         /// Text reveal speed multiplier; should be positive or zero. Setting to one will yield the default speed.
@@ -97,28 +97,28 @@ namespace Naninovel.Commands
         protected IAudioManager AudioManager => Engine.GetService<IAudioManager>();
         protected IInputManager InputManager => Engine.GetService<IInputManager>();
         protected IScriptPlayer ScriptPlayer => Engine.GetService<IScriptPlayer>();
-        protected CharacterMetadata AuthorMeta => Engine.GetService<ICharacterManager>().Configuration.GetMetadataOrDefault(AuthorId);
+        protected CharacterMetadata AuthorMeta => Engine.GetService<ICharacterManager>().Configuration.GetMetadataOrDefault(AssignedAuthorId);
 
-        public override async UniTask HoldResourcesAsync ()
+        public override async UniTask PreloadResourcesAsync ()
         {
-            await base.HoldResourcesAsync();
+            await base.PreloadResourcesAsync();
 
             if (AutoVoicingEnabled)
-                await AudioManager.HoldVoiceResourcesAsync(this, AutoVoicePath);
+                await AudioManager.VoiceLoader.LoadAndHoldAsync(AutoVoicePath, this);
 
             if (Assigned(AuthorId) && !AuthorId.DynamicValue && !string.IsNullOrEmpty(AuthorMeta.MessageSound))
-                await AudioManager.HoldAudioResourcesAsync(this, AuthorMeta.MessageSound);
+                await AudioManager.AudioLoader.LoadAndHoldAsync(AuthorMeta.MessageSound, this);
         }
 
-        public override void ReleaseResources ()
+        public override void ReleasePreloadedResources ()
         {
-            base.ReleaseResources();
+            base.ReleasePreloadedResources();
 
             if (AutoVoicingEnabled)
-                AudioManager.ReleaseVoiceResources(this, AutoVoicePath);
+                AudioManager?.VoiceLoader?.Release(AutoVoicePath, this);
 
             if (Assigned(AuthorId) && !AuthorId.DynamicValue && !string.IsNullOrEmpty(AuthorMeta.MessageSound))
-                AudioManager.ReleaseAudioResources(this, AuthorMeta.MessageSound);
+                AudioManager?.AudioLoader?.Release(AuthorMeta.MessageSound, this);
         }
 
         public override async UniTask ExecuteAsync (CancellationToken cancellationToken = default)
@@ -147,18 +147,18 @@ namespace Naninovel.Commands
                     }
             }
 
-            var playAutoVoice = AutoVoicingEnabled && await AudioManager.VoiceExistsAsync(AutoVoicePath);
+            var playAutoVoice = AutoVoicingEnabled && await AudioManager.VoiceLoader.ExistsAsync(AutoVoicePath);
             if (playAutoVoice)
             {
                 var playedVoicePath = AudioManager.GetPlayedVoicePath();
-                if (AudioManager.Configuration.VoiceOverlapPolicy == VoiceOverlapPolicy.PreventCharacterOverlap && printer.AuthorId == AuthorId && !string.IsNullOrEmpty(playedVoicePath))
+                if (AudioManager.Configuration.VoiceOverlapPolicy == VoiceOverlapPolicy.PreventCharacterOverlap && printer.AuthorId == AssignedAuthorId && !string.IsNullOrEmpty(playedVoicePath))
                     AudioManager.StopVoice();
-                var authorVolume = AudioManager.GetAuthorVolume(AuthorId);
-                await AudioManager.PlayVoiceAsync(AutoVoicePath, authorVolume == -1 ? 1 : authorVolume);
+                var authorVolume = AudioManager.GetAuthorVolume(AssignedAuthorId);
+                await AudioManager.PlayVoiceAsync(AutoVoicePath, Mathf.Approximately(authorVolume, -1) ? 1 : authorVolume);
             }
 
             var shouldReset = (!Assigned(ResetPrinter) && printerMeta.AutoReset) || (Assigned(ResetPrinter) && ResetPrinter.Value);
-            var shouldAddBacklog = shouldReset || string.IsNullOrEmpty(printer.Text) || AuthorId != printer.AuthorId;
+            var shouldAddBacklog = printerMeta.SplitBacklogMessages || shouldReset || string.IsNullOrEmpty(printer.Text) || AssignedAuthorId != printer.AuthorId;
             if (shouldReset)
             {
                 printer.Text = string.Empty;
@@ -166,21 +166,23 @@ namespace Naninovel.Commands
             }
 
             if ((Assigned(LineBreaks) && LineBreaks > 0) || (!Assigned(LineBreaks) && printerMeta.AutoLineBreak > 0 && !string.IsNullOrWhiteSpace(printer.Text)))
-                await new AppendLineBreak { PrinterId = printer.Id, AuthorId = AuthorId, Count = Assigned(LineBreaks) ? LineBreaks.Value : printerMeta.AutoLineBreak }.ExecuteAsync();
+                await new AppendLineBreak { PrinterId = printer.Id, AuthorId = AssignedAuthorId, Count = Assigned(LineBreaks) ? LineBreaks.Value : printerMeta.AutoLineBreak }.ExecuteAsync();
 
             var textToPrint = Text.Value; // Copy to a temp var to prevent multiple evaluations of dynamic values.
 
             var continueInputCT = InputManager.GetContinue()?.GetInputStartCancellationToken();
             var skipInputCT = InputManager.GetSkip()?.GetInputStartCancellationToken();
-            using (var printCTS = CancellationTokenSource.CreateLinkedTokenSource(continueInputCT ?? default, skipInputCT ?? default, cancellationToken.ASAPToken, cancellationToken.LazyToken))
+            using (var printCTS = CancellationTokenSource.CreateLinkedTokenSource(continueInputCT ?? default, skipInputCT ?? default, cancellationToken.LazyToken))
             {
-                await PrinterManager.PrintTextAsync(printer.Id, textToPrint, AuthorId, AssignedRevealSpeed, printCTS.Token);
-                if (cancellationToken.CancelASAP) return;
+                var printToken = new CancellationToken(cancellationToken.ASAPToken, printCTS.Token);
+                await PrinterManager.PrintTextAsync(printer.Id, textToPrint, AssignedAuthorId, AssignedRevealSpeed, printToken);
+                if (printToken.CancelASAP) return;
 
                 printer.RevealProgress = 1f; // Make sure all the text is always revealed.
 
-                await AsyncUtils.WaitEndOfFrame; // Always wait at least one frame to prevent instant skipping.
-                if (cancellationToken.CancelASAP) return;
+                if (printerMeta.PrintFrameDelay > 0)  // Wait at least one frame to make the printed text visible while in skip mode.
+                    await UniTask.DelayFrame(printerMeta.PrintFrameDelay);
+                if (printToken.CancelASAP) return;
 
                 if ((!Assigned(WaitForInput) && printerMeta.AutoWait) || (Assigned(WaitForInput) && WaitForInput.Value))
                 {
@@ -189,21 +191,21 @@ namespace Naninovel.Commands
                         var baseDelay = Configuration.ScaleAutoWait ? PrinterManager.BaseAutoDelay * AssignedRevealSpeed : PrinterManager.BaseAutoDelay;
                         var autoPlayDelay = Mathf.Lerp(0, Configuration.MaxAutoWaitDelay, baseDelay) * textToPrint.Count(char.IsLetterOrDigit);
                         var waitUntilTime = Time.time + autoPlayDelay;
-                        while (Time.time < waitUntilTime && !printCTS.Token.IsCancellationRequested)
+                        while (Time.time < waitUntilTime && !printToken.CancellationRequested)
                             await AsyncUtils.WaitEndOfFrame;
-                        if (cancellationToken.CancelASAP) return;
+                        if (printToken.CancelASAP) return;
                     }
 
                     ScriptPlayer.SetWaitingForInputEnabled(true);
                 }
             }
 
-            var backlog = Engine.GetService<IUIManager>().GetUI<UI.IBacklogUI>();
-            if (backlog != null)
+            var backlogUI = Engine.GetService<IUIManager>().GetUI<UI.IBacklogUI>();
+            if (printerMeta.AddToBacklog && backlogUI != null)
             {
                 var voiceClipName = playAutoVoice ? AutoVoicePath : null;
-                if (shouldAddBacklog) backlog.AddMessage(textToPrint, AuthorId, voiceClipName, PlaybackSpot);
-                else backlog.AppendMessage(textToPrint, voiceClipName, PlaybackSpot);
+                if (shouldAddBacklog) backlogUI.AddMessage(textToPrint, AssignedAuthorId, voiceClipName, PlaybackSpot);
+                else backlogUI.AppendMessage(textToPrint, voiceClipName, PlaybackSpot);
             }
         }
     }

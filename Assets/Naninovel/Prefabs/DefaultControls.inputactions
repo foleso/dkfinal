@@ -1,5 +1,5 @@
 {
-    "name": "Controls",
+    "name": "DefaultControls",
     "maps": [
         {
             "name": "Naninovel",
@@ -31,7 +31,7 @@
                 },
                 {
                     "name": "Skip",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "09ffc7b1-876b-4bd2-a08d-cd0d2084d572",
                     "expectedControlType": "",
                     "processors": "",
@@ -143,20 +143,31 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "4cb3974f-7bfb-41b3-a44c-b2618a5e4983",
-                    "path": "<Keyboard>/leftCtrl",
-                    "interactions": "Hold",
-                    "processors": "Normalize",
+                    "name": "Scroll Down",
+                    "id": "8ed718bf-d0b5-42ae-a451-a0e8a8fcde24",
+                    "path": "1DAxis(minValue=0)",
+                    "interactions": "",
+                    "processors": "",
                     "groups": "",
-                    "action": "Skip",
-                    "isComposite": false,
+                    "action": "Continue",
+                    "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "positive",
+                    "id": "a4747c5d-1927-4636-b272-bbdbb02133f8",
+                    "path": "*/{ScrollVertical}",
+                    "interactions": "",
+                    "processors": "Invert",
+                    "groups": "",
+                    "action": "Continue",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
-                    "id": "dc89ea4f-8fb6-422d-87c4-23e419f16d1f",
-                    "path": "<Keyboard>/rightCtrl",
+                    "id": "ab359d6e-9ae6-491b-9092-65041543e266",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -166,8 +177,8 @@
                 },
                 {
                     "name": "",
-                    "id": "ab359d6e-9ae6-491b-9092-65041543e266",
-                    "path": "<Gamepad>/buttonWest",
+                    "id": "9d910687-dcae-4f6a-ab26-199abf688f90",
+                    "path": "<Keyboard>/ctrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -264,9 +275,31 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "Scroll Up",
+                    "id": "d712705b-f26c-4304-a370-170a09a225b8",
+                    "path": "1DAxis(minValue=0)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rollback",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "d094c6ef-a885-4ad1-a82d-90a6cb32e860",
+                    "path": "*/{ScrollVertical}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rollback",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
-                    "id": "d9726889-3ce6-474f-8620-687711e66549",
-                    "path": "*/{ScrollHorizontal}",
+                    "id": "f8bcbd5b-6b02-4d74-a49d-ee7af4641e13",
+                    "path": "<Mouse>/delta/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -276,8 +309,30 @@
                 },
                 {
                     "name": "",
-                    "id": "cb391d42-2624-4da6-b024-0df7a0c48683",
-                    "path": "*/{ScrollVertical}",
+                    "id": "de1b65fa-e3f3-4290-b52f-024d7bdfcbfd",
+                    "path": "<Gamepad>/rightStick/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CameraLookX",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e04fe78f-2ab1-4866-98ef-61726264362d",
+                    "path": "<Mouse>/delta/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CameraLookY",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c49c062b-a811-4e47-8c03-6c5b4f5804c8",
+                    "path": "<Gamepad>/rightStick/y",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

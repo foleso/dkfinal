@@ -32,11 +32,11 @@ namespace Naninovel.UI
         /// <summary>
         /// Current appearance of the printer.
         /// </summary>
-        public abstract string Apperance { get; set; }
+        public abstract string Appearance { get; set; }
         /// <summary>
         /// Objects that should trigger continue input when interacted with.
         /// </summary>
-        public virtual List<GameObject> ContinueInputTriggers => continueInputTriggers;
+        public virtual IReadOnlyCollection<GameObject> ContinueInputTriggers => continueInputTriggers;
 
         protected ICharacterManager CharacterManager { get; private set; }
 
@@ -58,7 +58,7 @@ namespace Naninovel.UI
             scriptPlayer.OnWaitingForInput += SetWaitForInputIndicatorVisible;
         }
 
-        UniTask IManagedUI.ChangeVisibilityAsync (bool visible, float? duration)
+        UniTask IManagedUI.ChangeVisibilityAsync (bool visible, float? duration, CancellationToken cancellationToken)
         {
             Debug.LogError("@showUI and @hideUI commands can't be used with text printers; use @show/hide or @show/hidePrinter commands instead");
             return UniTask.CompletedTask;
@@ -77,7 +77,7 @@ namespace Naninovel.UI
         /// <summary>
         /// Invoked by <see cref="UITextPrinter"/> when author meta of the printed text changes.
         /// </summary>
-        /// <param name="authorId">Acotr ID of the new author.</param>
+        /// <param name="authorId">Actor ID of the new author.</param>
         /// <param name="authorMeta">Metadata of the new author.</param>
         public abstract void OnAuthorChanged (string authorId, CharacterMetadata authorMeta);
 

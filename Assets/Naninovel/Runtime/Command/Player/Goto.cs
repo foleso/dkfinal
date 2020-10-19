@@ -9,7 +9,7 @@ namespace Naninovel.Commands
     /// <summary>
     /// Navigates naninovel script playback to the provided path.
     /// When the path leads to another (not the currently played) naninovel script, will also [reset state](/api/#resetstate) 
-    /// before loading the target script, unless [ResetStateOnLoad](https://naninovel.com/guide/configuration.html#state) is disabled in the configuration.
+    /// before loading the target script, unless [Reset On Goto](https://naninovel.com/guide/configuration.html#state) is disabled in the configuration.
     /// </summary>
     /// <example>
     /// ; Loads and starts playing a naninovel script with the name `Script001` from the start.
@@ -21,11 +21,11 @@ namespace Naninovel.Commands
     /// ; Navigates the playback to the label `Epilogue` in the currently played script.
     /// @goto .Epilogue
     /// 
-    /// ; Load Script001, but don't reset audio manager (any playing audio won't be interrupted).
-    /// ; Be aware, that excluding a service form state reset will leave related resources in memory.
-    /// @goto Script001 reset:IAudioManager
+    /// ; Load Script001, but don't reset audio (playing tracks won't be interrupted)
+    /// ; and custom variable manager services.
+    /// @goto Script001 reset:IAudioManager,ICustomVariableManager
     /// </example>
-    public class Goto : Command, Command.IForceWait
+    public class Goto : Command, Command.IForceWait, Command.IPreloadable
     {
         /// <summary>
         /// When applied to an <see cref="IEngineService"/> implementation, the service won't be reset
@@ -46,24 +46,36 @@ namespace Naninovel.Commands
 
         /// <summary>
         /// Path to navigate into in the following format: `ScriptName.LabelName`.
-        /// When label name is ommited, will play provided script from the start.
-        /// When script name is ommited, will attempt to find a label in the currently played script.
+        /// When label name is omitted, will play provided script from the start.
+        /// When script name is omitted, will attempt to find a label in the currently played script.
         /// </summary>
-        [ParameterAlias(NamelessParameterAlias), RequiredParameter]
+        [ParameterAlias(NamelessParameterAlias), RequiredParameter, IDEResource(ScriptsConfiguration.DefaultScriptsPathPrefix, 0)]
         public NamedStringParameter Path;
         /// <summary>
         /// When specified, will control whether to reset the engine services state before loading a script (in case the path is leading to another script):<br/>
-        /// - Specify `*` to reset all the services, except the ones with `DontResetAttribute`.<br/>
-        /// - Specify service type names (separated by comma) to exclude from reset; all the other services will be reset, including the ones with `DontResetAttribute`.<br/>
-        /// - Specify `-` to force no reset (even if it's enabled by default in the configuration).
+        /// - Specify `*` to reset all the services, except the ones with `Goto.DontReset` attribute.<br/>
+        /// - Specify service type names (separated by comma) to exclude from reset; all the other services will be reset, including the ones with `Goto.DontReset` attribute.<br/>
+        /// - Specify `-` to force no reset (even if it's enabled by default in the configuration).<br/><br/>
+        /// Notice, that while some services have `Goto.DontReset` attribute applied (eg, `CustomVariableManager`) and are not reset by default, they should still be specified when excluding other services from reset; see the below example on excluding audio manager.<br/>
+        /// Be aware, that excluding a service from reset will leave related resources in memory; find more details in the [engine services guide](/guide/engine-services.md#reset-on-goto).
         /// </summary>
         [ParameterAlias("reset")]
         public StringListParameter ResetState;
 
-        private static readonly Type[] dontResetTypes = ReflectionUtils.ExportedDomainTypes.Where(t => t.IsDefined(typeof(DontResetAttribute), false)).ToArray();
+        private static Type[] dontResetTypes;
 
+        public UniTask PreloadResourcesAsync ()
+        {
+            EnsureDontResetTypesLoaded();
+            return UniTask.CompletedTask;
+        }
+
+        public void ReleasePreloadedResources () { }
+        
         public override async UniTask ExecuteAsync (CancellationToken cancellationToken = default)
         {
+            EnsureDontResetTypesLoaded();
+            
             var player = Engine.GetService<IScriptPlayer>();
 
             var scriptName = Path.Name;
@@ -71,7 +83,7 @@ namespace Naninovel.Commands
 
             if (string.IsNullOrWhiteSpace(scriptName) && !ObjectUtils.IsValid(player.PlayedScript))
             {
-                LogErrorWithPosition($"Failed to execute `@goto` command: script name is not specified and no script is currently played.");
+                LogErrorWithPosition("Failed to execute `@goto` command: script name is not specified and no script is currently played.");
                 return;
             }
 
@@ -109,6 +121,12 @@ namespace Naninovel.Commands
 
             // No reset is needed, just loading the script.
             await player.PreloadAndPlayAsync(scriptName, label: label);
+        }
+
+        private static void EnsureDontResetTypesLoaded ()
+        {
+            if (dontResetTypes is null)
+                dontResetTypes = Engine.Types.Where(t => t.IsDefined(typeof(DontResetAttribute), false)).ToArray();
         }
     } 
 }

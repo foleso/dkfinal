@@ -11,11 +11,13 @@ namespace Naninovel.Commands
     /// @save
     /// </example>
     [CommandAlias("save")]
-    public class AutoSave : Command, Command.IForceWait
+    public class AutoSave : Command
     {
-        public override async UniTask ExecuteAsync (CancellationToken cancellationToken = default)
+        public override UniTask ExecuteAsync (CancellationToken cancellationToken = default)
         {
-            await Engine.GetService<IStateManager>().QuickSaveAsync();
+            // Don't await here, otherwise script player won't be able to sync the running commands.
+            Engine.GetService<IStateManager>().QuickSaveAsync().Forget();
+            return UniTask.CompletedTask;
         }
     } 
 }

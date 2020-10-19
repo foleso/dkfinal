@@ -10,35 +10,32 @@ namespace Naninovel
     /// </summary>
     /// <remarks>
     /// Resource prefab should have a <typeparamref name="TBehaviour"/> component attached to the root object.
-    /// Apperance and other property changes changes are routed to the events of the <typeparamref name="TBehaviour"/> component.
+    /// Appearance and other property changes changes are routed to the events of the <typeparamref name="TBehaviour"/> component.
     /// </remarks>
-    public abstract class GenericActor<TBehaviour> : MonoBehaviourActor
+    public abstract class GenericActor<TBehaviour, TMeta> : MonoBehaviourActor<TMeta>
         where TBehaviour : GenericActorBehaviour
+        where TMeta : ActorMetadata
     {
         public override string Appearance { get => appearance; set => SetAppearance(value); }
         public override bool Visible { get => visible; set => SetVisibility(value); }
 
         protected TBehaviour Behaviour { get; private set; }
 
-        private ActorMetadata metadata;
         private LocalizableResourceLoader<GameObject> prefabLoader;
         private string appearance;
         private bool visible;
         private Color tintColor = Color.white;
 
-        public GenericActor (string id, ActorMetadata metadata)
-            : base(id, metadata)
-        {
-            this.metadata = metadata;
-        }
+        protected GenericActor (string id, TMeta metadata)
+            : base(id, metadata) { }
 
         public override async UniTask InitializeAsync ()
         {
             await base.InitializeAsync();
 
-            var providerMngr = Engine.GetService<IResourceProviderManager>();
-            var localeMngr = Engine.GetService<ILocalizationManager>();
-            prefabLoader = metadata.Loader.CreateLocalizableFor<GameObject>(providerMngr, localeMngr);
+            var providerManager = Engine.GetService<IResourceProviderManager>();
+            var localizationManager = Engine.GetService<ILocalizationManager>();
+            prefabLoader = ActorMetadata.Loader.CreateLocalizableFor<GameObject>(providerManager, localizationManager);
             var prefabResource = await prefabLoader.LoadAsync(Id);
 
             Behaviour = Engine.Instantiate(prefabResource.Object).GetComponent<TBehaviour>();

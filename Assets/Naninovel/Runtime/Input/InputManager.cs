@@ -82,7 +82,7 @@ namespace Naninovel
 
         public virtual void SaveServiceState (GameStateMap stateMap)
         {
-            var state = new GameState() {
+            var state = new GameState {
                 ProcessInput = ProcessInput,
                 DisabledSamplers = samplersMap.Where(kv => !kv.Value.Enabled).Select(kv => kv.Key).ToList()
             };

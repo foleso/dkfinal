@@ -9,7 +9,7 @@ namespace Naninovel.FX
     /// </summary>
     public class ShakeBackground : ShakeTransform
     {
-        protected override Transform GetShakedTransform ()
+        protected override Transform GetShakenTransform ()
         {
             var id = string.IsNullOrEmpty(ObjectName) ? BackgroundsConfiguration.MainActorId : ObjectName;
             var go = GameObject.Find(id);

@@ -22,7 +22,7 @@ namespace Naninovel.Commands
         /// <summary>
         /// Path to the sound effect to stop.
         /// </summary>
-        [ParameterAlias(NamelessParameterAlias)]
+        [ParameterAlias(NamelessParameterAlias), IDEResource(AudioConfiguration.DefaultAudioPathPrefix)]
         public StringParameter SfxPath;
         /// <summary>
         /// Duration of the volume fade-out before stopping playback, in seconds (0.35 by default).

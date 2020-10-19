@@ -7,7 +7,7 @@ namespace Naninovel
 {
     public class GDocToScriptAssetConverter : IGoogleDriveConverter<Script>
     {
-        public RawDataRepresentation[] Representations => new RawDataRepresentation[] {
+        public RawDataRepresentation[] Representations { get; } = {
             new RawDataRepresentation(null, "application/vnd.google-apps.document")
         };
 

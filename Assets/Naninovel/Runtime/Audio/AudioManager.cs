@@ -1,5 +1,6 @@
 ﻿// Copyright 2017-2020 Elringus (Artyom Sovetnikov). All Rights Reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UniRx.Async;
@@ -12,7 +13,7 @@ namespace Naninovel
     [InitializeAtRuntime]
     public class AudioManager : IStatefulService<SettingsStateMap>, IStatefulService<GameStateMap>, IAudioManager
     {
-        [System.Serializable]
+        [Serializable]
         public class Settings
         {
             public float MasterVolume;
@@ -22,18 +23,21 @@ namespace Naninovel
             public List<NamedFloat> AuthorVolume;
         }
 
-        [System.Serializable]
+        [Serializable]
         public class GameState { public List<ClipState> BgmClips; public List<ClipState> SfxClips; }
 
-        [System.Serializable]
+        [Serializable]
         public struct ClipState { public string Path; public float Volume; public bool IsLooped; }
 
         public virtual AudioConfiguration Configuration { get; }
-        public virtual AudioMixer AudioMixer { get; private set; }
+        public virtual AudioListener AudioListener { get; private set; }
+        public virtual AudioMixer AudioMixer { get; }
         public virtual float MasterVolume { get => GetMixerVolume(Configuration.MasterVolumeHandleName); set => SetMixerVolume(Configuration.MasterVolumeHandleName, value); }
         public virtual float BgmVolume { get => GetMixerVolume(Configuration.BgmVolumeHandleName); set { if (BgmGroupAvailable) SetMixerVolume(Configuration.BgmVolumeHandleName, value); } }
         public virtual float SfxVolume { get => GetMixerVolume(Configuration.SfxVolumeHandleName); set { if (SfxGroupAvailable) SetMixerVolume(Configuration.SfxVolumeHandleName, value); } }
         public virtual float VoiceVolume { get => GetMixerVolume(Configuration.VoiceVolumeHandleName); set { if (VoiceGroupAvailable) SetMixerVolume(Configuration.VoiceVolumeHandleName, value); } }
+        public virtual IResourceLoader<AudioClip> AudioLoader => audioLoader;
+        public virtual IResourceLoader<AudioClip> VoiceLoader => voiceLoader;
 
         protected virtual bool BgmGroupAvailable => bgmGroup;
         protected virtual bool SfxGroupAvailable => sfxGroup;
@@ -42,8 +46,8 @@ namespace Naninovel
         private readonly IResourceProviderManager providersManager;
         private readonly ILocalizationManager localizationManager;
         private readonly Dictionary<string, ClipState> bgmMap, sfxMap;
-        private readonly AudioMixerGroup bgmGroup, sfxGroup, voiceGroup;
         private readonly Dictionary<string, float> authorVolume;
+        private AudioMixerGroup bgmGroup, sfxGroup, voiceGroup;
         private LocalizableResourceLoader<AudioClip> audioLoader, voiceLoader;
         private AudioController audioController;
         private ClipState? voiceClip;
@@ -55,14 +59,7 @@ namespace Naninovel
             this.localizationManager = localizationManager;
 
             AudioMixer = ObjectUtils.IsValid(config.CustomAudioMixer) ? config.CustomAudioMixer : Resources.Load<AudioMixer>(AudioConfiguration.DefaultMixerResourcesPath);
-
-            if (ObjectUtils.IsValid(AudioMixer))
-            {
-                bgmGroup = AudioMixer.FindMatchingGroups(config.BgmGroupPath)?.FirstOrDefault();
-                sfxGroup = AudioMixer.FindMatchingGroups(config.SfxGroupPath)?.FirstOrDefault();
-                voiceGroup = AudioMixer.FindMatchingGroups(config.VoiceGroupPath)?.FirstOrDefault();
-            }
-
+            
             bgmMap = new Dictionary<string, ClipState>();
             sfxMap = new Dictionary<string, ClipState>();
             authorVolume = new Dictionary<string, float>();
@@ -70,9 +67,18 @@ namespace Naninovel
 
         public virtual UniTask InitializeServiceAsync ()
         {
+            if (ObjectUtils.IsValid(AudioMixer))
+            {
+                bgmGroup = AudioMixer.FindMatchingGroups(Configuration.BgmGroupPath)?.FirstOrDefault();
+                sfxGroup = AudioMixer.FindMatchingGroups(Configuration.SfxGroupPath)?.FirstOrDefault();
+                voiceGroup = AudioMixer.FindMatchingGroups(Configuration.VoiceGroupPath)?.FirstOrDefault();
+            }
+            
             audioLoader = Configuration.AudioLoader.CreateLocalizableFor<AudioClip>(providersManager, localizationManager);
             voiceLoader = Configuration.VoiceLoader.CreateLocalizableFor<AudioClip>(providersManager, localizationManager);
             audioController = Engine.CreateObject<AudioController>();
+
+            AudioListener = audioController.Listener;
 
             return UniTask.CompletedTask;
         }
@@ -84,8 +90,8 @@ namespace Naninovel
             sfxMap.Clear();
             voiceClip = null;
 
-            audioLoader?.GetAllLoaded()?.ForEach(r => r?.Release(this));
-            voiceLoader?.GetAllLoaded()?.ForEach(r => r?.Release(this));
+            audioLoader?.ReleaseAll(this);
+            voiceLoader?.ReleaseAll(this);
         }
 
         public virtual void DestroyService ()
@@ -93,11 +99,11 @@ namespace Naninovel
             if (audioController)
             {
                 audioController.StopAllClips();
-                Object.Destroy(audioController.gameObject);
+                UnityEngine.Object.Destroy(audioController.gameObject);
             }
 
-            audioLoader?.GetAllLoaded()?.ForEach(r => r?.Release(this));
-            voiceLoader?.GetAllLoaded()?.ForEach(r => r?.Release(this));
+            audioLoader?.ReleaseAll(this);
+            voiceLoader?.ReleaseAll(this);
         }
 
         public virtual void SaveServiceState (SettingsStateMap stateMap)
@@ -140,9 +146,9 @@ namespace Naninovel
 
         public virtual void SaveServiceState (GameStateMap stateMap)
         {
-            var state = new GameState() { // Save only looped audio to prevent playing multiple clips at once when the game is (auto) saved in skip mode.
-                BgmClips = bgmMap.Values.Where(s => BgmPlaying(s.Path) && s.IsLooped).ToList(),
-                SfxClips = sfxMap.Values.Where(s => SfxPlaying(s.Path) && s.IsLooped).ToList()
+            var state = new GameState { // Save only looped audio to prevent playing multiple clips at once when the game is (auto) saved in skip mode.
+                BgmClips = bgmMap.Values.Where(s => IsBgmPlaying(s.Path) && s.IsLooped).ToList(),
+                SfxClips = sfxMap.Values.Where(s => IsSfxPlaying(s.Path) && s.IsLooped).ToList()
             };
             stateMap.SetState(state);
         }
@@ -158,7 +164,7 @@ namespace Naninovel
                     if (!state.BgmClips.Exists(c => c.Path.EqualsFast(bgmPath)))
                         tasks.Add(StopBgmAsync(bgmPath));
                 foreach (var clipState in state.BgmClips)
-                    if (BgmPlaying(clipState.Path))
+                    if (IsBgmPlaying(clipState.Path))
                         tasks.Add(ModifyBgmAsync(clipState.Path, clipState.Volume, clipState.IsLooped, 0));
                     else tasks.Add(PlayBgmAsync(clipState.Path, clipState.Volume, 0, clipState.IsLooped));
             }
@@ -170,7 +176,7 @@ namespace Naninovel
                     if (!state.SfxClips.Exists(c => c.Path.EqualsFast(sfxPath)))
                         tasks.Add(StopSfxAsync(sfxPath));
                 foreach (var clipState in state.SfxClips)
-                    if (SfxPlaying(clipState.Path))
+                    if (IsSfxPlaying(clipState.Path))
                         tasks.Add(ModifySfxAsync(clipState.Path, clipState.Volume, clipState.IsLooped, 0));
                     else tasks.Add(PlaySfxAsync(clipState.Path, clipState.Volume, 0, clipState.IsLooped));
             }
@@ -179,72 +185,11 @@ namespace Naninovel
             await UniTask.WhenAll(tasks);
         }
 
-        public virtual async UniTask HoldAudioResourcesAsync (object holder, string path)
-        {
-            var resource = await audioLoader.LoadAsync(path);
-            if (resource.Valid)
-                resource.Hold(holder);
-        }
+        public virtual IReadOnlyCollection<string> GetPlayedBgmPaths () => bgmMap.Keys.Where(IsBgmPlaying).ToArray();
 
-        public virtual void ReleaseAudioResources (object holder, string path)
-        {
-            if (!audioLoader.IsLoaded(path)) return;
+        public virtual IReadOnlyCollection<string> GetPlayedSfxPaths () => sfxMap.Keys.Where(IsSfxPlaying).ToArray();
 
-            var resource = audioLoader.GetLoadedOrNull(path);
-            resource.Release(holder, false);
-            if (resource.HoldersCount == 0)
-            {
-                audioController.StopClip(resource);
-                resource.Provider.UnloadResource(resource.Path);
-            }
-        }
-
-        public virtual async UniTask HoldVoiceResourcesAsync (object holder, string path)
-        {
-            var resource = await voiceLoader.LoadAsync(path);
-            if (resource.Valid)
-                resource.Hold(holder);
-        }
-
-        public virtual void ReleaseVoiceResources (object holder, string path)
-        {
-            if (!voiceLoader.IsLoaded(path)) return;
-
-            var resource = voiceLoader.GetLoadedOrNull(path);
-            resource.Release(holder, false);
-            if (resource.HoldersCount == 0)
-            {
-                audioController.StopClip(resource);
-                resource.Provider.UnloadResource(resource.Path);
-            }
-        }
-
-        public virtual bool BgmPlaying (string path)
-        {
-            if (!bgmMap.ContainsKey(path)) return false;
-            return IsAudioPlaying(path);
-        }
-
-        public virtual bool SfxPlaying (string path)
-        {
-            if (!sfxMap.ContainsKey(path)) return false;
-            return IsAudioPlaying(path);
-        }
-
-        public virtual bool VoicePlaying (string path)
-        {
-            if (!voiceClip.HasValue || voiceClip.Value.Path != path) return false;
-            if (!voiceLoader.IsLoaded(path)) return false;
-            var clipResource = voiceLoader.GetLoadedOrNull(path);
-            if (!clipResource.Valid) return false;
-            return audioController.GetTrack(clipResource)?.Playing ?? false;
-        }
-
-        public virtual IEnumerable<string> GetPlayedBgmPaths () => bgmMap.Keys;
-
-        public virtual IEnumerable<string> GetPlayedSfxPaths () => sfxMap.Keys;
-
-        public virtual string GetPlayedVoicePath () => VoicePlaying(voiceClip?.Path) ? voiceClip.Value.Path : null;
+        public virtual string GetPlayedVoicePath () => IsVoicePlaying(voiceClip?.Path) ? voiceClip?.Path : null;
 
         public virtual async UniTask<bool> AudioExistsAsync (string path) => await audioLoader.ExistsAsync(path);
 
@@ -272,46 +217,38 @@ namespace Naninovel
             await ModifyAudioAsync(path, volume, loop, time, cancellationToken);
         }
 
-        public virtual void PlaySfxFast (string path, float volume = 1f, string group = default, bool restartIfPlaying = true)
+        public virtual void PlaySfxFast (string path, float volume = 1f, string group = default, bool restart = true, bool additive = true)
         {
             if (!audioLoader.IsLoaded(path))
-            {
-                Debug.LogError($"Failed to fast-play `{path}` SFX: the resource is not loaded.");
-                return;
-            }
+                throw new Exception($"Failed to fast-play `{path}` SFX: the associated audio clip resource is not loaded.");
             var clip = audioLoader.GetLoadedOrNull(path);
-            if (!restartIfPlaying && audioController.ClipPlaying(clip)) return;
-            audioController.PlayClip(clip, null, volume, false, FindAudioGroupOrDefault(group, sfxGroup));
+            if (audioController.ClipPlaying(clip) && !restart && !additive) return;
+            audioController.PlayClip(clip, null, volume, false, FindAudioGroupOrDefault(group, sfxGroup), null, additive);
         }
 
         public virtual async UniTask PlayBgmAsync (string path, float volume = 1f, float fadeTime = 0f, bool loop = true, string introPath = null, string group = default, CancellationToken cancellationToken = default)
         {
-            var clipResource = await audioLoader.LoadAsync(path);
+            var clipResource = await audioLoader.LoadAndHoldAsync(path, this);
             if (cancellationToken.CancelASAP) return;
             if (!clipResource.Valid)
             {
                 Debug.LogWarning($"Failed to play BGM `{path}`: resource not found.");
                 return;
             }
-            clipResource.Hold(this);
 
             bgmMap[path] = new ClipState { Path = path, Volume = volume, IsLooped = loop };
 
             var introClip = default(AudioClip);
             if (!string.IsNullOrEmpty(introPath))
             {
-                var introClipResource = await audioLoader.LoadAsync(introPath);
+                var introClipResource = await audioLoader.LoadAndHoldAsync(introPath, this);
                 if (!introClipResource.Valid)
                     Debug.LogWarning($"Failed to load intro BGM `{path}`: resource not found.");
-                else
-                {
-                    introClipResource.Hold(this);
-                    introClip = introClipResource.Object;
-                }
+                else introClip = introClipResource.Object;
             }
 
             if (fadeTime <= 0) audioController.PlayClip(clipResource, null, volume, loop, FindAudioGroupOrDefault(group, bgmGroup), introClip);
-            else await audioController.PlayClipAsync(clipResource, fadeTime, null, volume, loop, FindAudioGroupOrDefault(group, bgmGroup), introClip, cancellationToken);
+            else await audioController.PlayClipAsync(clipResource, fadeTime, null, volume, loop, FindAudioGroupOrDefault(group, bgmGroup), introClip, cancellationToken: cancellationToken);
         }
 
         public virtual async UniTask StopBgmAsync (string path, float fadeTime = 0f, CancellationToken cancellationToken = default)
@@ -325,8 +262,8 @@ namespace Naninovel
             if (fadeTime <= 0) audioController.StopClip(clipResource);
             else await audioController.StopClipAsync(clipResource, fadeTime, cancellationToken);
 
-            if (!BgmPlaying(path))
-                clipResource?.Release(this);
+            if (!IsBgmPlaying(path))
+                audioLoader?.Release(path, this);
         }
 
         public virtual async UniTask StopAllBgmAsync (float fadeTime = 0f, CancellationToken cancellationToken = default)
@@ -336,7 +273,7 @@ namespace Naninovel
 
         public virtual async UniTask PlaySfxAsync (string path, float volume = 1f, float fadeTime = 0f, bool loop = false, string group = default, CancellationToken cancellationToken = default)
         {
-            var clipResource = await audioLoader.LoadAsync(path);
+            var clipResource = await audioLoader.LoadAndHoldAsync(path, this);
             if (cancellationToken.CancelASAP) return;
             if (!clipResource.Valid)
             {
@@ -345,8 +282,6 @@ namespace Naninovel
             }
 
             sfxMap[path] = new ClipState { Path = path, Volume = volume, IsLooped = loop };
-
-            clipResource.Hold(this);
 
             if (fadeTime <= 0) audioController.PlayClip(clipResource, null, volume, loop, FindAudioGroupOrDefault(group, sfxGroup));
             else await audioController.PlayClipAsync(clipResource, fadeTime, null, volume, loop, FindAudioGroupOrDefault(group, sfxGroup), cancellationToken: cancellationToken);
@@ -363,8 +298,8 @@ namespace Naninovel
             if (fadeTime <= 0) audioController.StopClip(clipResource);
             else await audioController.StopClipAsync(clipResource, fadeTime, cancellationToken);
 
-            if (!SfxPlaying(path))
-                clipResource?.Release(this);
+            if (!IsSfxPlaying(path))
+                audioLoader?.Release(path, this);
         }
 
         public virtual async UniTask StopAllSfxAsync (float fadeTime = 0f, CancellationToken cancellationToken = default)
@@ -374,7 +309,7 @@ namespace Naninovel
 
         public virtual async UniTask PlayVoiceAsync (string path, float volume = 1f, string group = default, CancellationToken cancellationToken = default)
         {
-            var clipResource = await voiceLoader.LoadAsync(path);
+            var clipResource = await voiceLoader.LoadAndHoldAsync(path, this);
             if (!clipResource.Valid || cancellationToken.CancelASAP) return;
 
             if (Configuration.VoiceOverlapPolicy == VoiceOverlapPolicy.PreventOverlap)
@@ -383,7 +318,6 @@ namespace Naninovel
             voiceClip = new ClipState { Path = path, IsLooped = false, Volume = volume };
 
             audioController.PlayClip(clipResource, volume: volume, mixerGroup: FindAudioGroupOrDefault(group, voiceGroup));
-            clipResource.Hold(this);
         }
 
         public virtual async UniTask PlayVoiceSequenceAsync (List<string> pathList, float volume = 1f, string group = default, CancellationToken cancellationToken = default)
@@ -392,7 +326,7 @@ namespace Naninovel
             {
                 await PlayVoiceAsync(path, volume, group);
                 if (cancellationToken.CancelASAP) return;
-                await UniTask.WaitWhile(() => VoicePlaying(path));
+                await UniTask.WaitWhile(() => IsVoicePlaying(path));
                 if (cancellationToken.CancelASAP) return;
             }
         }
@@ -402,23 +336,23 @@ namespace Naninovel
             if (!voiceClip.HasValue) return;
 
             var clipResource = voiceLoader.GetLoadedOrNull(voiceClip.Value.Path);
-            voiceClip = null;
             audioController.StopClip(clipResource);
-            clipResource?.Release(this);
+            voiceLoader.Release(voiceClip.Value.Path, this);
+            voiceClip = null;
         }
 
         public virtual IAudioTrack GetAudioTrack (string path)
         {
             var clipResource = audioLoader.GetLoadedOrNull(path);
             if (clipResource is null || !clipResource.Valid) return null;
-            return audioController.GetTrack(clipResource.Object);
+            return audioController.GetTracks(clipResource.Object)?.FirstOrDefault();
         }
 
         public virtual IAudioTrack GetVoiceTrack (string path)
         {
             var clipResource = voiceLoader.GetLoadedOrNull(path);
             if (clipResource is null || !clipResource.Valid) return null;
-            return audioController.GetTrack(clipResource.Object);
+            return audioController.GetTracks(clipResource.Object)?.FirstOrDefault();
         }
 
         public virtual float GetAuthorVolume (string authorId)
@@ -438,7 +372,7 @@ namespace Naninovel
             if (!audioLoader.IsLoaded(path)) return false;
             var clipResource = audioLoader.GetLoadedOrNull(path);
             if (!clipResource.Valid) return false;
-            return audioController.GetTrack(clipResource)?.Playing ?? false;
+            return audioController.GetTracks(clipResource)?.FirstOrDefault()?.Playing ?? false;
         }
 
         private async UniTask ModifyAudioAsync (string path, float volume, bool loop, float time, CancellationToken cancellationToken = default)
@@ -446,7 +380,7 @@ namespace Naninovel
             if (!audioLoader.IsLoaded(path)) return;
             var clipResource = audioLoader.GetLoadedOrNull(path);
             if (!clipResource.Valid) return;
-            var track = audioController.GetTrack(clipResource);
+            var track = audioController.GetTracks(clipResource)?.FirstOrDefault();
             if (track is null) return;
             track.Loop = loop;
             if (time <= 0) track.Volume = volume;
@@ -480,6 +414,27 @@ namespace Naninovel
                 return defaultGroup;
             var group = AudioMixer.FindMatchingGroups(path)?.FirstOrDefault();
             return ObjectUtils.IsValid(group) ? group : defaultGroup;
+        }
+        
+        private bool IsBgmPlaying (string path)
+        {
+            if (!bgmMap.ContainsKey(path)) return false;
+            return IsAudioPlaying(path);
+        }
+
+        private bool IsSfxPlaying (string path)
+        {
+            if (!sfxMap.ContainsKey(path)) return false;
+            return IsAudioPlaying(path);
+        }
+
+        private bool IsVoicePlaying (string path)
+        {
+            if (!voiceClip.HasValue || voiceClip.Value.Path != path) return false;
+            if (!voiceLoader.IsLoaded(path)) return false;
+            var clipResource = voiceLoader.GetLoadedOrNull(path);
+            if (!clipResource.Valid) return false;
+            return audioController.GetTracks(clipResource)?.FirstOrDefault()?.Playing ?? false;
         }
     }
 }

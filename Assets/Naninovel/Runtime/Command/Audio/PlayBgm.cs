@@ -24,7 +24,7 @@ namespace Naninovel.Commands
     /// ; Changes volume of all the played music tracks to 50% over 2.5 seconds and makes them play in a loop
     /// @bgm volume:0.5 loop:true time:2.5
     /// 
-    /// ; Playes `BattleThemeIntro` once and then immediately `BattleThemeMain` in a loop.
+    /// ; Plays `BattleThemeIntro` once and then immediately `BattleThemeMain` in a loop.
     /// @bgm BattleThemeMain intro:BattleThemeIntro
     /// </example>
     [CommandAlias("bgm")]
@@ -33,12 +33,12 @@ namespace Naninovel.Commands
         /// <summary>
         /// Path to the music track to play.
         /// </summary>
-        [ParameterAlias(NamelessParameterAlias)]
+        [ParameterAlias(NamelessParameterAlias), IDEResource(AudioConfiguration.DefaultAudioPathPrefix)]
         public StringParameter BgmPath;
         /// <summary>
         /// Path to the intro music track to play once before the main track (not affected by the loop parameter).
         /// </summary>
-        [ParameterAlias("intro")]
+        [ParameterAlias("intro"), IDEResource(AudioConfiguration.DefaultAudioPathPrefix)]
         public StringParameter IntroBgmPath;
         /// <summary>
         /// Volume of the music track.
@@ -65,22 +65,22 @@ namespace Naninovel.Commands
         [ParameterAlias("time")]
         public DecimalParameter Duration = .35f;
 
-        public async UniTask HoldResourcesAsync ()
+        public async UniTask PreloadResourcesAsync ()
         {
             if (!Assigned(BgmPath) || BgmPath.DynamicValue) return;
-            await AudioManager.HoldAudioResourcesAsync(this, BgmPath);
+            await AudioManager.AudioLoader.LoadAndHoldAsync(BgmPath, this);
 
             if (!Assigned(IntroBgmPath) || IntroBgmPath.DynamicValue) return;
-            await AudioManager.HoldAudioResourcesAsync(this, IntroBgmPath);
+            await AudioManager.AudioLoader.LoadAndHoldAsync(IntroBgmPath, this);
         }
 
-        public void ReleaseResources ()
+        public void ReleasePreloadedResources ()
         {
             if (!Assigned(BgmPath) || BgmPath.DynamicValue) return;
-            AudioManager.ReleaseAudioResources(this, BgmPath);
+            AudioManager?.AudioLoader?.Release(BgmPath, this);
 
             if (!Assigned(IntroBgmPath) || IntroBgmPath.DynamicValue) return;
-            AudioManager.ReleaseAudioResources(this, IntroBgmPath);
+            AudioManager?.AudioLoader?.Release(IntroBgmPath, this);
         }
 
         public override async UniTask ExecuteAsync (CancellationToken cancellationToken = default)
@@ -89,10 +89,10 @@ namespace Naninovel.Commands
             else await UniTask.WhenAll(AudioManager.GetPlayedBgmPaths().ToList().Select(path => PlayOrModifyTrackAsync(AudioManager, path, Volume, Loop, Duration, FadeInDuration, IntroBgmPath, null, cancellationToken)));
         }
 
-        private static async UniTask PlayOrModifyTrackAsync (IAudioManager mngr, string path, float volume, bool loop, float time, float fade, string introPath, string group, CancellationToken cancellationToken)
+        private static async UniTask PlayOrModifyTrackAsync (IAudioManager manager, string path, float volume, bool loop, float time, float fade, string introPath, string group, CancellationToken cancellationToken)
         {
-            if (mngr.BgmPlaying(path)) await mngr.ModifyBgmAsync(path, volume, loop, time, cancellationToken);
-            else await mngr.PlayBgmAsync(path, volume, fade, loop, introPath, group, cancellationToken);
+            if (manager.IsBgmPlaying(path)) await manager.ModifyBgmAsync(path, volume, loop, time, cancellationToken);
+            else await manager.PlayBgmAsync(path, volume, fade, loop, introPath, group, cancellationToken);
         }
     } 
 }

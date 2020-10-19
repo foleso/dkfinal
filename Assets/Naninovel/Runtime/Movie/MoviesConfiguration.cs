@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Naninovel
 {
-    [System.Serializable]
+    [EditInProjectSettings]
     public class MoviesConfiguration : Configuration
     {
         public const string DefaultMoviesPathPrefix = "Movies";

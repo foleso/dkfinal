@@ -27,13 +27,13 @@ namespace Naninovel
             return UniTask.CompletedTask;
         }
 
-        public static IEnumerable<string> LocateProjectResources (string rootPath, string resourcesPath, ProjectResources projectResources)
+        public static IReadOnlyCollection<string> LocateProjectResources (string rootPath, string resourcesPath, ProjectResources projectResources)
         {
             var path = string.IsNullOrEmpty(rootPath) ? resourcesPath : string.IsNullOrEmpty(resourcesPath) ? rootPath : $"{rootPath}/{resourcesPath}";
             var result = projectResources.ResourcePaths.LocateResourcePathsAtFolder(path);
             if (!string.IsNullOrEmpty(rootPath))
-                return result.Select(p => p.GetAfterFirst(rootPath + "/"));
-            return result;
+                return result.Select(p => p.GetAfterFirst(rootPath + "/")).ToArray();
+            return result.ToArray();
         }
     }
 }

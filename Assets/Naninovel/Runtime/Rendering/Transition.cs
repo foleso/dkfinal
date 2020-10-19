@@ -22,7 +22,7 @@ namespace Naninovel
         /// </summary>
         public readonly Texture DissolveTexture;
 
-        // Used to disinguish default instances.
+        // Used to distinguish default instances.
         private readonly bool custom;
         private readonly Vector4 parameters;
 

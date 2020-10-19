@@ -9,17 +9,17 @@ namespace Naninovel
     /// <summary>
     /// Represents a custom variable.
     /// </summary>
-    [System.Serializable]
+    [Serializable]
     public struct CustomVariable : IEquatable<CustomVariable>
     {
         /// <summary>
         /// Name of the custom variable.
         /// </summary>
-        public string Name { get => name; set => name = value; }
+        public string Name => name;
         /// <summary>
         /// Value of the custom variable.
         /// </summary>
-        public string Value { get => value; set => this.value = value; }
+        public string Value => value;
         /// <summary>
         /// Whether the variable is global variable.
         /// </summary>
@@ -46,7 +46,7 @@ namespace Naninovel
 
         public override int GetHashCode ()
         {
-            return 363513814 + EqualityComparer<string>.Default.GetHashCode(name);
+            return 363513814 + EqualityComparer<string>.Default.GetHashCode(Name);
         }
 
         public static bool operator == (CustomVariable left, CustomVariable right)

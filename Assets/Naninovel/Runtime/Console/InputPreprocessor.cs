@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Naninovel
 {
@@ -34,7 +35,7 @@ namespace Naninovel
         /// Adds the provided delegate as the input preprocessor.
         /// The delegate will be invoked before processing the console input.
         /// The only argument is the console input string. The return is the result of the preprocessing.
-        /// When null is retured, the input won't be processed further.
+        /// When null is returned, the input won't be processed further.
         /// </summary>
         public static bool AddPreprocessor (Func<string, string> preprocessor)
         {
@@ -48,5 +49,11 @@ namespace Naninovel
         {
             return preprocessors.Remove(preprocessor);
         }
+
+        /// <summary>
+        /// Removes all the added preprocessors from the preprocessors list.
+        /// </summary>
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        public static void ResetPreprocessor () => preprocessors.Clear();
     }
 }

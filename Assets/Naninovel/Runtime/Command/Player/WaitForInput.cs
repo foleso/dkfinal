@@ -10,7 +10,7 @@ namespace Naninovel.Commands
     /// </summary>
     /// <example>
     /// ; User will have to activate a `continue` input after the first sentence 
-    /// ; for the printer to contiue printing out the following text.
+    /// ; for the printer to continue printing out the following text.
     /// Lorem ipsum dolor sit amet.[i] Consectetur adipiscing elit.
     /// </example>
     [CommandAlias("i")]

@@ -32,19 +32,24 @@ namespace Naninovel
         public virtual bool RollbackInProgress => rollbackTaskQueue.Count > 0;
 
         protected virtual string LastQuickSaveSlotId => Configuration.IndexToQuickSaveSlotId(1);
+        protected virtual StateRollbackStack RollbackStack { get; }
 
-        private readonly StateRollbackStack rollbackStack;
         private readonly Queue<GameStateMap> rollbackTaskQueue = new Queue<GameStateMap>();
         private readonly List<Action<GameStateMap>> onGameSerializeTasks = new List<Action<GameStateMap>>();
         private readonly List<Func<GameStateMap, UniTask>> onGameDeserializeTasks = new List<Func<GameStateMap, UniTask>>();
         private IInputSampler rollbackInput;
+        private IScriptPlayer scriptPlayer;
+        private ICameraManager cameraManager;
 
         public StateManager (StateConfiguration config, EngineConfiguration engineConfig)
         {
             Configuration = config;
 
-            var rollbackCapacity = (config.EnableStateRollback || Application.isEditor || Debug.isDebugBuild) ? Mathf.Max(1, config.StateRollbackSteps) : 1; // One step is reserved for game save operations.
-            rollbackStack = new StateRollbackStack(rollbackCapacity);
+            if (config.EnableStateRollback)
+            {
+                var rollbackCapacity = Mathf.Max(1, config.StateRollbackSteps);
+                RollbackStack = new StateRollbackStack(rollbackCapacity);
+            }
 
             var savesFolderPath = PathUtils.Combine(engineConfig.GeneratedDataPath, config.SaveFolderName);
             GameStateSlotManager = (ISaveSlotManager<GameStateMap>)Activator.CreateInstance(Type.GetType(config.GameStateHandler), config, savesFolderPath);
@@ -54,12 +59,17 @@ namespace Naninovel
 
         public virtual async UniTask InitializeServiceAsync ()
         {
-            Engine.GetService<IScriptPlayer>().AddPreExecutionTask(HandleCommandPreExecution);
+            scriptPlayer = Engine.GetService<IScriptPlayer>();
+            cameraManager = Engine.GetService<ICameraManager>();
+            
+            if (Configuration.EnableStateRollback)
+            {
+                scriptPlayer.AddPreExecutionTask(HandleCommandPreExecution);
 
-            rollbackInput = Engine.GetService<IInputManager>().GetRollback();
-
-            if (rollbackInput != null)
-                rollbackInput.OnStart += HandleRollbackInputStart;
+                rollbackInput = Engine.GetService<IInputManager>().GetRollback();
+                if (rollbackInput != null)
+                    rollbackInput.OnStart += HandleRollbackInputStart;
+            }
 
             SettingsState = await LoadSettingsAsync();
             GlobalState = await LoadGlobalStateAsync();
@@ -67,12 +77,12 @@ namespace Naninovel
 
         public virtual void ResetService ()
         {
-            rollbackStack.Clear();
+            RollbackStack?.Clear();
         }
 
         public virtual void DestroyService ()
         {
-            Engine.GetService<IScriptPlayer>()?.RemovePreExecutionTask(HandleCommandPreExecution);
+            scriptPlayer?.RemovePreExecutionTask(HandleCommandPreExecution);
 
             if (rollbackInput != null)
                 rollbackInput.OnStart -= HandleRollbackInputStart;
@@ -88,29 +98,40 @@ namespace Naninovel
 
         public virtual async UniTask<GameStateMap> SaveGameAsync (string slotId)
         {
-            if (rollbackStack.Count == 0 || rollbackStack.Peek() is null)
-                PushRollbackSnapshot(false);
-
             var quick = slotId.StartsWithFast(Configuration.QuickSaveSlotMask.GetBefore("{"));
 
             OnGameSaveStarted?.Invoke(new GameSaveLoadArgs(slotId, quick));
-
-            var state = new GameStateMap(rollbackStack.Peek());
-            state.SaveDateTime = DateTime.Now;
-            state.Thumbnail = Engine.GetService<ICameraManager>().CaptureThumbnail();
-
-            var lastZero = rollbackStack.FirstOrDefault(s => s.PlaybackSpot.InlineIndex == 0); // Required when changing locale.
-            bool filter (GameStateMap s) => (Configuration.EnableStateRollback && Configuration.SavedRollbackSteps > 0 && s.PlayerRollbackAllowed) || s == lastZero;
-            state.RollbackStackJson = rollbackStack.ToJson(Configuration.SavedRollbackSteps, filter);
-
-            await GameStateSlotManager.SaveAsync(slotId, state);
-
-            // Also save global state on every game save.
-            await SaveGlobalStateAsync();
-
+            
+            var state = new GameStateMap();
+            await scriptPlayer.SynchronizeAndDoAsync(DoSaveAfterSync);
+            
             OnGameSaveFinished?.Invoke(new GameSaveLoadArgs(slotId, quick));
 
             return state;
+
+            async UniTask DoSaveAfterSync ()
+            {
+                state.SaveDateTime = DateTime.Now;
+                state.Thumbnail = cameraManager.CaptureThumbnail();
+            
+                SaveAllServicesToState<IStatefulService<GameStateMap>, GameStateMap>(state);
+
+                for (int i = onGameSerializeTasks.Count - 1; i >= 0; i--)
+                    onGameSerializeTasks[i](state);
+
+                if (RollbackStack != null)
+                {
+                    // Closest spot with zero inline index is used when changing locale (UI/GameSettings/LanguageDropdown.cs).
+                    var nearestStartLineSpot = RollbackStack.FirstOrDefault(s => s.PlaybackSpot.InlineIndex == 0); 
+                    bool SelectSerializedSnapshots (GameStateMap s) => s.PlayerRollbackAllowed || s == nearestStartLineSpot;
+                    state.RollbackStackJson = RollbackStack.ToJson(Configuration.SavedRollbackSteps, SelectSerializedSnapshots);
+                }
+
+                await GameStateSlotManager.SaveAsync(slotId, state);
+
+                // Also save global state on every game save.
+                await SaveGlobalStateAsync();
+            }
         }
 
         public virtual async UniTask<GameStateMap> QuickSaveAsync ()
@@ -135,10 +156,7 @@ namespace Naninovel
         public virtual async UniTask<GameStateMap> LoadGameAsync (string slotId)
         {
             if (string.IsNullOrEmpty(slotId) || !GameStateSlotManager.SaveSlotExists(slotId))
-            {
-                Debug.LogError($"Slot '{slotId}' not found when loading '{typeof(GameStateMap)}' data.");
-                return null;
-            }
+                throw new Exception($"Slot '{slotId}' not found when loading '{typeof(GameStateMap)}' data.");
 
             var quick = slotId.EqualsFast(LastQuickSaveSlotId);
 
@@ -150,11 +168,11 @@ namespace Naninovel
             Engine.Reset();
             await Resources.UnloadUnusedAssets();
 
-            var state = await GameStateSlotManager.LoadAsync(slotId) as GameStateMap;
+            var state = await GameStateSlotManager.LoadAsync(slotId);
             await LoadAllServicesFromStateAsync<IStatefulService<GameStateMap>, GameStateMap>(state);
 
-            if (Configuration.EnableStateRollback && Configuration.SavedRollbackSteps > 0)
-                rollbackStack.OverrideFromJson(state.RollbackStackJson, s => s.AllowPlayerRollback());
+            // All the serialized snapshots are expected to allow player rollback.
+            RollbackStack?.OverrideFromJson(state.RollbackStackJson, s => s.AllowPlayerRollback());
 
             for (int i = onGameDeserializeTasks.Count - 1; i >= 0; i--)
                 await onGameDeserializeTasks[i](state);
@@ -199,7 +217,7 @@ namespace Naninovel
             if (Configuration.LoadStartDelay > 0)
                 await UniTask.Delay(TimeSpan.FromSeconds(Configuration.LoadStartDelay));
 
-            Engine.GetService<IScriptPlayer>()?.Playlist?.ReleaseResources();
+            scriptPlayer?.Playlist?.ReleaseResources();
 
             Engine.Reset(exclude);
 
@@ -208,7 +226,8 @@ namespace Naninovel
             if (tasks != null)
             {
                 foreach (var task in tasks)
-                    await task?.Invoke();
+                    if (task != null)
+                        await task.Invoke();
             }
 
             OnResetFinished?.Invoke();
@@ -216,6 +235,8 @@ namespace Naninovel
 
         public virtual void PushRollbackSnapshot (bool allowPlayerRollback)
         {
+            if (RollbackStack is null) return;
+            
             var state = new GameStateMap();
             state.SaveDateTime = DateTime.Now;
             state.PlayerRollbackAllowed = allowPlayerRollback;
@@ -225,12 +246,14 @@ namespace Naninovel
             for (int i = onGameSerializeTasks.Count - 1; i >= 0; i--)
                 onGameSerializeTasks[i](state);
 
-            rollbackStack.Push(state);
+            RollbackStack.Push(state);
         }
 
         public virtual async UniTask<bool> RollbackAsync (Predicate<GameStateMap> predicate)
         {
-            var state = rollbackStack.Pop(predicate);
+            if (RollbackStack is null) return false;
+            
+            var state = RollbackStack.Pop(predicate);
             if (state is null) return false;
 
             await RollbackToStateAsync(state);
@@ -239,22 +262,22 @@ namespace Naninovel
 
         public virtual async UniTask<bool> RollbackAsync ()
         {
-            if (rollbackStack.Capacity <= 1) return false;
+            if (RollbackStack is null || RollbackStack.Capacity <= 1) return false;
 
-            var state = rollbackStack.Pop();
+            var state = RollbackStack.Pop();
             if (state is null) return false;
 
             await RollbackToStateAsync(state);
             return true;
         }
 
-        public virtual GameStateMap PeekRollbackStack () => rollbackStack?.Peek();
+        public virtual GameStateMap PeekRollbackStack () => RollbackStack?.Peek();
 
-        public virtual bool CanRollbackTo (Predicate<GameStateMap> predicate) => rollbackStack.Contains(predicate);
+        public virtual bool CanRollbackTo (Predicate<GameStateMap> predicate) => RollbackStack?.Contains(predicate) ?? false;
 
-        public virtual void PurgeRollbackData () => rollbackStack.ForEach(s => s.PlayerRollbackAllowed = false);
+        public virtual void PurgeRollbackData () => RollbackStack?.ForEach(s => s.PlayerRollbackAllowed = false);
 
-        private async UniTask RollbackToStateAsync (GameStateMap state)
+        protected virtual async UniTask RollbackToStateAsync (GameStateMap state)
         {
             rollbackTaskQueue.Enqueue(state);
             OnRollbackStarted?.Invoke();

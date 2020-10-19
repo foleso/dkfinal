@@ -26,16 +26,16 @@ namespace Naninovel
         /// Z-position of the actor closest to the camera.
         /// </summary>
         protected virtual float TopmostZPosition => ZOffset - ManagedActors.Count * Configuration.ZStep;
-        protected virtual CameraConfiguration CameraConfiguration { get; private set; }
+        protected virtual CameraConfiguration CameraConfiguration { get; }
 
-        public OrthoActorManager (TConfig config, CameraConfiguration cameraConfig)
+        protected OrthoActorManager (TConfig config, CameraConfiguration cameraConfig)
             : base(config)
         {
             CameraConfiguration = cameraConfig;
         }
 
         /// <summary>
-        /// Changes provided actor y position so that it's bottom edge is alligned with the bottom of the screen.
+        /// Changes provided actor y position so that it's bottom edge is aligned with the bottom of the screen.
         /// </summary>
         protected virtual void MoveActorToBottom (TActor actor)
         {

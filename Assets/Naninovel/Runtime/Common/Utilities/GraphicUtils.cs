@@ -1,6 +1,5 @@
 ﻿// Copyright 2017-2020 Elringus (Artyom Sovetnikov). All Rights Reserved.
 
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 

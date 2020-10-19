@@ -6,13 +6,14 @@ using UnityEngine;
 namespace Naninovel
 {
     /// <summary>
-    /// A <see cref="ICharacterActor"/> implementation using <see cref="CharacterActorBehaviour"/> to represent the actor.
+    /// A <see cref="ICharacterActor"/> implementation using <see cref="GenericCharacterBehaviour"/> to represent the actor.
     /// </summary>
     /// <remarks>
-    /// Resource prefab should have a <see cref="CharacterActorBehaviour"/> component attached to the root object.
-    /// Apperance and other property changes are routed via the events of <see cref="CharacterActorBehaviour"/> component.
+    /// Resource prefab should have a <see cref="GenericCharacterBehaviour"/> component attached to the root object.
+    /// Appearance and other property changes are routed via the events of <see cref="GenericCharacterBehaviour"/> component.
     /// </remarks>
-    public class GenericCharacter : GenericActor<CharacterActorBehaviour>, ICharacterActor, Commands.LipSync.IReceiver
+    [ActorResources(typeof(GenericCharacterBehaviour), false)]
+    public class GenericCharacter : GenericActor<GenericCharacterBehaviour, CharacterMetadata>, ICharacterActor, Commands.LipSync.IReceiver
     {
         public CharacterLookDirection LookDirection { get => lookDirection; set => SetLookDirection(value); }
 
@@ -29,11 +30,11 @@ namespace Naninovel
             audioManager = Engine.GetService<IAudioManager>();
         }
 
-        public async override UniTask InitializeAsync ()
+        public override async UniTask InitializeAsync ()
         {
             await base.InitializeAsync();
 
-            Behaviour.InvokeIsSpeakingChangedEvent(false);
+            Behaviour.NotifyIsSpeakingChanged(false);
         }
 
         public async UniTask ChangeLookDirectionAsync (CharacterLookDirection lookDirection, float duration, 
@@ -41,7 +42,7 @@ namespace Naninovel
         {
             this.lookDirection = lookDirection;
 
-            Behaviour.InvokeLookDirectionChangedEvent(lookDirection);
+            Behaviour.NotifyLookDirectionChanged(lookDirection);
 
             if (Behaviour.TransformByLookDirection)
             {
@@ -70,7 +71,7 @@ namespace Naninovel
         {
             this.lookDirection = lookDirection;
 
-            Behaviour.InvokeLookDirectionChangedEvent(lookDirection);
+            Behaviour.NotifyLookDirectionChanged(lookDirection);
 
             if (Behaviour.TransformByLookDirection)
             {
@@ -103,7 +104,7 @@ namespace Naninovel
         {
             if (!lipSyncAllowed || args.AuthorId != Id) return;
 
-            Behaviour.InvokeIsSpeakingChangedEvent(true);
+            Behaviour.NotifyIsSpeakingChanged(true);
 
             var playedVoicePath = audioManager.GetPlayedVoicePath();
             if (!string.IsNullOrEmpty(playedVoicePath))
@@ -119,13 +120,13 @@ namespace Naninovel
         {
             if (args.AuthorId != Id) return;
             
-            Behaviour.InvokeIsSpeakingChangedEvent(false);
+            Behaviour.NotifyIsSpeakingChanged(false);
             textPrinterManager.OnPrintTextFinished -= HandlePrintTextFinished;
         }
 
         private void HandleVoiceClipStopped ()
         {
-            Behaviour.InvokeIsSpeakingChangedEvent(false);
+            Behaviour.NotifyIsSpeakingChanged(false);
         }
     }
 }

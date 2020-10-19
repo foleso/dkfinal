@@ -39,7 +39,7 @@ namespace Naninovel.FX
             SpawnedPath = gameObject.name;
             KeyCount = 1 + parameters.Max(s => string.IsNullOrEmpty(s) ? 0 : s.Count(c => c == AnimateActor.KeyDelimiter));
 
-            // Required paramaters.
+            // Required parameters.
             ActorId = parameters.ElementAtOrDefault(0);
             Loop = bool.Parse(parameters.ElementAtOrDefault(1));
 
@@ -62,9 +62,9 @@ namespace Naninovel.FX
 
                 if (paramIdx == 2) AssignKeys(Appearance);
                 if (paramIdx == 3) AssignKeys(Transition);
-                if (paramIdx == 4) AssignKeys(Visibility, k => bool.Parse(k));
-                if (paramIdx == 5) AssignKeys(PositionX, k => cameraConfig.SceneToWorldSpace(new Vector2(k.AsInvariantFloat().Value / 100f, 0)).x);
-                if (paramIdx == 6) AssignKeys(PositionY, k => cameraConfig.SceneToWorldSpace(new Vector2(0, k.AsInvariantFloat().Value / 100f)).y);
+                if (paramIdx == 4) AssignKeys(Visibility, k => bool.TryParse(k, out var result) ? (bool?)result : null);
+                if (paramIdx == 5) AssignKeys(PositionX, k => cameraConfig.SceneToWorldSpace(new Vector2((k.AsInvariantFloat() ?? 0) / 100f, 0)).x);
+                if (paramIdx == 6) AssignKeys(PositionY, k => cameraConfig.SceneToWorldSpace(new Vector2(0, (k.AsInvariantFloat() ?? 0) / 100f)).y);
                 if (paramIdx == 7) AssignKeys(PositionZ, k => k.AsInvariantFloat());
                 if (paramIdx == 8) AssignKeys(RotationZ, k => k.AsInvariantFloat());
                 if (paramIdx == 9) AssignKeys(Scale, k => k.AsInvariantFloat());
@@ -76,7 +76,8 @@ namespace Naninovel.FX
             // Fill missing durations.
             var lastDuration = 0f;
             for (int keyIdx = 0; keyIdx < KeyCount; keyIdx++)
-                if (!Duration[keyIdx].HasValue)
+                if (!Duration.IsIndexValid(keyIdx)) continue;
+                else if (!Duration[keyIdx].HasValue)
                     Duration[keyIdx] = lastDuration;
                 else lastDuration = Duration[keyIdx].Value;
         }
@@ -95,14 +96,18 @@ namespace Naninovel.FX
             {
                 while (Loop && Application.isPlaying && !cancellationToken.CancelASAP)
                     for (int keyIdx = 0; keyIdx < KeyCount; keyIdx++)
+                    {
                         await AnimateKey(actor, keyIdx, cancellationToken);
+                        if (cancellationToken.CancelASAP) return;
+                    }
             }
             else
             {
                 for (int keyIdx = 0; keyIdx < KeyCount; keyIdx++)
+                {
                     await AnimateKey(actor, keyIdx, cancellationToken);
-
-                if (cancellationToken.CancelASAP) return;
+                    if (cancellationToken.CancelASAP) return;
+                }
             }
 
             if (SpawnManager.IsObjectSpawned(SpawnedPath))
@@ -112,8 +117,10 @@ namespace Naninovel.FX
         protected virtual async UniTask AnimateKey (IActor actor, int keyIndex, CancellationToken cancellationToken)
         {
             tasks.Clear();
+            
+            if (!Duration.IsIndexValid(keyIndex)) return;
 
-            var duration = Duration[keyIndex].Value;
+            var duration = Duration[keyIndex] ?? 0f;
             var easingType = EasingType.Linear;
             if (EasingTypeName.ElementAtOrDefault(keyIndex) != null && !Enum.TryParse(EasingTypeName[keyIndex], true, out easingType))
                 Debug.LogWarning($"Failed to parse `{EasingTypeName}` easing.");
@@ -126,7 +133,7 @@ namespace Naninovel.FX
             }
 
             if (Visibility.ElementAtOrDefault(keyIndex).HasValue)
-                tasks.Add(actor.ChangeVisibilityAsync(Visibility[keyIndex].Value, duration, easingType, cancellationToken));
+                tasks.Add(actor.ChangeVisibilityAsync(Visibility[keyIndex] ?? false, duration, easingType, cancellationToken));
 
             if (PositionX.ElementAtOrDefault(keyIndex).HasValue || PositionY.ElementAtOrDefault(keyIndex).HasValue || PositionZ.ElementAtOrDefault(keyIndex).HasValue)
                 tasks.Add(actor.ChangePositionAsync(new Vector3(
@@ -135,10 +142,10 @@ namespace Naninovel.FX
                     PositionZ.ElementAtOrDefault(keyIndex) ?? actor.Position.z), duration, easingType, cancellationToken));
 
             if (RotationZ.ElementAtOrDefault(keyIndex).HasValue)
-                tasks.Add(actor.ChangeRotationZAsync(RotationZ[keyIndex].Value, duration, easingType, cancellationToken));
+                tasks.Add(actor.ChangeRotationZAsync(RotationZ[keyIndex] ?? 0f, duration, easingType, cancellationToken));
 
             if (Scale.ElementAtOrDefault(keyIndex).HasValue)
-                tasks.Add(actor.ChangeScaleAsync(Vector3.one * Scale[keyIndex].Value, duration, easingType, cancellationToken));
+                tasks.Add(actor.ChangeScaleAsync(Vector3.one * (Scale[keyIndex] ?? 1f), duration, easingType, cancellationToken));
 
             if (TintColor.ElementAtOrDefault(keyIndex) != null)
             {
@@ -156,7 +163,7 @@ namespace Naninovel.FX
 
             // The following is possible to prevent unpredicted state mutations,
             // though it's hardly worth all the complications:
-            //   1. Add transient actor state (per each parameter), that is not serialied.
+            //   1. Add transient actor state (per each parameter), that is not serialized.
             //   2. When starting animation set real state to the last key frame.
             //   3. When any "normal" command modifies a property that has a transient state -- remove the transient effect.
 

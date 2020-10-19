@@ -65,7 +65,7 @@ namespace Naninovel
 
         public bool Equals (ChoiceState other) => id == other.id;
 
-        public override int GetHashCode () => 1877310944 + EqualityComparer<string>.Default.GetHashCode(id);
+        public override int GetHashCode () => 1877310944 + EqualityComparer<string>.Default.GetHashCode(Id);
 
         public static bool operator == (ChoiceState left, ChoiceState right) => left.Equals(right);
 

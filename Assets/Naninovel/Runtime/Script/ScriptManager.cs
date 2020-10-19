@@ -26,7 +26,7 @@ namespace Naninovel
         private readonly IResourceProviderManager providerManager;
         private readonly ILocalizationManager localizationManager;
         private readonly Dictionary<string, Script> localizationScripts;
-        private ResourceLoader<Script> scriptLoader, externalScriptLoader;
+        private ResourceLoader<Script> scriptLoader, localeScriptLoader, externalScriptLoader;
 
         public ScriptManager (ScriptsConfiguration config, IResourceProviderManager providerManager, ILocalizationManager localizationManager)
         {
@@ -39,6 +39,7 @@ namespace Naninovel
         public virtual async UniTask InitializeServiceAsync ()
         {
             scriptLoader = Configuration.Loader.CreateFor<Script>(providerManager);
+            localeScriptLoader = Configuration.Loader.CreateLocalizableFor<Script>(providerManager, localizationManager, false);
             if (CommunityModdingEnabled)
                 externalScriptLoader = Configuration.ExternalLoader.CreateFor<Script>(providerManager);
 
@@ -53,7 +54,7 @@ namespace Naninovel
             if (string.IsNullOrEmpty(Configuration.StartGameScript))
             {
                 var scriptPaths = await scriptLoader.LocateAsync(string.Empty);
-                StartGameScriptName = scriptPaths.FirstOrDefault()?.Replace(scriptLoader.PathPrefix + "/", string.Empty);
+                StartGameScriptName = scriptPaths.FirstOrDefault();
             }
             else StartGameScriptName = Configuration.StartGameScript;
 
@@ -73,7 +74,7 @@ namespace Naninovel
             }
         }
 
-        public virtual async UniTask<IEnumerable<Script>> LoadExternalScriptsAsync ()
+        public virtual async UniTask<IReadOnlyCollection<Script>> LoadExternalScriptsAsync ()
         {
             if (!CommunityModdingEnabled)
                 return new List<Script>();
@@ -81,7 +82,7 @@ namespace Naninovel
             OnScriptLoadStarted?.Invoke();
             var scriptResources = await externalScriptLoader.LoadAllAsync();
             OnScriptLoadCompleted?.Invoke();
-            return scriptResources.Select(r => r.Object);
+            return scriptResources.Select(r => r.Object).ToArray();
         }
 
         public virtual async UniTask<Script> LoadScriptAsync (string name)
@@ -95,6 +96,7 @@ namespace Naninovel
             }
 
             var scriptResource = await scriptLoader.LoadAsync(name);
+            if (!scriptResource.Valid) throw new Exception($"Failed to load `{name}` script: The resource is not available.");
 
             await TryAddLocalizationScriptAsync(scriptResource);
 
@@ -102,13 +104,13 @@ namespace Naninovel
             return scriptResource;
         }
 
-        public virtual async UniTask<IEnumerable<Script>> LoadAllScriptsAsync ()
+        public virtual async UniTask<IReadOnlyCollection<Script>> LoadAllScriptsAsync ()
         {
             OnScriptLoadStarted?.Invoke();
             var scriptResources = await scriptLoader.LoadAllAsync();
-            var scripts = scriptResources.Select(r => r.Object);
+            var scripts = scriptResources.Select(r => r.Object).ToArray();
 
-            await UniTask.WhenAll(scripts.Select(s => TryAddLocalizationScriptAsync(s)));
+            await UniTask.WhenAll(scripts.Select(TryAddLocalizationScriptAsync));
 
             if (ScriptNavigator)
                 ScriptNavigator.GenerateScriptButtons(scripts);
@@ -123,7 +125,7 @@ namespace Naninovel
                 scriptLoader.Unload(name);
             if (localizationScripts.ContainsKey(name))
             {
-                localizationManager?.UnloadLocalizedResource(scriptLoader.BuildFullPath(name));
+                localeScriptLoader?.Unload(name);
                 localizationScripts.Remove(name);
             }
         }
@@ -132,7 +134,7 @@ namespace Naninovel
         {
             scriptLoader.UnloadAll();
             foreach (var scriptName in localizationScripts.Keys)
-                localizationManager?.UnloadLocalizedResource(scriptLoader.BuildFullPath(scriptName));
+                localeScriptLoader?.Unload(scriptName);
             localizationScripts.Clear();
 
             #if UNITY_GOOGLE_DRIVE_AVAILABLE
@@ -144,25 +146,19 @@ namespace Naninovel
             if (ScriptNavigator) ScriptNavigator.DestroyScriptButtons();
         }
 
-        public virtual async UniTask ReloadAllScriptsAsync ()
-        {
-            UnloadAllScripts();
-            await LoadAllScriptsAsync();
-        }
-
         public virtual Script GetLocalizationScriptFor (Script script)
         {
-            if (localizationManager.SourceLocaleSelected() || !localizationScripts.ContainsKey(script.Name)) return null;
+            if (localizationManager.IsSourceLocaleSelected() || !localizationScripts.ContainsKey(script.Name)) return null;
             return localizationScripts[script.Name];
         }
 
         private async UniTask TryAddLocalizationScriptAsync (Script script)
         {
             if (script is null) return;
-            var fullPath = scriptLoader.BuildFullPath(script.Name);
-            if (await localizationManager.LocalizedResourceAvailableAsync<Script>(fullPath))
+            
+            if (await localeScriptLoader.ExistsAsync(script.Name))
             {
-                var localizationScript = await localizationManager.LoadLocalizedResourceAsync<Script>(fullPath);
+                var localizationScript = await localeScriptLoader.LoadAsync(script.Name);
                 localizationScripts[script.Name] = localizationScript;
             }
         }

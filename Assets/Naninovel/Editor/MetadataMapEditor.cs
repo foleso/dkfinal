@@ -18,10 +18,6 @@ namespace Naninovel
         public class ElementModifiedArgs : EventArgs
         {
             /// <summary>
-            /// Actor ID (key) of the modified map element.
-            /// </summary>
-            public readonly string ActorId;
-            /// <summary>
             /// Metadata (value) of the modified map element.
             /// </summary>
             public readonly ActorMetadata Metadata;
@@ -30,9 +26,8 @@ namespace Naninovel
             /// </summary>
             public readonly ElementModificationType ModificationType;
 
-            public ElementModifiedArgs (string actorId, ActorMetadata metadata, ElementModificationType modificationType)
+            public ElementModifiedArgs (ActorMetadata metadata, ElementModificationType modificationType)
             {
-                ActorId = actorId;
                 Metadata = metadata;
                 ModificationType = modificationType;
             }
@@ -75,7 +70,7 @@ namespace Naninovel
         {
             // Always check list's serialized object parity with the inspected object.
             if (reorderableList is null || reorderableList.serializedProperty.serializedObject != serializedObject)
-                InitilizeList();
+                InitializeList();
 
             reorderableList.DoLayoutList();
         }
@@ -87,7 +82,7 @@ namespace Naninovel
         public bool SelectEditedMetadata (string actorId)
         {
             if (reorderableList is null)
-                InitilizeList();
+                InitializeList();
 
             for (int i = 0; i < idsProperty.arraySize; i++)
             {
@@ -106,7 +101,7 @@ namespace Naninovel
         /// </summary>
         public void ResetEditedMetadata () => EditedMetadataProperty = null;
 
-        private void InitilizeList ()
+        private void InitializeList ()
         {
             reorderableList = new ReorderableList(serializedObject, idsProperty, true, true, true, true);
             reorderableList.drawHeaderCallback = DrawListHeader;
@@ -153,8 +148,9 @@ namespace Naninovel
                 Event.current.Use();
             }
 
-            // Delete record when pressing delete key and an element is selected.
-            if (reorderableList.index == index && Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Delete && selected)
+            // Delete record when pressing delete key while an element is selected, but not editing text field.
+            if (reorderableList.index == index && Event.current.type == EventType.KeyDown && 
+                Event.current.keyCode == KeyCode.Delete && selected && !EditorGUIUtility.editingTextField)
             { 
                 HandleListElementRemoved(reorderableList);
                 Event.current.Use();
@@ -198,7 +194,7 @@ namespace Naninovel
             metaProperty.SetGenericValue(defaultMeta);
             serializedObject.Update();
 
-            OnElementModified?.Invoke(new ElementModifiedArgs(string.Empty, metaProperty.GetGenericValue<ActorMetadata>(), ElementModificationType.Add));
+            OnElementModified?.Invoke(new ElementModifiedArgs(metaProperty.GetGenericValue<ActorMetadata>(), ElementModificationType.Add));
         }
 
         private void HandleListElementRemoved (ReorderableList list)
@@ -212,7 +208,7 @@ namespace Naninovel
             if (list.index >= idsProperty.arraySize - 1)
                 list.index = idsProperty.arraySize - 1;
 
-            OnElementModified?.Invoke(new ElementModifiedArgs(removedElementId, removedElementMetadata, ElementModificationType.Remove));
+            OnElementModified?.Invoke(new ElementModifiedArgs(removedElementMetadata, ElementModificationType.Remove));
         }
 
         private void HandleListElementReordered (ReorderableList list, int oldIndex, int newIndex)

@@ -13,7 +13,7 @@
             "{\"SelectedLocale\":\"en\"}",
             "{\"SkipMode\":1}",
             "{\"BaseRevealSpeed\":1.0,\"BaseAutoDelay\":0.009646734222769738}",
-            "{\"MasterVolume\":1.0,\"BgmVolume\":1.0,\"SfxVolume\":1.0,\"VoiceVolume\":6.309576150442808e-8,\"AuthorVolume\":[]}",
+            "{\"MasterVolume\":1.0,\"BgmVolume\":1.0,\"SfxVolume\":1.0,\"VoiceVolume\":1.0,\"AuthorVolume\":[]}",
             "{\"FontName\":\"\",\"FontSize\":2}"
         ]
     }

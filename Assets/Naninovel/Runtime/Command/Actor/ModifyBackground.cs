@@ -42,14 +42,14 @@ namespace Naninovel.Commands
         /// Appearance (or [pose](/guide/backgrounds.md#poses)) to set for the modified background and type of a [transition effect](/guide/transition-effects.md) to use.
         /// When transition is not provided, a cross-fade effect will be used by default.
         /// </summary>
-        [ParameterAlias(NamelessParameterAlias)]
+        [ParameterAlias(NamelessParameterAlias), IDEAppearance(0), IDEConstant(IDEConstantAttribute.Transition, 1)]
         public NamedStringParameter AppearanceAndTransition;
 
-        protected override bool AllowPreload => Assigned(AppearanceAndTransition) ? !AppearanceAndTransition.DynamicValue : false;
+        protected override bool AllowPreload => Assigned(AppearanceAndTransition) && !AppearanceAndTransition.DynamicValue;
         // Default to main background when no ID is specified.
         protected override string AssignedId => base.AssignedId ?? BackgroundsConfiguration.MainActorId;
         // Allows specifying background appearance as nameless parameter.
-        protected override string AssignedAppearance => Pose?.Appearance ?? AppearanceAndTransition?.Name ?? base.AssignedAppearance;
+        protected override string AssignedAppearance => Assigned(Appearance) ? Appearance.Value : Pose?.Appearance ?? AppearanceAndTransition?.Name ?? base.AssignedAppearance;
         // Allows specifying background transition as nameless parameter.
         protected override string AssignedTransition => AppearanceAndTransition?.NamedValue ?? base.AssignedTransition;
         protected override BackgroundState Pose => ActorManager.Configuration.GetMetadataOrDefault(AssignedId).GetPoseOrNull<BackgroundState>(AppearanceAndTransition?.Name);

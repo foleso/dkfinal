@@ -10,18 +10,6 @@ namespace Naninovel
 {
     public class StateSettings : ConfigurationSettings<StateConfiguration>
     {
-        protected override Dictionary<string, Action<SerializedProperty>> OverrideConfigurationDrawers => new Dictionary<string, Action<SerializedProperty>> {
-            [nameof(StateConfiguration.StateRollbackSteps)] = property => { if (Configuration.EnableStateRollback) EditorGUILayout.PropertyField(property); },
-            [nameof(StateConfiguration.SavedRollbackSteps)] = property => { if (Configuration.EnableStateRollback) EditorGUILayout.PropertyField(property); },
-            [nameof(StateConfiguration.GameStateHandler)] = property => { 
-                EditorGUILayout.Space(); 
-                EditorGUILayout.LabelField("Serialization Handlers", EditorStyles.boldLabel);
-                DrawHandlersDropdown(property, gameHandlerImplementations, gameHandlerImplementationsLabels); 
-            },
-            [nameof(StateConfiguration.GlobalStateHandler)] = property => DrawHandlersDropdown(property, globalHandlerImplementations, globalHandlerImplementationsLabels),
-            [nameof(StateConfiguration.SettingsStateHandler)] = property => DrawHandlersDropdown(property, settingsHandlerImplementations, settingsHandlerImplementationsLabels),
-        };
-
         private static readonly string[] gameHandlerImplementations, gameHandlerImplementationsLabels;
         private static readonly string[] globalHandlerImplementations, globalHandlerImplementationsLabels;
         private static readonly string[] settingsHandlerImplementations, settingsHandlerImplementationsLabels;
@@ -31,6 +19,22 @@ namespace Naninovel
             InitializeHandlerOptions<ISaveSlotManager<GameStateMap>>(ref gameHandlerImplementations, ref gameHandlerImplementationsLabels);
             InitializeHandlerOptions<ISaveSlotManager<GlobalStateMap>>(ref globalHandlerImplementations, ref globalHandlerImplementationsLabels);
             InitializeHandlerOptions<ISaveSlotManager<SettingsStateMap>>(ref settingsHandlerImplementations, ref settingsHandlerImplementationsLabels);
+        }
+        
+        protected override Dictionary<string, Action<SerializedProperty>> OverrideConfigurationDrawers ()
+        {
+            var drawers = base.OverrideConfigurationDrawers();
+            drawers[nameof(StateConfiguration.StateRollbackSteps)] = p => { if (Configuration.EnableStateRollback) EditorGUILayout.PropertyField(p); };
+            drawers[nameof(StateConfiguration.SavedRollbackSteps)] = p => { if (Configuration.EnableStateRollback) EditorGUILayout.PropertyField(p); };
+            drawers[nameof(StateConfiguration.GameStateHandler)] = property =>
+            {
+                EditorGUILayout.Space();
+                EditorGUILayout.LabelField("Serialization Handlers", EditorStyles.boldLabel);
+                DrawHandlersDropdown(property, gameHandlerImplementations, gameHandlerImplementationsLabels);
+            };
+            drawers[nameof(StateConfiguration.GlobalStateHandler)] = p => DrawHandlersDropdown(p, globalHandlerImplementations, globalHandlerImplementationsLabels);
+            drawers[nameof(StateConfiguration.SettingsStateHandler)] = p => DrawHandlersDropdown(p, settingsHandlerImplementations, settingsHandlerImplementationsLabels);
+            return drawers;
         }
 
         private static void DrawHandlersDropdown (SerializedProperty property, string[] values, string[] labels)
@@ -44,7 +48,7 @@ namespace Naninovel
 
         private static void InitializeHandlerOptions<THandler> (ref string[] values, ref string[] labels) where THandler : ISaveSlotManager
         {
-            values = ReflectionUtils.ExportedDomainTypes
+            values = Engine.Types
                 .Where(t => !t.IsAbstract && t.GetInterfaces().Contains(typeof(THandler)))
                 .Select(t => t.AssemblyQualifiedName).ToArray();
             labels = values.Select(s => s.GetBefore(",")).ToArray();

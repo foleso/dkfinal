@@ -1,5 +1,6 @@
 ﻿// Copyright 2017-2020 Elringus (Artyom Sovetnikov). All Rights Reserved.
 
+using System;
 using UniRx.Async;
 using UnityEngine;
 using UnityEngine.Video;
@@ -7,16 +8,17 @@ using UnityEngine.Video;
 namespace Naninovel
 {
     /// <summary>
-    /// A <see cref="IBackgroundActor"/> implementation using <see cref="VideoPlayer"/> to represent the actor.
+    /// A <see cref="IBackgroundActor"/> implementation using <see cref="VideoClip"/> to represent the actor.
     /// </summary>
-    public class VideoBackground : MonoBehaviourActor, IBackgroundActor
+    [ActorResources(typeof(VideoClip), true)]
+    public class VideoBackground : MonoBehaviourActor<BackgroundMetadata>, IBackgroundActor
     {
         private class VideoData { public VideoPlayer Player; public RenderTexture RenderTexture; }
 
         public override string Appearance { get => appearance; set => SetAppearance(value); }
         public override bool Visible { get => visible; set => SetVisibility(value); }
 
-        protected TransitionalSpriteRenderer SpriteRenderer { get; }
+        protected virtual TransitionalRenderer TransitionalRenderer { get; private set; }
 
         private static bool sharedResourcesInitialized;
         private static int sharedRefCounter;
@@ -27,6 +29,8 @@ namespace Naninovel
         private string appearance;
         private bool visible;
         private LocalizableResourceLoader<VideoClip> videoLoader;
+        // ReSharper disable once NotAccessedField.Local (Used in WebGL pragma)
+        private string streamExtension;
 
         public VideoBackground (string id, BackgroundMetadata metadata)
             : base(id, metadata)
@@ -34,21 +38,41 @@ namespace Naninovel
             if (referenceResolution == default)
                 referenceResolution = Engine.GetConfiguration<CameraConfiguration>().ReferenceResolution;
 
+            streamExtension = Engine.GetConfiguration<ResourceProviderConfiguration>().VideoStreamExtension;
+
             InitializeSharedResources();
             sharedRefCounter++;
 
-            var providerMngr = Engine.GetService<IResourceProviderManager>();
-            var localeMngr = Engine.GetService<ILocalizationManager>();
+            var providerManager = Engine.GetService<IResourceProviderManager>();
+            var localizationManager = Engine.GetService<ILocalizationManager>();
             videoLoader = new LocalizableResourceLoader<VideoClip>(
-                providerMngr.GetProviders(metadata.Loader.ProviderTypes), 
-                localeMngr, $"{metadata.Loader.PathPrefix}/{id}");
+                providerManager.GetProviders(metadata.Loader.ProviderTypes), 
+                localizationManager, $"{metadata.Loader.PathPrefix}/{id}");
+        }
 
-            SpriteRenderer = GameObject.AddComponent<TransitionalSpriteRenderer>();
-            SpriteRenderer.Pivot = metadata.Pivot;
-            SpriteRenderer.PixelsPerUnit = metadata.PixelsPerUnit;
-            SpriteRenderer.DepthPassEnabled = metadata.EnableDepthPass;
-            SpriteRenderer.DepthAlphaCutoff = metadata.DepthAlphaCutoff;
-            SpriteRenderer.CustomShader = metadata.CustomShader;
+        public override async UniTask InitializeAsync ()
+        {
+            await base.InitializeAsync();
+            
+            if (ActorMetadata.RenderTexture)
+            {
+                ActorMetadata.RenderTexture.Clear();
+                var textureRenderer = GameObject.AddComponent<TransitionalTextureRenderer>();
+                textureRenderer.Initialize(ActorMetadata.CustomShader);
+                textureRenderer.RenderTexture = ActorMetadata.RenderTexture;
+                textureRenderer.CorrectAspect = ActorMetadata.CorrectRenderAspect;
+                textureRenderer.DepthPassEnabled = ActorMetadata.EnableDepthPass;
+                textureRenderer.DepthAlphaCutoff = ActorMetadata.DepthAlphaCutoff;
+                TransitionalRenderer = textureRenderer;
+            }
+            else
+            {
+                var spriteRenderer = GameObject.AddComponent<TransitionalSpriteRenderer>();
+                spriteRenderer.Initialize(ActorMetadata.Pivot, ActorMetadata.PixelsPerUnit, ActorMetadata.CustomShader);
+                spriteRenderer.DepthPassEnabled = ActorMetadata.EnableDepthPass;
+                spriteRenderer.DepthAlphaCutoff = ActorMetadata.DepthAlphaCutoff;
+                TransitionalRenderer = spriteRenderer;
+            }
 
             SetVisibility(false);
         }
@@ -59,8 +83,6 @@ namespace Naninovel
             this.appearance = appearance;
 
             if (string.IsNullOrEmpty(appearance)) return;
-
-            if (transition.HasValue) SpriteRenderer.Transition = transition.Value;
 
             var videoData = await GetOrLoadVideoDataAsync(appearance);
             if (cancellationToken.CancelASAP) return;
@@ -73,7 +95,7 @@ namespace Naninovel
             }
             videoData.Player.Play();
 
-            await SpriteRenderer.TransitionToAsync(videoData.RenderTexture, duration, easingType, cancellationToken: cancellationToken);
+            await TransitionalRenderer.TransitionToAsync(videoData.RenderTexture, duration, easingType, transition, cancellationToken);
             if (cancellationToken.CancelASAP) return;
 
             foreach (var kv in videoDataMap) // Make sure no other videos are playing.
@@ -85,24 +107,24 @@ namespace Naninovel
         {
             this.visible = isVisible;
 
-            await SpriteRenderer.FadeToAsync(isVisible ? 1 : 0, duration, easingType, cancellationToken);
+            await TransitionalRenderer.FadeToAsync(isVisible ? 1 : 0, duration, easingType, cancellationToken);
         }
 
-        public override async UniTask HoldResourcesAsync (object holder, string appearance)
+        public override async UniTask HoldResourcesAsync (string appearance, object holder)
         {
             if (string.IsNullOrEmpty(appearance)) return;
 
             await GetOrLoadVideoDataAsync(appearance);
 
             // Releasing is done in Dispose().
-            videoLoader.GetLoadedOrNull(appearance)?.Hold(this);
+            videoLoader.Hold(appearance, this);
         }
 
         public override void Dispose ()
         {
             base.Dispose();
 
-            videoLoader?.GetAllLoaded()?.ForEach(r => r?.Release(this));
+            videoLoader?.ReleaseAll(this);
             sharedRefCounter--;
             DestroySharedResources();
         }
@@ -125,11 +147,11 @@ namespace Naninovel
 
             #if UNITY_WEBGL && !UNITY_EDITOR
             videoPlayer.source = VideoSource.Url;
-            videoPlayer.url = PathUtils.Combine(Application.streamingAssetsPath, videoLoader.BuildFullPath(videoName)) + ".mp4";
+            videoPlayer.url = PathUtils.Combine(Application.streamingAssetsPath, $"{ActorMetadata.Loader.PathPrefix}/{Id}/{videoName}") + streamExtension;
             await AsyncUtils.WaitEndOfFrame;
             #else
             var videoClip = await videoLoader.LoadAsync(videoName);
-            if (!videoClip.Valid) Debug.LogError($"Failed to load `{videoName}` resource for `{Id}` video background actor. Make sure the video clip is assigned in the actor resources.");
+            if (!videoClip.Valid) throw new Exception($"Failed to load `{videoName}` resource for `{Id}` video background actor. Make sure the video clip is assigned in the actor resources.");
             videoPlayer.source = VideoSource.VideoClip;
             videoPlayer.clip = videoClip;
             #endif
@@ -163,13 +185,13 @@ namespace Naninovel
                 videoData.Player.Stop();
                 if (Application.isPlaying)
                 {
-                    Object.Destroy(videoData.Player.gameObject);
-                    Object.Destroy(videoData.RenderTexture);
+                    UnityEngine.Object.Destroy(videoData.Player.gameObject);
+                    UnityEngine.Object.Destroy(videoData.RenderTexture);
                 }
                 else
                 {
-                    Object.DestroyImmediate(videoData.Player.gameObject);
-                    Object.DestroyImmediate(videoData.RenderTexture);
+                    UnityEngine.Object.DestroyImmediate(videoData.Player.gameObject);
+                    UnityEngine.Object.DestroyImmediate(videoData.RenderTexture);
                 }
             }
 

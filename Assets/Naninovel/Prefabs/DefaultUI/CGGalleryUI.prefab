@@ -80,6 +80,7 @@ MonoBehaviour:
   visibleOnAwake: 0
   controlOpacity: 1
   fadeTime: 0.3
+  ignoreTimeScale: 1
   focusObject: {fileID: 1709518715411574}
   focusMode: 1
   onShow:
@@ -93,6 +94,7 @@ MonoBehaviour:
   blockInputWhenVisible: 0
   allowedSamplers: []
   modalUI: 1
+  fontChangeConfiguration: []
   unlockableIdPrefix: CG
   cgSources:
   - PathPrefix: Unlockables/CG
@@ -107,6 +109,7 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     - Naninovel.ProjectResourceProvider, Elringus.Naninovel.Runtime, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  dynamicLoad: 1
   viewerPanel: {fileID: 7028915917830802994}
   viewerImage: {fileID: 4366063164016287649}
   grid: {fileID: 5574319400583961586}
@@ -223,6 +226,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -349,6 +353,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -429,6 +434,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.39215687}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -558,6 +564,7 @@ MonoBehaviour:
   visibleOnAwake: 1
   controlOpacity: 1
   fadeTime: 0.3
+  ignoreTimeScale: 1
   focusObject: {fileID: 0}
   focusMode: 0
   onShow:
@@ -634,6 +641,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -746,6 +754,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -838,6 +847,7 @@ MonoBehaviour:
   visibleOnAwake: 1
   controlOpacity: 1
   fadeTime: 0.3
+  ignoreTimeScale: 1
   focusObject: {fileID: 0}
   focusMode: 0
   onShow:
@@ -910,6 +920,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -982,6 +993,7 @@ MonoBehaviour:
   visibleOnAwake: 0
   controlOpacity: 1
   fadeTime: 0.3
+  ignoreTimeScale: 1
   focusObject: {fileID: 0}
   focusMode: 0
   onShow:
@@ -1119,6 +1131,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

@@ -24,13 +24,10 @@ namespace Naninovel
         [SerializeField] private string commentText = default;
         
         /// <inheritdoc/>
-        public CommentScriptLine (string scriptName, int lineIndex, string lineText, List<ScriptParseError> errors = null)
-            : base(scriptName, lineIndex, lineText, errors) { }
-
-        protected override void ParseLineText (string lineText, out string error)
+        public CommentScriptLine (string scriptName, int lineIndex, string lineText, ICollection<ScriptParseError> errors = null)
+            : base(scriptName, lineIndex, lineText, errors)
         {
             commentText = lineText.GetAfterFirst(IdentifierLiteral)?.TrimFull();
-            error = null;
         }
     }
 }

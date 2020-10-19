@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Naninovel
 {
-    [System.Serializable]
+    [EditInProjectSettings]
     public class TextPrintersConfiguration : OrthoActorManagerConfiguration<TextPrinterMetadata>
     {
         public const string DefaultPathPrefix = "TextPrinters";
@@ -24,26 +24,27 @@ namespace Naninovel
             ["Dialogue"] = CreateBuiltinMeta(),
             ["Fullscreen"] = CreateBuiltinMeta(false, 2),
             ["Wide"] = CreateBuiltinMeta(),
-            ["Chat"] = CreateBuiltinMeta(false),
+            ["Chat"] = CreateBuiltinMeta(false, 0, true),
             ["Bubble"] = CreateBuiltinMeta(),
             ["TMProDialogue"] = CreateBuiltinMeta(),
             ["TMProFullscreen"] = CreateBuiltinMeta(false, 2),
             ["TMProWide"] = CreateBuiltinMeta(),
-            ["TMProBubble"] = CreateBuiltinMeta(),
+            ["TMProBubble"] = CreateBuiltinMeta()
         };
 
         protected override TextPrinterMetadata DefaultActorMetadata => DefaultMetadata;
         protected override ActorMetadataMap<TextPrinterMetadata> ActorMetadataMap => Metadata;
 
-        private static TextPrinterMetadata CreateBuiltinMeta (bool autoReset = true, int autoBr = 0) => new TextPrinterMetadata {
-            Implementation = typeof(UITextPrinter).AssemblyQualifiedName,
-            AutoReset = autoReset,
-            AutoLineBreak = autoBr
-        };
-
         public TextPrintersConfiguration ()
         {
             AutoShowOnModify = false;
         }
+        
+        private static TextPrinterMetadata CreateBuiltinMeta (bool autoReset = true, int autoBr = 0, bool splitBacklog = false) => new TextPrinterMetadata {
+            Implementation = typeof(UITextPrinter).AssemblyQualifiedName,
+            AutoReset = autoReset,
+            AutoLineBreak = autoBr,
+            SplitBacklogMessages = splitBacklog
+        };
     }
 }

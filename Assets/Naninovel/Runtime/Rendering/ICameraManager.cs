@@ -41,7 +41,7 @@ namespace Naninovel
         /// </summary>
         Quaternion Rotation { get; set; }
         /// <summary>
-        /// Relatize camera zoom (orthographic size or FOV depending on <see cref="Orthographic"/>), in 0.0 to 1.0 range.
+        /// Relative camera zoom (orthographic size or FOV depending on <see cref="Orthographic"/>), in 0.0 to 1.0 range.
         /// </summary>
         float Zoom { get; set; }
         /// <summary>

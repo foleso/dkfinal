@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 namespace Naninovel
 {
-    [System.Serializable]
+    [EditInProjectSettings]
     public class InputConfiguration : Configuration
     {
         public const string SubmitName = "Submit";

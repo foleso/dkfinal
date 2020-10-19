@@ -5,7 +5,7 @@ using UniRx.Async;
 namespace Naninovel.Commands
 {
     /// <summary>
-    /// Playes a movie with the provided name (path).
+    /// Plays a movie with the provided name (path).
     /// </summary>
     /// <remarks>
     /// Will fade-out the screen before playing the movie and fade back in after the play.
@@ -21,26 +21,26 @@ namespace Naninovel.Commands
         /// <summary>
         /// Name of the movie resource to play.
         /// </summary>
-        [ParameterAlias(NamelessParameterAlias), RequiredParameter]
+        [ParameterAlias(NamelessParameterAlias), RequiredParameter, IDEResource(MoviesConfiguration.DefaultMoviesPathPrefix)]
         public StringParameter MovieName;
 
         protected IMoviePlayer Player => Engine.GetService<IMoviePlayer>();
 
-        public async UniTask HoldResourcesAsync ()
+        public async UniTask PreloadResourcesAsync ()
         {
             if (!Assigned(MovieName) || MovieName.DynamicValue) return;
-            await Player?.HoldResourcesAsync(this, MovieName);
+            await Player.HoldResourcesAsync(MovieName, this);
         }
 
-        public void ReleaseResources ()
+        public void ReleasePreloadedResources ()
         {
             if (!Assigned(MovieName) || MovieName.DynamicValue) return;
-            Player?.ReleaseResources(this, MovieName);
+            Player?.ReleaseResources(MovieName, this);
         }
 
         public override async UniTask ExecuteAsync (CancellationToken cancellationToken = default)
         {
-            await Player?.PlayAsync(MovieName, cancellationToken);
+            await Player.PlayAsync(MovieName, cancellationToken);
         }
     }
 }

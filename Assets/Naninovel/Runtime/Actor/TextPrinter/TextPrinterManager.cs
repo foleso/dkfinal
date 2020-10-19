@@ -10,14 +10,14 @@ namespace Naninovel
     [InitializeAtRuntime]
     public class TextPrinterManager : OrthoActorManager<ITextPrinterActor, TextPrinterState, TextPrinterMetadata, TextPrintersConfiguration>, IStatefulService<SettingsStateMap>, ITextPrinterManager
     {
-        [System.Serializable]
+        [Serializable]
         public class Settings
         {
             public float BaseRevealSpeed = .5f;
             public float BaseAutoDelay = .5f;
         }
 
-        [System.Serializable]
+        [Serializable]
         public new class GameState
         {
             public string DefaultPrinterId = null;
@@ -36,7 +36,13 @@ namespace Naninovel
             : base(config, cameraConfig)
         {
             this.scriptPlayer = scriptPlayer;
-            DefaultPrinterId = config.DefaultPrinterId;
+        }
+
+        public override async UniTask InitializeServiceAsync ()
+        {
+            await base.InitializeServiceAsync();
+            
+            DefaultPrinterId = Configuration.DefaultPrinterId;
         }
 
         public override void ResetService ()
@@ -66,7 +72,7 @@ namespace Naninovel
         {
             base.SaveServiceState(stateMap);
 
-            var gameState = new GameState() {
+            var gameState = new GameState {
                 DefaultPrinterId = DefaultPrinterId ?? Configuration.DefaultPrinterId
             };
             stateMap.SetState(gameState);
@@ -92,7 +98,7 @@ namespace Naninovel
 
             var revealDelay = scriptPlayer.SkipActive ? 0 : Mathf.Lerp(Configuration.MaxRevealDelay, 0, BaseRevealSpeed * speed);
             await printer.RevealTextAsync(revealDelay, cancellationToken);
-            // Don't return on cancellation here, otherwise OnPrintTextFinished is not invoked when skip or continue inputs are activated.
+            if (cancellationToken.CancelASAP) return;
 
             OnPrintTextFinished?.Invoke(new PrintTextArgs(printer, text, authorId, speed));
         }

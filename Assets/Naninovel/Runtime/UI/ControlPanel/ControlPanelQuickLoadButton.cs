@@ -6,14 +6,12 @@ namespace Naninovel.UI
     public class ControlPanelQuickLoadButton : ScriptableButton
     {
         private IStateManager gameState;
-        private IScriptPlayer player;
 
         protected override void Awake ()
         {
             base.Awake();
 
             gameState = Engine.GetService<IStateManager>();
-            player = Engine.GetService<IScriptPlayer>();
         }
 
         protected override void Start ()

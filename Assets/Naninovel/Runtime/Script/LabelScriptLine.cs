@@ -24,13 +24,10 @@ namespace Naninovel
         [SerializeField] private string labelText = default;
 
         /// <inheritdoc/>
-        public LabelScriptLine (string scriptName, int lineIndex, string lineText, List<ScriptParseError> errors = null)
-            : base(scriptName, lineIndex, lineText, errors) { }
-
-        protected override void ParseLineText (string lineText, out string error)
+        public LabelScriptLine (string scriptName, int lineIndex, string lineText, ICollection<ScriptParseError> errors = null)
+            : base(scriptName, lineIndex, lineText, errors)
         {
             labelText = lineText.GetAfter(IdentifierLiteral)?.TrimFull();
-            error = null;
         }
     }
 }

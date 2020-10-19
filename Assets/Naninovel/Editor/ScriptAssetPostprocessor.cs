@@ -9,7 +9,7 @@ namespace Naninovel
     public class ScriptAssetPostprocessor : AssetPostprocessor
     {
         /// <summary>
-        /// Invoked when a <see cref="Script"/> assed is created or modified; returns modified script asset path.
+        /// Invoked when a <see cref="Script"/> asset is created or modified; returns modified script asset path.
         /// </summary>
         public static event Action<string> OnModified;
 
@@ -53,9 +53,9 @@ namespace Naninovel
 
             // Add only new scripts created via context menu (will always have a @stop at second line).
             var linesEnum = File.ReadLines(assetPath).GetEnumerator();
-            var secondtLine = (linesEnum.MoveNext() && linesEnum.MoveNext()) ? linesEnum.Current : null;
-            (linesEnum as IDisposable).Dispose(); // Release the file.
-            if (!secondtLine?.EqualsFast(AssetMenuItems.DefaultScriptContent.GetAfterFirst(Environment.NewLine)) ?? true) return;
+            var secondLine = (linesEnum.MoveNext() && linesEnum.MoveNext()) ? linesEnum.Current : null;
+            linesEnum.Dispose(); // Release the file.
+            if (!secondLine?.EqualsFast(AssetMenuItems.DefaultScriptContent.GetAfterFirst(Environment.NewLine)) ?? true) return;
 
             editorResources.AddRecord(configuration.Loader.PathPrefix, configuration.Loader.PathPrefix, name, guid);
             modifiedResources = true;

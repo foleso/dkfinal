@@ -5,7 +5,7 @@ using UnityEngine.Audio;
 
 namespace Naninovel
 {
-    [System.Serializable]
+    [EditInProjectSettings]
     public class AudioConfiguration : Configuration
     {
         public const string DefaultAudioPathPrefix = "Audio";
@@ -64,7 +64,7 @@ namespace Naninovel
         }
 
         /// <summary>
-        /// Generates auto voice clip (local) resource path based on the provided print command conent (voice ID, author ID and printed text).
+        /// Generates auto voice clip (local) resource path based on the provided print command content (voice ID, author ID and printed text).
         /// </summary>
         public static string GetAutoVoiceClipPath (Commands.PrintText printCommand)
         {

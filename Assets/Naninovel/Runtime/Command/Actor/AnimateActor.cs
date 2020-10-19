@@ -45,7 +45,7 @@ namespace Naninovel.Commands
     public class AnimateActor : Command
     {
         /// <summary>
-        /// Literal used to delimit adjecent animation key values.
+        /// Literal used to delimit adjacent animation key values.
         /// </summary>
         public const char KeyDelimiter = '|';
         /// <summary>
@@ -151,7 +151,7 @@ namespace Naninovel.Commands
                 parameters[11] = Assigned(EasingTypeName) ? EasingTypeName : null;
                 parameters[12] = Assigned(Duration) ? Duration.Value : defaultDuration;
 
-                var spawnPath = $"{prefabPath}{SpawnManager.IdDelimiter}{actorId}";
+                var spawnPath = $"{prefabPath}{SpawnConfiguration.IdDelimiter}{actorId}";
                 if (spawnManager.IsObjectSpawned(spawnPath))
                     tasks.Add(spawnManager.UpdateSpawnedAsync(spawnPath, cancellationToken, parameters));
                 else tasks.Add(spawnManager.SpawnAsync(spawnPath, cancellationToken, parameters));

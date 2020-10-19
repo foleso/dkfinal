@@ -258,12 +258,12 @@ namespace Naninovel
             return new Dictionary<string, string>(RFC5646_TAGS);
         }
 
-        public static IEnumerable<string> GetAllTags ()
+        public static IReadOnlyCollection<string> GetAllTags ()
         {
             return RFC5646_TAGS.Keys;
         }
 
-        public static IEnumerable<string> GetAllLanguages ()
+        public static IReadOnlyCollection<string> GetAllLanguages ()
         {
             return RFC5646_TAGS.Values;
         }

@@ -11,6 +11,6 @@ namespace Naninovel
         /// <summary>
         /// Returns current <see cref="ICameraManager.Resolution"/> aspect ratio (width divided by height).
         /// </summary>
-        public static float GetAspectRatio (this ICameraManager mngr) => (float)mngr.Resolution.x / mngr.Resolution.y;
+        public static float GetAspectRatio (this ICameraManager mng) => (float)mng.Resolution.x / mng.Resolution.y;
     }
 }

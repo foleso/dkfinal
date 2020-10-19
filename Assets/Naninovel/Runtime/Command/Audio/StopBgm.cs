@@ -22,7 +22,7 @@ namespace Naninovel.Commands
         /// <summary>
         /// Path to the music track to stop.
         /// </summary>
-        [ParameterAlias(NamelessParameterAlias)]
+        [ParameterAlias(NamelessParameterAlias), IDEResource(AudioConfiguration.DefaultAudioPathPrefix)]
         public StringParameter BgmPath;
         /// <summary>
         /// Duration of the volume fade-out before stopping playback, in seconds (0.35 by default).

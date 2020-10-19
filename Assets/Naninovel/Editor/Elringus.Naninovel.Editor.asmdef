@@ -31,11 +31,6 @@
             "define": "UNITY_GOOGLE_DRIVE_AVAILABLE"
         },
         {
-            "name": "com.unity.textmeshpro",
-            "expression": "",
-            "define": "TMPRO_AVAILABLE"
-        },
-        {
             "name": "com.unity.addressables",
             "expression": "",
             "define": "ADDRESSABLES_AVAILABLE"

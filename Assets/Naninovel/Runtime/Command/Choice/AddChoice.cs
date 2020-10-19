@@ -80,19 +80,19 @@ namespace Naninovel.Commands
         /// <summary>
         /// ID of the choice handler to add choice for. Will use a default handler if not provided.
         /// </summary>
-        [ParameterAlias("handler")]
+        [ParameterAlias("handler"), IDEActor(ChoiceHandlersConfiguration.DefaultPathPrefix)]
         public StringParameter HandlerId;
         /// <summary>
         /// Path to go when the choice is selected by user;
         /// see [@goto] command for the path format.
         /// </summary>
-        [ParameterAlias("goto")]
+        [ParameterAlias("goto"), IDEResource(ScriptsConfiguration.DefaultScriptsPathPrefix, 0)]
         public NamedStringParameter GotoPath;
         /// <summary>
         /// Path to a subroutine to go when the choice is selected by user;
         /// see [@gosub] command for the path format. When `goto` is assigned this parameter will be ignored.
         /// </summary>
-        [ParameterAlias("gosub")]
+        [ParameterAlias("gosub"), IDEResource(ScriptsConfiguration.DefaultScriptsPathPrefix, 0)]
         public NamedStringParameter GosubPath;
         /// <summary>
         /// Set expression to execute when the choice is selected by user; 
@@ -128,21 +128,21 @@ namespace Naninovel.Commands
 
         protected IChoiceHandlerManager HandlerManager => Engine.GetService<IChoiceHandlerManager>();
 
-        public async UniTask HoldResourcesAsync ()
+        public async UniTask PreloadResourcesAsync ()
         {
             if (!Assigned(HandlerId) || HandlerId.DynamicValue) return;
 
             var handlerId = Assigned(HandlerId) ? HandlerId.Value : HandlerManager.Configuration.DefaultHandlerId;
             var handler = await HandlerManager.GetOrAddActorAsync(handlerId);
-            await handler.HoldResourcesAsync(this, null);
+            await handler.HoldResourcesAsync(null, this);
         }
 
-        public void ReleaseResources ()
+        public void ReleasePreloadedResources ()
         {
             if (!Assigned(HandlerId) || HandlerId.DynamicValue) return;
 
             var handlerId = Assigned(HandlerId) ? HandlerId.Value : HandlerManager.Configuration.DefaultHandlerId;
-            if (HandlerManager.ActorExists(handlerId)) HandlerManager.GetActor(handlerId).ReleaseResources(this, null);
+            if (HandlerManager.ActorExists(handlerId)) HandlerManager.GetActor(handlerId).ReleaseResources(null, this);
         }
 
         public override async UniTask ExecuteAsync (CancellationToken cancellationToken = default)
@@ -168,7 +168,7 @@ namespace Naninovel.Commands
                 foreach (var line in OnSelected)
                     builder.AppendLine(line);
 
-            var onSelectScript = builder.ToString()?.TrimFull();
+            var onSelectScript = builder.ToString().TrimFull();
             var buttonPos = Assigned(ButtonPosition) ? (Vector2?)ArrayUtils.ToVector2(ButtonPosition) : null;
             var autoPlay = AutoPlay && !Assigned(GotoPath) && !Assigned(GosubPath);
 

@@ -4,7 +4,7 @@ using System.IO;
 
 namespace Naninovel
 {
-    public class IOGameStateSlotManager : IOSaveSlotManager<GameStateMap>
+    public sealed class IOGameStateSlotManager : IOSaveSlotManager<GameStateMap>
     {
         protected override string SaveDataPath => $"{GameDataPath}/{savesFolderPath}";
         protected override string Extension => Binary ? "nson" : "json";

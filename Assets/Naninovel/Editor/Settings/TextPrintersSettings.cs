@@ -9,30 +9,20 @@ namespace Naninovel
     public class TextPrintersSettings : OrthoActorManagerSettings<TextPrintersConfiguration, ITextPrinterActor, TextPrinterMetadata>
     {
         protected override string HelpUri => "guide/text-printers.html";
-        protected override Type ResourcesTypeConstraint => GetTypeConstraint();
         protected override string ResourcesSelectionTooltip => GetTooltip();
-        protected override bool AllowMultipleResources => Type.GetType(EditedMetadata?.Implementation)?.FullName != typeof(UITextPrinter).FullName;
-        protected override Dictionary<string, Action<SerializedProperty>> OverrideMetaDrawers
-        {
-            get
-            {
-                var drawers = base.OverrideMetaDrawers;
-                drawers[nameof(TextPrinterMetadata.EnableDepthPass)] = null;
-                drawers[nameof(TextPrinterMetadata.DepthAlphaCutoff)] = null;
-                drawers[nameof(TextPrinterMetadata.CustomShader)] = null;
-                return drawers;
-            }
-        }
 
-        private Type GetTypeConstraint ()
+        protected override Dictionary<string, Action<SerializedProperty>> OverrideMetaDrawers ()
         {
-            switch (Type.GetType(EditedMetadata?.Implementation)?.Name)
-            {
-                case nameof(UITextPrinter): return typeof(UI.UITextPrinterPanel);
-                default: return null;
-            }
+            var drawers = base.OverrideMetaDrawers();
+            drawers[nameof(TextPrinterMetadata.EnableDepthPass)] = null;
+            drawers[nameof(TextPrinterMetadata.DepthAlphaCutoff)] = null;
+            drawers[nameof(TextPrinterMetadata.CustomShader)] = null;
+            drawers[nameof(TextPrinterMetadata.RenderTexture)] = null;
+            drawers[nameof(TextPrinterMetadata.CorrectRenderAspect)] = null;
+            drawers[nameof(TextPrinterMetadata.SplitBacklogMessages)] = p => { if (EditedMetadata.AddToBacklog) EditorGUILayout.PropertyField(p); };
+            return drawers;
         }
-
+        
         private string GetTooltip ()
         {
             if (EditedActorId == Configuration.DefaultPrinterId)

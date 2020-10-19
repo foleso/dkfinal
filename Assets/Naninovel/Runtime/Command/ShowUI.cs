@@ -25,7 +25,7 @@ namespace Naninovel.Commands
         /// <summary>
         /// Name of the UI prefab to make visible.
         /// </summary>
-        [ParameterAlias(NamelessParameterAlias)]
+        [ParameterAlias(NamelessParameterAlias), IDEResource(UIConfiguration.DefaultPathPrefix)]
         public StringListParameter UINames;
         /// <summary>
         /// Duration (in seconds) of the show animation. 

@@ -1,5 +1,6 @@
 ﻿// Copyright 2017-2020 Elringus (Artyom Sovetnikov). All Rights Reserved.
 
+using System;
 using Naninovel.UI;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,23 +12,21 @@ namespace Naninovel
     /// <summary>
     /// A <see cref="IChoiceHandlerActor"/> implementation using <see cref="UI.ChoiceHandlerPanel"/> to represent the actor.
     /// </summary>
-    public class UIChoiceHandler : MonoBehaviourActor, IChoiceHandlerActor
+    [ActorResources(typeof(ChoiceHandlerPanel), false)]
+    public class UIChoiceHandler : MonoBehaviourActor<ChoiceHandlerMetadata>, IChoiceHandlerActor
     {
         public override string Appearance { get; set; }
         public override bool Visible { get => HandlerPanel.Visible; set => HandlerPanel.Visible = value; }
-        public List<ChoiceState> Choices { get; } = new List<ChoiceState>();
+        public virtual List<ChoiceState> Choices { get; } = new List<ChoiceState>();
 
-        protected ChoiceHandlerPanel HandlerPanel { get; private set; }
+        protected virtual ChoiceHandlerPanel HandlerPanel { get; private set; }
 
         private readonly IStateManager stateManager;
         private readonly IUIManager uiManager;
-        private ChoiceHandlerMetadata metadata;
 
         public UIChoiceHandler (string id, ChoiceHandlerMetadata metadata)
             : base(id, metadata)
         {
-            this.metadata = metadata;
-
             stateManager = Engine.GetService<IStateManager>();
             uiManager = Engine.GetService<IUIManager>();
         }
@@ -36,16 +35,13 @@ namespace Naninovel
         {
             await base.InitializeAsync();
 
-            var providerMngr = Engine.GetService<IResourceProviderManager>();
-            var prefabResource = await metadata.Loader.CreateFor<GameObject>(providerMngr).LoadAsync(Id);
-            if (!prefabResource.Valid)
-            {
-                Debug.LogError($"Failed to load `{Id}` choice handler resource object. Make sure the handler is correctly configured.");
-                return;
-            }
+            var providerManager = Engine.GetService<IResourceProviderManager>();
+            var prefabResource = await ActorMetadata.Loader.CreateFor<GameObject>(providerManager).LoadAsync(Id);
+            if (!prefabResource.Valid) throw new Exception($"Failed to load `{Id}` choice handler resource object. Make sure the handler is correctly configured.");
 
-            var uiMngr = Engine.GetService<IUIManager>();
-            HandlerPanel = await uiMngr.InstantiatePrefabAsync(prefabResource.Object) as ChoiceHandlerPanel;
+            var uiManager = Engine.GetService<IUIManager>();
+            HandlerPanel = await uiManager.InstantiatePrefabAsync(prefabResource.Object) as ChoiceHandlerPanel;
+            if (HandlerPanel == null) throw new Exception($"Failed to initialize `{Id}` choice handler actor: choice panel UI instantiation failed.");
             HandlerPanel.OnChoice += HandleChoice;
             HandlerPanel.transform.SetParent(Transform);
 
@@ -76,7 +72,7 @@ namespace Naninovel
             HandlerPanel.RemoveChoiceButton(id);
         }
 
-        public ChoiceState GetChoice (string id) => Choices.FirstOrDefault(c => c.Id == id);
+        public virtual ChoiceState GetChoice (string id) => Choices.FirstOrDefault(c => c.Id == id);
 
         public override void Dispose ()
         {
@@ -94,7 +90,7 @@ namespace Naninovel
 
         protected override void SetBehaviourTintColor (Color tintColor) { }
 
-        protected async void HandleChoice (ChoiceState state)
+        protected virtual async void HandleChoice (ChoiceState state)
         {
             if (!Choices.Exists(c => c.Id.EqualsFast(state.Id))) return;
 

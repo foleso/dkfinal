@@ -8,9 +8,9 @@ namespace Naninovel
 {
     public class EditorFolderLocator : LocateFoldersRunner
     {
-        private readonly IEnumerable<string> editorResourcePaths;
+        private readonly IReadOnlyCollection<string> editorResourcePaths;
 
-        public EditorFolderLocator (IResourceProvider provider, string resourcesPath, IEnumerable<string> editorResourcePaths)
+        public EditorFolderLocator (IResourceProvider provider, string resourcesPath, IReadOnlyCollection<string> editorResourcePaths)
             : base (provider, resourcesPath ?? string.Empty)
         {
             this.editorResourcePaths = editorResourcePaths;
@@ -23,9 +23,9 @@ namespace Naninovel
             return UniTask.CompletedTask;
         }
 
-        public static List<Folder> LocateEditorFolders (string path, IEnumerable<string> editorResourcePaths)
+        public static IReadOnlyCollection<Folder> LocateEditorFolders (string path, IReadOnlyCollection<string> editorResourcePaths)
         {
-            return editorResourcePaths.LocateFolderPathsAtFolder(path).Select(p => new Folder(p)).ToList();
+            return editorResourcePaths.LocateFolderPathsAtFolder(path).Select(p => new Folder(p)).ToArray();
         }
     }
 }

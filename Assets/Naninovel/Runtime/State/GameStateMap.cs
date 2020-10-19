@@ -46,20 +46,6 @@ namespace Naninovel
         [SerializeField] private string thumbnailBase64;
         [SerializeField] private string rollbackStackJson;
 
-        public GameStateMap () : base() { }
-
-        /// <summary>
-        /// Creates a new instance deep-copying another provided instance.
-        /// </summary>
-        public GameStateMap (GameStateMap stateMap) : base(stateMap)
-        {
-            playbackSpot = stateMap.playbackSpot;
-            saveDateTime = stateMap.saveDateTime;
-            thumbnailBase64 = stateMap.thumbnailBase64;
-            rollbackStackJson = stateMap.rollbackStackJson;
-            PlayerRollbackAllowed = stateMap.PlayerRollbackAllowed;
-        }
-
         public override void OnBeforeSerialize ()
         {
             base.OnBeforeSerialize();

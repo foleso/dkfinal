@@ -114,7 +114,26 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Printed text.
+  m_Text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae
+    elementum felis. Nullam et urna at nulla ultrices placerat eu tempus lorem. Ut
+    non sem convallis mi pharetra viverra. Suspendisse consequat nisi vitae sem viverra,
+    eu tincidunt tortor condimentum. Nunc finibus, urna sit amet ornare mollis, nibh
+    leo sagittis lacus, vestibulum venenatis ipsum nisi id massa. Mauris sit amet
+    placerat odio. Donec eu aliquam magna. Orci varius natoque penatibus et magnis
+    dis parturient montes, nascetur ridiculus mus.
+
+
+    Nam sed tincidunt dolor.
+    Pellentesque tristique ante tortor, a dignissim quam accumsan sit amet. Sed vulputate
+    ultricies magna, quis pulvinar ipsum aliquam eget. Mauris ultrices dolor ut dui
+    gravida, quis dignissim dolor lacinia. Fusce pulvinar nisi purus. Suspendisse
+    eget orci feugiat, aliquam metus a, posuere dolor. Nulla scelerisque tortor orci,
+    vel porttitor ante placerat non. Curabitur ac leo vel metus tincidunt ultrices
+    id ut ligula. Proin eu sapien id nisi interdum auctor. Vivamus fringilla lectus
+    nisl, pharetra porta nulla hendrerit eu. Nunc sed nisi at tortor dictum dignissim
+    quis sed dui. Donec malesuada sapien vitae vestibulum euismod. Proin eu justo
+    non purus accumsan aliquam. Donec sollicitudin justo sed tempor maximus. Proin
+    et tellus posuere ligula elementum dapibus a vitae ligula.'
   revealFadeWidth: 100
   slideClipRect: 1
   italicSlantAngle: 10

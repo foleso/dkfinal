@@ -1,6 +1,5 @@
 ﻿// Copyright 2017-2020 Elringus (Artyom Sovetnikov). All Rights Reserved.
 
-using System.Linq;
 using UniRx.Async;
 
 namespace Naninovel.Commands

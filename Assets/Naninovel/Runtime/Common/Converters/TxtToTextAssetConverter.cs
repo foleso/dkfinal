@@ -8,9 +8,9 @@ namespace Naninovel
 {
     public class TxtToTextAssetConverter : IRawConverter<TextAsset>
     {
-        public RawDataRepresentation[] Representations { get { return new RawDataRepresentation[] {
+        public RawDataRepresentation[] Representations { get; } = {
             new RawDataRepresentation(".txt", "text/plain")
-        }; } }
+        };
 
         public TextAsset Convert (byte[] obj, string name) 
         {

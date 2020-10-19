@@ -9,11 +9,11 @@ namespace Naninovel.FX
     /// </summary>
     public class ShakeCamera : ShakeTransform
     {
-        protected override Transform GetShakedTransform ()
+        protected override Transform GetShakenTransform ()
         {
-            var cameraMngr = Engine.GetService<ICameraManager>().Camera;
-            if (cameraMngr == null) return null;
-            return cameraMngr.transform;
+            var cameraManager = Engine.GetService<ICameraManager>().Camera;
+            if (cameraManager == null) return null;
+            return cameraManager.transform;
         }
     }
 }
