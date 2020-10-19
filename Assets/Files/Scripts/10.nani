@@ -1,0 +1,267 @@
+@back black
+I opened my eyes.
+@bgm blueBoi
+@back livingDay
+@char F.f>neutral,sfx-,glasses- pos:25 scale:.4688
+@spawn DepthOfField params:F
+F.shock: Where... Where am I?
+I looked around, trying to figure out where I was.
+F.sad: Demie?
+But Demie didn't appear.
+I rubbed my eyes. Why was it so bright? I fumbled around for my glasses and put them on.
+@despawn DepthOfField
+@char F.glasses+
+Oh.
+That's right.
+I was back home.
+@spawn ShakeCharacter params:F
+I jumped up from my place on the couch. Where was Tris?
+He was nowhere to be found. Unless...
+I heard some angry noises from my bedroom.
+Quickly, I hurried in.
+@back bedroomDay
+@char T.default pos:75 scale:.4688
+F.shock: Tris?
+Tris was animatedly talking through a crystal in his hand. But the light in it faded as soon as I walked in.
+T.anger: You.
+F.sfx>sweat: Y-Yes?
+T.neutral: What do you think I should do?
+F.sad: You're asking... me?
+T.anger: Who else is present here?
+F.neutral: About what?
+T.anger: About Kali—I mean, Nessie.
+F.sad: Oh. Um.
+I wracked my head, trying to think about it.
+@camera offset:-3,1.5 zoom:.6
+F.default: I think... you should do what you want.
+@camera offset:0 zoom:0
+T.sad: Hm?
+F.sad: Like... I'm really an outsider, amn't I?
+Saying it out loud made me feel depressed, but it was true.
+F: I... I really don't have a right to say anything here. It's between you and her.
+T.anger: ...
+F.sfx>blush: A-And... I-I'm pretty stupid. Like, you know that. So I don't think you should be asking—
+@slide T to:35
+@slide F to:40 wait:false
+@slide T to:55
+Tris grabbed the back of my shirt, and pulled my face close.
+F.f>shock,sfx>flinch: What are you...
+@hidechars
+@unlock CG/Kiss1
+@back CG/Kiss1
+He cut my words off with a kiss.
+F: M-Mph?!
+My eyes flew wide open.
+Trisetar kissed me roughly, his teeth clacking against mine.
+F: (He's bad at this...)
+@back CG/Kiss2
+@unlock CG/Kiss2
+I closed my eyes and gently pulled him closer. I opened his mouth wider so we had more room.
+T: Mm...
+His lips were soft, pliant. It was nothing like what I'd expected, but I... I wanted more.
+I kissed him deeper. I tilted his head, allowing me better access.
+T: Mm..?!
+I opened his mouth wider, and slowly pushed my tongue in.
+T: Mm... Mm...!
+He pushed my shoulder weakly. I immediately let go of him.
+@back bedroomDay
+@show T,F
+@char T.f>shock,sfx>blush
+@char F pos:30
+@char T pos:70
+F.outfits>gaymer,f>shock,sfx>blush: Huff... Hh...
+I looked at Tris in shock. What just happened?
+T.neutral: Hh...
+T.anger: Do not say that I am a stranger to you again.
+F.sad: O-oh. S-Sorry?
+Trisetar touched his fingers to his lips.
+T.sad: Do not apologize.
+F.shock: O-Okay.
+I stared at him, awkwardly.
+T.anger: What?
+F.neutral: Why...why did you do that?
+@char T.sfx-
+He sighed.
+T.sad: I disliked hearing you speak that way about yourself.
+Oh.
+F.sfx-: Is that it?
+T.sfx>blush,f>anger: That... is not all. Perhaps I... I have feelings for you.
+F.f>shock,sfx>blush: Huh?!
+@spawn ShakeCharacter params:T,2,,,,,true,false wait:false
+T: Do not look so surprised, fool.
+@char F.happy
+I laughed.
+F: Don't be shy.
+T.shock: I-I am not shy!
+F: If you say so... I care about you too, Tris.
+T.sad: ...
+T.happy: That is... good to hear.
+F.shock: ...
+F.sfx>blush,sad: Can we kiss again?
+T.anger: You...
+@char T.sfx-
+T: First we must figure out this situation.
+@char F.sfx-,outfits>normal
+F: Oh. Okay. Right.
+F.sad: So... what do you want to do?
+I held Tris's hand in mine.
+F.happy: Hopefully... whatever you want to do includes me.
+He looked up at me.
+T.neutral: Do you have an idea?
+@stopBgm
+@bgm betterDays
+@if hell>home
+@goto .hell
+@else
+@goto .home
+@endif
+
+# home
+F.happy: Why don't you stay here too?
+@spawn ShakeCharacter params:T,2,,,,,true,false wait:false
+T.shock: What?
+F.neutral: If Nessie was able to just plop here, why can't you as well?
+T.anger: I... I do not follow.
+F.sad: If you really want to, you should be able to do what you really want.
+@char T.sad
+Trisetar looked conflicted.
+F.blush: I-I know I'm asking a lot...
+T.neutral: You are.
+F.sfx-: But... I can't just leave my home. It may not look like much, but it's everything to me.
+T.sad: I understand.
+F.happy: So...
+@goto .both
+
+# hell
+F.sad: Can I stay with you in hell?
+T.shock: What?
+F.neutral: This place... never really felt like home to me. It was where I stayed but, I always felt there was something missing.
+F.happy: Let me come with you. I can stay with you there.
+@char T.sad
+Trisetar looked conflicted.
+F.blush: I-I know I'm asking a lot...
+T.neutral: You are.
+F.f>neutral,sfx-: But... I would like to stay with you. No matter how difficult it may be.
+T.sad: I understand.
+F.happy: So...
+@goto .both
+
+# both
+T.neutral: But we both need some time to decide.
+He handed me a small black button.
+F.sad: (Why does this look familiar?)
+T.sad: We have only known each other for a little over three months. It is a bit... presumptuous to do something extreme.
+T.happy: Using this, we are able to communicate through dimensions.
+F.shock: How did you...?
+I thought back to our time in Hell.
+@char T.sfx>blush
+Trisetar rubbed the back of his neck.
+T.sad: Since the strange button was a dead end, I decided to repurpose it.
+F.blush: Did you... make this back then? To give me once we got here?
+Trisetar looked away.
+@spawn ShakeCharacter params:F,3,,,,,true,false wait:false
+T.anger: So what if I did?
+@slide F to:40
+@slide T to:40 wait:false
+@slide F to:20
+I grabbed Tris and hugged him tightly.
+T.shock: Mmph!
+F.sfx>blush,f>happy: That's amazing. Thank you.
+He tentatively returned the hug.
+T.sad: I must return home, by myself, to finish my duties.
+@char T.sfx-
+T: However, unlike my sister, I cannot make rash decisions on a moment's notice.
+@char F.sfx-
+@slide F to:25 wait:false
+@slide T to:70
+I released the hug.
+F.sad: But...
+T.happy: We can communicate through this device in the meantime. I... I care for you, Felix. But this is too soon.
+F.neutral: I understand.
+@stopbgm
+@bgm darkPlace
+@animate T loop:true tint:white|#FFFFFF25 time:1|1 wait:false
+I grasped the button in my hand. Trisetar began to fade away.
+F.shock: Already?!
+T.sad: If I stay now... I may find it hard to leave.
+@spawn ShakeCharacter params:F,2,,,,,true,false wait:false
+F: Tris? Tris?!
+@despawn animate
+@hide T time:2 wait:true
+He disappeared. I clutched the button tighter.
+F.sad: Maybe... Maybe things can work out.
+@hidechars
+@stopbgm
+@if hell>home
+@goto .finalHell
+
+@else
+@goto .finalHome
+@endIf
+# finalHome
+@bgm lofi
+@back black
+Three years later.
+@unlock CG/Home
+@back CG/Home
+@camera offset:-3,3 zoom:.6
+I grabbed Tris's hand.
+@camera offset:3,3
+T: You...
+@camera offset:0 zoom:0
+Despite looking annoyed, a bright red blush tinted his cheeks.
+F: Isn't this fun?
+T: Your idea of traipsing through this empty place is called 'fun?'
+F: Yep!
+Tris grumbled.
+T: What a desolate space. There are so many places to peruse, yet there is no one.
+F: I told you, it's because people consider this mall the boring one. The only place here that people go is the Food Court.
+T: If so, then why are there still shops here?
+F: I dunno. Tax evasion?
+T: ...
+F: Just enjoy it!
+T: ...Very well.
+Although there were many ups-and-downs, Trisetar finally managed to convince his dad to let him live on Earth.
+There's a lot of stuff we still need to work out: Like the fact that y'know, he's demon and I'm human.
+But... I know one thing for sure.
+Whatever we do, we'll do together.
+@title
+
+# finalHell
+@bgm betterDays
+@back black
+Three years later.
+I gulped nervously.
+F: Am I doing this right.
+T: Yes.
+F: Okay...
+I darted my eyes nervously.
+@unlock CG/Hell1
+@camera offset:0,-4 zoom:.7 time:0 wait:true
+@camera offset:,1.5 time:2 wait:false
+@back CG/Hell1
+T: What brings you hear, sinful human?
+A man shudders under Trisetar's feet.
+Sinner: I-I am so sorry!
+T: ...
+Sinner: I can give you everything I have back home! Money, power...
+T: You dare offer me your measly human offerings? You will be in... the seventh circle.
+Sinner: AHHHHHH!!!
+I took a deep breath and shivered as the man got dragged off by another demon.
+@camera offset:4,4
+F: So uh... what do I do?
+@camera offset:0,2.5
+@camera offset:0 zoom:0
+T: Just stand there and look pretty.
+F: Huh. Never realized being the boyfriend of Hell's ruler was such an easy job. I should have applied sooner.
+T: You are a strange human.
+I opened my mouth to retort.
+T: Correction. You are my strange human.
+@unlock CG/Hell2
+@back CG/Hell2
+I felt my insides melt a little. He was so cute!
+Although there were many ups-and-downs, Trisetar finally managed to convince his dad to let him take over as Hell's ruler, with me as his assistant (and boyfriend).There's a lot of stuff we still need to work out: Like the fact that y'know, he's demon and I'm human.
+But... I know one thing for sure.
+Whatever we do, we'll do together.
+@title
+@stop

@@ -1,0 +1,452 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06386b10f29c770408fc88b031c4d7fd, type: 3}
+  m_Name: EditorResources
+  m_EditorClassIdentifier: 
+  resourceCategories:
+  - Id: TextPrinters/e4e453db-b765-434b-b641-f8ff5d4312e2
+    Resources:
+    - Name: Dialogue
+      PathPrefix: TextPrinters
+      Guid: 1bc08ccd31adff6439e97161aa6e1d8b
+  - Id: TextPrinters/609b8343-3107-49ac-8846-5d48fe343c31
+    Resources:
+    - Name: Fullscreen
+      PathPrefix: TextPrinters
+      Guid: c87cebd3f0d4f174789cd351ce9591c4
+  - Id: TextPrinters/c06b0d18-b0d7-45f6-9306-cd0c3d701bbe
+    Resources:
+    - Name: Wide
+      PathPrefix: TextPrinters
+      Guid: 781828b806deb1e4cbf50ef9de41da10
+  - Id: TextPrinters/1f9cf771-b98a-401b-b2f2-384faa2229c1
+    Resources:
+    - Name: Chat
+      PathPrefix: TextPrinters
+      Guid: 0126b92e4ff0f564aaa7a38eae3ef6e7
+  - Id: TextPrinters/889c2936-a28f-4811-bb90-809faf45022d
+    Resources:
+    - Name: Bubble
+      PathPrefix: TextPrinters
+      Guid: b47d9659b2be5ee4e95a776f213c9d4b
+  - Id: TextPrinters/dc24bbed-5f32-4dba-ae79-f94f021ddedb
+    Resources:
+    - Name: TMProDialogue
+      PathPrefix: TextPrinters
+      Guid: 5838611042eaced44954639c4ea4d81e
+  - Id: TextPrinters/76f1bcc2-d3c8-4f0a-822a-f83105aee9d8
+    Resources:
+    - Name: TMProFullscreen
+      PathPrefix: TextPrinters
+      Guid: a2aaa417785eeca409e78c404f333ee5
+  - Id: TextPrinters/a2d48854-08e8-426d-b391-083f71452572
+    Resources:
+    - Name: TMProWide
+      PathPrefix: TextPrinters
+      Guid: 7860ef40eae6a3341be02586f7edd980
+  - Id: TextPrinters/86e99bd4-7593-46a9-b123-97a5d99939cf
+    Resources:
+    - Name: TMProBubble
+      PathPrefix: TextPrinters
+      Guid: 18cfa78b5fc89b745ba69d51a6a8629a
+  - Id: ChoiceHandlers/bdb5372a-1c47-4986-9d68-dac76abf7a80
+    Resources:
+    - Name: ButtonList
+      PathPrefix: ChoiceHandlers
+      Guid: 1f6aa29000e839c409e6a9c0704adc96
+  - Id: ChoiceHandlers/0173d021-e8e7-4417-82d6-45fcec317727
+    Resources:
+    - Name: ButtonArea
+      PathPrefix: ChoiceHandlers
+      Guid: 4fa6d62f894ae6e4698bfa8af59e7942
+  - Id: Spawn
+    Resources:
+    - Name: Animate
+      PathPrefix: Spawn
+      Guid: 7bf06fa813bb9c34daf521998fa72ab1
+    - Name: DepthOfField
+      PathPrefix: Spawn
+      Guid: ea76638b26a915946b62907dd1e776fd
+    - Name: DigitalGlitch
+      PathPrefix: Spawn
+      Guid: be75a73ecccb90b4caa5c14edb9ac467
+    - Name: Rain
+      PathPrefix: Spawn
+      Guid: a9117e2fa90704d45b3e1461596c11ee
+    - Name: ShakeBackground
+      PathPrefix: Spawn
+      Guid: 9f56c556ba32fd54fae62347c25a8145
+    - Name: ShakeCamera
+      PathPrefix: Spawn
+      Guid: 1c5b86cf3cfbb1f44ae5641699077da4
+    - Name: ShakeCharacter
+      PathPrefix: Spawn
+      Guid: 1224d69e1592d624cbde93d0f7383d91
+    - Name: ShakePrinter
+      PathPrefix: Spawn
+      Guid: 2795040988e866646801c80024c50be1
+    - Name: Snow
+      PathPrefix: Spawn
+      Guid: 9f4e71cb27fffa04486737d2cf8d622d
+    - Name: SunShafts
+      PathPrefix: Spawn
+      Guid: c4bf810b9b6cc9f44a58fd670678ded4
+  - Id: UI
+    Resources:
+    - Name: ClickThroughPanel
+      PathPrefix: UI
+      Guid: 702c32b2de0c0784b9a66ec90601874f
+    - Name: IBacklogUI
+      PathPrefix: UI
+      Guid: 7fba909c66b25324cb77db18679c2c96
+    - Name: ICGGalleryUI
+      PathPrefix: UI
+      Guid: 0b9c35d8a9cb43c41aa84cac26361f13
+    - Name: IConfirmationUI
+      PathPrefix: UI
+      Guid: 88d03f19bcbff914ba33a7c9895e2d7c
+    - Name: IContinueInputUI
+      PathPrefix: UI
+      Guid: 1add671f8348e8443bcc56290e82fc5e
+    - Name: IExternalScriptsUI
+      PathPrefix: UI
+      Guid: 671ceb4f549ddf046913d7debf113469
+    - Name: ILoadingUI
+      PathPrefix: UI
+      Guid: 53aad00e5cf184e458adb001c550518a
+    - Name: IMovieUI
+      PathPrefix: UI
+      Guid: f9a211517d1cb1a44964dc2254463049
+    - Name: IRollbackUI
+      PathPrefix: UI
+      Guid: a32c73a3aff4b274c85b3ff16c854b07
+    - Name: ISaveLoadUI
+      PathPrefix: UI
+      Guid: e11e4629794c9314b8f6bce5b64e8555
+    - Name: ISceneTransitionUI
+      PathPrefix: UI
+      Guid: e3b234b4273b7f64ab3f1d9fe425ed23
+    - Name: ISettingsUI
+      PathPrefix: UI
+      Guid: 4aa7d6d54c2e25046b680092e4ce731e
+    - Name: ITipsUI
+      PathPrefix: UI
+      Guid: f5aae572225ee1b4c96d1a17fc5cb073
+    - Name: ITitleUI
+      PathPrefix: UI
+      Guid: e1665cb8dd2484b408ede5aac2ecf78d
+    - Name: IVariableInputUI
+      PathPrefix: UI
+      Guid: bb95f484e341dcd4391a572f22b7d067
+  - Id: Characters/774678fe-189d-4c75-a4f1-94e1edfa7664
+    Resources:
+    - Name: F
+      PathPrefix: Characters
+      Guid: 5ac23495316314944843682704ba71e2
+  - Id: Characters/ea92c4a5-164d-464b-967a-81a628e6117e
+    Resources:
+    - Name: T
+      PathPrefix: Characters
+      Guid: ace71ed44bd139d41935b66cff60371a
+  - Id: Scripts
+    Resources:
+    - Name: 01
+      PathPrefix: Scripts
+      Guid: 68faf7b63d06e674ab11a9dbe6d5b176
+    - Name: 02
+      PathPrefix: Scripts
+      Guid: 90225cd0a41e054428cf69db7ffa5e7d
+    - Name: 03
+      PathPrefix: Scripts
+      Guid: 604d342e619f75540a886767ab623329
+    - Name: Title
+      PathPrefix: Scripts
+      Guid: e04ef12483b8cd645a46641fcbb7d66c
+    - Name: 04
+      PathPrefix: Scripts
+      Guid: 2952c0c9e6be1684aa7619702a56cb06
+    - Name: 05
+      PathPrefix: Scripts
+      Guid: f1c015ae20bdc8644a55554b8bd7335a
+    - Name: 06
+      PathPrefix: Scripts
+      Guid: 1c927aac249546b4e9a228a81203ef5a
+    - Name: 07
+      PathPrefix: Scripts
+      Guid: f642bfd9f25d05647ac938c448e8da44
+    - Name: 08
+      PathPrefix: Scripts
+      Guid: 15bfbd574244be44388493df75a0a9ce
+    - Name: 09
+      PathPrefix: Scripts
+      Guid: 4c17e8350fa65334cae36a48058c17f2
+    - Name: 10
+      PathPrefix: Scripts
+      Guid: b2c28fdf5ccece748a664f95717d3a6e
+    - Name: LockAll
+      PathPrefix: Scripts
+      Guid: cff4f88a60c59d149900c74a6ad248ce
+  - Id: Backgrounds/089259d8-deb2-4b7f-8291-db3ef574ed8a
+    Resources:
+    - Name: night
+      PathPrefix: Backgrounds/Bedroom
+      Guid: fa4ad1647c8a98b45915ef70371ea58f
+  - Id: Audio
+    Resources:
+    - Name: Intro
+      PathPrefix: Audio
+      Guid: b322e0a82301dc64f8ad15f316ee6c9b
+    - Name: Bell
+      PathPrefix: Audio
+      Guid: d9a01845212b04b4faa57d2b6230a5db
+    - Name: sad
+      PathPrefix: Audio
+      Guid: 5bbaf2e0fa86ef0409b405f1559d99e5
+    - Name: door
+      PathPrefix: Audio
+      Guid: 99f6585cf93246f4daa1b581b3124b04
+    - Name: nessa
+      PathPrefix: Audio
+      Guid: 5671803a3da64894cadde84f54d9d6e8
+    - Name: party
+      PathPrefix: Audio
+      Guid: 4f80ac924427a7642802f0737fd7f4ea
+    - Name: scream
+      PathPrefix: Audio
+      Guid: 97cb28b1324db704fba57f41a100f6c2
+    - Name: crowd
+      PathPrefix: Audio
+      Guid: 3c4f95827a2f4dd44aa1d040d5068583
+    - Name: siren
+      PathPrefix: Audio
+      Guid: 9083cd8fbaa2e5343adc38310dbf64fa
+    - Name: thud
+      PathPrefix: Audio
+      Guid: a307b604b0c25ab4c8366c46e41cc9b8
+    - Name: intense
+      PathPrefix: Audio
+      Guid: 109ada41925666e48bc8920f66422a18
+    - Name: pleasant
+      PathPrefix: Audio
+      Guid: f19ccd3d85ea7af4a9d1324fbb0406f1
+    - Name: lofi
+      PathPrefix: Audio
+      Guid: a6e0b63d119cbc442868f118fd642846
+    - Name: betterDays
+      PathPrefix: Audio
+      Guid: 73883246fde6ff1479fcc75d8d9c1817
+    - Name: grumble
+      PathPrefix: Audio
+      Guid: 37e9d749b41275f44bfc071062bb14f1
+    - Name: blueBoi
+      PathPrefix: Audio
+      Guid: 3c56b0a70e231e74a880c77ed849fa4c
+    - Name: darkPlace
+      PathPrefix: Audio
+      Guid: 095b81c82c53d6a42a187647148b41a1
+  - Id: Backgrounds/d261ea1c-e952-4551-bd3b-074bf14c5c43
+    Resources:
+    - Name: livingNight
+      PathPrefix: Backgrounds/MainBackground
+      Guid: 6b7cf007cafc2c448838fdcd13c9740c
+    - Name: livingDay
+      PathPrefix: Backgrounds/MainBackground
+      Guid: 637969b3a0c466347af3ef9e5d5e2918
+    - Name: partyOut
+      PathPrefix: Backgrounds/MainBackground
+      Guid: f1a3af91f6842554c8a9d41e0318d7f5
+    - Name: castle
+      PathPrefix: Backgrounds/MainBackground
+      Guid: 5c1189a4d310c7844a9af9e698136d9c
+    - Name: insideThrone
+      PathPrefix: Backgrounds/MainBackground
+      Guid: 2f7ebab1bcce96348930d0c929a34237
+    - Name: Title
+      PathPrefix: Backgrounds/MainBackground
+      Guid: bda3612e8fdb67847baf3220cebb2100
+    - Name: bedroomDay
+      PathPrefix: Backgrounds/MainBackground
+      Guid: dc60eb4a4409fd842ac5f75d63aeab67
+    - Name: bedroomNight
+      PathPrefix: Backgrounds/MainBackground
+      Guid: a0825e5ccd5210f4f940e510a7519484
+    - Name: kitchen
+      PathPrefix: Backgrounds/MainBackground
+      Guid: 4a6eb9f7dda1d4f45ad4d6a9ba2a31de
+    - Name: black
+      PathPrefix: Backgrounds/MainBackground
+      Guid: 9802f4aed5fbf1e40a5103d95170b3db
+    - Name: hallwayClosed
+      PathPrefix: Backgrounds/MainBackground
+      Guid: c58ed9b59759aee4e8eedf58bf60da7a
+    - Name: hallwayOpen
+      PathPrefix: Backgrounds/MainBackground
+      Guid: b227ee214165157488663c791f169de1
+    - Name: partyCrowd
+      PathPrefix: Backgrounds/MainBackground
+      Guid: 3337d5145408c014ab58b1e7b87d4b10
+    - Name: hellHallway
+      PathPrefix: Backgrounds/MainBackground
+      Guid: 63e8778ab3dc6534a887d8941af48aee
+    - Name: tinyRoom
+      PathPrefix: Backgrounds/MainBackground
+      Guid: d81df8e0baeff0d4b92c40822b5026bf
+    - Name: trisOffice
+      PathPrefix: Backgrounds/MainBackground
+      Guid: c02f79c1cfdd2734a8e2e787a796c91c
+    - Name: market
+      PathPrefix: Backgrounds/MainBackground
+      Guid: ff32c473a69741c4e873539353f4482f
+    - Name: trisKitchen
+      PathPrefix: Backgrounds/MainBackground
+      Guid: ff784df6961962846982f6eefa32daa8
+    - Name: library
+      PathPrefix: Backgrounds/MainBackground
+      Guid: 63d617c75d81aae49a0cf8e0279d80a1
+    - Name: marketDay
+      PathPrefix: Backgrounds/MainBackground
+      Guid: 3f289d31ea48bf44ab60e965a1cfb066
+    - Name: streetDay
+      PathPrefix: Backgrounds/MainBackground
+      Guid: e228b5b0009b51b47ab21a9a7d543c55
+    - Name: street
+      PathPrefix: Backgrounds/MainBackground
+      Guid: f90e83a9aea051c4db3d96e616b76300
+    - Name: streetNight
+      PathPrefix: Backgrounds/MainBackground
+      Guid: 18f14144e274d7948bcbf8296ddab782
+    - Name: nessieHouse
+      PathPrefix: Backgrounds/MainBackground
+      Guid: 418429f3aa6c64841987aaa89de19a56
+    - Name: CG/Home
+      PathPrefix: Backgrounds/MainBackground
+      Guid: 90f5e40dc55a30845b8c2e3907cb2614
+    - Name: CG/Hell1
+      PathPrefix: Backgrounds/MainBackground
+      Guid: 846c268999f68614f8a3ba358c12a4c6
+    - Name: CG/Hell2
+      PathPrefix: Backgrounds/MainBackground
+      Guid: 7cc1dcbae8903884b94c06d66176acb3
+    - Name: CG/Kiss1
+      PathPrefix: Backgrounds/MainBackground
+      Guid: 3d4580f8ed278f24f980fa1560a29dcb
+    - Name: CG/Kiss2
+      PathPrefix: Backgrounds/MainBackground
+      Guid: 4a365a6e090fee449b1b5976babb5954
+    - Name: partyEmpty
+      PathPrefix: Backgrounds/MainBackground
+      Guid: 2667e77ae158441458f48885a59423a6
+  - Id: Backgrounds/841e8f9d-e48d-4a3a-82c0-eda49ebc1b47
+    Resources:
+    - Name: closed
+      PathPrefix: Backgrounds/Hallway
+      Guid: c58ed9b59759aee4e8eedf58bf60da7a
+    - Name: open
+      PathPrefix: Backgrounds/Hallway
+      Guid: b227ee214165157488663c791f169de1
+  - Id: Characters/838b9988-b550-47b5-823b-99c9c7cc437b
+    Resources:
+    - Name: N
+      PathPrefix: Characters
+      Guid: 2ac46287335e0a443a6fc168f149e070
+  - Id: CharacterAvatars
+    Resources: []
+  - Id: Backgrounds/5d28be32-ff6b-49fa-a012-f229b0df9d35
+    Resources:
+    - Name: LivingRoom
+      PathPrefix: Backgrounds/LivingRoom
+      Guid: 06d1601a66102cc4e8351d5d5adfb20c
+  - Id: Unlockables
+    Resources: []
+  - Id: Backgrounds/e02f9ca5-2509-4a05-973b-5cdee9513b49
+    Resources:
+    - Name: party
+      PathPrefix: Backgrounds
+      Guid: 9a90cdb9b97da7c46868ab7a8637e877
+  - Id: Characters/2fa621df-338c-4a23-9325-bba4284484aa
+    Resources: []
+  - Id: TextPrinters/7167f13f-a02c-4806-b829-2eed97e6e5db
+    Resources:
+    - Name: WideGradient
+      PathPrefix: TextPrinters
+      Guid: 97667f56dbf894e44ae6398e54835f66
+  - Id: Naninovel/ChoiceHandlers/e08daa8d-167d-42de-9912-c8c5720f0917
+    Resources:
+    - Name: FancyList
+      PathPrefix: Naninovel/ChoiceHandlers
+      Guid: 184c908cd30897f46aee14567e1d38db
+  - Id: Naninovel/Characters/24600a81-5f4f-40fe-b6dc-4d222fd5fa29
+    Resources:
+    - Name: laugh
+      PathPrefix: Naninovel/Characters/D
+      Guid: 43814450d8c3671478427e6176273ba3
+    - Name: smile
+      PathPrefix: Naninovel/Characters/D
+      Guid: ff207bc6bf3cfaf409f60b8cf0672372
+    - Name: smileCloseEye
+      PathPrefix: Naninovel/Characters/D
+      Guid: 886bf64ee633bd044bfa313c69123525
+    - Name: smileOpenMouth
+      PathPrefix: Naninovel/Characters/D
+      Guid: 032e85a850c8a494c972c17fc92e94ec
+    - Name: smug
+      PathPrefix: Naninovel/Characters/D
+      Guid: 56d6b0b82381722418e9dd27a7755a9e
+    - Name: smugClosed
+      PathPrefix: Naninovel/Characters/D
+      Guid: 744367c07e65477459ca2ce19a0c86ae
+    - Name: frown
+      PathPrefix: Naninovel/Characters/D
+      Guid: 1fc6b37e4c4ab8846b88694f8d6a570a
+  - Id: Naninovel/Backgrounds/c16a1183-c209-41f0-ad58-412ac5e0dad8
+    Resources: []
+  - Id: Naninovel/Spawn
+    Resources:
+    - Name: DepthOfField
+      PathPrefix: Naninovel/Spawn
+      Guid: ea76638b26a915946b62907dd1e776fd
+    - Name: ShakeCharacter
+      PathPrefix: Naninovel/Spawn
+      Guid: 1224d69e1592d624cbde93d0f7383d91
+    - Name: ShakeCamera
+      PathPrefix: Naninovel/Spawn
+      Guid: 1c5b86cf3cfbb1f44ae5641699077da4
+    - Name: Animate
+      PathPrefix: Naninovel/Spawn
+      Guid: 7bf06fa813bb9c34daf521998fa72ab1
+    - Name: SunShafts
+      PathPrefix: Naninovel/Spawn
+      Guid: c4bf810b9b6cc9f44a58fd670678ded4
+  - Id: Naninovel/Backgrounds/608429fe-6c63-4bdd-9b0b-4a5dd5084f79
+    Resources:
+    - Name: main
+      PathPrefix: Naninovel/Backgrounds/shutters
+      Guid: edf43ad18611745468b9c0e10e90c14c
+  - Id: Naninovel/Characters/7323206a-11e4-4cf1-869f-f12d69cbcd43
+    Resources:
+    - Name: Shutters
+      PathPrefix: Naninovel/Characters/shutters
+      Guid: edf43ad18611745468b9c0e10e90c14c
+  - Id: Naninovel/Characters/b754fc6d-405c-40f0-93a1-b85b459a46b9
+    Resources: []
+  - Id: Naninovel/Characters/ac838b9a-09b6-43ee-a8bf-023447993221
+    Resources:
+    - Name: T2
+      PathPrefix: Naninovel/Characters
+      Guid: 
+  - Id: TextPrinters/cc8d3b3a-365e-427a-936e-8fb542b8f2a3
+    Resources:
+    - Name: Purple
+      PathPrefix: TextPrinters
+      Guid: d8a9414eea563da4980c4397b6e54895
+  - Id: Characters/54161599-e2a7-40dc-b15b-7220b67555e0
+    Resources: []

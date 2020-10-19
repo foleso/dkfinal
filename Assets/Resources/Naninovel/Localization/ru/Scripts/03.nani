@@ -1,0 +1,237 @@
+; Localization script for `03`
+
+# ea315394
+; T: Who... what... are you doing here?!
+T: Кто... что... что ты здесь делаешь?!
+
+# 3a96b81a
+; F: Ngh...
+F: Уф...
+
+# 242c2735
+; I felt dizzy and nauseous to say the least.
+Кружилась голова, и меня, мягко говоря, подташнивало.
+
+# 75e00fd7
+; Where was I anyway?
+Я вообще где?
+
+# 2d1996ee
+; My eyelids felt heavy. It felt like they were stuck together with super glue.
+Мои веки были настолько тяжелы, что казалось, их специально склеили.
+
+# 62376681
+; I should've just stayed home...
+Лучше бы я остался дома...
+
+# 1fa4adca
+; With great effort, I finally opened my eyes.
+С большим усилием я открыл глаза.
+
+# 4f7645a1
+; F: Wha— where am I!?
+F: Чт— где я?!
+
+# 662b9502
+; F: Urk…
+F: Ох...
+
+# d1c52ca
+; As my vision adjusted, I could make out a… figure?
+Зрение постепенно привыкло, и я увидел... силуэт человека?
+
+# 3e3bf61b
+; I had to squint my eyes to see who it was.
+Пришлось прищуриться, чтобы разглядеть его.
+
+# 2d8f578
+; T: Who—Who are you?!
+T: К-кто ты такой?!
+
+# ae7034f5
+; His voice alone was enough to give me a mini heart attack.
+Одного его голоса уже было достаточно, чтобы сердце пропустило удар.
+
+# 27a6283
+; F.f>shock: OH MY GOD!
+F.f>shock: БОЖЕ МОЙ!
+
+# 57790920
+; The strange guy from earlier looked at me in shock.
+Где-то я уже видел этого странного парня. Он смотрел на меня широко раскрытыми глазами.
+
+# 4866c9eb
+; T.f>shock: What... what do you think you're doing here?!
+T.f>shock: Что... что ты здесь забыл?!
+
+# ef693138
+; F.f>sad: Uh...
+F.f>sad: Э-э...
+
+# 9b7bb3d2
+; I took a second to observe my surroundings. The sky was tinged a dark red. The trees were shaded a dark purple, and there was a large castle in front of me.
+Я осмотрел место, в котором оказался. Небо ярко-красного оттенка. Деревья, отдающие тёмно-фиолетовым цветом. Впереди — огромный замок.
+
+# a2179735
+; Was I in... some sort of dream?
+Это... сон?
+
+# 351aa434
+; I looked up from my position on the floor. The hot guy was wearing a really skin-tight outfit. He looked down at me disdainfully.
+Полулёжа на земле, я обратил внимание на обтягивающую одежду гордо стоявшего передо мной красавца. Он презрительно смотрел на меня сверху вниз.
+
+# 4d050ce7
+; F.f>neutral: I didn't know I had those sorts of tendencies, but...
+F.f>neutral: Не думал, что у меня подобного рода... наклонности, но...
+
+# 9a11ff7d
+; T.f>anger,sfx>anger: AHEM.
+T.f>anger,sfx>anger: КХМ.
+
+# b80cb252
+; Oh right. I pinched myself to see if it was a dream, but apart from the slight pain, nothing happened.
+А, точно. Я ущипнул себя, чтобы проверить, был ли я во сне, но в ответ лишь почувствовал слабую боль.
+
+# ab1c317
+; F.f>shock,sfx-: No way...
+F.f>shock,sfx-: Не может быть...
+
+# 7921416
+; F.f>sad: I... I really have no idea. I was just at the party and then I was here!
+F.f>sad: Я... ума не приложу. Я просто был на той вечеринке, а потом оказался здесь!
+
+# 73aa6120
+; T.f>neutral,sfx-: ...
+T.f>neutral,sfx-: ...
+
+# a5905cbc
+; The man looked at me suspiciously. But now, he was starting to seem a lot more familiar.
+Молодой мужчина с подозрением смотрел на меня. Кажется, я узнал его.
+
+# 5441babc
+; F.f>shock: Oh yeah!
+F.f>shock: Я понял, кто ты!
+
+# 77e2a8ac
+; F.f>neutral: You're the guy in demon cosplay at the party!
+F.f>neutral: Ты тот парень с вечеринки, в косплее демона!
+
+# 47f7fd69
+; The demon cosplayer looked disgusted.
+"Косплеер" всем своим демоническим видом показывал отвращение.
+
+# 1774adcc
+; T.f>anger,sfx>anger: I am a demon. Not a cheap imitation of one.
+T.f>anger,sfx>anger: Я и ЕСТЬ демон. А не жалкая пародия на него.
+
+# 1d08c0b8
+; F.f>shock: Oh. You know what cosplay is?
+F.f>shock: Ой. А ты знаешь, что такое косплей?
+
+# a64d8dee
+; It felt so surreal, discussing anime terms with a man who for all intents and purposes, was an actual fucking demon.
+Какой-то сюрреализм. Обсуждать анимешный сленг с мужчиной, который во всех отношениях был настоящим, мать его, демоном.
+
+# 1e43489
+; T.f>neutral,sfx>sweat: ...Not intentionally.
+T.f>neutral,sfx>sweat: ...Ненамеренно.
+
+# f9a08a00
+; There seemed to be a story there, but I wasn't going to push.
+Кажется, здесь есть предыстория, но выпытывать её я не стал.
+
+# 7797ae87
+; T.f>neutral: AHEM. You must've been that fool who interrupted my return spell.
+T.f>neutral: КХМ. А ты, должно быть, тот самый придурок, который прервал моё заклинание возвращения.
+
+# 83a39122
+; F.f>neutral: Oh. Well... Oops?
+F.f>neutral: Ой. Ну... извини?
+
+# a2929ef1
+; He lifted his hands so that it pinched the bridge of his nose. His exasperation was so palpable I could feel it rubbing on my own skin.
+Раскрытыми ладонями он коснулся своей переносицы. Его негодование было столь ощутимо, что оно оказывало на меня чуть ли не физическое давление.
+
+# f4f4652
+; F.f>shock: Um... you're not going to like, kill me, are you?
+F.f>shock: Э-эм... ты же... не станешь меня убивать?
+
+# af6b01fc
+; He looked at me for a second, as if considering the idea.
+Не спуская с меня взгляд, он на секунду задумался над этой идеей.
+
+# 3a94b7f8
+; F.f>shock,sfx>flinch: Hey, hey! It wasn't my fault I stumbled down here, was it? You can't kill me!
+F.f>shock,sfx>flinch: Эй, эй! Это же не моя вина что, я сюда попал! Я не заслуживаю за это смерти!
+
+# 4b08bac8
+; @choice "I have so much left to do back home!" goto:.aloof
+@choice "Дома меня ждут дела!" goto:.aloof
+
+# 6811448a
+; @choice "Can I atleast check this place out first?" goto:.adventure
+@choice "Могу ли я хотя бы сперва получше узнать это место?" goto:.adventure
+
+# 6a4e9294
+; My life back home may not have been super exciting, but it was where I was from.
+Хоть я и не мог назвать свою жизнь очень радостной, я не должен был забываться.
+
+# f103aab4
+; I couldn't just have all that ripped away!
+Я не мог позволить, чтобы у меня отняли родной дом!
+
+# b6bf8059
+; F.f>anger: (This is why I never wanted to go outside...)
+F.f>anger: (Именно поэтому я не любил выходить из комнаты...)
+
+# fe0fb85f
+; Home never really felt that way to me.
+Дом никогда не был для меня родным.
+
+# dab0c7c1
+; I'd always felt... out of place. But now that I was in a new, strange world, I had to see what it was about!
+Я всегда был... как не в своей тарелке. Но сейчас, оказавшись в новом странном мире, я должен был узнать о нём больше!
+
+# ea1f86ea
+; The demon looked at me strangely.
+Демон с недоумением уставился на меня.
+
+# e3d53ca2
+; T.f>sad: You're not... afraid of me?
+T.f>sad: Ты... не боишься меня?
+
+# 1453dc3
+; I blinked.
+Я моргнул.
+
+# a6cb74c5
+; In my mind, I knew he was some kind of... demonic entity who could kill me by snapping his fingers. Or something. I didn't actually know how demons worked.
+Я осознавал, что он был чем-то вроде... адского существа, которое могло убить меня по щелчку пальцев. Или что-то такое. На самом деле я и понятия не имел, как демоны устроены.
+
+# 14c23549
+; But maybe it was my fuzzy mind, or the atmosphere of a being in a completely different realm.
+Может быть, всё дело в моём спутанном от падения сознании. Или в потрясении от пробуждения в совершенно другом мире.
+
+# ccf9b1d
+; I felt bolder.
+Я почувствовал себя чуть уверенней.
+
+# c8f1db8f
+; F.f>sad: I'd be lying if I said I wasn't.
+F.f>sad: Сказать, что я не боюсь, было бы ложью.
+
+# 8f44dcd7
+; T.f>neutral: I see.
+T.f>neutral: Я понимаю.
+
+# 41f82aa9
+; He was quiet for a few moments. My butt felt numb from being on the floor, although it strangely wasn't cold.
+Несколько секунд он просто молчал. Земля здесь не была холодной, но она была твёрдой. От неё затекло тело.
+
+# b155083d
+; F.sfx>sweat: Can I uh... sit somewhere better?
+F.sfx>sweat: Можно я... эм... сяду где-нибудь поудобней?
+
+# dfcdd30
+; T.f>anger: Very well, strange human. Follow me inside.
+T.f>anger: Какой же ты странный... Но так уж и быть, смертный. Следуй за мной.

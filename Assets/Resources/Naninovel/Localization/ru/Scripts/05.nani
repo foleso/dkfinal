@@ -1,0 +1,653 @@
+; Localization script for `05`
+
+# 3e6fdc80
+; F.sfx>sweat: So... your plan is to run up to them, drop your disguise to shock them, and then threaten them for info?
+F.sfx>sweat: Итак... твой план состоит в том, чтобы подбежать, внезапно сбросить маскировку и заставить выдать нужную информацию под угрозой смерти?
+
+# a7a234d9
+; T: Yes.
+T: Да.
+
+# ecd6a6d0
+; I put my face in my palms.
+Я закрыл лицо руками.
+
+# 421059ba
+; F.f>sad,sfx-: That's an awful plan.
+F.f>sad,sfx-: Это ужасный план.
+
+# fd61325f
+; T.f>anger: I doubt you have a better one.
+T.f>anger: Я сомневаюсь, что у тебя есть идеи получше.
+
+# 2f4c9298
+; F.f>anger: I do! We have to move stealthily. Just watch!
+F.f>anger: Есть! Мы должны двигаться незаметно. Смотри!
+
+# 4d77ba5d
+; oldLady: SPECIALITY ORANGES! HALF-OFF!
+oldLady: СОЧНЫЕ АПЕЛЬСИНЫ! ЗА ПОЛЦЕНЫ!
+
+# 5f28d392
+; F.f>shock: Hm?
+F.f>shock: Хм?
+
+# c940aa4
+; The woman looked like she was about sixty years old. Her facial features were kind and gentle.
+Женщине на вид было лет шестьдесят. Её лицо излучало добро и позитив.
+
+# 298ea94f
+; What was she doing in the demon realm?
+И что она забыла в мире демонов?
+
+# ec6a2f63
+; oldLady: GROWN USING ONLY TEARS OF TORTURED SOULS!
+oldLady: ВЫРАЩЕНЫ С ИСПОЛЬЗОВАНИЕМ ТОЛЬКО ОТБОРНЫХ СЛЁЗ ГРЕШНИКОВ!
+
+# 5a87612f
+; ...Appearances can be deceiving.
+...Внешность может быть обманчива.
+
+# 2ea40f98
+; I walked down the street with Trisetar by my side. The other demons looked just like regular humans.
+Я поравнялся с Трисетаром, и мы пошли дальше. Внешне другие демоны нисколько не отличались от людей.
+
+# a9e962b0
+; Surprisingly, no one seemed to notice him. His disguise was the real thing.
+Что удивительно, Трисетара для них словно не существовало. Его маскировка действительно работала.
+
+# ad1d34a5
+; After walking for a little while, the crowd of people began to feel suffocating.
+Мы прошли ещё немного, как вдруг присутствие в столь людном месте начало давить на меня.
+
+# b46f4500
+; F.f>sad,sfx>sweat: Huff...
+F.f>sad,sfx>sweat: Уфф...
+
+# a8954f6
+; I tried to calm down. I just needed to finish this and then I'd be able to go home. I could just play Legends of Odin and forget this all happened.
+Я попытался взять себя в руки. Мне всего лишь нужно поскорее закончить с этим и вернуться домой. Я всё забуду и снова смогу играть в Legends of Odin. 
+
+# c0fa817d
+; I grabbed onto my shirt and rubbed it between my index finger and thumb. I took deep breaths.
+Я взялся за свою рубашку и помял её между пальцами. Глубокий вдох. Выдох.
+
+# 8b98b9d6
+; T: ...
+T: ...
+
+# fbb8e169
+; (C'mon Felix, you can do this.)
+(Ну же, Феликс, ты сможешь.)
+
+# 3d32d64a
+; I walked up to the woman from before.
+Я подошёл к той самой старой женщине.
+
+# e57c299
+; F.f>happy: Hello.
+F.f>happy: Добрый день.
+
+# 533118a2
+; She glared at me. Clearly she hadn't heard of a business smile. I did my best to stay steady.
+Она зло покосилась на меня. Улыбаться покупателям было явно не в её правилах. Я держался изо всех сил.
+
+# 2c224101
+; oldLady: WHAT?!
+oldLady: ЧЕГО?!
+
+# b474f154
+; F: I was uh...
+F: Я тут, эм...
+
+# d9c88c55
+; Crap, I should've thought this through. I needed to say something that would get me answers without seeming suspicious.
+Дерьмо. Стоило заранее продумать этот диалог. Что сказать, чтобы получить нужную информацию, не вызвав подозрение?
+
+# b961788f
+; F.f>sad: Um... I wanted to know if you saw something like...
+F.f>sad: Эм... Я хотел узнать, вы здесь не видели...
+
+# 817912fa
+; oldLady: If you're not going to buy anything, LEAVE!
+oldLady: Либо покупай, либо ПРОВАЛИВАЙ!
+
+# ef310811
+; I flinched.
+Я вздрогнул.
+
+# 64be3f2a
+; F.f>shock: W-We'll be on our way...
+F: У-уже ухожу...
+
+# 8a612ecf
+; T.f>anger: Are you kidding? You said—
+T.f>anger: Ты что, издеваешься? Ты же сказал, что—
+
+# 81f62222
+; F.f>neutral,sfx>sweat: ...
+F.f>neutral,sfx>sweat: ...
+
+# 7f25adca
+; T.f>neutral,sfx>anger: Fine. We'll leave.
+T.f>neutral,sfx>anger: Ладно. Нам пора.
+
+# b1af8b19
+; We walked away from the stall. I made the mistake of looking back and saw the granny with a terrifying expression.
+Мы отошли от прилавка. Я допустил ошибку, обернувшись и увидев ужасающую гримасу на лице старухи.
+
+# e1058e91
+; I sighed. The suffocating feeling wasn't gone, but I felt better now.
+Я вздохнул. Удушливое ощущение давления никуда не ушло, но мне стало чуть лучше.
+
+# b96f3fb5
+; T.f>shock: What the Earth was that?!
+T.f>shock: Что это, чёрт возьми, было?!
+
+# 517c55fe
+; F.f>sad: Sorry, I...
+F.f>sad: Прости, я...
+
+# 7d087902
+; T.f>anger: You have no qualms talking boldly with me, yet you could not approach a low-ranked merchant?!
+T.f>anger: Ты без зазрения совести дерзишь МНЕ, и в то же время ты не можешь поговорить с какой-то торгашкой?!
+
+# 5c9d61d1
+; F.f>neutral,sfx>sweat: I-I...
+F.f>neutral,sfx>sweat: Я-я...
+
+# a5fc121
+; My heart started racing. No, not now!
+Сердце бешенно заколотилось. Нет, только не сейчас!
+
+# bebf0f31
+; T: I expect an answer!
+T: Я жду ответ!
+
+# 32e683d9
+; F: (Keep it together. Breathe. Count from 1 to 10).
+F: (Держи себя в руках. Дыши глубже. Сосчитай до десяти.)
+
+# 5bf6c26b
+; T: You—
+T: Ты—
+
+# 7db6f932
+; ...
+...
+
+# b27fec18
+; I looked up and saw Trisetar's face inches from mine.
+Я открыл глаза и увидел лицо Трисетара в сантиметрах от моего. Я лежал на земле, устроившись головой на чём-то мягком. На его коленях.
+
+# 7c56ba4d
+; My heart beat faster, but for a different reason from earlier.
+Сердце снова забилось быстрее, но в этот раз по иной причине.
+
+# e6690f17
+; T.f>anger: You IDIOT!
+T.f>anger: Ты ИДИОТ!
+
+# 7d8cecaa
+; Annnd the moment was gone.
+А так хорошо начиналось.
+
+# 9100e57d
+; T.sfx>anger: You said we must move discreetly, yet you faint in the middle of the market?!
+T.sfx>anger: Ты сказал, что мы должны двигаться скрытно, а сам теряешь сознание посреди торговой площади?!
+
+# f6f7cd35
+; F.f>anger: I can't control that!
+F.f>anger: Я не могу это контролировать!
+
+# 27744895
+; T.f>neutral,sfx-: At the very least, you are speaking in full sentences now.
+T.f>neutral,sfx-: Хоть целостными предложениями заговорил, и на том спасибо.
+
+# e775af01
+; I gulped audibly.
+Я громко сглотнул.
+
+# cc2fd083
+; F.f>sad: Did I... say something weird?
+F.f>sad: До этого... я ведь не взболтнул ничего... странного?
+
+# 1f9b9bf
+; T.f>anger: No. You simply spoke nonsense and were mumbling phrases such as "Please, Gacha lords" and "Rate up is a lie".
+T.f>anger: Нет. Ты просто нёс какую-то чушь про "великие силы" и "скрытый пул".
+
+# 42f38c96
+; F.sfx>blush: Oh.
+F.sfx>blush: Ой.
+
+# 5ba367bf
+; My face burned with embarrassment. I needed to change the topic. I looked around.
+Я покраснел от стыда. Нужно было срочно менять тему. Я осмотрелся.
+
+# 1acb50bf
+; F.f>sad,sfx-: Is this still the market?
+F.f>sad,sfx-: Мы ещё не покинули торговую площадь?
+
+# 93ea311a
+; T.f>neutral,sfx-: Yes. Simply a secluded part, away from the rest.
+T.f>neutral,sfx-: Нет. Мы отошли в не самую людную её часть.
+
+# 5061b535
+; That sounded ominous, but there was nothing I could do. I just rested my eyes, enjoying my position.
+Прозвучало это зловеще, но сделать я ничего не мог. Я прикрыл глаза, наслаждаясь удобной позой.
+
+# 77aecfa6
+; T.f>shock: What do you think you're doing?
+T.f>shock: Ты что, по-твоему, делаешь?
+
+# a26abbdb
+; I didn't bother answering. I just mumbled a content sigh.
+Я не стал утруждать себя ответом и просто довольно вздохнул.
+
+# 63c4c568
+; Being transported to literal hell was awful and tiring. There was no way I could get up from the nice pillow underneath me.
+Перемещение в Ад ужасно меня утомило. Ни на какие богатства я бы не променял мягкую подушку, на которой очнулся.
+
+# d6b0a40d
+; T.f>neutral: I believe I asked a question, human.
+T.f>neutral: Кажется, я задал тебе вопрос, смертный.
+
+# bfb1bedd
+; F.f>anger: I have a name, you know?
+F.f>anger: У меня есть имя вообще-то.
+
+# f6d78e84
+; T.f>anger: Once again, that is irrelevant.
+T.f>anger: Повторяю ещё раз: это абсолютно неважно.
+
+# dcaba615
+; I let out another content sigh and snuggled closer. Trisetar didn't seem very thrilled with the movement, but he didn't push me away either.
+Я снова блаженно вздохнул и прижался ближе. Похоже, мой жест не пришёлся Трисетару по нраву, но и отталкивать он меня не стал.
+
+# 348fa80f
+; T.f>sad: You are a strange one.
+T.f>sad: Какой же ты странный.
+
+# fa5ccb61
+; F.f>happy: You're the one with wings and horns.
+F.f>happy: По крайней мере, у меня рогов и крыльев нет.
+
+# fd966418
+; Trisetar continued, ignoring my comment.
+Проигнорировав моё замечание, Трисетар продолжил.
+
+# 15976adc
+; T.f>neutral: No one has dared to speak so casually with me.
+T.f>neutral: За всю мою жизнь ни одна душа — ни живая, ни мёртвая — не посмела заговорить со мной таким тоном.
+
+# b9f463bf
+; I thought for a second before replying.
+Я немного подумал, прежде чем ответить.
+
+# b796729c
+; F.f>sad: Does it bother you?
+F.f>sad: Тебя это беспокоит?
+
+# 12beae83
+; He shook his head.
+Он покачал головой.
+
+# c6d61a73
+; T.f>sad: It is... strange. I cannot say I like the feeling.
+F.f>sad: Это... странное чувство. Не могу сказать, что оно мне нравится.
+
+# aff8457e
+; F.sfx>blush: But you don't dislike it either?
+F.sfx>blush: Но и отторжения оно у тебя не вызывает?
+
+# 9866f770
+; T.f>neutral,sfx>blush: ...
+T.f>neutral,sfx>blush: ...
+
+# e7950c27
+; I felt a smile stretch across my face.
+Я почувствовал, как мои губы растянулись в улыбке.
+
+# 338aa454
+; T.f>anger,sfx>blush: W-What are you smiling like a loon for?!
+T.f>anger,sfx>blush: Ч-чего ты лыбишься как ненормальный?!
+
+# c7107213
+; F.f>neutral: Nothing.
+F.f>neutral: Ничего.
+
+# f911dee3
+; T.f>neutral: You⁠—!
+T.f>neutral: Ты—!
+
+# b23e5f32
+; It felt like he was going to say something else, but stopped.
+Трисетар оборвался на полуслове. Похоже, что он хотел сказать что-то ещё.
+
+# ef199b4a
+; F.sfx-: What is it?
+F.sfx-: Что, я?
+
+# fa12a44f
+; T.f>neutral,sfx-: You are very different from what I'd initially perceived.
+T.f>neutral,sfx-: Ты сильно противоречишь моему первому впечатлению о тебе.
+
+# 450c64dc
+; F.f>neutral: Really? What did you think I was at first?
+F.f>neutral: Правда? А что ты подумал, когда впервые меня встретил?
+
+# 8b18ce9a
+; T.f>neutral: A coward.
+T.f>neutral: Я увидел в тебе труса.
+
+# cdc661c2
+; F.f>shock: H-Hey, that's not very nice!
+F.f>shock: Э-эй, это не очень приятно слышать!
+
+# ac39d2e6
+; T.f>anger: You still are.
+T.f>anger: Но это правда.
+
+# 664ffd8a
+; F.f>sad: U-Uh...
+F.f>sad: Не-а...
+
+# efb490a5
+; Then.
+Затем...
+
+# dc788f64
+; He smiled.
+Он улыбнулся.
+
+# d6d08c25
+; As in, the corners of his lips turned upwards, and his eyes softened.
+Словно в замедленной съёмке, уголки его губ поднялись, а взгляд смягчился.
+
+# c32d7471
+; And it was the cutest fucking thing.
+И, чёрт возьми, я в жизни не видел ничего милее.
+
+# 8491a0f5
+; T.f>anger: What are you looking at?
+T.f>anger: Чего уставился?
+
+# 4f74c39f
+; ...And it was gone.
+...улыбка исчезла.
+
+# 3e11e85e
+; Right. Food. That was why we were here.
+Точно. Еда. Мы же сюда за этим шли.
+
+# b7bedea9
+; F.sfx>blush,f>neutral: W-We should get going!
+F.sfx>blush,f>neutral: П-пора идти!
+
+# 4d38fcdd
+; T.f>neutral: That was what I was attempting to do this entire time.
+T.f>neutral: До тебя наконец дошло.
+
+# 9c3e16f4
+; F.f>anger: Oh. Well, we should finish it now!
+F.f>anger: Ох. Ну тогда идём скорее!
+
+# 29b38162
+; T.f>anger: Do not attempt to boss me around.
+T.f>anger: Даже не пытайся говорить мне, что делать.
+
+# 4ea84399
+; Despite saying that, he stood up and dusted his lap. I felt oddly offended, but didn't say anything more.
+Тем не менее, он встал и отряхнул колени. Я испытал странное чувство обиды, но промолчал.
+
+# 60ce90b8
+; We walked back into the market.
+Мы вернулись в центр площади.
+
+# ba046067
+; This time, I felt much calmer. My palms weren't shaking anymore, and my vision was clear.
+Теперь мне было гораздо спокойней. Руки больше не тряслись, а зрение стало отчётливей.
+
+# d3237211
+; F.f>happy: (You can do this Felix!)
+F.f>happy: (У тебя получится, Феликс!)
+
+# 17ef4afe
+; Trisetar looked at me oddly, but didn't say anything.
+Трисетар странно на меня покосился, но снова промолчал.
+
+# 4f81e32f
+; We walked up to vendor after vendor, but most ranged from disinterested to aggressive.
+Один за другим, мы обошли прилавки с товарами. Торговцы добрей не становились: в лучшем случае им было наплевать.
+
+# b0c74ce2
+; Along the way, I bought a couple apples and munched on them, and also got some vegetables for later.
+По пути я купил пару яблок и начал их есть. Вдобавок мы взяли немного овощей на потом.
+
+# 37b5d794
+; There was no meat that humans ate, and I wasn't aboout to try something new now.
+Невозможно было найти привычные людям сорта мяса, и я не горел желанием пробовать что-то новое.
+
+# 71f44697
+; F.f>happy: Thanks so much for getting me all this, Tris.
+F.f>happy: Спасибо, что купил мне всё это, Трис.
+
+# 82a6cd7e
+; T.f>anger,sfx>anger: ...Tris?
+T.f>anger,sfx>anger: ...Трис?
+
+# 70e3c84a
+; F.f>shock: Huh?
+F.f>shock: Хм?
+
+# 2a6524b0
+; T: My name is Trisetar you ignorant fool!
+T: Моё имя — Трисетар, глупец!
+
+# 655e456c
+; I shrunk back in fear.
+Я сжался от страха.
+
+# d5ea6eaf
+; F.f>sad: S-Sorry. Trisetar. I mean.
+F.f>sad: П-прости, Трисетар. Я не хотел.
+
+# aadf40e4
+; We were having such a decent time, I forgot he was technically a demon who could kill me at any moment.
+Мы так хорошо проводили время, что я забыл одну важную деталь: он был демоном, способным в любой момент мгновенно лишить меня жизни.
+
+# 602f1c1a
+; T.f>sad,sfx-: ...
+T.f>sad,sfx-: ...
+
+# 7f37715a
+; We walked in silence among the vendors as I finished up my apples. Suddenly, I saw something shine in a corner.
+Мы молча пошли дальше. Я доедал своё яблоко, как вдруг заметил что-то блестящее.
+
+# 656bce22
+; F.f>shock: What's that?
+F.f>shock: Что это?
+
+# 5bace1eb
+; I pointed to it.
+Я указал пальцем на предмет.
+
+# 8f0ec59c
+; T.f>neutral: What are you referring to?
+T.f>neutral: Ты про что?
+
+# 7d167381
+; F.f>neutral: D-Do you mind if I check it out?
+F.f>neutral: Т-ты не против, если я проверю, что там?
+
+# 9413c684
+; I nervously looked at him.
+Я взволнованно посмотрел на него.
+
+# b6c25c83
+; T.f>neutral: ...Okay.
+T.f>neutral: ...Не против.
+
+# f281af11
+; I walked toward the shiny object and picked it up.
+Я подошёл к блестяшке и поднял её.
+
+# c2078c2c
+; F.f>shock: It looks like... a button of sorts?
+F.f>shock: Похоже на... что-то вроде пуговицы?
+
+# 60222316
+; Trisetar leaned his head closer toward it.
+Трисетар наклонил голову, чтобы получше рассмотреть.
+
+# 46204e06
+; T: It does not seem familiar in any way.
+T: Впервые вижу подобное.
+
+# 5d1ade6e
+; F.f>neutral: Hm... could this be a clue?
+F.f>neutral: Хм... А что если это зацепка?
+
+# 6acb98dd
+; It kinda felt like I was in the detective game, Badass Barrister.
+Я ощущал себя настоящим детективом.
+
+# fbf82cf0
+; T: It is likely just trash. If not, it belongs to another demon and was carelessly left behind.
+T: Или, скорее всего, это просто мусор. А если и нет, то эта вещь принадлежит какому-то слишком рассеянному демону, который по неосторожности её выронил.
+
+# 1b714e2e
+; F: Well...
+F: Ну...
+
+# a08e3861
+; I rolled the button in my hands and pretended to be inspecting it.
+Я покрутил пуговицу в руках, делая вид, что тщательно её изучаю.
+
+# 648d148d
+; F.f>sad: Hm...
+F.f>sad: Хм...
+
+# 684e7422
+; Looked normal.
+Вроде ничего особенного.
+
+# d10cfd59
+; F.f>shock: Ah... Hm... Oh...
+F.f>shock: Ага... Хм... О...
+
+# d1e156a6
+; Trisetar rolled his eyes.
+Трисетар закатил глаза.
+
+# 463a9143
+; T: Are you finished?
+T: Ты закончил?
+
+# e85d445e
+; F.sfx>blush: A-Ah. Yeah. Um.
+F.sfx>blush: А-ага. Да. Эм...
+
+# 5dcba029
+; I continued looking at the button. When I pressed the center of it, I noticed something strange.
+Я продолжил рассматривать пуговицу. Надавив на самый её центр, я заметил кое-что необычное.
+
+# a745a3ea
+; F.f>neutral,sfx-: This is hollow.
+F.f>neutral,sfx-: Она пуста внутри.
+
+# e3ceb565
+; T.sfx>anger: Hm?
+T.sfx>anger: Хм?
+
+# 5cb7be46
+; He looked intrigued.
+Он был заинтригован.
+
+# 4c313eb1
+; T.f>anger,sfx-: That is most certainly strange. We only use real precious metals in Hell.
+T.f>anger,sfx-: Это очень, очень странно. В Аду не принято подделывать драгоценные металлы.
+
+# 4beeb2ec
+; F.f>sad: Well, that means this is either from Earth, or this is something else.
+F.f>sad: Значит, эта вещь попала сюда из мира людей.
+
+# c7414f84
+; Trisetar stared at me.
+Трисетар уставился на меня.
+
+# 5f1f051
+; F.sfx>blush: W-what?
+F.sfx>blush: Ч-что?
+
+# 633d472
+; T.f>sad: You are more perceptive than I originally thought.
+T.f>sad: Ты более проницателен, чем я думал.
+
+# 3d729f1
+; F: Uh...
+F: Ээ...
+
+# 3dca2292
+; @choice "I'm doing my best, since this is an important mission." goto:.adventure
+@choice "Я делаю всё что в моих силах, это очень важное задание." goto:.adventure
+
+# 7185e5b8
+; @choice "I just want to go back home." goto:.home
+@choice "Я просто хочу поскорей вернуться домой." goto:.home
+
+# f7a5a916
+; Trisetar glared at me.
+Трисетар пристально посмотрел на меня.
+
+# 474dccc4
+; T.f>anger: Glad to see you're having fun.
+T.f>anger: Рад что тебе весело.
+
+# c84c3f9c
+; F.f>sad: I-I didn't mean it like that.
+F.f>sad: Я с-совсем не это имел в виду.
+
+# 93332132
+; But it was true. Even if this wasn't an ideal situation, for once I felt like I was doing something meaningful.
+Но он был отчасти прав. Ситуация не была идеальной, но я наконец ощутил, что делаю что-то полезное.
+
+# 669aeae9
+; Despite it being so out of my comfort zone.
+Хоть это и было далеко за гранью моей зоны комфорта.
+
+# b7e75c9b
+; We continued the rest of our trip in silence.
+Остаток времени мы провели в тишине.
+
+# a1e50116
+; T.f>sad: Understandable.
+T.f>sad: Я могу тебя понять.
+
+# 20b0e51
+; I glanced over at him, and his face looked almost wistful.
+Я бросил на него беглый взгляд. Его лицо выражало неподдельную тоску.
+
+# 29a6fbd9
+; F.f>neutral,sfx-: Do you like it here?
+F.f>neutral,sfx-: Тебе здесь нравится?
+
+# 202b641e
+; T.f>anger: What?
+T.f>anger: Что?
+
+# a0b7d7db
+; F.f>sad: I mean here, at your home.
+F.f>sad: Здесь, у себя дома.
+
+# b49f3ca4
+; T.f>neutral: It is where I reside. There is little need for more feeling.
+T.f>neutral: Мне нравится, что здесь находится моя резиденция. Больше я ничего не чувствую.
+
+# 9a65c49f
+; F.f>neutral: Yes, but...
+F.f>neutral: Да, но...
+
+# b7e75c9b
+; We continued the rest of our trip in silence.
+Остаток времени мы провели в тишине.

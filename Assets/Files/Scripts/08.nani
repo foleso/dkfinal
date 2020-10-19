@@ -1,0 +1,106 @@
+@back black
+Another month passed by, surprisingly uneventfully. We continued the research, but couldn't find the source of the transmission.
+Today's scenery however, was a little different.
+; Market
+@bgm blueBoi
+@back marketDay
+@char F.default pos:25 scale:.4688
+@char T.default pos:75 scale:.4688
+F.sad: So. I guess we're back here again.
+T.anger: Yes.
+We walked through the crowd of shoppers. Today was even more crowded than our first trip.
+T.neutral: I have never found it necessary to do the mundane task of shopping... I always left this to Demetrius.
+F.neutral: I know, but I'd really like to check up on the food myself.
+Plus, I was stuck inside for too long. Nessie would be proud.
+Trisetar looked at me strangely, but didn't say anything more.
+F.sad: I mean... if you really didn't want to, I would've been fine with Demie.
+@char T.sad
+Trisetar pouted. Like actually pouted.
+T.sad: You do not wish to go with me?
+@spawn ShakeCharacter params:F,2,,,,,true,false
+F.blush: (Oh my gosh he's so cute.)
+T: ...
+After realizing I didn't say anything, I quickly fumbled for a response.
+F.shock: N-No! Of course not.
+T.happy: Very well.
+Trisetar did his best to hide it, but there was a small smile on his face.
+@char F.default
+We slowly made our way through the market. We looked at a couple stands, but nothing caught my eye. Trisetar seemed pretty out of it.
+I glanced at him from time to time, but I decided to just leave him be.
+T.f>neutral: '...Demie?'
+F.f>sad,sfx>sweat: What?
+T.anger: You refer to Demetrius as 'Demie.'
+F.default: Yeah, I do. Since he's fine with it, I don't see the issue.
+T.sad: Hm...
+@spawn ShakeCharacter params:T,2,,,,,true,false wait:false
+Trisetar shook his head.
+F.shock: (Wait a minute...)
+As we stopped by a cart full of apples, I hesitantly opened my mouth.
+F.f>sad,sfx>sweat: Can I call you Tris?
+@char T.shock
+Trisetar's eyes went wide as saucers.
+F.shock: I-I'm sorry, I didn't mean...
+I pulled back, trying to think of how to rectify the situation.
+T.f>sad,sfx>blush: If you really want to... you can.
+I looked at him, shocked.
+@spawn ShakeCharacter params:F
+F.happy: You... really mean it?
+T.sfx>blush,f>anger: Did you not hear me the first time?
+Giddy with excitement, I grabbed Tris's hand.
+He stared down at our linked hands, but didn't protest. Taking his silent affirmation, I happily walked through the market with him.
+@char T.default
+T: What about the apples?
+F.blush: Oh. Right.
+Sheepishly, I turned around and walked back to the cart of apples. I inspected them closely, never letting go of his hand.
+T.f>sad,sfx>blush: You're a strange one...
+F.neutral: Hm? Did you say something?
+T.f>anger: N-No.
+I went back to looking at the apples.
+@char T.default
+@char F.default
+@back market
+After sometime, it started to get dark. Er. It was always dark, just moreso.
+I carried a large bag of miscellaneous foodstuffs.
+T.anger: If I had known you were buying so much, I would have brought a cart.
+F.happy: It's fine!
+They had a surprising number of nice food. I wasn't sure why exactly demons needed so much human food, but I tried not to think about it.
+That's when I blurted out...
+
+@choice "You have got to see the malls at home!" goto:.mall
+@choice "We should do this more often!" goto:.more
+@stop
+
+# mall
+@set home=home+1
+F: You have got to see the malls at home!
+T.anger: You refer to the Trajan's Market? I believe it is no longer in use.
+F.f>sad,sfx>sweat: No, a mall is just a place to shop.
+T.f>neutral,sfx>sweat: As in... a market?
+F.default: Yeah, but it's... different. But similar.
+T.sad: Interesting.
+T.anger: However, when we return to the human realm, I have business to attend.
+F.f>sad,sfx>sweat: I know, but we can probably stop by at the mall for a bit!
+@spawn ShakeCharacter params:T,2,,,,,true,false wait:false
+Tris pinched the bridge of his nose.
+@goto .continue
+
+# more
+@set hell=hell+1
+F: We should do this more often!
+T.anger: Crowded places are generally insufferable.
+F.sfx>sweat: I know... But, isn't this kinda fun?
+T.f>sad: I...
+He looked down.
+T.neutral: I would say it was not bad.
+@char F>sfx-
+F.happy: If you say so.
+T.sad: You will not be here for much longer, however.
+I tried not to think about that.
+F.happy: Yeah but... that's why we should the most out of it.
+@goto .continue
+
+# continue
+T.neutral: Very well. We can do so.
+F.f>happy,sfx>blush: That's great.
+I hummed the rest of the way back to the mansion. If Tris had any objections, he didn't state them.
+@goto 09

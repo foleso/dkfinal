@@ -1,0 +1,101 @@
+@back black
+Around a month passed. Days in Hell felt surprisingly similar to days on Earth.
+Trisetar and I spent the time sitting down and researching the button. After figuring out that there was nothing left on the button itself, we began to research cross-dimensional communication.
+However, there was one key difference.
+We did it together.
+; Library
+@bgm betterDays
+@back library
+@char F.default pos:25 scale:.4688
+@char T.default pos:75 scale:.4688
+We sat next to each other at the table, a stack of books next to us.
+While I struggled reading the complicated mumbo jumbo, Trisetar was reading through them at a blazing fast race.
+@sfx thud
+Suddenly, I heard a loud thud.
+F.f>shock,sfx>flinch: H-huh?
+Trisetars face was flat on the desk.
+F.f>sad,sfx>sweat: Uh...
+I lightly tapped his shoulder, but no response. Gosh, those diamond things on his arms were sharp.
+@spawn ShakeCharacter params:F
+Carefully, I tried to avoid his horns and touched his hair. Not in like, a creepy way or anything. I was just curious how it felt. It was surprisingly soft.
+T.f>anger,sfx>anger: What do you think you're doing?
+I froze up.
+F.f>shock: N-Nothing?
+Trisetar raised his head from the desk and rubbed his eyes, then yawned.
+T.anger: That did not seem like 'nothing.'
+F.sad: I-I was just surprised by how soft your hair is.
+T.f>sad,sfx>blush: I-Is that so?
+Trisetar reached for his head, touching the same place I did. Then, he reached up to my hair and touched it.
+@char T pos:65
+I flushed.
+@char T pos:75 wait:false
+T.neutral: It does not feel different to me.
+F.f>shock,sfx>blush: O-Oh.
+I scrambled for a subject change.
+F.neutral: So uh, you get sleepy too?
+T.f>anger,sfx-: Of course. Sleep is necessary for any mortal vessel.
+@camera offset:-3,1 zoom:.5
+F.f>shock,sfx-: I thought you're not mortal!
+@camera offset:0 zoom:0
+T.neutral: I may not be mortal, but this vessel is. Demonic identity lies in the soul, not the body.
+F.sad: Huh. Interesting. So you die too?
+T.anger: Yes, but the soul is carried over to a new body.
+F.shock: Wow... I would've never imagined.
+Suddenly, my mind was turning with questions about the technicalities of being a demon. As if he could read my mind, Trisetar raised his hand.
+@spawn ShakeCharacter params:T,2,,,,,true,false
+T.neutral: No more questions.
+F.sad: How did you know?
+T.anger: I just had to take one look at your face.
+@char F.blush
+@spawn ShakeCharacter params:F,2,,,,,true,false
+I shyly scratched the back of my neck. I didn't realize I was that easy to read.
+Then Trisetar leaned back into my chest.
+@char T pos:60
+F.f>shock: H-Huh?
+T.f>anger,sfx>blush: Quiet.
+My head rested snugly in between those two terrifyingly sharp horns.
+F.blush: What are you—
+T.sad: I said 'Quiet,' do you not understand that much?
+@spawn ShakeCharacter params:F
+F.neutral: I-It's just...
+I felt myself heat up.
+T.anger: I am drained. Let me rest.
+Tentatively, I wrapped my arms around Trisetar's chest. When he pressed himself closer, A strange feeling bubbled up my chest.
+I wanted...
+
+@choice "To stay like this forever." goto:.forever
+@choice "To show Trisetar my home." goto:.home
+@stop
+
+# forever
+@set hell=hell+1
+@camera offset:-4,2 zoom:.7 wait:true
+I liked this.
+I liked the comfortable silence between us.
+@char F.f>happy,sfx>blush
+I enjoyed looking at Trisetar's reactions to things, and how he taught me new things everyday.
+I wanted to stay like this forever.
+F.anger: (Snap out of it, Felix...)
+This was only temporary, I needed to remind myself.
+But a small voice in my head whispered... did it need to be?
+@goto .continue
+
+# home
+@set home=home+1
+@camera offset:-4,2 zoom:.7 wait:true
+Trisetar was really interesting. Despite being a demon, he was surprisingly sheltered.
+Even though the demon world was a lot of fun, I felt he wasn't exactly in his element.
+@char F.f>happy,sfx>blush
+He wanted to go back home, but not alone.
+F.anger: (No... don't think about that...)
+His tiny apartment wasn't nearly the size of Trisetar's mansion, but it was still his home.
+No, that wasn't part of the plan.
+But a small voice in my head whispered... maybe it could be.
+@goto .continue
+
+# continue
+@char F.default
+I almost shook my head, before realizing I physically couldn't.
+As Trisetar's chest rose and fell in even breaths, I thought to myself...
+F.f>sad,sfx>sweat: (What's going to happen to me...?)
+@goto 08

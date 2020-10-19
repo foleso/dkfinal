@@ -1,0 +1,8 @@
+﻿T_Trisetar: Trisetar
+T_DemonGuy: Demon Guy
+T_Cat: Cat
+T_Demetrius: Demetrius
+T_Coffee: coffee
+T_Tea: tea
+T_Juice: juice
+T_Sinner: Sinner

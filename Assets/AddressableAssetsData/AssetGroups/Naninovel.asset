@@ -1,0 +1,560 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Naninovel
+  m_EditorClassIdentifier: 
+  m_GroupName: Naninovel
+  m_Data:
+    m_SerializedData: []
+  m_GUID: d46bb276ebeb5be42aa9407e57acd36f
+  m_SerializeEntries:
+  - m_GUID: 0126b92e4ff0f564aaa7a38eae3ef6e7
+    m_Address: Naninovel/TextPrinters/Chat
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 032e85a850c8a494c972c17fc92e94ec
+    m_Address: Naninovel/Naninovel/Characters/D/smileOpenMouth
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 095b81c82c53d6a42a187647148b41a1
+    m_Address: Naninovel/Audio/darkPlace
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 109ada41925666e48bc8920f66422a18
+    m_Address: Naninovel/Audio/intense
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 1224d69e1592d624cbde93d0f7383d91
+    m_Address: Naninovel/Spawn/ShakeCharacter
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 15bfbd574244be44388493df75a0a9ce
+    m_Address: Naninovel/Scripts/08
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 184c908cd30897f46aee14567e1d38db
+    m_Address: Naninovel/Naninovel/ChoiceHandlers/FancyList
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 18cfa78b5fc89b745ba69d51a6a8629a
+    m_Address: Naninovel/TextPrinters/TMProBubble
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 18f14144e274d7948bcbf8296ddab782
+    m_Address: Naninovel/Backgrounds/MainBackground/streetNight
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 1add671f8348e8443bcc56290e82fc5e
+    m_Address: Naninovel/UI/IContinueInputUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 1bc08ccd31adff6439e97161aa6e1d8b
+    m_Address: Naninovel/TextPrinters/Dialogue
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 1c5b86cf3cfbb1f44ae5641699077da4
+    m_Address: Naninovel/Spawn/ShakeCamera
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 1c927aac249546b4e9a228a81203ef5a
+    m_Address: Naninovel/Scripts/06
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 1f6aa29000e839c409e6a9c0704adc96
+    m_Address: Naninovel/ChoiceHandlers/ButtonList
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 1fc6b37e4c4ab8846b88694f8d6a570a
+    m_Address: Naninovel/Naninovel/Characters/D/frown
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 2667e77ae158441458f48885a59423a6
+    m_Address: Naninovel/Backgrounds/MainBackground/partyEmpty
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 2795040988e866646801c80024c50be1
+    m_Address: Naninovel/Spawn/ShakePrinter
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 2952c0c9e6be1684aa7619702a56cb06
+    m_Address: Naninovel/Scripts/04
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 2ac46287335e0a443a6fc168f149e070
+    m_Address: Naninovel/Characters/N
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 2f7ebab1bcce96348930d0c929a34237
+    m_Address: Naninovel/Backgrounds/MainBackground/insideThrone
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 3337d5145408c014ab58b1e7b87d4b10
+    m_Address: Naninovel/Backgrounds/MainBackground/partyCrowd
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 37e9d749b41275f44bfc071062bb14f1
+    m_Address: Naninovel/Audio/grumble
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 3c4f95827a2f4dd44aa1d040d5068583
+    m_Address: Naninovel/Audio/crowd
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 3c56b0a70e231e74a880c77ed849fa4c
+    m_Address: Naninovel/Audio/blueBoi
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 3d4580f8ed278f24f980fa1560a29dcb
+    m_Address: Naninovel/Backgrounds/MainBackground/CG/Kiss1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 3f289d31ea48bf44ab60e965a1cfb066
+    m_Address: Naninovel/Backgrounds/MainBackground/marketDay
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 418429f3aa6c64841987aaa89de19a56
+    m_Address: Naninovel/Backgrounds/MainBackground/nessieHouse
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 43814450d8c3671478427e6176273ba3
+    m_Address: Naninovel/Naninovel/Characters/D/laugh
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 4a365a6e090fee449b1b5976babb5954
+    m_Address: Naninovel/Backgrounds/MainBackground/CG/Kiss2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 4a6eb9f7dda1d4f45ad4d6a9ba2a31de
+    m_Address: Naninovel/Backgrounds/MainBackground/kitchen
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 4c17e8350fa65334cae36a48058c17f2
+    m_Address: Naninovel/Scripts/09
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 4f80ac924427a7642802f0737fd7f4ea
+    m_Address: Naninovel/Audio/party
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 4fa6d62f894ae6e4698bfa8af59e7942
+    m_Address: Naninovel/ChoiceHandlers/ButtonArea
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 53aad00e5cf184e458adb001c550518a
+    m_Address: Naninovel/UI/ILoadingUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 5671803a3da64894cadde84f54d9d6e8
+    m_Address: Naninovel/Audio/nessa
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 56d6b0b82381722418e9dd27a7755a9e
+    m_Address: Naninovel/Naninovel/Characters/D/smug
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 5838611042eaced44954639c4ea4d81e
+    m_Address: Naninovel/TextPrinters/TMProDialogue
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 5ac23495316314944843682704ba71e2
+    m_Address: Naninovel/Characters/F
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 5bbaf2e0fa86ef0409b405f1559d99e5
+    m_Address: Naninovel/Audio/sad
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 5c1189a4d310c7844a9af9e698136d9c
+    m_Address: Naninovel/Backgrounds/MainBackground/castle
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 604d342e619f75540a886767ab623329
+    m_Address: Naninovel/Scripts/03
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 637969b3a0c466347af3ef9e5d5e2918
+    m_Address: Naninovel/Backgrounds/MainBackground/livingDay
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 63d617c75d81aae49a0cf8e0279d80a1
+    m_Address: Naninovel/Backgrounds/MainBackground/library
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 63e8778ab3dc6534a887d8941af48aee
+    m_Address: Naninovel/Backgrounds/MainBackground/hellHallway
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 65c37f59e9b266f468dd5381fdc03fc3
+    m_Address: Naninovel/UI/ISettingsUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 671ceb4f549ddf046913d7debf113469
+    m_Address: Naninovel/UI/IExternalScriptsUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 68faf7b63d06e674ab11a9dbe6d5b176
+    m_Address: Naninovel/Scripts/01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 6b7cf007cafc2c448838fdcd13c9740c
+    m_Address: Naninovel/Backgrounds/MainBackground/livingNight
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 702c32b2de0c0784b9a66ec90601874f
+    m_Address: Naninovel/UI/ClickThroughPanel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 71da50c8dae82bd42ba67528804e820c
+    m_Address: Naninovel/UI/ICGGalleryUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 73883246fde6ff1479fcc75d8d9c1817
+    m_Address: Naninovel/Audio/betterDays
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 744367c07e65477459ca2ce19a0c86ae
+    m_Address: Naninovel/Naninovel/Characters/D/smugClosed
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 781828b806deb1e4cbf50ef9de41da10
+    m_Address: Naninovel/TextPrinters/Wide
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 7860ef40eae6a3341be02586f7edd980
+    m_Address: Naninovel/TextPrinters/TMProWide
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 7bf06fa813bb9c34daf521998fa72ab1
+    m_Address: Naninovel/Spawn/Animate
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 7cc1dcbae8903884b94c06d66176acb3
+    m_Address: Naninovel/Backgrounds/MainBackground/CG/Hell2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 7fba909c66b25324cb77db18679c2c96
+    m_Address: Naninovel/UI/IBacklogUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 846c268999f68614f8a3ba358c12a4c6
+    m_Address: Naninovel/Backgrounds/MainBackground/CG/Hell1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 886bf64ee633bd044bfa313c69123525
+    m_Address: Naninovel/Naninovel/Characters/D/smileCloseEye
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 88d03f19bcbff914ba33a7c9895e2d7c
+    m_Address: Naninovel/UI/IConfirmationUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 8d53726b3d08433479398f02b4780e7f
+    m_Address: Naninovel/UI/ISaveLoadUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 90225cd0a41e054428cf69db7ffa5e7d
+    m_Address: Naninovel/Scripts/02
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 9083cd8fbaa2e5343adc38310dbf64fa
+    m_Address: Naninovel/Audio/siren
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 90f5e40dc55a30845b8c2e3907cb2614
+    m_Address: Naninovel/Backgrounds/MainBackground/CG/Home
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 97667f56dbf894e44ae6398e54835f66
+    m_Address: Naninovel/TextPrinters/WideGradient
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 97cb28b1324db704fba57f41a100f6c2
+    m_Address: Naninovel/Audio/scream
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 9802f4aed5fbf1e40a5103d95170b3db
+    m_Address: Naninovel/Backgrounds/MainBackground/black
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 99f6585cf93246f4daa1b581b3124b04
+    m_Address: Naninovel/Audio/door
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 9f4e71cb27fffa04486737d2cf8d622d
+    m_Address: Naninovel/Spawn/Snow
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: 9f56c556ba32fd54fae62347c25a8145
+    m_Address: Naninovel/Spawn/ShakeBackground
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: a0825e5ccd5210f4f940e510a7519484
+    m_Address: Naninovel/Backgrounds/MainBackground/bedroomNight
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: a2aaa417785eeca409e78c404f333ee5
+    m_Address: Naninovel/TextPrinters/TMProFullscreen
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: a307b604b0c25ab4c8366c46e41cc9b8
+    m_Address: Naninovel/Audio/thud
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: a32c73a3aff4b274c85b3ff16c854b07
+    m_Address: Naninovel/UI/IRollbackUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: a6e0b63d119cbc442868f118fd642846
+    m_Address: Naninovel/Audio/lofi
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: a9117e2fa90704d45b3e1461596c11ee
+    m_Address: Naninovel/Spawn/Rain
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: ace71ed44bd139d41935b66cff60371a
+    m_Address: Naninovel/Characters/T
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: b227ee214165157488663c791f169de1
+    m_Address: Naninovel/Backgrounds/MainBackground/hallwayOpen
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: b2c28fdf5ccece748a664f95717d3a6e
+    m_Address: Naninovel/Scripts/10
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: b322e0a82301dc64f8ad15f316ee6c9b
+    m_Address: Naninovel/Audio/Intro
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: b47d9659b2be5ee4e95a776f213c9d4b
+    m_Address: Naninovel/TextPrinters/Bubble
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: bb95f484e341dcd4391a572f22b7d067
+    m_Address: Naninovel/UI/IVariableInputUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: bda3612e8fdb67847baf3220cebb2100
+    m_Address: Naninovel/Backgrounds/MainBackground/Title
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: be75a73ecccb90b4caa5c14edb9ac467
+    m_Address: Naninovel/Spawn/DigitalGlitch
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: c02f79c1cfdd2734a8e2e787a796c91c
+    m_Address: Naninovel/Backgrounds/MainBackground/trisOffice
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: c4bf810b9b6cc9f44a58fd670678ded4
+    m_Address: Naninovel/Spawn/SunShafts
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: c58ed9b59759aee4e8eedf58bf60da7a
+    m_Address: Naninovel/Backgrounds/MainBackground/hallwayClosed
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: c87cebd3f0d4f174789cd351ce9591c4
+    m_Address: Naninovel/TextPrinters/Fullscreen
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: d81df8e0baeff0d4b92c40822b5026bf
+    m_Address: Naninovel/Backgrounds/MainBackground/tinyRoom
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: d9a01845212b04b4faa57d2b6230a5db
+    m_Address: Naninovel/Audio/Bell
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: dc60eb4a4409fd842ac5f75d63aeab67
+    m_Address: Naninovel/Backgrounds/MainBackground/bedroomDay
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: e04ef12483b8cd645a46641fcbb7d66c
+    m_Address: Naninovel/Scripts/Title
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: e1665cb8dd2484b408ede5aac2ecf78d
+    m_Address: Naninovel/UI/ITitleUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: e228b5b0009b51b47ab21a9a7d543c55
+    m_Address: Naninovel/Backgrounds/MainBackground/streetDay
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: e3b234b4273b7f64ab3f1d9fe425ed23
+    m_Address: Naninovel/UI/ISceneTransitionUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: ea76638b26a915946b62907dd1e776fd
+    m_Address: Naninovel/Spawn/DepthOfField
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: edf43ad18611745468b9c0e10e90c14c
+    m_Address: Naninovel/Naninovel/Backgrounds/shutters/main
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: f19ccd3d85ea7af4a9d1324fbb0406f1
+    m_Address: Naninovel/Audio/pleasant
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: f1a3af91f6842554c8a9d41e0318d7f5
+    m_Address: Naninovel/Backgrounds/MainBackground/partyOut
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: f1c015ae20bdc8644a55554b8bd7335a
+    m_Address: Naninovel/Scripts/05
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: f5aae572225ee1b4c96d1a17fc5cb073
+    m_Address: Naninovel/UI/ITipsUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: f642bfd9f25d05647ac938c448e8da44
+    m_Address: Naninovel/Scripts/07
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: f90e83a9aea051c4db3d96e616b76300
+    m_Address: Naninovel/Backgrounds/MainBackground/street
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: f9a211517d1cb1a44964dc2254463049
+    m_Address: Naninovel/UI/IMovieUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: ff207bc6bf3cfaf409f60b8cf0672372
+    m_Address: Naninovel/Naninovel/Characters/D/smile
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: ff32c473a69741c4e873539353f4482f
+    m_Address: Naninovel/Backgrounds/MainBackground/market
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  - m_GUID: ff784df6961962846982f6eefa32daa8
+    m_Address: Naninovel/Backgrounds/MainBackground/trisKitchen
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: e697eb1a0e99c0f48b9b36337ec45c52, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: b3c1e8b7cad485a498e2f6f61069c0fc, type: 2}
+    - {fileID: 11400000, guid: 8575e9718b3e5b34faa934ae009fcc99, type: 2}

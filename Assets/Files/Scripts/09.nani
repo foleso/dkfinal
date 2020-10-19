@@ -1,0 +1,373 @@
+@back insideThrone
+@bgm darkPlace
+@char F.default pos:25 scale:.4688
+@char T.default pos:75 scale:.4688
+@spawn ShakeCharacter params:F,2,,,,,true,false wait:false
+@char F.f>sad,sfx>sweat
+I felt a shiver run down my spine.
+F.neutral: Is there a reason why we gotta be in this creepy place...?
+T: Yes.
+F.sad: Okay.
+I looked around awkwardly.
+F.neutral: So uh... whatcha drawing?
+Tris looked at me like I stupid.
+T.anger: My summoning circle. We need it to go back.
+F.sad: Um... if it's yours, then how am I going to get back?
+T.neutral: Considering how measly your human soul is, I doubt it will even matter.
+F.shock: But last time it delayed us by three whole months!
+T.anger: Yes... but this time I will use a little more magic. It will not require a second ritual.
+F.neutral: I-I see...
+T.sad: Hopefully.
+F.shock: (Very reassuring.)
+@char T.default
+I just looked around the room awkwardly, not sure what to do. This place was creeping me out.
+F.f>neutral,sfx-: Is it done yet?
+@char T.anger
+Trisetar groaned in frustration.
+@spawn ShakeCharacter params:T,2,,,,,true,false wait:false
+T: Find something to occupy yourself with. I must get every detail right.
+F.sad: Well...
+Judging by its look, there wasn't much I could 'occupy myself with' that wouldn't also kill me.
+So I settled for just watching Tris make the circle.
+He drew elaborate lines on the floor in chalk. At least I think it was chalk.
+@spawn ShakeCharacter params:F,2 wait:false
+I shuddered when I thought of what it could be made of.
+T.anger: It is complete.
+F.shock: Uh, yeah! Okay. So what do I do?
+T.neutral: Stand there.
+Trisetar lifted his hands in the air.
+
+
+@animate T loop:true tint:red|white time:1|1 wait:false
+T: w̵̨͎̺̤̮̞̟͋͂̀͌͑̈̓̄͌͋̀̀͜e̶̢̢̨̛͓͇͇̦͇̬̩̻͚̪̯̞͑͐́̈̈́̌͐̽̏̕͠r̵̛̤̣̥͇͉͇̗̹̭͕̅̏͋͠ͅt̵̨̢̡̢͓̜͖͇͇̘̖̗̝̑͒̍͒͒̀́́̂̃͛͘ẙ̷̨̞͚̱͚͈̹̳̪̯͙̮̫͚̈́̒̈͗͒̀̄̐̄̋̚͠͝͝h̶̛͓̺̹̝̪͖͔͚͚͈̺̱̜̺̅́̂̇́̈́͌̈́̎́̏̈́̇̂h̸͎̯͖̘͚͈̰̝̜͂̈́̈̀̊̂͂̇ͅj̸̖̜̀̾͌̇̄̓̾͑̋͛̃͜͝g̸̪͍͍̬͔̖̗͍̯̹͎͖̖̏̓̔̂͑̇̕ͅͅf̸̛̲͛̓̄̊̈́̄̿͋̏̂̕͘d̸͇̮̜͈̋͑̾̀̓̃͆̓̅̚͝s̶̯͓̜̯͇̟͖̣̮͙̫̦̝̭̈̾͌͜x̶̤̒̉̎͌̽͛̐̌́̅́ź̵̗̟͔̩͕̰̯̒̈́̽̿͒͘x̶̞̯̝̯̤͚̻̖̯̣̩̦̱̤͂c̸̨̡̧̻͇̲̙͍̙̤̞̓̋̃̎̋͐͑̅͗̚͜
+
+
+
+I stood and watched.
+Suddenly, the elaborate circle on the ground began to disappear.
+F.shock: Wha...?
+It appeared piece by piece in front of us.
+@spawn ShakeCharacter params:F,2,,,,,true,false wait:false
+F: Woah...
+@animate T loop:false
+@char T tint:white
+@stopbgm
+@hidechars
+@back black time:1 wait:true
+@spawn ShakeCharacter params:F,2,,,,,true,false wait:false
+@back streetDay
+@bgm lofi
+@show T,F
+@char F.shock
+@char T.default
+I coughed loudly. My lungs felt like they'd been squeezed hard.
+T.sad: ...
+We stood in the corner of an empty street.
+I grabbed my head.
+@spawn ShakeCharacter params:F
+F.f>neutral,sfx>sweat: So.. where are we?
+T.f>anger: I would not know.
+@char F.shock
+A pang of fear struck me. What if we were transported into Australia or something? I'd never get back home!
+@char T.sfx-
+T.neutral: ...
+F.sad: I-I don't know either!
+Trisetar held my hand in a tight grip.
+T.anger: Do not panic. Let us see.
+F.shock: W-Wait!
+If Tris went out into the street looking like this, we'd get found out immediately!
+T.neutral: No.
+Tris dragged me out of the corner.
+F.shock: ...
+I braced myself for a bunch of strange looks at us.
+Instead, no one seemed to notice.
+F.sfx>flinch: How does no one notice you?
+T.anger: Because I am in disguise.
+F.f>shock,sfx-: You... are?
+T.neutral: Yes.
+I looked him up and down.
+F.neutral: You don't seem any different to me.
+T.shock: I do not?
+F.sad: Yeah. You've still got... your horns and stuff.
+T.anger: Hm...
+T.neutral: Perhaps it is because you spent so long with me, you still see it.
+I felt a sense of pride swell up in my chest.
+F.happy: Oh... So I'm special?
+T.f>anger,sfx>blush: D-Do not get cocky!
+T.default: Ahem. Do you now recognize where we are?
+I looked around.
+F.default: Hm...
+F.shock: Oh! This is the street right by my apartment!
+T.neutral: Very well.
+I sighed in relief. It would've been such a mess if we'd ended up in a different country.
+F.sad: ...So, where do you go from here?
+I looked at Tris nervously.
+T.anger: To your quarters, of course.
+F.shock: H-Huh?
+T.neutral: I had the decency to let you live in mine for three months, can you not host me for a few days?
+F.f>sad,sfx>sweat: (He had a point...)
+F: Um... one thing though.
+T.default: Hm?
+F.blush: My place isn't uh... as loaded as yours.
+T.happy: I assumed as much.
+I sheepishly scratched the back of my neck.
+F.happy: Okay. Just making sure you knew.
+@char F.default
+@char T.default
+; After a short walk, we finally arrived at my place. I fumbled with the door handle for a little while.
+@char F.shock
+@stopbgm
+@bgm darkPlace
+But I realized something a little too late.
+F: ...
+F.sad: ...Wait a minute.
+T.anger: What?
+F.shock: I don't have my keys with me!
+I rummaged through my pockets but couldn't find anything.
+F.sad: Oh no!!
+T.f>neutral,sfx>sweat: Are you serious?
+F.anger: Well, yeah. Of course I don't. Even if I had them before, they would've almost definitely fallen out of my pocket while I was in literal Hell.
+T.anger: ...So, what now?
+@spawn DepthOfField
+I felt my brain spin. Was I about to get another panic attack?
+Tris grabbed my hand.
+T: Breathe in.
+F: I-I...
+T: It is alright. Just breathe.
+@despawn DepthOfField
+@char F.default
+@char T.default
+After a couple moments, I felt myself relax.
+@stopbgm
+@bgm blueBoi
+We stood there in silence until I felt my thoughts return.
+Wait a minute...
+F.shock: That's right!
+@char F.sad
+I sighed in relief.
+F.happy: I left them at my friend Nessie's place.
+T.sad: Oh?
+F.sad: Yeah. But it's a pretty long walk from here...
+T.anger: ...
+F.neutral: ...Tris?
+T.neutral: ...
+F.sad: A-Are you there?
+@char T.shock
+Trisetar blinked in shock.
+T.neutral: Y-Yes. I am. I did not hear what you said.
+; Felix pouts
+F.sad: I thought I was pretty clear. We need to start walking to Nessie's place now. I'm not sure what time it is, but we should get there before it's too late.
+T.anger: Oh. Very well then.
+@back street
+We began to walk to Nessie's place. I'd been there so many times I knew it by the back of my hand, but I really wish I had my phone so I could get an Uber...
+Tris was uncomfortably silent.
+F.f>neutral,sfx>sweat: Is everything okay?
+T.sad: Yes. However, I was just curious...
+F.sad: Yeah?
+T.f>neutral,sfx>blush: Does 'Nessie' happen to be your... lady friend.
+@spawn ShakeCharacter params:F wait:false
+@char F.f>shock,sfx>flinch
+I choked.
+F.anger: *cough cough*
+T.anger: Was the question so unpleasant?
+F.shock: No... I was just...
+The term 'lady friend' caught me so off guard, I wasn't sure how to respond.
+T.neutral: Then?
+F.sad: Uh... no. No she's not. She's just a friend. Besides, I'm gay.
+I gulped.
+T.anger: Gay?
+F.f>neutral,sfx>sweat: Yeah, um... I'm attracted to men. Not women.
+T.neutral: Oh. I see.
+We walked in silence for a bit longer. I felt Tris's stare down my neck. Just as I was about to say something—
+T.f>sad,sfx>blush: Are you attracted to me?
+@char F.f>shock,sfx>flinch
+I choked again.
+T.shock: Do you have an issue with your lungs?
+Trisetar looked genuinely concerned, which made me feel a bit guilty.
+F.f>sad,sfx-: N-No, it was just so unexpected.
+T.anger: So? Are you?
+I looked at him. It would be a lie to say I wasn't, but...
+F.f>neutral,sfx>blush: Yes. I am.
+I hastily tried to cover it up.
+F.shock: B-But, I won't do anything if you don't want to, a-and...
+T.neutral: It is fine. Because I'm the same.
+Uh...
+F.neutral: Do you mean you're gay too? Or that you're a-attracted to me too?
+T.sad: Yes.
+F.anger: That's not—
+Trisetar grabbed my hand and held it. I was too scared to ask more, but I couldn't place my finger on why.
+F.shock: (Was I perhaps...?)
+F.sad: (No, stop it right now.)
+We continued to walk to Nessie's place.
+# darkbg
+@char F.default
+@char T.default
+@back nessieHouse
+F.f>shock,sfx>sweat: Finally...!
+Although it was dark, we finally made it to Nessie's place.
+T.anger: We would have been quicker if you let me fly.
+@char F.sfx-
+F.anger: You can't fly here.
+T.neutral: Hmph.
+F.sad: Uh... you should hide somewhere. So that she doesn't see you.
+T.shock: Why?
+F.sfx>sweat: Because she'd have a lot of questions.
+T.sad: I can handle that.
+I really didn't want to deal with Nessie's intrusiveness, but I couldn't follow through when I saw how dejected Tris looked.
+F.neutral: ...Fine. But when she asks questions, don't say something that gives you away.
+T.anger: I was not planning to.
+F.sad: Okay.
+I tentatively knocked on Nessie's door.
+N: Coming!
+@sfx door
+The door swung open.
+@char F pos:20
+@char T pos:60,0,0
+@char N.sfx-,f>neutral,costume- pos:85,0,10 scale:.4688
+N.shock: Felix! I was so scared! You've been gone for like two days, and I was beginning to—
+N.anger: You—
+F.neutral: Oh, um...
+N.shock: Brother?! What are you doing here?!
+F.shock: Huh?
+T.anger: You! What were you thinking, just disappearing like that?!
+@spawn ShakeCharacter params:F,2,,,,,true,false
+F.sad: I-I...
+N.sad: It's none of your business!
+F.anger: What's going on here?!
+N.anger: I don't want to take over Hell okay?! I just want to live a normal life!
+T.shock: You would dare leave our home to live like a lowly mortal?
+@char F.f>sad,sfx>blush
+I felt a sting.
+F: ...
+T.sfx>sweat,f>sad: F-Felix, I didn't mean...
+Nessie's eyes darted between us two.
+N.shock: Don't tell me...
+Nessie rubbed a hand over her face.
+N.anger: Brother. I'm not returning back to Hell, no matter what you say.
+T.shock: But...!
+N.sad: I... I have everything I want here. I've got a best friend who understands me—
+F.sfx>blush: ...
+N.neutral: And I can live normally, without having to deal with unrealistic expectations placed on me by Father or whoever.
+T.anger: ...
+@char F.sfx-,f>shock
+T.neutral: ...What if I say you don't have a choice?
+N.anger: I do. There always is.
+Trisetar looked pained.
+T.neutral: If you won't come peacefully... I suppose there is no other choice.
+Nessie tightened her hand into a fist.
+N.sad: You already know who will win this fight.
+T.neutral: I do. But it's my duty to attempt it anyway.
+Trisetar and Nessie squared off.
+F.shock: (No... No!)
+I froze in my spot. I couldn't just let this happen!
+But... What could I even do? I could barely carry my groceries from the car into my home, how the fuck could I stop this fight?
+Trisetar gathered a ball of magic into his hands and raised it.
+@camera offset:-5,1.5 zoom:.7 wait:true
+F.sad: (But...)
+F.neutral: (I had to do something!)
+@camera offset:0 zoom:0 wait:True
+@spawn ShakeCamera
+F.anger: No, stop!
+I yelled and hugged Tris's back.
+@slide F to:50
+@slide F to:20 wait:false
+@slide T to:40 wait:true
+F.shock: Stop! Stop this, now!
+I felt tears prick the side of my eyes.
+@spawn ShakeCharacter params:T
+T.f>anger,sfx>blush: What are you doing, fool?! Stay out of this!
+F.sad: N-No! I can't! Don't fight!
+T.sfx-,f>shock: You...!
+Trisetar whipped his hand back to throw me off.
+I closed my eyes and braced for impact.
+@back black
+@hidechars
+But nothing happened.
+F: H-Huh?
+T: You fool.
+F: ...What?
+@back nessieHouse
+@show T,F,N
+Trisetar sighed and lowered his hand.
+T: You are a true idiot. You would have most likely died.
+F: I... would have?
+Nessie looked puzzled.
+N: Since when...
+She looked at me, and then at Tris.
+N.f>shock,sfx>blush: Oh...
+I blushed sheepishly.
+@char F.blush
+N.happy: I see how it is.
+T.sfx>blush,: Sister, do not think this is the end!
+N.default: Yeah, yeah... One sec.
+@char N visible:false
+Nessie went inside.
+@char T pos:75
+F: ...
+Tris stared at me.
+F: What?
+T.anger: You are a strange creature.
+F.sad: You've said that a lot lately.
+T.sad: Because it is true, everytime.
+Nessie reappeared in the doorway.
+@char N pos:50
+N: Here you go!
+F.f>shock,sfx-: Huh?
+@char T.sfx-,f>anger
+N: Your keys and wallet.
+F: Oh right.
+@char F.sad
+Among all the commotion, I forgot why I even came here...
+N: I called work for you. They were worried, but I told them you were sick.
+F.shock: ...For three months?
+Nessie blinked.
+N.sad: It's only been two days.
+F: Huh?
+T: Time flows differently between realms.
+F.f>sad,sfx>sweat: So uh... are you guys like, done fighting?
+I slapped myself mentally for saying that. I just had to remind them, right?
+T.neutral: For now.
+N.happy: 'For now.'
+I sighed.
+F: Let's go back home.
+T: ...
+We left, but not before Tris glared at Nessie.
+@hide T,F
+N: Have a good night!
+@hide N
+F: (I just don't get her...)
+@back streetNight
+@show T,F
+@char F pos:25
+F: I should call an uber.
+T.anger: What is that?
+F.default: A ride to get home.
+T.shock: Are you referring to one of those... moving boxes?
+F.sad: Oh. Yeah.
+T.sfx>sweat: We are absolutely not getting in one of those.
+F.happy: Don't tell me... you're scared?
+T.f>shock,sfx>blush: O-Of course not! It is simply uncouth.
+F.sad: But my feet hurt...
+@char T.default
+Tris stared blankly at me.
+F.f>anger,sfx>blush: I-I may not be all... muscle man like you, so I get tired easily!
+Tris sighed. Then, he scooped me into his arms.
+@spawn ShakeCamera
+F: W-What?!
+T.anger: Give me the directions.
+F.shock: I-I...
+I buried my face in my palms, but told him the directions anyway. We finally reached home, and I opened the door.
+@back livingNight
+F.happy: Ahhhhhh!!
+@spawn ShakeCharacter params:F
+I collapsed onto one of the couches.
+T: ...
+T.sad: This place is... strange. There are curious devices everywhere.
+@char F.glasses-
+F: Oh yeah. Well. I'm just gonna...
+I felt my eyes close.
+@spawn DepthOfField
+@hideChars
+@back black
+F: Sl...
+@goto 10

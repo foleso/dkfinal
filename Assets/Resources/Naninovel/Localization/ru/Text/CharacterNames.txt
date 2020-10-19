@@ -1,0 +1,8 @@
+﻿D: {catName}
+F: Феликс
+N: Ванесса
+oldLady: Старуха
+RandomGuy: Случайный парень
+shutters: shutters
+T: {trisname}
+T2: T2

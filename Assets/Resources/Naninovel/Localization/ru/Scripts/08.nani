@@ -1,0 +1,301 @@
+; Localization script for `08`
+
+# 19de2fc9
+; Another month passed by, surprisingly uneventfully. We continued the research, but couldn't find the source of the transmission.
+Прошёл ещё один месяц, удивительно однообразно. Мы продолжили исследования, но безрезультатно.
+
+# 5634b30f
+; Today's scenery however, was a little different.
+Тем не менее, сегодня декорации сменились.
+
+# 9b29ad87
+; F.sad: So. I guess we're back here again.
+F.sad: Итак. Полагаю, мы снова здесь.
+
+# e52f42f6
+; T.anger: Yes.
+T.anger: Да.
+
+# 7eb18042
+; We walked through the crowd of shoppers. Today was even more crowded than our first trip.
+Мы пробирались через толпу покупателей. Сегодня их было ещё больше чем в первый раз.
+
+# d33f280d
+; T.neutral: I have never found it necessary to do the mundane task of shopping... I always left this to Demetrius.
+T.neutral: Раньше я никогда не видел необходимости в настолько обыденном занятии... Я поручал это Деметриусу.
+
+# 4498d093
+; F.neutral: I know, but I'd really like to check up on the food myself.
+F.neutral: Я понимаю, но мне очень хотелось самому выбрать продукты.
+
+# 5c85edc3
+; Plus, I was stuck inside for too long. Nessie would be proud.
+К тому же, я слишком долго не выходил на улицу. Несси бы гордилась.
+
+# 527a69b5
+; Trisetar looked at me strangely, but didn't say anything more.
+Трисетар окинул меня непонимающим взглядом, но ничего не сказал.
+
+# f6cc1798
+; F.sad: I mean... if you really didn't want to, I would've been fine with Demie.
+F.sad: Ну, если... если ты совсем не хочешь, я мог бы пойти и с Деми.
+
+# 2844d99
+; Trisetar pouted. Like actually pouted.
+В это трудно было поверить, но Трисетар надулся.
+
+# 69c48722
+; T.sad: You do not wish to go with me?
+T.sad: Ты не желаешь прогуляться со мной?
+
+# abfe664e
+; F.blush: (Oh my gosh he's so cute.)
+F.blush: (Чёрт, какой же он милый.)
+
+# 8b98b9d6
+; T: ...
+T: ...
+
+# f6a48f0d
+; After realizing I didn't say anything, I quickly fumbled for a response.
+Когда до меня дошло, что я всё ещё молчу, я быстро ответил первое что пришло в голову.
+
+# 887dce7c
+; F.shock: N-No! Of course not.
+F.shock: Н-нет! Конечно желаю.
+
+# 7c32f783
+; T.happy: Very well.
+T.happy: Вот и славно.
+
+# 14900e1f
+; Trisetar did his best to hide it, but there was a small smile on his face.
+Трисетар изо всех сил пытался это скрыть, но на его лице появилась небольшая улыбка.
+
+# 308457f4
+; We slowly made our way through the market. We looked at a couple stands, but nothing caught my eye. Trisetar seemed pretty out of it.
+Мы медленно пробирались через торговую площадь. Мы осмотрели несколько прилавков, но ничего интересного я там не обнаружил. Трисетар словно витал в облаках.
+
+# 250d54cc
+; I glanced at him from time to time, but I decided to just leave him be.
+Я время от времени поглядывал на него, но решил не прерывать его задумчивость.
+
+# ea7a4a08
+; T.f>neutral: '...Demie?'
+T.f>neutral:  ..."Деми?"
+
+# a41b2b3f
+; F.f>sad,sfx>sweat: What?
+F.f>sad,sfx>sweat: Что?
+
+# aeb26daa
+; T.anger: You refer to Demetrius as 'Demie.'
+T.anger: Ты так Деметриуса назвал.
+
+# 4ca3560b
+; F.default: Yeah, I do. Since he's fine with it, I don't see the issue.
+F.default: Да, я зову его так. Он не против, поэтому не вижу никаких проблем.
+
+# 4c33ba23
+; T.sad: Hm...
+T.sad: Хм...
+
+# c05857a7
+; Trisetar shook his head.
+Трисетар покачал головой.
+
+# 68919c3e
+; F.shock: (Wait a minute...)
+F.shock: (Минуточку...)
+
+# cc1983dc
+; As we stopped by a cart full of apples, I hesitantly opened my mouth.
+Мы остановились рядом с тележкой, полной яблок. Я неуверенно открыл рот.
+
+# b0fff4ad
+; F.f>sad,sfx>sweat: Can I call you Tris?
+F.f>sad,sfx>sweat: Можно я буду звать тебя Трис?
+
+# 7e8a3ac4
+; Trisetar's eyes went wide as saucers.
+Глаза Трисетара широко раскрылись.
+
+# d4bb6853
+; F.shock: I-I'm sorry, I didn't mean...
+F.shock: И-извини, я не хотел...
+
+# 9b35bf5a
+; I pulled back, trying to think of how to rectify the situation.
+Я сделал шаг назад, пытаясь придумать, как исправить ситуацию.
+
+# a3d9c5b9
+; T.f>sad,sfx>blush: If you really want to... you can.
+T.f>sad,sfx>blush: Если ты очень хочешь... ты можешь.
+
+# 61d05e80
+; I looked at him, shocked.
+Я потрясённо посмотрел на него.
+
+# 916b6d7e
+; F.happy: You... really mean it?
+F.happy: Ты... правда разрешаешь мне?
+
+# 47e8223f
+; T.sfx>blush,f>anger: Did you not hear me the first time?
+T.sfx>blush,f>anger: Ты не расслышал меня в первый раз?
+
+# 3e0cb7dd
+; Giddy with excitement, I grabbed Tris's hand.
+Я восторженно взял Триса за руку.
+
+# 4877a8b3
+; He stared down at our linked hands, but didn't protest. Taking his silent affirmation, I happily walked through the market with him.
+Он покосился на наши сжатые ладони, но ничего не сделал. Приняв это за молчаливое согласие, я радостно повёл его через площадь.
+
+# ce116716
+; T: What about the apples?
+T: А как же яблоки?
+
+# 3a8b9dd8
+; F.blush: Oh. Right.
+F.blush: Ой. Точно.
+
+# d6f7483c
+; Sheepishly, I turned around and walked back to the cart of apples. I inspected them closely, never letting go of his hand.
+Смущённо вернувшись к тележке, не отпуская руку Трисетара, я осмотрел яблоки.
+
+# 7aa6fd22
+; T.f>sad,sfx>blush: You're a strange one...
+T.f>sad,sfx>blush: Какой же ты странный...
+
+# e0a827f2
+; F.neutral: Hm? Did you say something?
+F.neutral: Хм? Ты что-то сказал?
+
+# c11e250b
+; T.f>anger: N-No.
+T.f>anger: Н-нет.
+
+# f97a78ee
+; I went back to looking at the apples.
+Я вернулся к яблокам.
+
+# 65767e87
+; After sometime, it started to get dark. Er. It was always dark, just moreso.
+Вскоре начало темнеть. Ну как. Здесь всегда было темно, но сейчас стало ещё темней.
+
+# 7b5a3063
+; I carried a large bag of miscellaneous foodstuffs.
+Я нёс большую сумку разнообразных продуктов.
+
+# be2f0c26
+; T.anger: If I had known you were buying so much, I would have brought a cart.
+T.anger: Если бы я знал, что ты столько всего накупишь, я бы захватил из дома тележку.
+
+# 9af01809
+; F.happy: It's fine!
+F.happy: Всё в порядке!
+
+# 99fcd210
+; They had a surprising number of nice food. I wasn't sure why exactly demons needed so much human food, but I tried not to think about it.
+У демонов продавалось удивительно много хорошей человеческой еды. Я не знал почему, но постарался об этом не думать.
+
+# 186d47ba
+; That's when I blurted out...
+Ни с того ни с сего я выпалил...
+
+# 519fc840
+; @choice "You have got to see the malls at home!" goto:.mall
+@choice "Ты просто обязан увидеть торговые центры в моём мире!" goto:.mall
+
+# 44fec72a
+; @choice "We should do this more often!" goto:.more
+@choice "Нам стоит чаще это делать!" goto:.more
+
+# 490abf84
+; F: You have got to see the malls at home!
+F: Ты просто обязан увидеть торговые центры в моём мире!
+
+# d44fe0f3
+; T.anger: You refer to the Trajan's Market? I believe it is no longer in use.
+T.anger: Ты говоришь про Рынок Траяна? Полагаю, там давно уже ничего не продают.
+
+# e4293768
+; F.f>sad,sfx>sweat: No, a mall is just a place to shop.
+F.f>sad,sfx>sweat: Нет, в торговых центрах как раз таки продают. В магазинах.
+
+# 673de318
+; T.f>neutral,sfx>sweat: As in... a market?
+T.f>neutral,sfx>sweat: Магазин это... что-то вроде рынка?
+
+# bbbfe412
+; F.default: Yeah, but it's... different. But similar.
+F.default: Да, но... немного другое. Хотя во многом похоже.
+
+# f653b2c0
+; T.sad: Interesting.
+T.sad: Интересно.
+
+# d416dc0d
+; T.anger: However, when we return to the human realm, I have business to attend.
+T.anger: Тем не менее, в мире людей у меня есть незаконченные дела.
+
+# 5cf285bc
+; F.f>sad,sfx>sweat: I know, but we can probably stop by at the mall for a bit!
+F.f>sad,sfx>sweat: Я знаю, но ведь мы сможем ненадолго заскочить за покупками!
+
+# 5c03befc
+; Tris pinched the bridge of his nose.
+Трис взялся пальцами за переносицу.
+
+# a5d070f1
+; F: We should do this more often!
+F: Нам стоит чаще это делать!
+
+# f655beff
+; T.anger: Crowded places are generally insufferable.
+T.anger: Я не переношу людных мест.
+
+# d79fa202
+; F.sfx>sweat: I know... But, isn't this kinda fun?
+F.sfx>sweat: И я... Но, всё равно ведь весело?
+
+# 834b4c3c
+; T.f>sad: I...
+T.f>sad: Я...
+
+# 380341b7
+; He looked down.
+Он потупил взгляд.
+
+# 8031e369
+; T.neutral: I would say it was not bad.
+T.neutral: Не думаю, что было плохо.
+
+# b599d55e
+; F.happy: If you say so.
+F.happy: Как скажешь.
+
+# 2f8548af
+; T.sad: You will not be here for much longer, however.
+T.sad: Тем не менее, твоё время здесь подходит к концу.
+
+# 16c11caf
+; I tried not to think about that.
+Я старался не думать об этом.
+
+# 417b2dee
+; F.happy: Yeah but... that's why we should the most out of it.
+F.happy: Да, но... именно поэтому мы должны провести его как можно лучше.
+
+# e303f20f
+; T.neutral: Very well. We can do so.
+T.neutral: Так тому и быть. Это осуществимо.
+
+# 6d11d694
+; F.f>happy,sfx>blush: That's great.
+F.f>happy,sfx>blush: Превосходно.
+
+# 57050be
+; I hummed the rest of the way back to the mansion. If Tris had any objections, he didn't state them.
+Остаток пути я тихонько напевал себе под нос. Если у Триса и были возражения, он их не озвучил.

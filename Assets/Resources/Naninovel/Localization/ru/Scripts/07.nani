@@ -1,0 +1,265 @@
+; Localization script for `07`
+
+# 5edb076f
+; Around a month passed. Days in Hell felt surprisingly similar to days on Earth.
+Прошло около месяца. Я удивлялся, насколько схожим было течение времени в Аду и на Земле.
+
+# 4351d3f3
+; Trisetar and I spent the time sitting down and researching the button. After figuring out that there was nothing left on the button itself, we began to research cross-dimensional communication.
+Мы начали с пуговицы. Исследовав её вдоль и поперёк, мы перешли к изучению межпространственного общения.
+
+# 33f56af0
+; However, there was one key difference.
+Но на этот раз всё было совсем иначе.
+
+# 5bef6410
+; We did it together.
+Мы делали это вместе.
+
+# 493ec539
+; We sat next to each other at the table, a stack of books next to us.
+Я и Трисетар сидели друг напротив друга за столом, заваленным книгами.
+
+# b61ba60f
+; While I struggled reading the complicated mumbo jumbo, Trisetar was reading through them at a blazing fast race.
+В то время как до меня с трудом доходил смысл этих сложных текстов, Трисетар с лёгкостью пробегался по их строкам, моментально улавливая суть.
+
+# bffd69ce
+; Suddenly, I heard a loud thud.
+Внезапно я услышал глухой удар.
+
+# d4388ecd
+; F.f>shock,sfx>flinch: H-huh?
+F.f>shock,sfx>flinch: А-а?
+
+# e8db93b9
+; Trisetars face was flat on the desk.
+Трисетар лежал лицом на столе.
+
+# 2888de08
+; F.f>sad,sfx>sweat: Uh...
+F.f>sad,sfx>sweat: Э-э...
+
+# c0cfa3d5
+; I lightly tapped his shoulder, but no response. Gosh, those diamond things on his arms were sharp.
+Я легонько коснулся его плеча. Ответа не последовало. Мой Бог, я и не думал, что бриллиантовые украшения на его руках настолько остры.
+
+# 3a29da45
+; Carefully, I tried to avoid his horns and touched his hair. Not in like, a creepy way or anything. I was just curious how it felt. It was surprisingly soft.
+Аккуратно, стараясь не задеть рога, я прикоснулся к его волосам. Я не извращенец, конечно. Мне просто захотелось узнать, какие они на ощупь. Волосы оказались удивительно мягкими.
+
+# 10bd0bd5
+; T.f>anger,sfx>anger: What do you think you're doing?
+T.f>anger,sfx>anger: Ты чего это делаешь?
+
+# 9e97ba52
+; I froze up.
+Я застыл.
+
+# 5b04836
+; F.f>shock: N-Nothing?
+F.f>shock: Н-ничего?
+
+# ab9e400e
+; Trisetar raised his head from the desk and rubbed his eyes, then yawned.
+Трисетар поднял голову со стола и потёр глаза, потом зевнул.
+
+# e4359256
+; T.anger: That did not seem like 'nothing.'
+T.anger: А мне так не показалось.
+
+# 17ba6229
+; F.sad: I-I was just surprised by how soft your hair is.
+F.sad: М-меня удивило то, насколько мягкие у тебя волосы.
+
+# 6d234e33
+; T.f>sad,sfx>blush: I-Is that so?
+T.f>sad,sfx>blush: Ты... правда так думаешь?
+
+# 7abd10
+; Trisetar reached for his head, touching the same place I did. Then, he reached up to my hair and touched it.
+Трисетар дотронулся до того же места что и я ранее. Затем, он протянул руку к моим волосам и прикоснулся к ним.
+
+# 8adfbc37
+; I flushed.
+Я покраснел.
+
+# a779b08b
+; T.neutral: It does not feel different to me.
+T.neutral: Не замечаю разницы.
+
+# 596f9f4
+; F.f>shock,sfx>blush: O-Oh.
+F.f>shock,sfx>blush: У-угу.
+
+# bab0faf9
+; I scrambled for a subject change.
+Я судорожно пытался сообразить, как сменить тему.
+
+# 16bc5271
+; F.neutral: So uh, you get sleepy too?
+F.neutral: Так ты, эм... тоже иногда засыпаешь на ходу?
+
+# 1c44c20e
+; T.f>anger,sfx-: Of course. Sleep is necessary for any mortal vessel.
+T.f>anger,sfx-: Разумеется. Сон — естественная потребность любого смертного организма.
+
+# e5859cc1
+; F.f>shock,sfx-: I thought you're not mortal!
+F.f>shock,sfx-: Я думал, что ты бессмертен!
+
+# 31dc6ab2
+; T.neutral: I may not be mortal, but this vessel is. Demonic identity lies in the soul, not the body.
+T.neutral: Я бессмертен, но тело, в которое заключена моя душа — нет.
+
+# e3cd8aae
+; F.sad: Huh. Interesting. So you die too?
+F.sad: О. Интересно. И что, ты тоже умрёшь?
+
+# 49fb4660
+; T.anger: Yes, but the soul is carried over to a new body.
+T.anger: Да. И тогда душа перенесётся в другое тело.
+
+# 4df2f71d
+; F.shock: Wow... I would've never imagined.
+F.shock: Ого... Ни за что бы не догадался.
+
+# 77f4a534
+; Suddenly, my mind was turning with questions about the technicalities of being a demon. As if he could read my mind, Trisetar raised his hand.
+Мой разум тотчас заполнили вопросы о том, как устроены демоны. Трисетар, словно прочитав мои мысли, поднял раскрытую ладонь.
+
+# 447921e7
+; T.neutral: No more questions.
+T.neutral: Достаточно вопросов.
+
+# d7a5c937
+; F.sad: How did you know?
+F.sad: Как ты узнал?
+
+# 6dbed68d
+; T.anger: I just had to take one look at your face.
+T.anger: Мне достаточно было увидеть выражение твоего лица.
+
+# d62e90b8
+; I shyly scratched the back of my neck. I didn't realize I was that easy to read.
+Я смущённо потёр за шеей. Не знал, что меня так легко прочитать.
+
+# 52060bc6
+; Then Trisetar leaned back into my chest.
+Внезапно дистанция между нами сократилась, и я ощутил, как Трисетар опёрся спиной о мою грудь.
+
+# bd569c5
+; F.f>shock: H-Huh?
+F.f>shock: О-ой?..
+
+# 9b340e8f
+; T.f>anger,sfx>blush: Quiet.
+T.f>anger,sfx>blush: Тише.
+
+# 1b1143f6
+; My head rested snugly in between those two terrifyingly sharp horns.
+Моя голова уютно устроилась между двумя пугающе острыми рогами.
+
+# fe6706a2
+; F.blush: What are you—
+F.blush: Что ты—
+
+# 2c03508
+; T.sad: I said 'Quiet,' do you not understand that much?
+T.sad: Я сказал "тише", что тут непонятного?
+
+# 71e9d7d7
+; F.neutral: I-It's just...
+F.neutral: Я п-просто...
+
+# 64ca3ec3
+; I felt myself heat up.
+Меня бросило в жар.
+
+# 1f8b0684
+; T.anger: I am drained. Let me rest.
+T.anger: Я обессилел. Позволь мне отдохнуть.
+
+# 6836be34
+; Tentatively, I wrapped my arms around Trisetar's chest. When he pressed himself closer, A strange feeling bubbled up my chest.
+Я робко обхватил его грудь. Когда он прижался ближе, во мне пробудилось странное чувство.
+
+# c177be8a
+; I wanted...
+Я хотел...
+
+# 57ad60e6
+; @choice "To stay like this forever." goto:.forever
+@choice "Чтобы этот момент длился вечно." goto:.forever
+
+# af71d0ad
+; @choice "To show Trisetar my home." goto:.home
+@choice "Показать Трисетару свой дом." goto:.home
+
+# abb22d70
+; I liked this.
+Мне это нравилось.
+
+# 872a4fe1
+; I liked the comfortable silence between us.
+Нравилось разделять с ним приятную тишину.
+
+# 557c0076
+; I enjoyed looking at Trisetar's reactions to things, and how he taught me new things everyday.
+Нравилось смотреть, как Трисетар реагирует на разные вещи. День за днём он учил меня чему-то новому.
+
+# cc48032b
+; I wanted to stay like this forever.
+Я хотел, чтобы это длилось вечно.
+
+# ec95de8c
+; F.anger: (Snap out of it, Felix...)
+F.anger: (Перестань, Феликс...)
+
+# 69dd209b
+; This was only temporary, I needed to remind myself.
+Всему неизбежно приходит конец, и мне следовало напомнить себе об этом.
+
+# 34890bf5
+; But a small voice in my head whispered... did it need to be?
+Но внутренний голос тихо возразил... так ли это на самом деле?
+
+# a585d89f
+; Trisetar was really interesting. Despite being a demon, he was surprisingly sheltered.
+Трисетар был очень необычным демоном. Занимая такую высокую позицию в обществе, он жил словно в теплице.
+
+# 1625a8f3
+; Even though the demon world was a lot of fun, I felt he wasn't exactly in his element.
+Его мир был полон загадок и тайн, но я не мог избавиться от ощущения, что Трисетару всё это было совершенно безынтересно.
+
+# fc52240d
+; He wanted to go back home, but not alone.
+Я хотел вернуться домой, но не один.
+
+# b66f2c17
+; F.anger: (No... don't think about that...)
+F.anger: (Нет... не думай об этом...)
+
+# 4b031161
+; His tiny apartment wasn't nearly the size of Trisetar's mansion, but it was still his home.
+Маленькая квартирка в Лос-Анджелесе ни в какое сравнение не шла с замком Трисетара, но она всё равно была моим родным домом.
+
+# fd5ee298
+; No, that wasn't part of the plan.
+Нет, в это не входило в мои планы.
+
+# 48bf96a4
+; But a small voice in my head whispered... maybe it could be.
+Но внутренний голос тихо возразил... планы можно изменить.
+
+# 3ac2df2f
+; I almost shook my head, before realizing I physically couldn't.
+Я чуть было не покачал головой, как вдруг понял, что физически не смогу. Рога.
+
+# 29913b45
+; As Trisetar's chest rose and fell in even breaths, I thought to myself...
+Грудь Трисетара поднималась и опускалась в такт его размеренному дыханию. Я задал себе вопрос...
+
+# 14fca23
+; F.f>sad,sfx>sweat: (What's going to happen to me...?)
+F.f>sad,sfx>sweat: (Что же со мной будет дальше?..)

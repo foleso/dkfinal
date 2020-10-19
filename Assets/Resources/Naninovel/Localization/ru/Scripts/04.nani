@@ -1,0 +1,790 @@
+; Localization script for `04`
+
+# 85783516
+; I walked into the mansion with the demon guy.
+Я проследовал за демоном и вошёл в замок.
+
+# 4ec6c25
+; F.f>shock: (Woah, this place is huge!)
+F.f>shock: (Ух ты, он просто огромен!)
+
+# ff87913d
+; F.f>neutral: (I wonder what this demon guy does for a living...)
+F.f>neutral: (Интересно, чем этот парень зарабатывает себе на жизнь?)
+
+# 6052897
+; I realized I was still calling him "Demon Guy" and not by his name.
+И тут я понял, что даже не знаю имени "этого парня".
+
+# cd74b0a3
+; F.sfx>sweat: What's your name?
+F.sfx>sweat: Как тебя зовут?
+
+# 8b0294df
+; T.f>anger: A mere mortal does not require that information.
+T.f>anger: Эта информация не предназначена для смертных ушей.
+
+# 81bba017
+; F.f>sad,sfx>sweat: Maybe, but calling you "Demon Guy" may not be the best.
+F.f>sad,sfx>sweat: Возможно, но называть тебя "парень из Ада" будет не очень хорошо.
+
+# 9c576e72
+; He glared at me.
+Он бросил на меня злобный взгляд.
+
+# 8dceefce
+; T.f>anger: Do not call me that, unless you wish to become the dust under my feet.
+T.f>anger: Не называй меня так, если не хочешь оказаться пылью у моих ног.
+
+# a798f6b2
+; F.f>neutral,sfx>sweat: Uh... I don't?
+F.f>neutral,sfx>sweat: Эм... я не хочу?
+
+# f9303db
+; He looked at me skeptically.
+Он посмотрел на меня с недоверием.
+
+# 1d0c9578
+; T.f>neutral: You do not sound sure.
+T.f>neutral: Я слышу сомнение в твоем голосе.
+
+# 7eff82f2
+; F.f>shock: I don't! I definitely don't!
+F.f>shock: Нет! Я точно не хочу!
+
+# a647fa65
+; Demon Guy looked so done. I didn't blame him.
+Кажется, я успел порядком осточертеть "парню из Ада". И его раздражение было оправдано.
+
+# b4dac7d5
+; T.f>anger: Very well. You may call me T̶̢̧̨̞̱̺͈̱̓͜r̸̥̼͍̱̥̞̉̊͘i̴̮͛̽̀̀ş̴͓̀̕ḛ̶̥̊̒̆̄͂̅̈́̔͂͝t̷̡̨̥̟̊̓̔̔̕ͅa̴͔̤͍͍̬̬̗̎̐̓̈́͘r̶̢̨̤̪̾͊̋̇̽̈̉ ̶̢͇̦͙̪̹̣͚͗̂͘v̷̧̠̝̺̚͘o̵̢̲̜̝͍̎̃͛n̷͎̠̲͛́͌̓̃̏̌͜͝ ̵̞̜̳͎̬͓͖͇̻̄̊̃̑̐̊̉̕F̶̧̛̹̮͕͔̫͓͍̤͖͂l̶̛͇̳͚̓̽́̐ỏ̴̧̬̤̎̏͆̈̇́o̸̹͋͆̈̏̂̀͠f̸͓͕̮̯̠̠̺̗̹̭̓́̅̎̐̌͘
+T.f>anger: Так уж и быть. Можешь звать меня T̶̢̧̨̞̱̺͈̱̓͜r̸̥̼͍̱̥̞̉̊͘i̴̮͛̽̀̀ş̴͓̀̕ḛ̶̥̊̒̆̄͂̅̈́̔͂͝t̷̡̨̥̟̊̓̔̔̕ͅa̴͔̤͍͍̬̬̗̎̐̓̈́͘r̶̢̨̤̪̾͊̋̇̽̈̉ ̶̢͇̦͙̪̹̣͚͗̂͘v̷̧̠̝̺̚͘o̵̢̲̜̝͍̎̃͛n̷͎̠̲͛́͌̓̃̏̌͜͝ ̵̞̜̳͎̬͓͖͇̻̄̊̃̑̐̊̉̕F̶̧̛̹̮͕͔̫͓͍̤͖͂l̶̛͇̳͚̓̽́̐ỏ̴̧̬̤̎̏͆̈̇́o̸̹͋͆̈̏̂̀͠f̸͓͕̮̯̠̠̺̗̹̭̓́̅̎̐̌͘
+
+# fff0dfaf
+; F.f>neutral,sfx>sweat: Uh... It doesn't exactly roll off the tongue.
+F.f>neutral,sfx>sweat: Ээ... Твоё имя не так-то легко выговорить.
+
+# 21cc5d24
+; T.f>neutral: That may be so. Mere mortal tongues are not meant to speak it. In that case, refer to me as "Trisetar" henceforth.
+T.f>neutral: Допускаю. Язык жалкого смертного не предназначен для звуков этой речи. В таком случае, с этого момента тебе позволено называть меня Трисетар.
+@set trisname="Трисетар"
+
+# 7fef919b
+; F.f>sad: Okay.
+F.f>sad: Хорошо.
+
+# af32c7b6
+; It wasn't very short either, but I wasn't about to complain. It was better than before.
+Имя было не намного короче предыдущего, но жаловаться на это я не стал. Всё равно лучше.
+
+# c4da98e8
+; After a walk that was far too long, we finally reached the interior of the mansion.
+Пройдя долгий и утомительный путь по коридором замка, мы наконец дошли до места назначения.
+
+# 9f695088
+; F.f>sad,sfx>sweat: Huff... puff...
+F.f>sad,sfx>sweat: Фух... уф-ф...
+
+# c4302e72
+; T.f>anger,sfx>sweat: It has been a while since I'd interacted with mortals, but I do recall them having far superior athleticism.
+T.f>anger,sfx>sweat: С моего прошлого контакта с людьми прошло много времени, но на моей памяти вы были более атлетичными.
+
+# 74232fe7
+; F.f>neutral,sfx>sweat: Uh, yeah. About that.
+F.f>neutral,sfx>sweat: Э-э, да. Говоря об этом...
+
+# 85fb302c
+; I was too embarrassed to admit I'd never really exercised. And I don't think walking to the kitchen for a fresh bag of nachos was 'exercise.'
+Мне было слишком стыдно признавать, что я вообще не занимался спортом. Если, конечно, не считать за спорт поход на кухню за новой пачкой начос.
+
+# aaee5e99
+; F.f>sad: It's... different for me.
+F.f>sad: Я... немного другой.
+
+# 2e2e871
+; T.f>anger: Hmph. It doesn't concern me.
+T.f>anger: Пф. Мне безразлично.
+
+# 8b7f6cfd
+; F.f>neutral,sfx-: (...Really?)
+F.f>neutral,sfx-: (...Правда?)
+
+# 6a0111c2
+; He walked down the hallway and opened a door.
+Он прошёл по коридору и открыл дверь.
+
+# 907dfb2f
+; T.f>neutral,sfx-: This is where you will stay. Do not leave this room under any circumstances.
+T.f>neutral,sfx-: Ты останешься здесь. Ни при каких условиях не выходи из этой комнаты.
+
+# 9fcfa827
+; A million questions and statements flew into my head, but the door slammed shut.
+В голове возникли сотни вопросов. В ответ на них я услышал, как хлопнула дверь.
+
+# 52c918dc
+; I looked around the barren room. It was dark and gloomy, with barely anything in it.
+Я осмотрел пустую комнату. Тёмная и унылая, едва ли обустроенная.
+
+# 93cd9500
+; Then, my stomach rumbled.
+В животе заурчало.
+
+# 9b46aa9b
+; Ugh... I hadn't eaten a single thing during the party. I was so hungry. I was in a demon realm, but there'd probably be food, right...?
+Уф... на вечеринке я так ничего и не съел. Я был очень голоден. В мире демонов должна быть еда, так ведь?..
+
+# b36b28fd
+; I looked around. I wasn't going to risk getting killed by leaving, or perhaps meeting up with a less altruistic demon.
+Я снова осмотрелся. Не стоит нарушать запрет Трисетара и выходить из комнаты, ведь мне запросто мог встретиться менее альтруистичный демон.
+
+# 4283cdd2
+; But I felt a lot of strange feelings, and wasn't sure how to process it.
+Меня переполняли странные эмоции, и я не знал, как с ними совладать.
+
+# f009e6a6
+; F.f>sad,sfx-: I...
+F.f>sad,sfx-: Я...
+
+# a97071bf
+; @choice "Want to go back to my old life." goto:.old
+@choice "Хочу вернуться к прежней жизни." goto:.old
+
+# dbe0214a
+; @choice "Feel strangely excited." goto:.new
+@choice "Необычайно взволнован." goto:.new
+
+# 11a705ab
+; My old life was boring and mundane.
+Старая жизнь была скучна и полна рутины.
+
+# 365bd619
+; Every new day simply meant I had to tell people to turn their computers on and off again. Or explain that shouting at a laptop didn't make it work.
+Каждый новый день не приносил мне ничего кроме людей, которым я должен был советовать перезагрузить компьютер. Или объяснять, что ноутбук не заработает, если на него кричать.
+
+# 4d9fa393
+; But... It was what I always knew. And it had its good times. Like getting back home and relaxing while playing games.
+Но... это то, чем я зарабатывал себе на хлеб. К тому же, в жизни были и положительные моменты. Например, онлайн-игры после работы.
+
+# d8db16c4
+; Unfortunately, it seemed my fate was to be stuck inside a tiny room indefinitely.
+К сожалению, судьба распорядилась так, что я застрял в этой каморке на неопределённый срок.
+
+# b70c035e
+; Maybe this new realm was strange and scary, sure.
+Быть может этот мир и страшен, а я для него чужой.
+
+# bb6c67ff
+; But it was different! A breath of fresh air (literally.) Pretty ironic that Hell had better air than Los Angeles.
+Но он был чем-то новым. Глотком свежего воздуха! В том числе и в прямом смысле: как иронично, что даже в Аду воздух чище чем в Лос-Анджелесе.
+
+# c45d8715
+; I really wanted to see what was out there. Too bad I was stuck inside a tiny room.
+Я умирал от любопытства. Что же могло ожидать меня за пределами этой маленькой комнатки? Жаль, что я не мог выйти.
+
+# ba9e958c
+; F.f>neutral: ...Hm...
+F.f>neutral: ...Хм...
+
+# 45be5850
+; I didn't want to spend all day just staring at a wall.
+Я не хотел провести день уткнувшись лицом в стену.
+
+# c7d9bc66
+; F.f>sad: (Day? Did Hell even have a day-night cycle? Was it 24-hours? How does time work here?)
+F.f>sad: (День? В Аду вообще есть цикл дня и ночи? И длится ли он 24 часа? Как здесь устроено течение времени?)
+
+# 43f54517
+; As I was pondering those questions, a small black cat walked up to me, balancing oranges on its head.
+Пока я размышлял над этими вопросами, из неоткуда ко мне подошёл маленький чёрный котёнок, держа на своей голове апельсины.
+
+# b4dd2
+; F.f>happy: Aw...!
+F.f>happy: Оу!..
+
+# e13708d
+; I was always a cat person, so I couldn't help opening my arms to welcome it.
+Я всегда любил кошек, так что я не мог противостоять желанию приветственно протянуть ему руку.
+
+# 3a3249bf
+; But it just stared at me coldy.
+Но он лишь смерил меня холодным взглядом.
+
+# c2f43471
+; F: Wow, you sure have an attitude, huh?
+F: Ого, а у тебя своеобразный характер, да?
+
+# 7ce66bea
+; Despite that, I couldn't help find it super adorable.
+Даже так, я находил его чудовищно милым.
+
+# 4b176c42
+; The cat got closer and dumped three oranges in my lap.
+Кот подошёл поближе и уронил три апельсина на мои колени.
+
+# 3e24ee0b
+; F.sfx>blush: Aw... you're a sweetheart!
+F.sfx>blush: Ох... ты просто чудо!
+
+# 25433831
+; I opened my arms to welcome it, but it just stared at me in disgust.
+Я снова протянул к нему руку, но он лишь ответил мне взглядом, полным отвращения.
+
+# f3abacdf
+; Although I'd like to have played with it, the oranges caught my attention. I was far too hungry to ignore it.
+Хоть я и хотел бы погладить его, голод был явно сильнее. 
+
+# 3d7823bc
+; I greedily started peeling the oranges and munching them down.
+Я начал торопливо чистить апельсины и жадно поедать их.
+
+# 8a4bdd77
+; F.sfx-: Wow, these are great!
+F.sfx-: Ух ты, какие сочные!
+
+# b4453d49
+; After I finished the third orange in a matter of minutes, I felt somewhat sated.
+Когда через несколько минут я доел последний апельсин, я так или иначе насытился.
+
+# 5b2d4ed0
+; I looked for the cat to thank it, but it was gone.
+Я хотел поблагодарить котёнка, но он к тому времени исчез.
+
+# 1886b804
+; F.f>shock: Oh no!
+F.f>shock: О нет!
+
+# 4c56a96
+; I got off the bed and looked for it. But it wasn't just hiding in the room, it definitely left. Strangely, I didn't hear it.
+Я встал с кровати и поискал его. Но в этой комнате было негде спрятаться, он точно вышел отсюда. И очень странно, что я этого не услышал.
+
+# a85737b3
+; I held the bundle of peels in my hand, but didn't know what to do with it.
+В руках были очистки, и я не знал куда их деть.
+
+# 102fd840
+; F.f>sad: Doesn't look like there's a trashcan here...
+F.f>sad: Не похоже, что здесь есть мусорное ведро поблизости...
+
+# d5d6733a
+; A strange vision popped in my head of Trisetar smiting me for leaving food waste on his floor...
+В голове возник странный образ того, как меня настигает кара Трисетара за оставленный на полу мусор...
+
+# 8df43904
+; Such a scenario was unlikely, but I felt rattled. Besides, he couldn't expect me to stay inside forever, could he?
+Такой вариант развития событий маловероятен, но я все равно был потрясён. К тому же, он ведь не ожидает, что я просижу здесь целую вечность, правильно?
+
+# aa78069d
+; I cracked open the door slightly. No one was in sight.
+Я аккуратно приоткрыл дверь. Вокруг никого.
+
+# 4ab03d5
+; F.f>anger: (Okay Felix. You can do this.)
+F.f>anger: (Давай, Феликс. Ты сможешь.)
+
+# c6c97895
+; I opened the door fully and stepped out into the hallway. Still, there was no one. After walking for a bit, all I saw was an endless number of doors. No sign of a kitchen or trash can.
+Я раскрыл дверь и вышел в коридор. Всё ещё никого. Пройдя немного, я увидел бесконечное число дверей. И ни единого намёка на кухню или мусорку.
+
+# e920381b
+; F.f>sad: Oh no...
+F.f>sad: О нет...
+
+# ea4b090d
+; I was lost.
+Я потерялся.
+
+# f979119
+; F.f>shock: (Where am I?!)
+F.f>shock: (Где я?!)
+
+# bcf9a4da
+; I turned around to go back. But then, I heard a familiar voice.
+Я обернулся и пошёл обратно. Но затем, я услышал знакомый голос.
+
+# 2e0f2864
+; T: ...I am telling you, I have not had ANY contact with her!
+T: ...говорю же тебе, я так и не вышел с ней на контакт!
+
+# 30896564
+; Out of instinct, I duck next to the door and peek into the room.
+Инстинктивно, я присел рядом с дверью и заглянул внутрь.
+
+# b4ddbadf
+; Trisetar is standing at the back of his office, holding up a crystal in his palm.
+Трисетар стоял в дальнем углу своего кабинета, держа на ладони кристалл.
+
+# 78856a1a
+; I heard a small voice coming out from the crystal, but it was too far away for me to hear.
+От кристалла исходил тихий голос, но различить я его не мог.
+
+# 318bd005
+; T.f>anger: Father. I speak the truth. Kali has not responded to my calls. I fear she has taken refuge among the humans.
+T.f>anger: Отец. Я говорю правду. Кали не ответила ни на один вызов. Боюсь, что она нашла убежище среди людей.
+
+# 85d99a27
+; I heard shrieking from the crystal, and flinched. Luckily, it seemed Trisetar didn't hear me.
+Из кристалла донёсся крик, и я вздрогнул. К счастью, Трисетар меня не услышал.
+
+# d2a529e8
+; T.f>neutral,sfx>sweat: I understand your concern. I took steps to locate her, but there was an... unfortunate incident. As a result, the search was delayed.
+T.f>neutral,sfx>sweat: Я понимаю твоё волнение. Я предпринял необходимые действия, чтобы определить её местоположение, но натолкнулся... на неприятные затруднения. В результате, поиски затягиваются.
+
+# ae652e64
+; T.f>anger,sfx-: ...I see. Very well. I will not fail.
+T.f>anger,sfx-: ...Я понимаю. Как скажешь. Я не подведу тебя.
+
+# 41723bd0
+; He placed the crystal down onto the windowsill and turned around. He walked toward the door, and I froze.
+Трисетар положил кристалл на подоконник и обернулся. Он подошёл к двери, и я замер.
+
+# 553424d2
+; F.f>shock,sfx>flinch: I was just... uh...
+F.f>shock,sfx>flinch: Я тут просто... э-э...
+
+# ead8d487
+; I pointed to the orange peels in my hands.
+Я показал на очистки в своих руках.
+
+# 816e8240
+; F.sfx-: Looking for a place to dump this! I swear!
+F.sfx-: Искал куда бы это выбросить! Клянусь!
+
+# e5f2cbf2
+; Trisetar narrowed his eyes.
+Трисетар прищурился.
+
+# 4f9e7de7
+; He pointed a long, black nail to the orange peels and they vanished.
+Он направил свой длинный чёрный ноготь на очистки и они исчезли.
+
+# cb72f8f
+; F: Wah! Where did they go?!
+F: Уа-а! Куда они делись?!
+
+# fcc6b9f3
+; Trisetar sighed.
+Трисетар вздохнул.
+
+# 36d8a1c6
+; T.f>neutral: Now. Be truthful: What did you hear?
+T.f>neutral: А теперь будь со мной честен. Что ты услышал?
+
+# 8326e7d9
+; @choice "Keep quiet." goto:.quiet
+@choice Утаить. goto:.quiet
+
+# f45af514
+; @choice "Ask about it." goto:.heard
+@choice "Спросить об этом." goto:.heard
+
+# de0926d1
+; I kept my mouth shut.
+Я молчал.
+
+# e5b04c3c
+; Trisetar eyed me carefully.
+Трисетар окинул меня осторожным взглядом.
+
+# 44419806
+; T.f>anger: I am aware that you overheard the conversation.
+T.f>anger: Мне известно, что ты подслушал разговор.
+
+# c91883a
+; A bead of sweat fell down my forehead, but I continued to keep silent.
+На лбу выступила испарина, но я продолжил молчать.
+
+# 86a943b6
+; T.sfx>anger: You...
+T.sfx>anger: Ты...
+
+# 12beae83
+; He shook his head.
+Он покачал головой.
+
+# e9f08e70
+; T.f>neutral,sfx-: Very well. I see that you refuse to confess. I will continue.
+T.f>neutral,sfx-: Так тому и быть. Вижу, ты отказываешься признаваться. Я продолжу.
+
+# 5dee3bda
+; F.f>neutral,sweat: Well... I gotta say, I did hear what happened.
+F.f>neutral,sweat: Ну... Должен сказать, я слышал, что случилось.
+
+# 1c3ec109
+; T.f>neutral: And you are curious, I presume?
+T.f>neutral: И тебе любопытно узнать больше, я полагаю?
+
+# a079a2b6
+; F.f>sad: Um... yeah. Who were you talking to? And about who?
+F.f>sad: Эм... да. С кем ты говорил? И о ком?
+
+# f6b6b2c6
+; Trisetar raised a palm.
+Трисетар поднял ладонь.
+
+# 7c4fb395
+; T.f>neutral,sfx-: Silence. I will continue.
+T.f>neutral,sfx-: Молчать. Я продолжу.
+
+# 8bb3b906
+; T.f>anger: Kali is my sister. I was supposed to find her before you got in my way.
+T.f>anger: Кали — моя сестра. Я должен был найти её, но на моём пути встал ТЫ.
+
+# eaa88e9e
+; F.f>sad: It wasn't on purpose...
+F.f>sad: Я сделал это не намеренно...
+
+# 1aa6317b
+; T.f>neutral: She chooses to live among humans for some godforsaken reason.
+T.f>neutral: Она захотела жить среди людей чёрт знает по каким причинам.
+
+# 885b5b5d
+; F.f>neutral: I mean, if you're demons, doesn't that technically make you already—
+F.f>neutral: Но ведь вы же, по сути, и сами чер—
+
+# 20bcb731
+; T.f>anger,sfx>anger: Do not complete that sentence.
+T.f>anger,sfx>anger: Не смей заканчивать это предложение.
+
+# 304be8e9
+; F.f>sad: Fine.
+F.f>sad: Ладно.
+
+# 5f773b5c
+; F.f>neutral: It must be hard though, to lose a family member?
+F.f>neutral: Потерять члена семьи, должно быть, тяжело?
+
+# 8b163452
+; I didn't have any siblings, but I knew that family was close. Even though I knew it was inevitable, I was miserable when my mother passed away.
+У меня не было ни братьев ни сестёр, но я понимал, что это очень близкие люди. Я сам очень скорбел по смерти матери, хоть и знал, что это неизбежно произойдёт.
+
+# d863d2a4
+; T.f>neutral: I do not know what you speak of. Kali must be present to ascend the throne, as Father is going to pass.
+T.f>neutral: Понятия не имею, о чём ты говоришь. Кали должна вернуться и взойти на престол, потому что время Отца скоро придёт.
+
+# ec1f0f8b
+; F.f>sad: Oh. But I mean like... don't you miss her?
+F.f>sad: Оу. А ты, ну... разве не соскучился по ней?
+
+# 86ae620
+; Trisetar just blinked.
+В ответ Трисетар просто моргнул.
+
+# 308233
+; F.f>neutral: ...Nevermind. But... why were you looking for her at a Halloween party?
+F.f>neutral: ...Ладно, неважно. Но... почему ты искал её на той вечеринке?
+
+# df695322
+; T.f>anger,sfx>sweat: ...I recieved intelligence that several demon-like entities gathered in swathes during those events. And that specific location was in fact one of the largest.
+T.f>anger,sfx>sweat: ...До меня дошло известие, что подобные события привлекают разного рода демонических существ. То самое место было одним из крупных очагов.
+
+# 2f47d02c
+; F.f>neutral,sfx>sweat: Uh...
+F.f>neutral,sfx>sweat: Ого...
+
+# bfd17191
+; T.f>neutral,sfx>anger: Instead I ended up with <i>you</i>
+T.f>neutral,sfx>anger: Но в конечном итоге мне был послан <i>ты</i>.
+
+# be03a83d
+; F: H-Hey, I'll let you know that I'm a catch!
+F: Э-эй, тебе вообще-то крупно повезло со мной!
+
+# 73aa6120
+; T.f>neutral,sfx-: ...
+T.f>neutral,sfx-: ...
+
+# 87f5a2d
+; Crap, that was not the right thing to say. Then, I remembered an important question.
+Чёрт возьми, не стоило это говорить. И тут я вспомнил важный для меня вопрос.
+
+# 1bd3f3c4
+; @choice "Can I go home now?" goto:.home
+@choice "Раз так, могу ли я вернуться домой?" goto:.home
+
+# f1523d9d
+; @choice "I want to go outside!" goto:.outside
+@choice "Я хочу увидеть что снаружи замка!" goto:.outside
+
+# c916dde7
+; F.f>sad,sfx>sweat: So uh... now that you're done with all the formalities, can I go home now?
+F.f>sad,sfx>sweat: Ну, эм... Раз мы разобрались со всеми формальностями, могу ли я вернуться домой?
+
+# f7a5a916
+; Trisetar glared at me.
+Трисетар бросил на меня злобный взгляд.
+
+# fc8822d1
+; T: You fool. Since you messed with the transportation ritual, there is an additional three month gap before it can be performed again.
+T: Идиот. Ты вмешался в мой ритуал перемещения, и теперь я должен ждать три месяца, прежде чем снова смогу его провести.
+
+# 607b062f
+; F.f>shock: What?! Why would that—
+F.f>shock: Что?! Почему так дол—
+
+# 6ac3ca77
+; T.f>neutral: Magic is fickle. The mass transported must match the amount of magic used in a perfect ratio. If not, we are left with this mess.
+T.f>neutral: Магия переменчива. Общая масса переносимого тела должна в идеальной пропорции соответствовать количеству направленной на это магической силы. Даже малейшая ошибка может обернуться неприятными последствиями. Такими как сейчас.
+
+# 4bfa3b21
+; F.f>sad: But... I really want to go home!
+F.f>sad: Но... я очень хочу домой!
+
+# d173da58
+; Trisetar chewed on his lip. He looked strangely regretful.
+Трисетар прикусил губу. Его лицо выражало странное чувство сожаления.
+
+# 3f2e4a8c
+; T.f>anger: Very well. Simply stay inside until the time limit is lifted.
+T.f>anger: Так тому и быть. Я позволю тебе переждать временное ограничение внутри моего замка.
+
+# 4d1cd65f
+; I felt a strange feeling prick my chest. It was better than dying, but I really didn't want to spend three months inside that room.
+Я ощутил странное покалывание в груди. Это было лучше, чем умереть, но мне совсем не хотелось провести три месяца в той каморке.
+
+# bad43953
+; F.f>anger: Can I atleast go outside? This place seems really interesting, you can't just expect me to stay cooped up the entire time!
+F.f>anger: Можно я хотя бы выйду на улицу? Этот мир мне очень интересен, и ты не можешь ожидать, что я проведу все три месяца взаперти!
+
+# 943e2ff3
+; T.f>anger,sfx>anger: You fool! If not for you messing up this spell, I would not keep you here for another second. Because of this, I cannot perform the transportation rite for another three months!
+T.f>anger,sfx>anger: Идиот! Если бы ты не испортил моё заклинание, мне не пришлось бы терпеть твоё присутствие и секунды. Но теперь, из-за тебя я вынужден терпеливо ждать до тех пор, пока не смогу заново провести ритуал перемещения!
+
+# 5d5792bf
+; F.f>shock: I messed it up?
+F.f>shock: Из-за меня?
+
+# 8a8e5896
+; T.f>neutral: Yes.
+T.f>neutral: Да.
+
+# d3736986
+; F.f>neutral,sfx>sweat: Oh. Too bad! So while I'm here, can I go outside?
+F.f>neutral,sfx>sweat: Ой. Очень жаль! Но раз я здесь, можно мне выйти на улицу?
+
+# 2ad69926
+; T.f>anger,sfx-: No.
+T.f>anger,sfx-: Нет.
+
+# 71da0168
+; F.f>sad: Aw...
+F.f>sad: Эх...
+
+# 4deef0a4
+; I opened my mouth to retort, but was cut off by my stomach grumbling.
+Я открыл было рот, чтобы возразить, но меня перебило урчание моего живота.
+
+# b63c5878
+; F.sfx>blush: ...
+F.sfx>blush: ...
+
+# df7754cd
+; T.f>neutral: ...
+T.f>neutral: ...
+
+# 7f74e78b
+; F.sfx-: W-What about food? You've got to have more than oranges, right?
+F.sfx-: А к-как же еда? У тебя есть ещё апельсины, да?
+
+# c537f1de
+; T.f>anger: Hm? Do not worry about that. I shall ask Demetrius to procure some imp meat.
+T.f>anger: Хм? Об этом не беспокойся. Я попрошу Деметриуса раздобыть мясо бесов.
+
+# a111938c
+; F.f>anger: What?! I'm not going to eat imp meat!
+F.f>anger: Что?! Я не стану есть мясо бесов!
+
+# 25905df5
+; T: Humans are so fussy...
+T: Люди такие привередливые....
+
+# c7c8d87b
+; F.sfx>anger: I have a name, you know? It's Felix.
+F.sfx>anger: У меня вообще-то имя есть, ты в курсе? Меня зовут Феликс.
+
+# e0ccb57a
+; T.f>neutral: Irrelevant. I suppose I can ask Demetrius for more oranges.
+T.f>neutral: Неважно. Полагаю, я попрошу у Деметриуса ещё апельсинов.
+
+# 5850999d
+; I didn't know who this 'Demetrius' was, but he was clearly out of his mind if he thought I could live on oranges.
+Я не знал кто такой Деметриус, но он, должно быть, не в своем уме, раз он думал, что я способен выжить на одних лишь апельсинах.
+
+# aff41ab0
+; F.f>neutral: Argh! Humans need a balanced diet.
+F.f>neutral: Ох! Человеку требуется сбалансированное питание.
+
+# 53da3de2
+; Trisetar pinched the bridge of his nose.
+Трисетар сжал переносицу большим и указательным пальцами руки.
+
+# bfd90932
+; T.f>anger: Fine. Have it your way.
+T.f>anger: Хорошо. Пусть будет по твоему.
+
+# c94b3eba
+; He glanced into his office.
+Он повернулся в сторону своего кабинета.
+
+# e1ab0b81
+; T.f>neutral: We can discuss this in the morning. Take a rest. I must attend to my business.
+T.f>neutral: Мы можем обсудить это утром. А пока отдохни. Меня ждут дела.
+
+# d5749ede
+; F.f>shock,sfx-: (I suppose Hell does have day-night cycles, after all...?)
+F.f>shock,sfx-: (Всё-таки в Аду есть цикл дня и ночи?...)
+
+# 5edac227
+; F.f>neutral,sfx>sweat: Do you have enough food for breakfast, then?
+F.f>neutral,sfx>sweat: А у тебя хватит еды для завтрака?
+
+# e5d2983d
+; T.f>anger: Hm... I suppose not.
+T.f>anger: Хм... полагаю нет.
+
+# 4345972f
+; F.f>shock: I-I can't be eating imp meat! That's... just no.
+F.f>shock: Я н-не могу есть мясо бесов! Это просто... ну нет!
+
+# bd1a73dd
+; T.f>neutral: You are such a... Very well. We shall leave for the market now.
+T.f>neutral: Какой же ты... Так уж и быть. Мы пойдём на торговую площадь.
+
+# 7b10577f
+; F.sfx>flinch: Like, right now?
+F.sfx>flinch: Типа, прямо сейчас?
+
+# c1401e42
+; T.f>anger: Yes. I was about to visit to obtain some clues about Kali's whereabouts. You may get some food there as well.
+T.f>anger: Да. Я всё равно собирался в тот район, искать зацепки о местонахождении Кали. По пути ты можешь взять что-нибудь поесть.
+
+# 8e786377
+; F.f>sad,sfx-: Uh... okay.
+F.f>sad,sfx-: Э-э... ладно.
+
+# 7af468bd
+; F: (So that's his true motive...)
+F: (Так вот каков его истинный мотив...)
+
+# e74b2e3f
+; T.f>neutral: Very well.
+F.f>sad,sfx-: Вот и славно.
+
+# a7fc3d03
+; F: Well then, should I... disguise myself or something?
+F: Но в таком случае... я ведь должен замаскироваться?
+
+# 9226c129
+; Trisetar looked confused.
+Трисетар был в недоумении.
+
+# a1a29e97
+; T: Why?
+T: Почему?
+
+# cf6920fe
+; F: Because I don't have wings and horns. Or a...
+F: Потому что у меня нет ни рогов ни крыльев. И нет...
+
+# d1963681
+; My eyes trailed down his outfit.
+Я окинул глазами его наряд.
+
+# ebc201d9
+; F: Interesting costume.
+F: Интересного костюма.
+
+# f5f91fee
+; Trisetar sputtered.
+Трисетар зашипел.
+
+# 8c606370
+; T: Human, first realize this is not a costume. It is sacred attire.
+T: Смертный, да будет тебе известно, что это не костюм, а священное одеяние.
+
+# 28174698
+; T: Most demons do not have horns and wings. That is only a privilege shared among us in high ranks.
+T: И у большинства демонов нет ни рогов, ни крыльев. Это привилегия, которой удостоены только высшие чины.
+
+# 8375781b
+; F: Oh okay.
+F: Ой. Хорошо.
+
+# f07da676
+; T: I will need to disguise myself. Not you.
+T: Это я должен замаскироваться. Не ты.
+
+# 6ab6927c
+; F: Cool. So... are you going to do it?
+F: Круто! Так ты... сделаешь это сейчас?
+
+# a7a234d9
+; T: Yes.
+T: Да.
+
+# 5b9ef2a0
+; F: ...
+F: ...
+
+# 8b98b9d6
+; T: ...
+T: ...
+
+# d42cfe46
+; F: Uh... Aren't you supposed to be in disguise?
+F: И где твоя маскировка?
+
+# e81b8850
+; T: I am in disguise.
+T: На мне.
+
+# 5b9ef2a0
+; F: ...
+F: ...
+
+# 8b98b9d6
+; T: ...
+T: ...
+
+# 1d1f0f6c
+; F: I don't notice anything different.
+F: Я не замечаю разницы.
+
+# 434d7316
+; T: Of course you don't. This disguise is not meant for human eyes.
+T: Конечно не замечаешь. Эта маскировка не для человеческих глаз.
+
+# 76d90c78
+; F: Oh. But why wouldn't it work on humans?
+F: О. А почему она не работает на людях?
+
+# 121d7888
+; T: Because humans and demons are not only different species, they're also from different realms.
+T: Потому что люди и демоны это не просто разные виды. Мы из разных миров.
+
+# 698a1d57
+; F: I guess that makes sense.
+F: Наверное, это не лишено смысла.
+
+# 8378eaea
+; T: Of course, it's far more difficult to cast a spell that disguises a demon from it's own kind.
+T: Разумеется, сотворить заклятие, способное сокрыть сущность демона от его же сородичей в сотни раз труднее.
+
+# a90ae425
+; T: It takes a truly powerful demon such as I to cast one like that.
+T: Эта задача по силам только поистине могущественным сущностям. Таким как я.
+
+# cf3070b
+; F: What would be harder is a spell that makes you tolerable.
+F: Могущественный и совершенно невыносимый.
+
+# fce11e7e
+; T: Excuse me?
+T: Что ты сказал?
+
+# c7f84dcc
+; F: Uh... nothing!
+F: Э-э... Ничего!
+
+# c8fd6457
+; Tris looked skeptical but stayed quiet.
+Трисетар посмотрел на меня с недоверием, но всё же промолчал.

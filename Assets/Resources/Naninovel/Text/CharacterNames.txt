@@ -1,0 +1,8 @@
+D: {catName}
+F: Felix
+N: Vanessa
+oldLady: Old Lady
+RandomGuy: Random Person
+shutters: shutters
+T: {trisname}
+T2: T2

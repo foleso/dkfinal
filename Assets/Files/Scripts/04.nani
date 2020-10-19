@@ -1,0 +1,359 @@
+I walked into the mansion with the demon guy.
+@bgm blueBoi
+@back hellHallway.RadialBlur time:2
+@char F.default pos:25 scale:.4688
+@char T.default pos:75 scale:.4688
+;@voice f/086_Surprise2
+F.f>shock: (Woah, this place is huge!)
+F.f>neutral: (I wonder what this demon guy does for a living...)
+I realized I was still calling him "Demon Guy" and not by his name.
+;@voice f/068_Thinking3
+F.sfx>sweat: What's your name?
+;@voice t/021_Damage1
+T.f>anger: A mere mortal does not require that information.
+;@voice f/021_Damage1
+F.f>sad,sfx>sweat: Maybe, but calling you "Demon Guy" may not be the best.
+He glared at me.
+;@voice t/065_Discover3
+T.f>anger: Do not call me that, unless you wish to become the dust under my feet.
+;@voice f/075_Anger1
+F.f>neutral,sfx>sweat: Uh... I don't?
+He looked at me skeptically.
+;@voice t/071_Suspicious2
+T.f>neutral: You do not sound sure.
+;@voice f/079_Shyness1
+F.f>shock: I don't! I definitely don't!
+Demon Guy looked so done. I didn't blame him.
+;@voice t/067_Thinking2
+T.f>anger: Very well. You may call me T̶̢̧̨̞̱̺͈̱̓͜r̸̥̼͍̱̥̞̉̊͘i̴̮͛̽̀̀ş̴͓̀̕ḛ̶̥̊̒̆̄͂̅̈́̔͂͝t̷̡̨̥̟̊̓̔̔̕ͅa̴͔̤͍͍̬̬̗̎̐̓̈́͘r̶̢̨̤̪̾͊̋̇̽̈̉ ̶̢͇̦͙̪̹̣͚͗̂͘v̷̧̠̝̺̚͘o̵̢̲̜̝͍̎̃͛n̷͎̠̲͛́͌̓̃̏̌͜͝ ̵̞̜̳͎̬͓͖͇̻̄̊̃̑̐̊̉̕F̶̧̛̹̮͕͔̫͓͍̤͖͂l̶̛͇̳͚̓̽́̐ỏ̴̧̬̤̎̏͆̈̇́o̸̹͋͆̈̏̂̀͠f̸͓͕̮̯̠̠̺̗̹̭̓́̅̎̐̌͘
+
+
+;@voice f/083_Shy1
+F.f>neutral,sfx>sweat: Uh... It doesn't exactly roll off the tongue.
+
+;@voice t/051_Ok1
+T.f>neutral: That may be so. Mere mortal tongues are not meant to speak it. In that case, refer to me as "Trisetar" henceforth.
+
+;@voice f/056_Deny3
+F.f>sad: Okay.
+@set trisname=T_Trisetar
+It wasn't very short either, but I wasn't about to complain. It was better than before.
+@back black time:1 wait:true
+@back hellHallway.RadialBlur time:1
+After a walk that was far too long, we finally reached the interior of the mansion.
+@spawn ShakeCharacter params:,2,0.4,,,,true,false
+;@voice "f/077_Feel down1"
+F.f>sad,sfx>sweat: Huff... puff...
+
+;@voice t/071_Suspicious2
+T.f>anger,sfx>sweat: It has been a while since I'd interacted with mortals, but I do recall them having far superior athleticism.
+
+;@voice f/021_Damage1
+F.f>neutral,sfx>sweat: Uh, yeah. About that.
+I was too embarrassed to admit I'd never really exercised. And I don't think walking to the kitchen for a fresh bag of nachos was 'exercise.'
+F.f>sad: It's... different for me.
+
+;@voice "t/041_Medium attack4"
+T.f>anger: Hmph. It doesn't concern me.
+F.f>neutral,sfx-: (...Really?)
+He walked down the hallway and opened a door.
+# room
+@back tinyRoom
+;@voice t/103_Abuse1
+T.f>neutral,sfx-: This is where you will stay. Do not leave this room under any circumstances.
+@sfx door
+@char T visible:false scale:.4688
+A million questions and statements flew into my head, but the door slammed shut.
+I looked around the barren room. It was dark and gloomy, with barely anything in it.
+@sfx grumble
+Then, my stomach rumbled.
+@char F.sfx>blush scale:.4688
+Ugh... I hadn't eaten a single thing during the party. I was so hungry. I was in a demon realm, but there'd probably be food, right...?
+I looked around. I wasn't going to risk getting killed by leaving, or perhaps meeting up with a less altruistic demon.
+But I felt a lot of strange feelings, and wasn't sure how to process it.
+;@voice "f/126_growth_Level up2"
+F.f>sad,sfx-: I...
+@choice "Want to go back to my old life." goto:.old
+@choice "Feel strangely excited." goto:.new
+@stop
+
+# old
+@set home=home+1
+My old life was boring and mundane.
+Every new day simply meant I had to tell people to turn their computers on and off again. Or explain that shouting at a laptop didn't make it work.
+But... It was what I always knew. And it had its good times. Like getting back home and relaxing while playing games.
+Unfortunately, it seemed my fate was to be stuck inside a tiny room indefinitely.
+@goto .demetrius
+
+# new
+@set hell=hell+1
+Maybe this new realm was strange and scary, sure.
+But it was different! A breath of fresh air (literally.) Pretty ironic that Hell had better air than Los Angeles.
+I really wanted to see what was out there. Too bad I was stuck inside a tiny room.
+@goto .demetrius
+
+# demetrius
+F.f>neutral: ...Hm...
+I didn't want to spend all day just staring at a wall.
+F.f>sad: (Day? Did Hell even have a day-night cycle? Was it 24-hours? How does time work here?)
+@char D.frown pos:75,3
+As I was pondering those questions, a small black cat walked up to me, balancing oranges on its head.
+;@voice f/073_Joy2
+F.f>happy: Aw...!
+I was always a cat person, so I couldn't help opening my arms to welcome it.
+But it just stared at me coldy.
+;@voice f/076_Anger2
+F: Wow, you sure have an attitude, huh?
+Despite that, I couldn't help find it super adorable.
+The cat got closer and dumped three oranges in my lap.
+;@voice f/081_Satisfaction1
+F.sfx>blush: Aw... you're a sweetheart!
+I opened my arms to welcome it, but it just stared at me in disgust.
+Although I'd like to have played with it, the oranges caught my attention. I was far too hungry to ignore it.
+I greedily started peeling the oranges and munching them down.
+;@voice f/082_Satisfaction2
+F.sfx-: Wow, these are great!
+@char D visible:false
+After I finished the third orange in a matter of minutes, I felt somewhat sated.
+I looked for the cat to thank it, but it was gone.
+;@voice f/025_Damage5
+@spawn ShakeCharacter params:F wait:false
+F.f>shock: Oh no!
+I got off the bed and looked for it. But it wasn't just hiding in the room, it definitely left. Strangely, I didn't hear it.
+I held the bundle of peels in my hand, but didn't know what to do with it.
+;@voice f/054_Deny1
+F.f>sad: Doesn't look like there's a trashcan here...
+A strange vision popped in my head of Trisetar smiting me for leaving food waste on his floor...
+Such a scenario was unlikely, but I felt rattled. Besides, he couldn't expect me to stay inside forever, could he?
+
+I cracked open the door slightly. No one was in sight.
+F.f>anger: (Okay Felix. You can do this.)
+@back hellHallway
+I opened the door fully and stepped out into the hallway. Still, there was no one. After walking for a bit, all I saw was an endless number of doors. No sign of a kitchen or trash can.
+
+;@voice "f/016_Dying turn2"
+F.f>sad: Oh no...
+I was lost.
+
+;@voice "f/018_Abnormal state turn2"
+F.f>shock: (Where am I?!)
+I turned around to go back. But then, I heard a familiar voice.
+
+
+# trisOverhear
+;@voice "t/027_Large damage2"
+T: ...I am telling you, I have not had ANY contact with her!
+Out of instinct, I duck next to the door and peek into the room.
+@char F visible:false
+
+@back trisOffice
+@char T.default pos:75 visible:true
+Trisetar is standing at the back of his office, holding up a crystal in his palm.
+I heard a small voice coming out from the crystal, but it was too far away for me to hear.
+
+;@voice "t/041_Medium attack4"
+T.f>anger: Father. I speak the truth. Kali has not responded to my calls. I fear she has taken refuge among the humans.
+I heard shrieking from the crystal, and flinched. Luckily, it seemed Trisetar didn't hear me.
+;@voice t/055_Deny2
+T.f>neutral,sfx>sweat: I understand your concern. I took steps to locate her, but there was an... unfortunate incident. As a result, the search was delayed.
+;@voice t/053_Ok3
+T.f>anger,sfx-: ...I see. Very well. I will not fail.
+He placed the crystal down onto the windowsill and turned around. He walked toward the door, and I froze.
+@char F visible:True
+;@voice "f/126_growth_Level up2"
+F.f>shock,sfx>flinch: I was just... uh...
+I pointed to the orange peels in my hands.
+;@voice f/083_Shy1
+F.sfx-: Looking for a place to dump this! I swear!
+Trisetar narrowed his eyes.
+He pointed a long, black nail to the orange peels and they vanished.
+@spawn ShakeCharacter params:F
+;@voice "f/120_Get shocked2"
+F: Wah! Where did they go?!
+;@voice "t/077_Feel down1"
+Trisetar sighed.
+T.f>neutral: Now. Be truthful: What did you hear?
+@choice "Keep quiet." goto:.quiet
+@choice "Ask about it." goto:.heard
+@stop
+
+# quiet
+I kept my mouth shut.
+Trisetar eyed me carefully.
+;@voice t/021_Damage1
+T.f>anger: I am aware that you overheard the conversation.
+A bead of sweat fell down my forehead, but I continued to keep silent.
+;@voice t/076_Anger2
+T.sfx>anger: You...
+He shook his head.
+;@voice "t/077_Feel down1"
+T.f>neutral,sfx-: Very well. I see that you refuse to confess. I will continue.
+@set home=home+1
+@goto .kali
+
+# heard
+;@voice f/067_Thinking2
+F.f>neutral,sweat: Well... I gotta say, I did hear what happened.
+T.f>neutral: And you are curious, I presume?
+;@voice f/052_Ok2
+F.f>sad: Um... yeah. Who were you talking to? And about who?
+Trisetar raised a palm.
+;@voice t/083_Shy1
+T.f>neutral,sfx-: Silence. I will continue.
+@set hell=hell+1
+@goto .kali
+
+# kali
+;@voice t/066_Thinking1
+T.f>anger: Kali is my sister. I was supposed to find her before you got in my way.
+;@voice t/075_Anger1
+F.f>sad: It wasn't on purpose...
+;@voice t/071_Suspicious2
+T.f>neutral: She chooses to live among humans for some godforsaken reason.
+;@voice f/083_Shy1
+F.f>neutral: I mean, if you're demons, doesn't that technically make you already—
+;@voice t/103_Abuse1
+T.f>anger,sfx>anger: Do not complete that sentence.
+;@voice f/099_Apologize1
+F.f>sad: Fine.
+F.f>neutral: It must be hard though, to lose a family member?
+I didn't have any siblings, but I knew that family was close. Even though I knew it was inevitable, I was miserable when my mother passed away.
+;@voice t/055_Deny2
+T.f>neutral: I do not know what you speak of. Kali must be present to ascend the throne, as Father is going to pass.
+;@voice "f/078_Feel down2"
+F.f>sad: Oh. But I mean like... don't you miss her?
+Trisetar just blinked.
+F.f>neutral: ...Nevermind. But... why were you looking for her at a Halloween party?
+;@voice t/023_Damage3
+T.f>anger,sfx>sweat: ...I recieved intelligence that several demon-like entities gathered in swathes during those events. And that specific location was in fact one of the largest.
+;@voice f/023_Damage3
+F.f>neutral,sfx>sweat: Uh...
+;@voice t/055_Deny2
+T.f>neutral,sfx>anger: Instead I ended up with <i>you</i>
+@spawn ShakeCharacter params:F,3,,,,,true,false
+;@voice "f/113_Watch out1"
+F: H-Hey, I'll let you know that I'm a catch!
+T.f>neutral,sfx-: ...
+Crap, that was not the right thing to say. Then, I remembered an important question.
+@choice "Can I go home now?" goto:.home
+@choice "I want to go outside!" goto:.outside
+@stop
+
+# home
+@set home=home+1
+;@voice f/116_Hold2
+F.f>sad,sfx>sweat: So uh... now that you're done with all the formalities, can I go home now?
+@char T.f>anger,sfx>anger
+Trisetar glared at me.
+@camera offset:2,1.5 zoom:.4 wait:true
+;@voice "t/041_Medium attack4"
+T: You fool. Since you messed with the transportation ritual, there is an additional three month gap before it can be performed again.
+@camera offset:0 zoom:0
+;@voice "f/119_Get shocked1"
+F.f>shock: What?! Why would that—
+;@voice t/116_Hold2
+T.f>neutral: Magic is fickle. The mass transported must match the amount of magic used in a perfect ratio. If not, we are left with this mess.
+;@voice f/116_Hold2
+F.f>sad: But... I really want to go home!
+Trisetar chewed on his lip. He looked strangely regretful.
+;@voice t/052_Ok2
+T.f>anger: Very well. Simply stay inside until the time limit is lifted.
+I felt a strange feeling prick my chest. It was better than dying, but I really didn't want to spend three months inside that room.
+@goto .market
+
+# outside
+@set hell=hell+1
+;@voice f/101_Amazed1
+F.f>anger: Can I atleast go outside? This place seems really interesting, you can't just expect me to stay cooped up the entire time!
+@camera offset:2,1.5 zoom:.4 wait:true
+;@voice t/021_Damage1
+T.f>anger,sfx>anger: You fool! If not for you messing up this spell, I would not keep you here for another second. Because of this, I cannot perform the transportation rite for another three months!
+@camera offset:0 zoom:0
+;@voice f/086_Surprise2
+F.f>shock: I messed it up?
+@spawn ShakeCharacter params:T wait:false
+;@voice t/051_Ok1
+T.f>neutral: Yes.
+;@voice f/100_Apologize2
+F.f>neutral,sfx>sweat: Oh. Too bad! So while I'm here, can I go outside?
+;@voice t/054_Deny1
+T.f>anger,sfx-: No.
+;@voice f/101_Amazed1
+F.f>sad: Aw...
+
+# market
+I opened my mouth to retort, but was cut off by my stomach grumbling.
+@sfx grumble
+F.sfx>blush: ...
+T.f>neutral: ...
+;@voice f/021_Damage1
+F.sfx-: W-What about food? You've got to have more than oranges, right?
+;@voice t/063_Discover1
+T.f>anger: Hm? Do not worry about that. I shall ask Demetrius to procure some imp meat.
+@spawn ShakeCharacter params:F,2,,,,,true,false
+;@voice f/061_Reply2
+F.f>anger: What?! I'm not going to eat imp meat!
+T: Humans are so fussy...
+F.sfx>anger: I have a name, you know? It's Felix.
+;@voice t/055_Deny2
+T.f>neutral: Irrelevant. I suppose I can ask Demetrius for more oranges.
+I didn't know who this 'Demetrius' was, but he was clearly out of his mind if he thought I could live on oranges.
+;@voice f/075_Anger1
+F.f>neutral: Argh! Humans need a balanced diet.
+Trisetar pinched the bridge of his nose.
+T.f>anger: Fine. Have it your way.
+He glanced into his office.
+T.f>neutral: We can discuss this in the morning. Take a rest. I must attend to my business.
+F.f>shock,sfx-: (I suppose Hell does have day-night cycles, after all...?)
+F.f>neutral,sfx>sweat: Do you have enough food for breakfast, then?
+;@voice t/054_Deny1
+T.f>anger: Hm... I suppose not.
+F.f>shock: I-I can't be eating imp meat! That's... just no.
+T.f>neutral: You are such a... Very well. We shall leave for the market now.
+;@voice f/023_Damage3
+F.sfx>flinch: Like, right now?
+T.f>anger: Yes. I was about to visit to obtain some clues about Kali's whereabouts. You may get some food there as well.
+F.f>sad,sfx-: Uh... okay.
+F: (So that's his true motive...)
+;@voice t/052_Ok2
+T.f>neutral: Very well.
+F: Well then, should I... disguise myself or something?
+Trisetar looked confused.
+T: Why?
+;@voice "f/126_growth_Level up2"
+F: Because I don't have wings and horns. Or a...
+My eyes trailed down his outfit.
+F: Interesting costume.
+Trisetar sputtered.
+T: Human, first realize this is not a costume. It is sacred attire.
+T: Most demons do not have horns and wings. That is only a privilege shared among us in high ranks.
+F: Oh okay.
+;@voice t/055_Deny2
+T: I will need to disguise myself. Not you.
+F: Cool. So... are you going to do it?
+T: Yes.
+F: ...
+T: ...
+;@voice f/070_Suspicious1
+F: Uh... Aren't you supposed to be in disguise?
+T: I am in disguise.
+F: ...
+T: ...
+F: I don't notice anything different.
+;@voice "t/077_Feel down1"
+T: Of course you don't. This disguise is not meant for human eyes.
+F: Oh. But why wouldn't it work on humans?
+T: Because humans and demons are not only different species, they're also from different realms.
+;@voice f/066_Thinking1
+F: I guess that makes sense.
+T: Of course, it's far more difficult to cast a spell that disguises a demon from it's own kind.
+T: It takes a truly powerful demon such as I to cast one like that.
+;@voice f/075_Anger1
+F: What would be harder is a spell that makes you tolerable.
+;@voice t/063_Discover1
+T: Excuse me?
+F: Uh... nothing!
+Tris looked skeptical but stayed quiet.
+; [BG change, market]
+
+@goto 05

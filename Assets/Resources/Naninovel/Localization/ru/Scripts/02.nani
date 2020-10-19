@@ -1,0 +1,309 @@
+; Localization script for `02`
+
+# f4d8ad08
+; Ugh...
+Ох...
+
+# aca87b29
+; My palms felt sweaty.
+Ладони вспотели.
+
+# 10d90ef7
+; People in flashy costumes were everywhere, laughing and talking.
+Повсюду были люди в ярких костюмах, они разговаривали и смеялись.
+
+# 66783d20
+; Not that I could hear them over the music that was blaring from God knows where... I was starting to regret it.
+Не то чтобы я мог различить их речь за орущей Бог знает откуда музыкой... Я начинал сожалеть о том, что согласился сюда прийти.
+
+# 367d68e
+; I brushed a hand over my head.
+Я провёл рукой по волосам.
+
+# 5362d8fe
+; F: Do I look okay?
+F: Нормально выгляжу?
+
+# 1f5b4b87
+; N: Felix, this is like the fifth time you've asked this question.
+N: Феликс, ты уже раз в пятый спрашиваешь.
+
+# 765fe75a
+; F.f>anger: But I need to know!
+F.f>anger: Но я должен знать!
+
+# b06160e0
+; Nessie shook her head.
+Несси покачала головой.
+
+# 5c6562aa
+; N.f>happy: You like like a dork.
+N.f>happy: Похож на зануду!
+
+# 743c431e
+; F.f>neutral,sfx>sweat: Urk!
+F.f>neutral,sfx>sweat: Ой!..
+
+# 35e72d04
+; N.f>neutral,sfx>sweat: But that's fine! That's the point. If anyone asks, tell them you're dressing up as a nerd.
+N.f>neutral,sfx>sweat: Да ничего страшного! В этом вся фишка. Если кто-то спросит, скажи, что нарядился в задрота.
+
+# b86856f7
+; That sure helped my self-confidence...
+Это едва ли пошло моей уверенности на пользу...
+
+# 6a9c885a
+; Nessie took my hand and squeezed it.
+Несси взяла мою руку и крепко её сжала.
+
+# 8a5b6546
+; N.f>neutral: Don't worry about it, big guy! It'll be fine.
+N.f>neutral: Не парься, красавчик! Всё будет в порядке.
+
+# 69a781b
+; F.f>sad,sfx-: If you say so...
+F.f>sad,sfx-: Ну раз ты так говоришь...
+
+# d04b7a14
+; I took a deep breath and followed Vanessa into the house.
+Я сделал глубокий вдох, и мы вошли.
+
+# e920cd68
+; I felt my palms shake.
+Руки задрожали.
+
+# 7b9f8e91
+; F.f>anger,sfx>sweat: So... <i>many</i> people...
+F.f>anger,sfx>sweat: Как... <i>много</i> людей...
+
+# 7eb8cce6
+; Nessie was swarmed by a horde of people who all seemed excited to see her.
+Несси окружила целая толпа знакомых, которые, видимо, были рады её видеть.
+
+# 784c1263
+; N.f>happy,sfx>sparkle: Hey guys! This is my bestie, Felix—
+N.f>happy,sfx>sparkle: Привет, ребята! Это мой лучший друг, Феликс—
+
+# afac3ba0
+; They turned to look at me for a second and gave me a polite nod in acknowledgement. They quickly went back to chattering about something I didn’t understand.
+Они на секунду повернулись в мою сторону, вежливо кивнули и продолжили болтать о чём-то мне непонятном.
+
+# 4c3edd84
+; Ignoring Nessie's protests, I made my way to the kitchen and looked at my options.
+Несмотря на возражения Несси, я пробрался на кухню в поисках выпивки.
+
+# d8a1fce3
+; She said the party was supposed to be fancy, but I got no sense of it so far.
+По её словам, вечеринка обещала быть шикарной, но я этого не ощущал.
+
+# 22b379f7
+; F.f>neutral,sfx-: Hm...
+F.f>neutral,sfx-: Хм...
+
+# 1f754b68
+; I picked up a red cup and looked around.
+Я взял пластиковый стаканчик и осмотрелся.
+
+# a8c427af
+; There were a bunch of different bottles strewn around the kitchen. Some were on the counter, one was... in a shoe?!
+На кухне были разбросаны разные бутылки. Часть из них стояла на барной стойке, а одна торчала из... ботинка?!
+
+# 34fe01b8
+; F.f>sad: What should I try?
+F.f>sad: Что же мне выбрать?
+
+# a7975e90
+; @choice "Look in the fridge for juice" goto:.juice
+@choice "Поискать в холодильнике сок." goto:.juice
+
+# 28ed8674
+; @choice "The bottle in the shoe." goto:.shoe
+@choice "Достать бутылку из ботинка." goto:.shoe
+
+# eda31357
+; @choice "Get something from the counter." goto:.regular
+@choice "Взять что-нибудь с барной стойки." goto:.regular
+
+# baefb4d2
+; Yeah, I wasn't going to risk it. I had no idea what these drinks were, and I wasn't going to risk it.
+Я и понятия не имел о том, что это за напитки, поэтому рисковать не стал.
+
+# cfbc9fd3
+; I opened the fridge and pulled out a bottle of orange juice.
+Я открыл холодильник и достал оттуда бутылку апельсинового сока.
+
+# f3ec7d81
+; I picked it up and turned it around in my hand.
+Подняв её на уровень глаз, покрутил в руке.
+
+# c9c4af7
+; F.f>neutral: Seems safe enough.
+F.f>neutral: Вроде ничего подозрительного.
+
+# f0096857
+; I opened the lid and poured it into the cup, then placed the drink to my lips.
+Я открыл и крышку налил напиток в свой стаканчик, а затем поднёс его к губам.
+
+# 649f2884
+; You only live once, right? Since I was at this party, might as well go all out.
+Один раз ведь живём, верно? Раз я пришёл на вечеринку, нужно отрываться.
+
+# 35b4b337
+; I bent down and picked the bottle up from the shoe. A stranger shot me a strange look, but I wasn't going to let that stop me.
+Я наклонился и вытащил бутылку из ботинка. Незнакомый мне человек странно покосился, но меня это не остановило.
+
+# 85578e39
+; I picked it up and observed it.
+Подняв бутылку на уровень глаз, я осмотрел её.
+
+# 85653e8c
+; It just had "beer" written on it in Comic Sans. Clearly a sign of great class.
+На ней было написано "Пиво". Шрифтом "Comic Sans". И больше ничего. О да, это верный знак качества.
+
+# 2ae2dab3
+; I poured the contents into a cup. I wrinkled my nose at the smell.
+Я налил содержимое в стаканчик. Нос рефлекторно сморщился от запаха.
+
+# 289f4e19
+; F.f>anger: (Here goes nothing...!)
+F.f>anger: (Была не была!..)
+
+# ac1eeaf3
+; I squished my eyes together and brought the cup to my lips.
+Я зажмурил глаза и поднёс стаканчик к губам.
+
+# 24ff4e65
+; Even though the party didn't look special, there probably <i>was</i> some good stuff if I looked hard enough.
+Хоть на первый взгляд вечеринка и не была чем-то особенным, здесь <i>должна</i> была быть нормальная выпивка. Стоило только поискать.
+
+# 90cec544
+; After rummaging around, I finally found a fancy-looking bottle of wine.
+Немного порывшись, я наконец обнаружил бутылку элитного на вид вина.
+
+# 1c77ff4d
+; The label was  written in a language I couldn't understand, which meant it had to be good, right? I mean, surely…?
+Надпись на этикетке на незнакомом языке, а значит, вино хорошее, верно? Так ведь?..
+
+# 6052d279
+; I poured myself a cup and brought it to to my lips.
+Я наполнил стаканчик и поднёс его к губам.
+
+# 3664e3fe
+; F: What the?!
+F: Что за?!
+
+# 30e72981
+; I dropped the cup in surprise. My feet were soaked, but that wasn't my concern at the moment.
+От удивления я уронил пластиковый стаканчик. Я облился, но в тот момент это заботило меня меньше всего.
+
+# d642851b
+; RandomGuy: Holy shit! Look at that guy!!
+RandomGuy: Чёрт возьми! Вы только посмотрите на этого парня!
+
+# f4214dab
+; My curiousity got the best of me, so I moved into the living room to see what was happening.
+Моё любопытство взяло верх, и я переместился в гостиную посмотреть, что там происходило.
+
+# 72b2ec2f
+; F.f>shock: Woah.
+F.f>shock: Ух ты...
+
+# e8e6735
+; A guy in the most realistic halloween costume I'd ever seen stood in the doorway.
+На пороге стоял парень в самом реалистичном костюме что я когда-либо видел.
+
+# 2897a4ec
+; He looked like a real demon! Even his hands were glowing! I was actually pretty impressed.
+Он выглядел словно настоящий демон! Даже руки светились! Действительно, очень впечатляет.
+
+# 497265dc
+; F.f>sad,sfx>sweat: (Woah...)
+F.f>sad,sfx>sweat: (Ух...)
+
+# 21a58fa
+; But why was everyone screaming?
+Но почему все кричат?
+
+# 9eae650b
+; He lifted his hand in the air.
+Он поднял руки в воздух.
+
+# 1925f4e5
+; T: ̤͓̥e̵̢̝̬̻̰̼̖̽̈́̀̇͂̾͐́̂̌́̏́͘a̸͉͐̈̽̀̌̏̓̃̍͒̏̕͠͝s̷̛̗̯̟̋́̀̒́͌̉͗̀̓̈̚͝͠d̶̨̼̳̖͎͚̘̥̼̩͆̓̋̈̈̆͛̂̔͘f̵̨̺͖̝͓̞̤̰̣̩̫̯̓̎͋̇͛͒̀̍͊̚ͅv̵̻͇͔̳̟͕̐́͛̀̉̈́̑̈́̌̾́͝u̸͓̔̀̎̌̐͋͝i̶̤̞̰̲͛͆̉̉̚͜e̸͉͖͓͒̓ķ̵̦͈̹̤̖̺͇̱̺̻̓͑͂̆̆̂͗̓j̵̡̘͔͓͖̤̺͖̟̙̺͔̠͈͋̃̆͌͛̃̏w̷̫̟̭̘͉̩͍̲͒̄̔͐̃̆̾́̍̈́͗͛͘͜ͅḧ̴͍̳̜͇́͛̊̏̕n̶͔̲͉̘͗͆̅͝d̵̖͔̹̩͌́͘v̸̟͙̻̹͙͔̥͖̳̀̂̍͒ͅh̴̩̗̯̖̼͔̟͋̅̊̊̎̃͑̓̊͗̐͛͠͝;̵̢͔̟̮̹̙̺͍̱̳̗͆̿͐̾̂̈̑̍͑̑͘͘͜͝ͅĭ̷͈̺̱̮̙̤̔̆̀̀̀͊ĥ̸̢̦̣͓̒̉̿o̵̰̥̦̰̞͕͗͒̚͜w̸̡̢̺̜͇̹̪̥̝̙͈̿̔͋̓͌̾̀͒̈̽̄̃͗̓ͅt̸͕͚͔̦̀̅̇̎̃̑̃̿͆̐̀̋̓̕n̷̛̹̜̞̮͍̘̥̻̤̏͆̎͋͠ļ̴̛͕̯̣̠̪̫͖͍͍͚͉̲͔͂̽̀͌̍̈́́̊̎̈́̾̾͝k̴̥̟͕̦̑ŗ̸̧̪̟̯̥͕̦͍͍͚̋̿̏͗̈́̽͋͆̎́̏͋̓͜͝͝f̴̨̭̖͚̞͚͔̐̅̓͆̉͐͌́̕̕̕͘ͅs̶̘̞͉͖̣̩̤̖̪̜̭̳̙̲͗͂ͅḑ̶̢̻̬͙͇̞͕͎͍̼̼̀́̽͜ͅv̵͙̣͈͙̗̈́̃̓͠c̴̢̳̟̦̲̱̝͔̘̠̑̊̈́̎̀̔̏͛̒̉̏̈̂̂́x̵̛̜͍̲̱̖̗;̵̡̠̯̟͔͖̦̫͗͆́͗̂̊̀̍͆̐̕͠͝ͅ
+T: ̤͓̥e̵̢̝̬̻̰̼̖̽̈́̀̇͂̾͐́̂̌́̏́͘a̸͉͐̈̽̀̌̏̓̃̍͒̏̕͠͝s̷̛̗̯̟̋́̀̒́͌̉͗̀̓̈̚͝͠d̶̨̼̳̖͎͚̘̥̼̩͆̓̋̈̈̆͛̂̔͘f̵̨̺͖̝͓̞̤̰̣̩̫̯̓̎͋̇͛͒̀̍͊̚ͅv̵̻͇͔̳̟͕̐́͛̀̉̈́̑̈́̌̾́͝u̸͓̔̀̎̌̐͋͝i̶̤̞̰̲͛͆̉̉̚͜e̸͉͖͓͒̓ķ̵̦͈̹̤̖̺͇̱̺̻̓͑͂̆̆̂͗̓j̵̡̘͔͓͖̤̺͖̟̙̺͔̠͈͋̃̆͌͛̃̏w̷̫̟̭̘͉̩͍̲͒̄̔͐̃̆̾́̍̈́͗͛͘͜ͅḧ̴͍̳̜͇́͛̊̏̕n̶͔̲͉̘͗͆̅͝d̵̖͔̹̩͌́͘v̸̟͙̻̹͙͔̥͖̳̀̂̍͒ͅh̴̩̗̯̖̼͔̟͋̅̊̊̎̃͑̓̊͗̐͛͠͝;̵̢͔̟̮̹̙̺͍̱̳̗͆̿͐̾̂̈̑̍͑̑͘͘͜͝ͅĭ̷͈̺̱̮̙̤̔̆̀̀̀͊ĥ̸̢̦̣͓̒̉̿o̵̰̥̦̰̞͕͗͒̚͜w̸̡̢̺̜͇̹̪̥̝̙͈̿̔͋̓͌̾̀͒̈̽̄̃͗̓ͅt̸͕͚͔̦̀̅̇̎̃̑̃̿͆̐̀̋̓̕n̷̛̹̜̞̮͍̘̥̻̤̏͆̎͋͠ļ̴̛͕̯̣̠̪̫͖͍͍͚͉̲͔͂̽̀͌̍̈́́̊̎̈́̾̾͝k̴̥̟͕̦̑ŗ̸̧̪̟̯̥͕̦͍͍͚̋̿̏͗̈́̽͋͆̎́̏͋̓͜͝͝f̴̨̭̖͚̞͚͔̐̅̓͆̉͐͌́̕̕̕͘ͅs̶̘̞͉͖̣̩̤̖̪̜̭̳̙̲͗͂ͅḑ̶̢̻̬͙͇̞͕͎͍̼̼̀́̽͜ͅv̵͙̣͈͙̗̈́̃̓͠c̴̢̳̟̦̲̱̝͔̘̠̑̊̈́̎̀̔̏͛̒̉̏̈̂̂́x̵̛̜͍̲̱̖̗;̵̡̠̯̟͔͖̦̫͗͆́͗̂̊̀̍͆̐̕͠͝ͅ
+
+# ac48c3fc
+; F.f>anger,sfx-: What is he saying...?
+F.f>anger,sfx-: Что он говорит?..
+
+# a3de59f0
+; A man flew across the room and crashed into a wall.
+Один из гостей пролетел через всю комнату и вмазался в стену.
+
+# e611daa9
+; Oh. That's why they were screaming.
+А. Так вот почему они кричат.
+
+# 8b89bbc1
+; For a moment, I stood transfixed. But when the strange man started moving, instinct took over.
+Увиденное парализовало меня. Но когда этот странный мужчина снова начал движение, мои инстинкты пробудились.
+
+# 61e6020
+; I scanned the room for a hiding spot. It was hard to see over the crowd of restless half-naked folk, but I found a small closet tucked away.
+Ища укрытие, я бегло осмотрел комнату. Толпа полуголых паникующих людей затрудняла мой поиск, но я всё же увидел маленький неприметный шкаф в углу.
+
+# 9c85eb43
+; I quickly opened the closet door and crammed myself in
+Я быстро открыл его дверь и забрался внутрь.
+
+# 18a4ccd9
+; Thought I finally left this back in college...
+А я думал, что после колледжа больше не буду заниматься подобными вещами...
+
+# ce9fb4d7
+; Although the closet was shut tight, there were thin shutters that were too small to reach through, but big enough to see through.
+Хоть шкаф и был плотно закрыт, в его двери была небольшая решётка, слишком маленькая, чтобы просунуть через нее руку, но достаточно большая, чтобы через неё была видна комната.
+
+# 692ee83b
+; The stranger stopped right in front of my hiding spot. My heart stopped.
+Незнакомец остановился прямо перед моим укрытием. Сердце замерло.
+
+# b907d146
+; What if he noticed me?
+Что если он заметит меня?
+
+# 79671c5a
+; I panicked and tried to look around the tiny closet for something I could use to defend myself. Anything, just anything.
+Я запаниковал и попытался найти внутри этого крохотного шкафа что-то, чем я мог бы защитить себя. Хоть что-нибудь.
+
+# 2adbbec6
+; Was that the cops?
+Это полиция?
+
+# 36f0e663
+; I held restrained a sigh of relief. Maybe this would be over quicker than I thought, phew..
+Я тихонько выдохнул. Фух, может быть, всё закончится быстрее чем я думал. 
+
+# 1e53b14
+; T: f̷͍̙̼̞̩̣̖̝̤͓̥̽̐͒́͒͘e̵̢̝̬̻̰̼̖̽̈́̀̇͂̾͐́̂̌́̏́͘a̸͉͐̈̽̀̌̏̓̃̍͒̏̕͠͝s̷̛̗̯̟̋́̀̒́͌̉͗̀̓̈̚͝͠d̶̨̼̳̖͎͚̘̥̼̩͆̓̋̈̈̆͛̂̔͘f̵̨̺͖̝͓̞̤̰̣̩̫̯̓̎͋̇͛͒̀̍͊̚ͅv̵̻͇͔̳̟͕̐́͛̀̉̈́̑̈́̌̾́͝u̸͓̔̀̎̌̐͋͝i̶̤̞̰̲͛͆̉̉̚͜e̸͉͖͓͒̓ķ̵̦͈̹̤̖̺͇̱̺̻̓͑͂̆̆̂͗̓j̵̡̘͔͓͖̤̺͖̟̙̺͔̠͈͋̃̆͌͛̃̏w̷̫̟̭̘͉̩͍̲͒̄̔͐̃̆̾́̍̈́͗͛͘͜ͅḧ̴͍̳̜͇́͛̊̏̕n̶͔̲͉̘͗͆̅͝d̵̖͔̹̩͌́͘v̸̟͙̻̹͙͔̥͖̳̀̂̍͒ͅh̴̩̗̯̖̼͔̟͋̅̊̊̎̃͑̓̊͗̐͛͠͝;̵̢͔̟̮̹̙̺͍̱̳̗͆̿͐̾̂̈̑̍͑̑͘͘͜͝ͅĭ̷͈̺̱̮̙̤̔̆̀̀̀͊ĥ̸̢̦̣͓̒̉̿o̵̰̥̦̰̞͕͗͒̚͜w̸̡̢̺̜͇̹̪̥̝̙͈̿̔͋̓͌̾̀͒̈̽̄̃͗̓ͅt̸͕͚͔̦̀̅̇̎̃̑̃̿͆̐̀̋̓̕n̷̛̹̜̞̮͍̘̥̻̤̏͆̎͋͠ļ̴̛͕̯̣̠̪̫͖͍͍͚͉̲͔͂̽̀͌̍̈́́̊̎̈́̾̾͝k̴̥̟͕̦̑ŗ̸̧̪̟̯̥͕̦͍͍͚̋̿̏͗̈́̽͋͆̎́̏͋̓͜͝͝f̴̨̭̖͚̞͚͔̐̅̓͆̉͐͌́̕̕̕͘ͅs̶̘̞͉͖̣̩̤̖̪̜̭̳̙̲͗͂ͅḑ̶̢̻̬͙͇̞͕͎͍̼̼̀́̽͜ͅv̵͙̣͈͙̗̈́̃̓͠c̴̢̳̟̦̲̱̝͔̘̠̑̊̈́̎̀̔̏͛̒̉̏̈̂̂́x̵̛̜͍̲̱̖̗;̵̡̠̯̟͔͖̦̫͗͆́͗̂̊̀̍͆̐̕͠͝ͅ
+T: f̷͍̙̼̞̩̣̖̝̤͓̥̽̐͒́͒͘e̵̢̝̬̻̰̼̖̽̈́̀̇͂̾͐́̂̌́̏́͘a̸͉͐̈̽̀̌̏̓̃̍͒̏̕͠͝s̷̛̗̯̟̋́̀̒́͌̉͗̀̓̈̚͝͠d̶̨̼̳̖͎͚̘̥̼̩͆̓̋̈̈̆͛̂̔͘f̵̨̺͖̝͓̞̤̰̣̩̫̯̓̎͋̇͛͒̀̍͊̚ͅv̵̻͇͔̳̟͕̐́͛̀̉̈́̑̈́̌̾́͝u̸͓̔̀̎̌̐͋͝i̶̤̞̰̲͛͆̉̉̚͜e̸͉͖͓͒̓ķ̵̦͈̹̤̖̺͇̱̺̻̓͑͂̆̆̂͗̓j̵̡̘͔͓͖̤̺͖̟̙̺͔̠͈͋̃̆͌͛̃̏w̷̫̟̭̘͉̩͍̲͒̄̔͐̃̆̾́̍̈́͗͛͘͜ͅḧ̴͍̳̜͇́͛̊̏̕n̶͔̲͉̘͗͆̅͝d̵̖͔̹̩͌́͘v̸̟͙̻̹͙͔̥͖̳̀̂̍͒ͅh̴̩̗̯̖̼͔̟͋̅̊̊̎̃͑̓̊͗̐͛͠͝;̵̢͔̟̮̹̙̺͍̱̳̗͆̿͐̾̂̈̑̍͑̑͘͘͜͝ͅĭ̷͈̺̱̮̙̤̔̆̀̀̀͊ĥ̸̢̦̣͓̒̉̿o̵̰̥̦̰̞͕͗͒̚͜w̸̡̢̺̜͇̹̪̥̝̙͈̿̔͋̓͌̾̀͒̈̽̄̃͗̓ͅt̸͕͚͔̦̀̅̇̎̃̑̃̿͆̐̀̋̓̕n̷̛̹̜̞̮͍̘̥̻̤̏͆̎͋͠ļ̴̛͕̯̣̠̪̫͖͍͍͚͉̲͔͂̽̀͌̍̈́́̊̎̈́̾̾͝k̴̥̟͕̦̑ŗ̸̧̪̟̯̥͕̦͍͍͚̋̿̏͗̈́̽͋͆̎́̏͋̓͜͝͝f̴̨̭̖͚̞͚͔̐̅̓͆̉͐͌́̕̕̕͘ͅs̶̘̞͉͖̣̩̤̖̪̜̭̳̙̲͗͂ͅḑ̶̢̻̬͙͇̞͕͎͍̼̼̀́̽͜ͅv̵͙̣͈͙̗̈́̃̓͠c̴̢̳̟̦̲̱̝͔̘̠̑̊̈́̎̀̔̏͛̒̉̏̈̂̂́x̵̛̜͍̲̱̖̗;̵̡̠̯̟͔͖̦̫͗͆́͗̂̊̀̍͆̐̕͠͝ͅ
+
+# 67cd31bc
+; Again?!
+Опять?!
+
+# f41beb6d
+; Startled, I knocked over something. Before I could react, my foot caught on it and I tripped forward.
+Испугавшись, я наткнулся на что-то. Я не успел отреагировать, потерял баланс и полетел лицом вперёд.
+
+# b61c27c6
+; F: Oh shi—!
+F: Вот дерь—!
+
+# b81584d0
+; My entire body fell on the flimsy bifold doors. They gave way.
+Всем весом тела я неуклюже упал на створчатые двери. Они поддались.
+
+# b1652518
+; The world went black.
+Мой взор окутала тьма.

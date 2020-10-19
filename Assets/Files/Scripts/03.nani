@@ -1,0 +1,142 @@
+@back black
+@spawn DepthOfField params:F
+;@voice t/085_Surprise1
+T: Who... what... are you doing here?!
+;@voice f/022_Damage2
+F: Ngh...
+I felt dizzy and nauseous to say the least.
+Where was I anyway?
+My eyelids felt heavy. It felt like they were stuck together with super glue.
+I should've just stayed home...
+With great effort, I finally opened my eyes.
+@back castle.Ripple time:2
+@bgm betterDays
+@char F.default pos:25 scale:.4688 time:2
+@char T.f>anger,sfx- pos:75 scale:.4688 time:2
+;@voice f/024_Damage4
+F: Wha— where am I!?
+;@voice "f/021_Damage1"
+F: Urk…
+As my vision adjusted, I could make out a… figure?
+I had to squint my eyes to see who it was.
+@despawn DepthOfField
+;@voice t/086_Surprise2
+T: Who—Who are you?!
+@spawn ShakeCamera wait:false
+@char F.f>shock
+His voice alone was enough to give me a mini heart attack.
+; Camera shake
+;@voice "f/030_Large damage5"
+F.f>shock: OH MY GOD!
+The strange guy from earlier looked at me in shock.
+;@voice "t/076_Anger2"
+T.f>shock: What... what do you think you're doing here?!
+;@voice f/055_Deny2
+F.f>sad: Uh...
+@char F.f>neutral
+I took a second to observe my surroundings. The sky was tinged a dark red. The trees were shaded a dark purple, and there was a large castle in front of me.
+@char F.sfx>sweat
+Was I in... some sort of dream?
+@char F.f>sad
+I looked up from my position on the floor. The hot guy was wearing a really skin-tight outfit. He looked down at me disdainfully.
+
+;@voice "f/126_growth_Level up2"
+F.f>neutral: I didn't know I had those sorts of tendencies, but...
+
+;@voice t/055_Deny2
+T.f>anger,sfx>anger: AHEM.
+@spawn ShakeCharacter params:,4,,,,,true,false wait:false
+@char F.f>sad,sfx-
+Oh right. I pinched myself to see if it was a dream, but apart from the slight pain, nothing happened.
+
+;@voice f/054_Deny1
+F.f>shock,sfx-: No way...
+
+;@voice f/025_Damage5
+F.f>sad: I... I really have no idea. I was just at the party and then I was here!
+
+;@voice t/066_Thinking1
+T.f>neutral,sfx-: ...
+The man looked at me suspiciously. But now, he was starting to seem a lot more familiar.
+
+;@voice f/069_Thinking4
+F.f>shock: Oh yeah!
+F.f>neutral: You're the guy in demon cosplay at the party!
+@char T.f>anger
+The demon cosplayer looked disgusted.
+
+;@voice t/054_Deny1
+T.f>anger,sfx>anger: I am a demon. Not a cheap imitation of one.
+
+;@voice f/068_Thinking3
+F.f>shock: Oh. You know what cosplay is?
+@char F.sfx>sweat
+It felt so surreal, discussing anime terms with a man who for all intents and purposes, was an actual fucking demon.
+
+;@voice t/076_Anger2
+T.f>neutral,sfx>sweat: ...Not intentionally.
+@char F.f>sad,sfx-
+There seemed to be a story there, but I wasn't going to push.
+T.f>neutral: AHEM. You must've been that fool who interrupted my return spell.
+
+;@voice f/100_Apologize2
+F.f>neutral: Oh. Well... Oops?
+@char T.f>anger,sfx-
+He lifted his hands so that it pinched the bridge of his nose. His exasperation was so palpable I could feel it rubbing on my own skin.
+@spawn ShakeCharacter wait:false
+
+;@voice "f/090_Bitter smile2"
+F.f>shock: Um... you're not going to like, kill me, are you?
+@char T.f>neutral
+He looked at me for a second, as if considering the idea.
+
+;@voice "f/113_Watch out1"
+F.f>shock,sfx>flinch: Hey, hey! It wasn't my fault I stumbled down here, was it? You can't kill me!
+@choice "I have so much left to do back home!" goto:.aloof
+@choice "Can I atleast check this place out first?" goto:.adventure
+@stop
+
+# aloof
+@char F.f>sad,sfx-
+My life back home may not have been super exciting, but it was where I was from.
+@char F.f>anger
+I couldn't just have all that ripped away!
+F.f>anger: (This is why I never wanted to go outside...)
+@set home=home+1
+@goto .trisReaction
+
+# adventure
+@char F.f>sad,sfx-
+Home never really felt that way to me.
+@char F.f>anger
+I'd always felt... out of place. But now that I was in a new, strange world, I had to see what it was about!
+@set hell=hell+1
+@goto .trisReaction
+
+# trisReaction
+@char T.f>anger
+The demon looked at me strangely.
+
+;@voice t/063_Discover1
+T.f>sad: You're not... afraid of me?
+@char F.f>neutral
+I blinked.
+@char F.f>sad,sfx>sweat
+In my mind, I knew he was some kind of... demonic entity who could kill me by snapping his fingers. Or something. I didn't actually know how demons worked.
+@char F.f>neutral,sfx-
+But maybe it was my fuzzy mind, or the atmosphere of a being in a completely different realm.
+@char F.f>anger
+I felt bolder.
+
+;@voice "f/126_growth_Level up2"
+F.f>sad: I'd be lying if I said I wasn't.
+T.f>neutral: I see.
+@char T.f>neutral
+He was quiet for a few moments. My butt felt numb from being on the floor, although it strangely wasn't cold.
+
+;@voice f/105_Request1
+F.sfx>sweat: Can I uh... sit somewhere better?
+
+;@voice t/067_Thinking2
+T.f>anger: Very well, strange human. Follow me inside.
+@goto 04

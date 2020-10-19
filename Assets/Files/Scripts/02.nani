@@ -1,0 +1,168 @@
+@back partyOut
+@bgm party
+@char F.default pos:25 scale:.4688
+@char N.default pos:75 scale:.4688
+Ugh...
+My palms felt sweaty.
+People in flashy costumes were everywhere, laughing and talking.
+Not that I could hear them over the music that was blaring from God knows where... I was starting to regret it.
+I brushed a hand over my head.
+@char F.f>sad,sfx>Sweat
+;@voice f/063_Discover1
+F: Do I look okay?
+@char N.f>sad,sfx>sweat
+;@voice n/075_Anger1
+N: Felix, this is like the fifth time you've asked this question.
+F.f>anger: But I need to know!
+Nessie shook her head.
+;@voice n/082_Satisfaction2
+N.f>happy: You like like a dork.
+;@voice f/021_Damage1
+F.f>neutral,sfx>sweat: Urk!
+@char N.f>shock
+;@voice n/058_Aha2
+N.f>neutral,sfx>sweat: But that's fine! That's the point. If anyone asks, tell them you're dressing up as a nerd.
+That sure helped my self-confidence...
+@char N.f>happy,sfx-
+Nessie took my hand and squeezed it.
+;@voice n/088_Laugh2
+N.f>neutral: Don't worry about it, big guy! It'll be fine.
+@char F.sfx-
+;@voice "f/017_Abnormal state turn1"
+F.f>sad,sfx-: If you say so...
+I took a deep breath and followed Vanessa into the house.
+
+# inside
+@sfx crowd loop:true
+@back partyCrowd time:1 wait:true
+I felt my palms shake.
+;@voice "f/077_Feel down1"
+F.f>anger,sfx>sweat: So... <i>many</i> people...
+Nessie was swarmed by a horde of people who all seemed excited to see her.
+@char N.f>happy,sfx>sparkle
+;@voice n/107_Hello1
+N.f>happy,sfx>sparkle: Hey guys! This is my bestie, Felix—
+They turned to look at me for a second and gave me a polite nod in acknowledgement. They quickly went back to chattering about something I didn’t understand.
+@char F.f>sad,sfx>sweat
+@char N visible:false
+
+@back kitchen time:1 wait:true
+Ignoring Nessie's protests, I made my way to the kitchen and looked at my options.
+She said the party was supposed to be fancy, but I got no sense of it so far.
+;@voice f/055_Deny2
+F.f>neutral,sfx-: Hm...
+I picked up a red cup and looked around.
+There were a bunch of different bottles strewn around the kitchen. Some were on the counter, one was... in a shoe?!
+F.f>sad: What should I try?
+@choice "Look in the fridge for juice" goto:.juice
+@choice "The bottle in the shoe." goto:.shoe
+@choice "Get something from the counter." goto:.regular
+@stop
+
+# juice
+@set home=home+1
+Yeah, I wasn't going to risk it. I had no idea what these drinks were, and I wasn't going to risk it.
+I opened the fridge and pulled out a bottle of orange juice.
+I picked it up and turned it around in my hand.
+;@voice "f/078_Feel down2"
+F.f>neutral: Seems safe enough.
+I opened the lid and poured it into the cup, then placed the drink to my lips.
+@goto .continue
+
+
+# shoe
+@set hell=hell+1
+You only live once, right? Since I was at this party, might as well go all out.
+I bent down and picked the bottle up from the shoe. A stranger shot me a strange look, but I wasn't going to let that stop me.
+I picked it up and observed it.
+It just had "beer" written on it in Comic Sans. Clearly a sign of great class.
+I poured the contents into a cup. I wrinkled my nose at the smell.
+F.f>anger: (Here goes nothing...!)
+I squished my eyes together and brought the cup to my lips.
+@goto .continue
+
+# regular
+Even though the party didn't look special, there probably <i>was</i> some good stuff if I looked hard enough.
+After rummaging around, I finally found a fancy-looking bottle of wine.
+The label was  written in a language I couldn't understand, which meant it had to be good, right? I mean, surely…?
+I poured myself a cup and brought it to to my lips.
+@goto .continue
+
+# continue
+@stopBgm
+@stopSFX
+@char F.f>shock,sfx>flinch
+@sfx scream wait:false
+F: What the?!
+@spawn ShakeCamera
+I dropped the cup in surprise. My feet were soaked, but that wasn't my concern at the moment.
+@char F.f>sad,sfx>sweat
+RandomGuy: Holy shit! Look at that guy!!
+
+@back partyEmpty
+My curiousity got the best of me, so I moved into the living room to see what was happening.
+;@voice f/025_Damage5
+F.f>shock: Woah.
+
+# tris
+@hidePrinter
+@char F visible:false
+@char T.default pos:50 scale:.4688
+@camera offset:,-3 zoom:.7
+@camera offset:,3 time:3 wait:true
+@camera offset:,0 zoom:0
+A guy in the most realistic halloween costume I'd ever seen stood in the doorway.
+He looked like a real demon! Even his hands were glowing! I was actually pretty impressed.
+@char F visible:true
+@slide T to:70 time:.5 wait:true
+F.f>sad,sfx>sweat: (Woah...)
+But why was everyone screaming?
+He lifted his hand in the air.
+;@voice "t/042_Medium attack5"
+
+T: ̤͓̥e̵̢̝̬̻̰̼̖̽̈́̀̇͂̾͐́̂̌́̏́͘a̸͉͐̈̽̀̌̏̓̃̍͒̏̕͠͝s̷̛̗̯̟̋́̀̒́͌̉͗̀̓̈̚͝͠d̶̨̼̳̖͎͚̘̥̼̩͆̓̋̈̈̆͛̂̔͘f̵̨̺͖̝͓̞̤̰̣̩̫̯̓̎͋̇͛͒̀̍͊̚ͅv̵̻͇͔̳̟͕̐́͛̀̉̈́̑̈́̌̾́͝u̸͓̔̀̎̌̐͋͝i̶̤̞̰̲͛͆̉̉̚͜e̸͉͖͓͒̓ķ̵̦͈̹̤̖̺͇̱̺̻̓͑͂̆̆̂͗̓j̵̡̘͔͓͖̤̺͖̟̙̺͔̠͈͋̃̆͌͛̃̏w̷̫̟̭̘͉̩͍̲͒̄̔͐̃̆̾́̍̈́͗͛͘͜ͅḧ̴͍̳̜͇́͛̊̏̕n̶͔̲͉̘͗͆̅͝d̵̖͔̹̩͌́͘v̸̟͙̻̹͙͔̥͖̳̀̂̍͒ͅh̴̩̗̯̖̼͔̟͋̅̊̊̎̃͑̓̊͗̐͛͠͝;̵̢͔̟̮̹̙̺͍̱̳̗͆̿͐̾̂̈̑̍͑̑͘͘͜͝ͅĭ̷͈̺̱̮̙̤̔̆̀̀̀͊ĥ̸̢̦̣͓̒̉̿o̵̰̥̦̰̞͕͗͒̚͜w̸̡̢̺̜͇̹̪̥̝̙͈̿̔͋̓͌̾̀͒̈̽̄̃͗̓ͅt̸͕͚͔̦̀̅̇̎̃̑̃̿͆̐̀̋̓̕n̷̛̹̜̞̮͍̘̥̻̤̏͆̎͋͠ļ̴̛͕̯̣̠̪̫͖͍͍͚͉̲͔͂̽̀͌̍̈́́̊̎̈́̾̾͝k̴̥̟͕̦̑ŗ̸̧̪̟̯̥͕̦͍͍͚̋̿̏͗̈́̽͋͆̎́̏͋̓͜͝͝f̴̨̭̖͚̞͚͔̐̅̓͆̉͐͌́̕̕̕͘ͅs̶̘̞͉͖̣̩̤̖̪̜̭̳̙̲͗͂ͅḑ̶̢̻̬͙͇̞͕͎͍̼̼̀́̽͜ͅv̵͙̣͈͙̗̈́̃̓͠c̴̢̳̟̦̲̱̝͔̘̠̑̊̈́̎̀̔̏͛̒̉̏̈̂̂́x̵̛̜͍̲̱̖̗;̵̡̠̯̟͔͖̦̫͗͆́͗̂̊̀̍͆̐̕͠͝ͅ
+
+
+F.f>anger,sfx-: What is he saying...?
+@sfx thud
+@spawn ShakeCamera
+A man flew across the room and crashed into a wall.
+
+@bgm intense
+Oh. That's why they were screaming.
+For a moment, I stood transfixed. But when the strange man started moving, instinct took over.
+I scanned the room for a hiding spot. It was hard to see over the crowd of restless half-naked folk, but I found a small closet tucked away.
+I quickly opened the closet door and crammed myself in
+@char F visible:false
+@slide T to:50
+@char T visible:false
+
+@back black
+Thought I finally left this back in college...
+Although the closet was shut tight, there were thin shutters that were too small to reach through, but big enough to see through.
+@back partyEmpty wait:false
+@char T pos:50,0 visible:true
+@char shutters pos:50,0,1
+The stranger stopped right in front of my hiding spot. My heart stopped.
+What if he noticed me?
+I panicked and tried to look around the tiny closet for something I could use to defend myself. Anything, just anything.
+@sfx siren loop:true time:3 wait:false
+Was that the cops?
+I held restrained a sigh of relief. Maybe this would be over quicker than I thought, phew..
+
+;@voice "t/037_Weak attack5"
+
+T: f̷͍̙̼̞̩̣̖̝̤͓̥̽̐͒́͒͘e̵̢̝̬̻̰̼̖̽̈́̀̇͂̾͐́̂̌́̏́͘a̸͉͐̈̽̀̌̏̓̃̍͒̏̕͠͝s̷̛̗̯̟̋́̀̒́͌̉͗̀̓̈̚͝͠d̶̨̼̳̖͎͚̘̥̼̩͆̓̋̈̈̆͛̂̔͘f̵̨̺͖̝͓̞̤̰̣̩̫̯̓̎͋̇͛͒̀̍͊̚ͅv̵̻͇͔̳̟͕̐́͛̀̉̈́̑̈́̌̾́͝u̸͓̔̀̎̌̐͋͝i̶̤̞̰̲͛͆̉̉̚͜e̸͉͖͓͒̓ķ̵̦͈̹̤̖̺͇̱̺̻̓͑͂̆̆̂͗̓j̵̡̘͔͓͖̤̺͖̟̙̺͔̠͈͋̃̆͌͛̃̏w̷̫̟̭̘͉̩͍̲͒̄̔͐̃̆̾́̍̈́͗͛͘͜ͅḧ̴͍̳̜͇́͛̊̏̕n̶͔̲͉̘͗͆̅͝d̵̖͔̹̩͌́͘v̸̟͙̻̹͙͔̥͖̳̀̂̍͒ͅh̴̩̗̯̖̼͔̟͋̅̊̊̎̃͑̓̊͗̐͛͠͝;̵̢͔̟̮̹̙̺͍̱̳̗͆̿͐̾̂̈̑̍͑̑͘͘͜͝ͅĭ̷͈̺̱̮̙̤̔̆̀̀̀͊ĥ̸̢̦̣͓̒̉̿o̵̰̥̦̰̞͕͗͒̚͜w̸̡̢̺̜͇̹̪̥̝̙͈̿̔͋̓͌̾̀͒̈̽̄̃͗̓ͅt̸͕͚͔̦̀̅̇̎̃̑̃̿͆̐̀̋̓̕n̷̛̹̜̞̮͍̘̥̻̤̏͆̎͋͠ļ̴̛͕̯̣̠̪̫͖͍͍͚͉̲͔͂̽̀͌̍̈́́̊̎̈́̾̾͝k̴̥̟͕̦̑ŗ̸̧̪̟̯̥͕̦͍͍͚̋̿̏͗̈́̽͋͆̎́̏͋̓͜͝͝f̴̨̭̖͚̞͚͔̐̅̓͆̉͐͌́̕̕̕͘ͅs̶̘̞͉͖̣̩̤̖̪̜̭̳̙̲͗͂ͅḑ̶̢̻̬͙͇̞͕͎͍̼̼̀́̽͜ͅv̵͙̣͈͙̗̈́̃̓͠c̴̢̳̟̦̲̱̝͔̘̠̑̊̈́̎̀̔̏͛̒̉̏̈̂̂́x̵̛̜͍̲̱̖̗;̵̡̠̯̟͔͖̦̫͗͆́͗̂̊̀̍͆̐̕͠͝ͅ
+
+
+Again?!
+Startled, I knocked over something. Before I could react, my foot caught on it and I tripped forward.
+;@voice "f/028_Large damage3"
+F: Oh shi—!
+My entire body fell on the flimsy bifold doors. They gave way.
+@sfx thud
+@char T visible:false wait:false
+@char shutters visible:false wait:false
+@back black time:2 wait:true
+The world went black.
+@goto 03

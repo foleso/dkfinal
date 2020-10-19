@@ -1,0 +1,237 @@
+@back market
+@bgm lofi
+@char F.default pos:25 scale:.4688
+@char T.default pos:75 scale:.4688
+F.sfx>sweat: So... your plan is to run up to them, drop your disguise to shock them, and then threaten them for info?
+
+;@voice t/051_Ok1
+T: Yes.
+I put my face in my palms.
+F.f>sad,sfx-: That's an awful plan.
+T.f>anger: I doubt you have a better one.
+F.f>anger: I do! We have to move stealthily. Just watch!
+oldLady: SPECIALITY ORANGES! HALF-OFF!
+;@voice "f/119_Get shocked1"
+@spawn ShakeCharacter params:F,3,,,,,true,false
+F.f>shock: Hm?
+The woman looked like she was about sixty years old. Her facial features were kind and gentle.
+What was she doing in the demon realm?
+; She reminded me of my grandmother, an innocent person who could do no wrong. What was she doing in the demon realm?
+oldLady: GROWN USING ONLY TEARS OF TORTURED SOULS!
+@char F.f>sad,sfx>sweat
+...Appearances can be deceiving.
+I walked down the street with Trisetar by my side. The other demons looked just like regular humans.
+Surprisingly, no one seemed to notice him. His disguise was the real thing.
+@back black time:1 wait:true
+@back market.RadialBlur time:2 wait:true
+After walking for a little while, the crowd of people began to feel suffocating.
+;@voice "f/017_Abnormal state turn1"
+F.f>sad,sfx>sweat: Huff...
+@camera offset:-3,1 zoom:.5
+I tried to calm down. I just needed to finish this and then I'd be able to go home. I could just play Legends of Odin and forget this all happened.
+I grabbed onto my shirt and rubbed it between my index finger and thumb. I took deep breaths.
+@camera offset:0,0 zoom:0
+;@voice t/066_Thinking1
+T: ...
+(C'mon Felix, you can do this.)
+I walked up to the woman from before.
+;@voice f/110_Call2
+F.f>happy: Hello.
+She glared at me. Clearly she hadn't heard of a business smile. I did my best to stay steady.
+oldLady: WHAT?!
+@char F.f>shock,sfx-
+@spawn ShakeCharacter params:F
+F: I was uh...
+Crap, I should've thought this through. I needed to say something that would get me answers without seeming suspicious.
+;@voice "f/126_growth_Level up2"
+F.f>sad: Um... I wanted to know if you saw something like...
+oldLady: If you're not going to buy anything, LEAVE!
+I flinched.
+;@voice f/100_Apologize2
+F.f>shock: W-We'll be on our way...
+;@voice t/075_Anger1
+T.f>anger: Are you kidding? You said—
+F.f>neutral,sfx>sweat: ...
+T.f>neutral,sfx>anger: Fine. We'll leave.
+We walked away from the stall. I made the mistake of looking back and saw the granny with a terrifying expression.
+I sighed. The suffocating feeling wasn't gone, but I felt better now.
+;@voice t/076_Anger2
+@spawn ShakeCharacter params:T,3,,,,,true,false wait:false
+T.f>shock: What the Earth was that?!
+;@voice f/100_Apologize2
+F.f>sad: Sorry, I...
+T.f>anger: You have no qualms talking boldly with me, yet you could not approach a low-ranked merchant?!
+F.f>neutral,sfx>sweat: I-I...
+@stopbgm
+@bgm darkPlace
+; [blurry sfx]
+@spawn DepthOfField params:,10,0.95
+My heart started racing. No, not now!
+T: I expect an answer!
+@spawn DepthOfField params:F
+; [shaking + blurry sfx]
+@spawn ShakeCamera params:,0,.2,,0.2 wait:false
+F: (Keep it together. Breathe. Count from 1 to 10).
+T: You—
+@char T visible:false
+@char F visible:false
+@back black.RandomCircleReveal time:2
+...
+@stopbgm
+@despawn ShakeCamera
+@despawn DepthOfField
+@stopSfx
+; [black sfx, blacks out for a couple moments]
+@back market time:2
+@char F visible:true
+@char T.sfx- visible:true
+I looked up and saw Trisetar's face inches from mine.
+My heart beat faster, but for a different reason from earlier.
+@bgm blueBoi
+;@voice "t/044_Strong attack2"
+T.f>anger: You IDIOT!
+@char F.f>anger,sfx-
+Annnd the moment was gone.
+T.sfx>anger: You said we must move discreetly, yet you faint in the middle of the market?!
+;@voice "f/078_Feel down2"
+F.f>anger: I can't control that!
+T.f>neutral,sfx-: At the very least, you are speaking in full sentences now.
+I gulped audibly.
+F.f>sad: Did I... say something weird?
+;@voice t/054_Deny1
+T.f>anger: No. You simply spoke nonsense and were mumbling phrases such as "Please, Gacha lords" and "Rate up is a lie".
+F.sfx>blush: Oh.
+My face burned with embarrassment. I needed to change the topic. I looked around.
+;@voice f/067_Thinking2
+F.f>sad,sfx-: Is this still the market?
+T.f>neutral,sfx-: Yes. Simply a secluded part, away from the rest.
+That sounded ominous, but there was nothing I could do. I just rested my eyes, enjoying my position.
+@spawn ShakeCharacter params:T wait:false
+T.f>shock: What do you think you're doing?
+I didn't bother answering. I just mumbled a content sigh.
+Being transported to literal hell was awful and tiring. There was no way I could get up from the nice pillow underneath me.
+T.f>neutral: I believe I asked a question, human.
+F.f>anger: I have a name, you know?
+T.f>anger: Once again, that is irrelevant.
+I let out another content sigh and snuggled closer. Trisetar didn't seem very thrilled with the movement, but he didn't push me away either.
+T.f>sad: You are a strange one.
+F.f>happy: You're the one with wings and horns.
+Trisetar continued, ignoring my comment.
+T.f>neutral: No one has dared to speak so casually with me.
+I thought for a second before replying.
+F.f>sad: Does it bother you?
+He shook his head.
+T.f>sad: It is... strange. I cannot say I like the feeling.
+F.sfx>blush: But you don't dislike it either?
+T.f>neutral,sfx>blush: ...
+@char F.f>happy
+I felt a smile stretch across my face.
+T.f>anger,sfx>blush: W-What are you smiling like a loon for?!
+F.f>neutral: Nothing.
+T.f>neutral: You⁠—!
+It felt like he was going to say something else, but stopped.
+F.sfx-: What is it?
+T.f>neutral,sfx-: You are very different from what I'd initially perceived.
+F.f>neutral: Really? What did you think I was at first?
+T.f>neutral: A coward.
+F.f>shock: H-Hey, that's not very nice!
+T.f>anger: You still are.
+F.f>sad: U-Uh...
+Then.
+@char T.f>happy
+He smiled.
+@char F.f>shock
+As in, the corners of his lips turned upwards, and his eyes softened.
+And it was the cutest fucking thing.
+T.f>anger: What are you looking at?
+...And it was gone.
+@sfx grumble
+Right. Food. That was why we were here.
+F.sfx>blush,f>neutral: W-We should get going!
+T.f>neutral: That was what I was attempting to do this entire time.
+F.f>anger: Oh. Well, we should finish it now!
+T.f>anger: Do not attempt to boss me around.
+@char F.f>neutral,sfx-
+Despite saying that, he stood up and dusted his lap. I felt oddly offended, but didn't say anything more.
+We walked back into the market.
+@back black time:1 wait:true
+@back market time:2 wait:true
+This time, I felt much calmer. My palms weren't shaking anymore, and my vision was clear.
+F.f>happy: (You can do this Felix!)
+@char T.f>neutral
+Trisetar looked at me oddly, but didn't say anything.
+@char F.f>neutral
+We walked up to vendor after vendor, but most ranged from disinterested to aggressive.
+Along the way, I bought a couple apples and munched on them, and also got some vegetables for later.
+There was no meat that humans ate, and I wasn't aboout to try something new now.
+F.f>happy: Thanks so much for getting me all this, Tris.
+T.f>anger,sfx>anger: ...Tris?
+@stopBgm
+F.f>shock: Huh?
+@camera offset:3,1 zoom:.5
+T: My name is Trisetar you ignorant fool!
+I shrunk back in fear.
+@camera offset:0 zoom:0
+@spawn ShakeCharacter params:F,3,,,,,true,false
+F.f>sad: S-Sorry. Trisetar. I mean.
+We were having such a decent time, I forgot he was technically a demon who could kill me at any moment.
+T.f>sad,sfx-: ...
+@bgm betterDays
+We walked in silence among the vendors as I finished up my apples. Suddenly, I saw something shine in a corner.
+F.f>shock: What's that?
+I pointed to it.
+T.f>neutral: What are you referring to?
+F.f>neutral: D-Do you mind if I check it out?
+I nervously looked at him.
+T.f>neutral: ...Okay.
+I walked toward the shiny object and picked it up.
+F.f>shock: It looks like... a button of sorts?
+Trisetar leaned his head closer toward it.
+T: It does not seem familiar in any way.
+F.f>neutral: Hm... could this be a clue?
+It kinda felt like I was in the detective game, Badass Barrister.
+T: It is likely just trash. If not, it belongs to another demon and was carelessly left behind.
+F: Well...
+I rolled the button in my hands and pretended to be inspecting it.
+F.f>sad: Hm...
+Looked normal.
+F.f>shock: Ah... Hm... Oh...
+Trisetar rolled his eyes.
+T: Are you finished?
+F.sfx>blush: A-Ah. Yeah. Um.
+I continued looking at the button. When I pressed the center of it, I noticed something strange.
+F.f>neutral,sfx-: This is hollow.
+T.sfx>anger: Hm?
+He looked intrigued.
+T.f>anger,sfx-: That is most certainly strange. We only use real precious metals in Hell.
+@spawn ShakeCharacter params:F,2
+F.f>sad: Well, that means this is either from Earth, or this is something else.
+Trisetar stared at me.
+F.sfx>blush: W-what?
+T.f>sad: You are more perceptive than I originally thought.
+F: Uh...
+@choice "I'm doing my best, since this is an important mission." goto:.adventure
+@choice "I just want to go back home." goto:.home
+@stop
+
+# adventure
+@set hell=hell+1
+Trisetar glared at me.
+T.f>anger: Glad to see you're having fun.
+F.f>sad: I-I didn't mean it like that.
+But it was true. Even if this wasn't an ideal situation, for once I felt like I was doing something meaningful.
+Despite it being so out of my comfort zone.
+We continued the rest of our trip in silence.
+@goto 06
+
+# home
+@set home=home+1
+T.f>sad: Understandable.
+I glanced over at him, and his face looked almost wistful.
+F.f>neutral,sfx-: Do you like it here?
+T.f>anger: What?
+F.f>sad: I mean here, at your home.
+T.f>neutral: It is where I reside. There is little need for more feeling.
+F.f>neutral: Yes, but...
+We continued the rest of our trip in silence.
+@goto 06

@@ -1,0 +1,557 @@
+; Localization script for `01`
+
+# 15de548d
+; F: *Yawn*
+F: *Зевок*
+
+# 274b92d7
+; Ugh... I felt beat.
+Фух... Я словно выжатый лимон.
+
+# 44f2ef8f
+; After a hardcore battle in my favorite MMO, my two teammates, Ink and Max, had to leave for a Halloween party.
+После грандиозного замеса в любимой ММО, двое моих тиммейтов, Инк и Макс, ушли отмечать Хэллоуин.
+
+# f3e834f8
+; I had no interest in going out and spending my time in a drunken stupor.
+Но мне не очень хотелось тратить своё время на громкие вечеринки в пьяном угаре.
+
+# b02d9390
+; Honestly? My favorite part of Halloween were the exclusive Halloween outfits in LoO.
+Признаться честно, на Хэллоуин мне больше всего понравились эксклюзивные скины героев из LoD.
+
+# 6ebc169
+; I looked at the clock on my computer screen. 9:00PM.
+Я посмотрел на экран своего компьютера. Время — девять вечера.
+
+# 51fb4344
+; Apparently I was getting old, since I was seriously considering going to bed.
+Наверное я старею, раз я всерьёз подумывал о том, чтобы лечь спать.
+
+# 817527de
+; *ding dong*
+*динь-динь*
+
+# 23f27cf4
+; Who could that be? Pretty sure all the kids trick-or-treating were done by 6. Maybe kids these days stay up later?
+Кто бы это мог быть? Уверен, в "сладость или гадость" заканчивают играть к шести часам. Может быть дети в наше время больше гуляют допоздна?
+
+# 6b744ba7
+; Oh man, did I just say, "Kids these days"? Maybe I really was getting old...
+Чёрт побери, я что, только что сказал "дети в наше время"? Кажется, я действительно старею... 
+
+# 817527de
+; *ding dong*
+*динь-динь*
+
+# 34e1d67e
+; Ugh... someone was interupting my self-pity party.
+Ох... Ну кто смеет прерывать мой сеанс жалости к себе?
+
+# 7a7663ff
+; I trudged my way to the front door to open it.
+Я устало потащился к входной двери, чтобы открыть её.
+
+# aa065148
+; F: (There's only one person who'd be ringing my bell at this time...)
+F: (Только один человек может прийти ко мне в столь поздний час...)
+
+# 8e953a58
+; I walked over to the door and opened it.
+Я подошёл к двери и открыл её.
+
+# 349655a7
+; Nessie. Of course.
+Несси. Ну конечно.
+
+# c8264e59
+; She laughed.
+Она засмеялась.
+
+# 7b342bb3
+; N: Hey buddy! Are you gonna let me in!?
+N: Привет, дружище! Я так и буду стоять на пороге?
+
+# b2eea182
+; F: What are you doing here?! I thought you said you were going to a party today?
+F: Что ты здесь делаешь? Помнится, ты сказала, что пойдёшь сегодня на вечеринку?
+
+# d3e9a1a4
+; N: Yeah, I am. C'mon Felix, let me in.
+N: Я и пойду. Ну же, впусти меня.
+
+# 285eaba7
+; F: Fine. But what about your boyfriend?
+F: Ладно. Но как же твой парень?
+
+# c14fb77
+; Although we'd been best friends for a while, Nessie's boyfriend always got pissy when we hung out.
+Хоть мы и давно дружим, парень Несси всегда злился, если мы проводили время вместе.
+
+# 404c3b4
+; Nessie's look turned grim.
+Несси вдруг погрустнела.
+
+# fb872ae0
+; N: Let me in and I'll tell you.
+N: Я всё тебе расскажу, только запусти меня.
+
+# 41d193b1
+; F: Okay...
+F: Хорошо...
+
+# b6c72cdf
+; I let Nessie in and shut the door behind me.
+Я впустил Несси и закрыл за ней дверь.
+
+# 5606395a
+; She plopped onto the couch and made herself comfortable.
+Она плюхнулась на диван и устроилась поудобней.
+
+# 21b0382f
+; F: Wait a minute...
+F: Минуточку...
+
+# f4dd7aab
+; F: What's that on your head?!
+F: Что это у тебя на голове?
+
+# f70cceac
+; N: Oh, you noticed!
+N: О, ты заметил!
+
+# 465a5f98
+; N: This is my Halloween costume!
+N: Это мой костюм на Хэллоуин!
+
+# 5b9ef2a0
+; F: ...
+F: ...
+
+# 75afabb8
+; F: That is... a Halloween costume?
+F: Это... костюм на Хэллоуин?
+
+# 3fcfbe8f
+; N: Yup! What do you think?
+N: Ну да! Как тебе?
+
+# 3d729f1
+; F: Uh...
+F: Эээ...
+
+# c7cd6d77
+; @choice "I'm sure that took ages to make." goto:.good
+@choice "Уверен, ты долго работала над ним." goto:.good
+
+# 9d1beb0e
+; @choice "Its... great...?" goto:.bad
+@choice "Он... неплох...?" goto:.bad
+
+# be821b93
+; F: I'm sure that took ages to make.
+F: Уверен, ты долго работала над ним.
+
+# b38736b1
+; N: No it didn't! That's the best part, I just had to—
+N: Вовсе нет! Что самое крутое, мне всего-то стоило—
+
+# 165dc4cc
+; N: ...
+N: ...
+
+# 83228c40
+; N: You're making fun of me, aren't you?!
+N: Ты что, насмехаешься надо мной?!
+
+# 9aa7f9b2
+; F: Uh... definitely not!
+F: Э-э... Нет конечно!
+
+# 1e397633
+; N: ...You're lying aren't you.
+N: ...Ну врёшь ведь!
+
+# 6b123d8e
+; F: Uh... no?
+F: Э-эм... нет?
+
+# d1c19c7a
+; Nessie grabbed a pillow from the couch and threw it at my head.
+Несси взяла с дивана подушку и бросила ей в меня.
+
+# 94e3a6da
+; F: Hey!
+F: Эй!
+
+# bd77561
+; N: Just for that, you're coming with me to the party!
+N: Чтобы искупить свою вину, ты пойдёшь на вечеринку вместе со мной!
+
+# d8e4a213
+; F: Huh?! You're kidding, right?
+F: Чего? Ты шутишь, верно?
+
+# 17764236
+; N: Why do you think that?
+N: С чего ты взял?
+
+# 33d35f53
+; F: I mean, you usually go with Daniel to all that stuff anyway.
+F: Ну, в смысле, ты обычно с Дэниелом гуляешь.
+
+# 2060d49e
+; Vanessa's face fell.
+Ванесса опустила взгляд.
+
+# 33b15f4d
+; F: Speaking of which, did... something happen?
+F: Кстати об этом... Что-то случилось?
+
+# 7bdde0d0
+; She sucked in a sharp breath.
+Она резко вдохнула.
+
+# e9af9b93
+; N.f>anger: Yeah, yeah. About that... we... broke up.
+N.f>anger: Да, кстати об этом... мы... расстались.
+
+# 349add7
+; F: Huh?!
+F: Что?!
+
+# 667df079
+; I couldn't contain my surprise. Although she complained about him a lot, I didn't think they'd actually break up.
+Я не мог сдержать удивление. Хоть Ванесса и часто жаловалась на своего парня, я и не думал, что они на самом деле расстанутся.
+
+# 84f916bd
+; N.f>sad: Yeah. We were just drifting apart and... it just sorta happened.
+N.f>sad: Ты все правильно услышал. Мы постепенно отдалялись друг от друга и... в один момент это просто произошло.
+
+# b856bc35
+; N.f>happy,sfx-: Which is why, I'm gonna go have some fun at this party and forget all about stupidface!
+N.f>happy,sfx-: Вот почему я забуду про этого придурка и пойду веселиться!
+
+# a4a9f53c
+; I knew that she was putting on a brave face, but I wasn't going to stop her.
+Я знал, что она только делает вид, что всё в порядке, но останавливать её не стал.
+
+# 6e9123c4
+; F: Alright, cool. Have fun, Nessie. I'm gonna go to bed, alright?.
+F: Ясно, хорошо. Веселись, Несси. А мне пора спать.
+
+# 2585a374
+; I got up to leave, but Nessie put a hand on my arm and stopped me.
+Я встал и собрался уходить, но она, взяв мою руку, остановила меня.
+
+# 25413971
+; N: What? But it's like, 9:15! Are you seriously going to sleep now?
+N: Что-о? На часах начало десятого, как бы! Ты действительно собрался ложиться?
+
+# 6e146f6c
+; F: Yeah. Sorry, but I'm beat.
+F: Да. Извини, но я сегодня устал.
+
+# 5ce12d0f
+; N: Seriously? Are you an old man or what?!
+N: Серьёзно? Ты что, старик?!
+
+# 4913bc5f
+; Ugh, Nessie wasn't the type of person to let an opportunity to make fun of me pass her by. So, I switched tactics.
+Фух. Несси была не из тех, кто упускает шанс поиздеваться надо мной. Так что я сменил тактику.
+
+# 6a51a35f
+; F: If you don't get going now, you'll probably miss out on the good stuff.
+F: Ты пропустишь всё самое интересное, если не пойдёшь сейчас.
+
+# d4b0013f
+; N: About that...
+N: К слову об этом...
+
+# 651eff43
+; F: Yeah?
+F: Ну?
+
+# d3f94e2d
+; N: I was wondering...
+N: Я тут подумала...
+
+# 96e44a1c
+; Nessie looked strangely nervous. Her eyes darted from side to side.
+Несси была необычайно взволнована, и её взгляд метался из стороны в сторону.
+
+# e627e694
+; N: ...If you would, y'know, go to the party with me?
+N: ...Скажем, ты... пошёл бы на вечеринку вместе со мной?
+
+# eefc68c5
+; I looked at her blankly.
+Я посмотрел на неё в недоумении.
+
+# 5b9ef2a0
+; F: ...
+F: ...
+
+# 165dc4cc
+; N: ...
+N: ...
+
+# 5b9ef2a0
+; F: ...
+F: ...
+
+# 165dc4cc
+; N: ...
+N: ...
+
+# 183613cf
+; F: Wait, you were being serious?! I thought you were just messing with me!
+F: Стоп, ты сейчас серьёзно? Я думал, ты прикалываешься надо мной!
+
+# 516862b7
+; Nessie threw her hands up in the air in frustration.
+Несси недовольно всплеснула руками.
+
+# 57e797ac
+; N: Yes, I was serious! Are you coming or what?
+N: Да, я сейчас серьёзно! Ну так ты пойдёшь или нет?
+
+# cfadc3bf
+; F: You know I love you, Nessie, but I really don't see you in that kind of way—
+F: Ты же знаешь, я конечно же люблю тебя, но только как дру—
+
+# c8264e59
+; She laughed.
+Она засмеялась.
+
+# ad5a7651
+; N: No, no! Not as a date! I just want a little company. Going into a party alone is a little...
+N: Нет-нет! Это не свидание! Мне просто нужна компания. Приходить одной как-то...
+
+# 8165a6e0
+; F: Oh, well in that case...
+F: А, ну в таком случае...
+
+# e6827af1
+; @choice "No way." goto:.noway
+@choice "Ни за что." goto:.noway
+
+# 930a2d7d
+; @choice "Sure, why not." goto:.ok
+@choice "Конечно, почему бы и нет." goto:.ok
+
+# c58f55f6
+; I sighed.
+Я вздохнул.
+
+# 92ea3eab
+; F: Sure, I'll go.
+F: Да, я пойду.
+
+# e3e0e54d
+; N: Ugh, I knew you'd say no. Which is why—
+N: Уф. Так и знала что ты откажешься. Ну раз так...
+
+# 1786a567
+; N: Whaaaaaat?!
+N: Что-о-о-о?!
+
+# c050bcee
+; N: Am I hearing things...?
+N: Мне это сейчас послышалось?
+
+# bcd341e8
+; F: I'm right here!
+F: Я прям перед тобой стою!
+
+# a805e1
+; N: I just wasn't expecting it to be that easy.
+N: Я не ожидала, что ты так легко согласишься.
+
+# f0298188
+; F: I know...
+F: Я знаю...
+
+# b7e17ae8
+; For a moment, Max and Ink's words flashed in my mind. Maybe it's time to try something different.
+На секунду слова Инка и Макса промелькнули в моём сознании. Может быть, пришло время попробовать что-нибудь новое.
+
+# 9658494c
+; F: I just felt like doing something different.
+F: Мне захотелось попробовать что-нибудь новое.
+
+# ab56530e
+; N: Hm...
+N: Хм...
+
+# c13c1f7f
+; Nessie's intense scruitiny was quite unnerving.
+От изучающего взгляда Несси по моей спине пробежал холодок.
+
+# cc9ec11b
+; N: Clearly there's something else going on.
+N: Здесь точно не всё чисто.
+
+# ea082f02
+; I gulped.
+Я нервно сглотнул.
+
+# 8cfa6068
+; N: But I'm not gonna waste this chance!
+N: Но я не собираюсь упускать этот шанс!
+
+# 8e1a1120
+; F: No way. I hate crowded places and loud music.
+F: Ни за что. Я ненавижу людные места и громкую музыку.
+
+# 7fdb5a34
+; Nessie sighed and shook her head.
+Несси вздохнула и покачала головой.
+
+# b5c28fba
+; N: I thought you'd say that. Which is why I came prepared!
+N: Так и знала, что ты это ответишь. Поэтому я подготовилась к этому заранее!
+
+# b76d05f9
+; F: Huh?
+F: Хм?
+
+# 2aeb048c
+; N: With, of course, my list of reasons why you should come with me to the party!
+N: И, конечно же, написала список причин, по которым ты должен пойти со мной!
+
+# 52ad32ec
+; F: I said I'm not going!
+F: Ну сказал же, не пойду я!
+
+# 3118da34
+; She ignored my protests and continued.
+Она проигнорировала мой протест и продолжила.
+
+# 4b285387
+; N: First, alcohol.
+N: Во-первых, спиртное.
+
+# ff536933
+; F: Duh. I know what's at parties. I also know it's going to be watered-down garbage.
+F: Ну ещё бы. А то я не знаю, что люди пьют на вечеринках. И что пьют они разбавленную дрянь.
+
+# 696a47b
+; N: No, no. Not just any alcohol! The Swensons are hosting this one, so you can bet it's top shelf! No more drinking out of shoeboxes!
+N: Не-а. Не просто спиртное! На этот раз отмечаем у Свенсонов, так что все будет в лучшем виде! Из обувной коробки пить не придётся!
+
+# 65cbc58e
+; F: I told you, that happened once—
+F: Я уже говорил тебе, это было всего один ра—
+
+# b65c3a5c
+; She cut me off with a sharp glare.
+Её резкий взгляд оборвал меня на полуслове.
+
+# 5e2bc077
+; N: Ahem. As I was saying...
+N: Кхм. Так вот...
+
+# 4a6f3bef
+; N: Kai's going to be there too!
+N: Кай тоже придёт!
+
+# 75c95d7f
+; That got my attention. Kai was the top lawyer at the firm Nessie and I worked at. He was the only one who actually respected the tech support work we did and didn't treat us like a stain on the bottom of his shoe.
+Она полностью завладела моим вниманием. Кай - главный юрист в фирме, где я и Несси работали. И только он на самом деле уважал работу операторов отдела техподдержки и не относился к нам как к грязи под ногами.
+
+# 87c01fc3
+; Co-incidentally, he was one tall glass of water.
+Ещё и совпало так, что он чертовски привлекателен.
+
+# 6e155df8
+; Something in my expression must've changed, because Nessie continued.
+Должно быть, выражение моего лица переменилось, потому что Несси продолжила.
+
+# 9f1423bf
+; N: Plus, I heard the ladies at the office say that he's gonna be wearing something really good today...
+N: К тому же, до меня дошёл слух, что сегодня он оденется особенно хорошо...
+
+# df585dfe
+; That was definitely a good incentive.
+Вот она, мотивация.
+
+# fd72a7b
+; @choice "Alright, I'll go." goto:.continue
+@choice "Так уж и быть. Пошли." goto:.continue
+
+# 45bed554
+; This choice is locked.
+Этот вариант недоступен.
+
+# 24dc2ab
+; F: Alright, I'll go.
+F: Так уж и быть. Пошли.
+
+# f2b3b72d
+; N: Yay!
+N: Ура!
+
+# be59269f
+; N: So, let's get going then!
+N: Ну, тогда вперёд!
+
+# cacb14f5
+; F: Uh... don't I need to be wearing a costume?
+F: А... мне костюм не нужен?
+
+# ab56530e
+; N: Hm...
+N: Хм...
+
+# 4ad7bc7b
+; N: This is fine!
+N: Так тоже неплохо!
+
+# c4980c91
+; F: It is?
+F: Как есть?
+
+# c01dbc5b
+; N: Yup! We can just say you're dressing up as a Gamer Guy!
+N: Ага! Скажем, что ты нарядился в геймера!
+
+# ecd6a6d0
+; I put my face in my palms.
+Я закрыл лицо руками.
+
+# 5141429b
+; F.f>sad,sfx>sweat: Please don't call me that ever again...
+F.f>sad,sfx>sweat: Пожалуйста, больше не называй меня так...
+
+# deace59
+; N: Why not? It's true!
+N: Почему нет? Это правда!
+
+# 56212c4
+; F: ...Fine. Let's just get going.
+F: ...Ладно. Пошли уже.
+
+# e3cf277f
+; I grabbed my keys and wallet, but realized that in a crowded party, they'd just get knocked over and lost.
+Я захватил кошелёк и ключи, но сразу понял, что в толпе людей я скорее всего что-то из этого потеряю.
+
+# 605e08f3
+; F: Nessie, can you hold onto these while we're out? I don't want these falling out of my pocket.
+F: Несси, ты не могла бы взять это себе на время? Не хочу, чтобы выпало из кармана.
+
+# 3d64f157
+; N: Sure, hurry up!
+N: Конечно. Поторапливайся!
+
+# 67d82151
+; F.f>anger: Okay, okay...
+F.f>anger: Ну ладно, ладно...
+
+# 66b98684
+; With a sigh, I followed her out the door.
+Вздохнув, я последовал за ней на улицу.
+
+# 61ec2dcb
+; Nessie locked it, and we made our way to the party.
+Несси заперла дверь, и мы отправились на вечеринку.

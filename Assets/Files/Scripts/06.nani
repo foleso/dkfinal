@@ -1,0 +1,402 @@
+@bgm lofi
+@back hellHallway
+Since Trisetar said he couldn't stand the sound of my grumbling stomach, we trudged straight for the dining room.
+; We returned to the mansion.
+; Trisetar trudged straight to his office.
+; @back trisOffice
+@char T.default pos:75 scale:.4688
+@char F.default pos:25 scale:.4688
+; T: Put the button down.
+; F: Bossy...
+; Still, I complied. I set the strange button down on the desk.
+; F.f>sad: So... about this button.
+; T.f>anger: Yes?
+; F.f>neutral: Let me try some things.
+; @spawn ShakeCharacter params:F
+; I picked it up, and pressed it. It didn't light up or anything.
+; T.f>anger: Well?
+; F.f>sad,sfx>sweat: Uh... nothing.
+; Trisetar sighed.
+; F.f>neutral: My stomach's been rumbling nonstop... can we eat first?
+; T.f>anger: I suppose this can be put on hold for a little while.
+; I sheepishly nodded.
+; @back black time:1 wait:true
+@back trisKitchen
+After another long, grueling walk, we finally ended up in a dining room.
+@char D.frown pos:50,3
+F.f>happy: Oh, it's you again!
+D: Mrrow.
+T.f>anger: Demetrius. Prepare the meal.
+F.f>shock: (Wait, <i>that's</i> Demetrius?)
+T: Yes.
+; A swirling portal appeared and we appeared in a kitchen.
+@char D visible:false
+@set catName=T_Demetrius
+I watched in awe as a cat cooked. It was surprisingly mesmerizing.
+T.f>neutral,sfx>sweat: So...
+F.f>neutral: Yeah?
+T.f>sad: About where you're from...
+F.f>sad: Mmhm?
+I did my best to concentrate on the conversation, but it was difficult with the smell of freshly baked ziti wafting through the door.
+@spawn ShakeCharacter params:T,3,,,,,true,false
+T.f>neutral,sfx-: ...Nevermind.
+Demetrius showed up from the kitchen with a tray of delicious food floating above his head.
+@char D pos:50,3 visible:true
+F.f>shock: Woah, you've got powers too!
+D: ...
+He looked suspiciously at me, and set the food at the table.
+F.f>anger: Hmph. He talks to you but not to me.
+I stared pointedly at Trisetar. He looked at me strangely as I started scarfing down the food.
+F.f>happy: Mm... Demetrius, this food is great!
+; F.f>: Mm... Demie, this food is great!
+; T: D-Demie?
+; F: Yeah, Demetrius is a—mph—mouthful—mm—to say!
+; T: Do not speak with a mouthful of food, you uncultured mortal.
+; F: Mph—okay.
+; D: You may call me that if you wish. It does not matter to me either way.
+@char D.smugClosed
+D: Mrrow.
+@char D visible:false
+The rest of the meal was a blur. Trisetar asked me some basic questions about life in LA, and I struggled to explain basic human phenomenon.
+T.f>shock,sfx>sweat: So... humans now travel in little boxes?
+I waved my arms to try and make a silhouette of a car.
+F.f>neutral,sfx>sweat: Uh... basically, yeah. But they're not literally box shaped. They come in all sorts of shapes.
+T.f>neutral: Fascinating. What is yours like?
+F.f>sad,sfx>sweat: I... don't have one.
+He looked confused.
+T.f>neutral,sfx-: So how do you travel then?
+F.sfx-: By walking or by taking the bus.
+T.f>shock: A... bus?
+After a (failed) explanation of public transport over a great meal, I felt my eyes droop.
+F.f>sad: Hnngh... I wanna sleep...
+Trisetar clicked his tongue.
+T.f>anger: Very well. It is late.
+
+@char T visible:false
+After Trisetar's insistence I leave the plates as is, (Apparently I couldn't be trusted with cutlery...) I got up.
+@back hellHallway time:1 wait:true
+@back tinyRoom time:2
+I walked back to my room. It felt strange, but I supposed I should get used to it, considering it would be my living space for the next three months.
+@char F.glasses-
+I collapsed onto the bed, exhausted.
+@spawn ShakeCharacter params:F
+F.f>neutral: Maybe this was all a strange dream, and when I open my eyes tomorrow, I'll be back hhh...
+@back black time:1 wait:true
+@char F visible:false
+@stopBgm
+
+@hidePrinter  time:3 wait:true
+I felt a strange, soft feeling on my eyelids.
+F: Hngh... five more minutes.
+D: Wake up.
+F: Don't... wanna...
+I felt a paw smack my cheek.
+
+@back tinyRoom time:0 wait:false
+@char D pos:75 visible:true
+@char F pos:25 visible:true
+F.f>anger: OW! I'm awake, I'm awake!
+F.f>sad: You sure are aggressive...
+I groggily sat up in bed. I felt a throbbing in the back of my head. The worst kind of headache.
+F: (Too bad I can't just take a Tylenol...)
+D.frown: It is time for breakfast.
+I tiredly threw the covers over me and got up.
+; Transition to kitchen
+@char F.glasses+
+@back trisKitchen
+After a long walk, we made it to the dining room. My stomach was already gurgling.
+@bgm blueBoi
+@char D pos:50
+@char T pos:75 visible:true
+T.f>neutral: You have finally made it, mortal.
+F.f>sad: Yes. Yes I have. And you can drop the 'mortal,' my name's Felix.
+We sat down again, and I just stared at my empty plate.
+D: What would you like for a drink this morning?
+I looked around.
+F.f>shock: You talking to me?
+D: Yes I am.
+F.f>neutral,sfx>sweat: Well uh...
+It was strange to have someone waiting on me for breakfast. I usually didn't eat anything, just ran quickly to work.
+F.sfx-: I'll have...
+@choice "Coffee" goto:.coffee
+@choice "Tea" goto:.tea
+@choice "Orange juice" goto:.juice
+@stop
+
+# coffee
+D: Interesting choice.
+F.f>sad: Oh? What's interesting about it?
+D.smug: It reveals how uninteresting you are.
+F.f>anger: U-Urk.
+@set drink=T_Coffee
+@goto .investigate
+
+# tea
+D.smug: Do you want a monocle to go with it?
+F.f>happy: No thanks. I'm plenty fashionable as is.
+D.frown: ...
+F.f>sad: ...Don't look at me like that.
+@set drink=T_Tea
+@goto .investigate
+
+# juice
+D.smug: Still have those childish taste buds, I see.
+F.f>happy: At least I don't have to worry about a crippling caffeine addiction.
+@set drink=T_Juice
+@goto .investigate
+
+# investigate
+I couldn't believe I was bantering with a talking cat, but that's just how it turned out.
+Trisetar just was sitting in his seat, leisurely sipping from a cup.
+F.f>neutral: What are you drinking?
+T.f>anger: The tears of sinners.
+F.f>shock: Ah. Okay then.
+I kept quiet as my drink arrived.
+F.f>happy: Mm... this tastes good.
+D: I know. I made it, after all.
+F.f>anger: (That attitude...)
+Despite the rocky start, today I felt excited to...
+@choice "Continue the investigation" goto:.continue
+@choice "Figure out a way to get back home" goto:.back
+@stop
+
+# continue
+@set hell=hell+1
+@char F.f>happy
+I giddily drank the {drink} and placed it down.
+T.f>sad: You are surprisingly enthusiastic this morning.
+F: I'm normally not but... I guess something's different today.
+@goto .eating
+
+# back
+@set home=home+1
+@char F.f>sad
+I stared at the {drink} tiredly. Although I could figure out a way to get back home, I knew it was likely I'd have to wait.
+T.f>sad: Exhausted?
+F.f>neutral: Yeah...
+@goto .eating
+
+# eating
+After a period of comfortable silence, Demetrius showed up with a sizzling potato dish.
+F.f>happy: This smells wonderful.
+D.smug: I know.
+As I was scarfing it down, Trisetar looked at me with a strange expression.
+F.f>sad: If you have something to say, just say it.
+T.f>sad: It is simply...
+F.f>neutral: Yeah?
+T.f>neutral: You are free to use the library today to research the demon realm, if there are any methods for you to return earlier than usual.
+F.f>shock: Really?
+@if home>hell
+@char F.f>happy
+  I wasn't too keen on spending more time in this place, so anything that would speed up getting back home sounded good to me.
+@else
+@endIf
+@char F.f>sad
+  I tried not to let my face drop. Although I'd love to do more research on what this place was, I didn't want to go back home just yet.
+T.f>sad: Yes. I'd imagined you have little else to do here, anyway.
+It'd been a while since I read a physical book, but I found it interesting to learn the lore of the demon realm.
+Or history would have been the correct term.
+; BG trans
+@char D visible:false
+@char T visible:false
+@back library
+After a great meal, I found myself down in the library.
+I stretched my arms out and rolled up my non-existent sleeves.
+F.f>happy: Let's get to work!
+I didn't know how the shelves were organized, so I just started at a random location. Most of the letters were written in some sort of strange language.
+F.f>sad: (This is pretty useless...)
+As I was thinking that, the letters in the book rearranged themselves into English alphabets.
+@spawn ShakeCharacter params:F
+F.f>happy: Wow!
+It was pretty interesting to see all the different books on the shelves. Some were about various rituals, while others seemed to be more about past demon rulers.
+F.f>shock: What's this?
+I noticed a section slightly separated from the rest. It seemed hidden away.
+F.f>sad: Are these some sort of... forbidden texts?
+I pulled a book from the shelf and held it in my hand. I felt a surge of power emanating from it.
+F.f>neutral: (This has got to be important...)
+The book began to glow in my hands as the text rearranged itself.
+The title read...
+F.f>shock: "50 Shades of Humans."
+F.f>sad: Huh...?
+The cover had a half-naked dude broodily staring into the distance.
+F.f>neutral,sfx>sweat: Uh...
+I flipped the book over and read the description.
+F.f>shock: Anammelech was just your average working class demon. One day, the handsome mortal Chrystian comes along and sweeps her off her feet!
+F.f>sad: What... is this?
+Confused, I began to pull a bunch of other books from the shelves. I began to read their descriptions as well.
+All of them had strange titles such as, "7 Days with a Mortal," and "A Salacious Human affair."
+@spawn ShakeCharacter params:F,3,,,,,true,false
+F.f>neutral,sfx-: This is so strange...
+But my curiosity got the better of me. I spent the day reading "50 Shades of Humans."
+By the end of the day, my eyes felt tired and blurry.
+F.f>sad: No! Chrystian... how could you do this to Ana?!
+I trudged back to the office to report my (non-existent) progress.
+@back trisOffice
+T.f>neutral.sfx-: What did you get done tod...
+Trisetar stopped when he saw my face.
+He rushed over to my side and placed his hand on my face.
+T.f>shock: What happened down there?!
+F.f>sad: Human-Demon love affairs are really difficult, huh?
+@spawn ShakeCharacter params:T,3,,,,,true,false
+T.sfx>blush: W-What?!
+He immediately pulled his hand away.
+T.f>sad: Y-You do not mean...
+F.f>shock,sfx>blush: Huh? No! I just finished reading this book about it.
+T.f>anger,sfx>anger: Oh. So you were not conducting research?
+@spawn ShakeCharacter params:F
+F: Uh... this was research! Research of uhm... demon culture! And stuff!
+Trisetar looked suspicious, but said nothing.
+T: If you say so.
+@goto .fightScene
+
+# fightScene
+@back black
+@char T visible:false
+@char F.f>sad,sfx-
+The next few weeks went by pretty uneventfully. I rarely saw Trisetar for the most part. He was never there during dinner or breakfast. It was usually me just eating by myself and then holing myself up in the library for research.
+Still, I felt us getting closer. Although he wasn't the most talkative, the comfortable silence felt nice. It was nice to be acknowledged.
+One day, Trisetar called me to his office for a progress check.
+@back trisOffice
+T.f>anger,sfx-: So, human. Do you have any visible progress?
+I felt the hairs on my hand raise, but I tried to keep it down. It bugged me when he referred to me as "human," but maybe things could change.
+F.f>sad,sfx>sweat: Can you, um, call me Felix?
+T.f>neutral: ...
+Trisetar looked at me strangely.
+T.f>anger: Is there a reason?
+F.f>neutral: Yeah, like I call you Trisetar. I don't just call you "Big Strange Demon."
+Trisetar frowned.
+T.f>anger: That is because there is a difference between us.
+I did my best to keep my face still.
+F.f>sad: Maybe, but you can use my name once in a while...
+Trisetar tapped his foot in impatience.
+T.f>neutral: I asked for your progress.
+F.f>anger: (Why is he so... ugh...)
+F.f>sad: I've been going through the library, but there's so much stuff it's hard to read it all.
+F: Besides, I need to wait for the text to rearrange, which takes quite a bit.
+He pinched the bridge of his nose in exasperation. I felt frustration crawl through my veins.
+T.f>anger: Ugh... so troublesome.
+F.f>neutral: ...Is that all?
+@stopBgm
+@bgm darkPlace
+T: What?
+@camera offset:-3,1.5 zoom:.6
+F.f>anger: Is that all you have to say?
+Trisetar looked at me strangely.
+@camera offset:0 zoom:0
+T.f>neutral: I don't think you understand, human, but—
+@spawn ShakeCamera wait:false
+@sfx thud
+I banged my fist on the table.
+F.sfx>anger: Human this, mortal that...! You know, all this while, you haven't used my name ONCE!
+T.f>shock: What are you...
+F: You got so fucking angry when I shortened your name, yet you can't be bothered to remember mine?!
+@spawn ShakeCharacter params:T
+T.f>anger: How dare you—
+@spawn ShakeCharacter params:F
+F: FELIX! That's my name! It's spelled F.E.L.I.X if you need the alphabet for it!
+T: Do you realize how you're speaking to me?!
+@spawn ShakeCharacter params:F,3,,,,,true,false
+F: Yes, yes I do! What are you going to do, huh?! Kill me? Then hurry up and do it!
+I felt anger unlike any other boiling in my veins. I'd never felt this agitated in my life.
+T.f>sad: I... I didn't...
+Now, the anger was mixed with frustration. I just wanted to be seen as an equal. But clearly I wasn't.
+F.f>sad: It's just...
+@stopBgm
+I felt tears pool up in my eyes.
+F: I'm... I'm going to go.
+@slide F to:-25
+@char T visible:false
+@back hellHallway
+@slide F to:25
+@back tinyRoom
+I ran out of the office, feeling miserable. I powerwalked back to my quarters.
+@spawn DepthOfField params:F
+@bgm lofi
+@char F.glasses-
+I entered the room, my vision blurry with tears. I took the glasses off my face and rubbed them on the edge of my shirt to clean them.
+I sat down at the edge of my bed. Huh, funny that I got so used to it here, I was calling it "my" bed. It wasn't mine. Nothing here was. I was just an outsider.
+I tried to think of why I was feeling so upset.
+
+@choice "I may be mortal, but I'm still an individual." goto:.human
+@choice "I don't want to be just a human." goto:.demon
+@stop
+
+# human
+@stopsfx
+@set home=home+1
+F: (Yes, I am human. But I have thoughts, feelings... wishes of my own...)
+F.f>anger: (Not all humans are the same. If they were, the world would be so much more dull.)
+@goto .sleep
+
+# demon
+@set hell=hell+1
+I felt strange inside.
+F.f>anger: Yeah, I'm just a human. I know that. If only...
+F.f>sad: (No, this line of thought is dangerous.)
+Somehow, I felt that maybe if I weren't a human... maybe I would've been taken more seriously.
+I laughed.
+F.f>neutral: (I'm thinking ridiculous.)
+@goto .sleep
+
+# sleep
+But I couldn't help but wonder; was there a reason he acted that way?
+Still, I felt exhaustion overtake me, and my eyes fluttered close.
+@back black
+; BG Brightish
+F.f>anger: Ugh...
+@back tinyRoom
+My eyes felt sore. Apparently crying oneself to sleep left your eyes feeling raw. I hadn't cried this much since I was a child.
+@char F.glasses+
+I sat up and rubbed my eyes. I quickly put on my glasses when I heard the door open.
+@sfx door
+@char F.default
+F.f>shock: Demetrius?
+; Tris appears
+To my surprise, Trisetar stood in the doorway.
+@despawn DepthOfField
+@char T.f>sad visible:true
+F.f>anger: ...What do you want?
+Trisetar flinched, but still stood outside. I sighed.
+F.f>sad: Come inside.
+Meekly, he walked inside. I was surprised to see him so obedient.
+T.f>sad: I wished to say something.
+F.f>neutral: Yes?
+T.f>neutral: I am not used to interacting with others.
+No kidding.
+T.f>anger: I felt that my behavior was unbecoming. I... should not have—I believe I was—
+@char F.f>happy
+I laughed.
+T.f>neutral: This is not a laughing matter.
+F.f>sad: I guess.
+He took in a deep breath.
+T.f>sad: I wanted to say that my behavior was unbecoming. Being in such a position, I do not interact much. I did not realize that you felt that way.
+F.f>sad: It's... a little bit on me, too. I should've listened to you instead of run away.
+We stared at each other in silence.
+T.f>neutral: So, Felix.
+F.f>neutral: Yeah?
+T.f>sad: About the button...
+Trisetar sheepishly produced a broken piece of plastic to me.
+F.f>shock: That's—
+T.f>neutral,sfx>blush: Yes. In my anger, I may have harmed it.
+Harmed was an understatement. It looked like it was crushed into smithereens.
+F.f>.neutral: Was there anything inside?
+T.f>neutral,sfx-: ...No.
+I sighed.
+F.sad: So... that's a dead end, then?
+T.anger: Yes.
+F.f>neutral: ...
+I knew this wasn't a movie where something I found turned out to be important.
+@if home>hell
+  I felt sort of relieved. I didn't want to get caught up in something crazy.
+@else
+  I felt disappointed. I thought this would be a chance for me to learn something new, but this was it.
+@endif
+@sfx grumble
+My stomach grumbled loudly.
+F.f>shock,sfx>blush: (Urk..! Always at the worst times!)
+T.f>happy: Perhaps we can discuss the rest over breakfast.
+Did... Did he just smile?!
+T.f>anger: What?
+F.f>neutral: N-Nothing. Let's eat.
+
+@goto 07

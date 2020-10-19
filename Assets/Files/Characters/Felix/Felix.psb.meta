@@ -1,0 +1,540 @@
+fileFormatVersion: 2
+guid: 417a3bc20f7f2264b884489612b07c26
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: b2a9591990af98743ba3ff7cf1000886, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 1
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    isReadable: 0
+    streamingMipmaps: 1
+    streamingMipmapsPriority: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+  spriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 0, y: 0}
+  mosaicSpriteImportData: []
+  rigSpriteImportData:
+  - name: Glasses
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1325
+      y: 1336
+      width: 341
+      height: 194
+    spriteID: 18f3497eaccfbc447a0081a8e12310d0
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 786, y: -199}
+  - name: 0
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1325
+      y: 4
+      width: 649
+      height: 532
+    spriteID: 95b69848f2b2b23449ba81e55c9d8b41
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 969, y: -1475}
+  - name: neutral
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1736
+      y: 544
+      width: 271
+      height: 231
+    spriteID: 982b742f55d1c2c469fba8d721b6aaf2
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 1122, y: -916}
+  - name: Gaymer
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 1313
+      height: 2009
+    spriteID: d389da351a3eece41b2ef04bf68dbed3
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 4, y: 4}
+  - name: Flinch
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1604
+      y: 1538
+      width: 82
+      height: 196
+    spriteID: 3b26a74a9374680408ed6e47df7278bd
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 636, y: 5}
+  - name: Sweat
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1674
+      y: 1336
+      width: 18
+      height: 64
+    spriteID: eefdb1c217035124fb6844e6886e2413
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 1055, y: -174}
+  - name: Vein
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1604
+      y: 1742
+      width: 33
+      height: 27
+    spriteID: 3693e361dc99b574996302ad03669215
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 1012, y: 178}
+  - name: Blush
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1325
+      y: 544
+      width: 403
+      height: 266
+    spriteID: c679ea3168fa25f4b95d2abd6f08b0fb
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 851, y: -952}
+  - name: sad
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1325
+      y: 1538
+      width: 271
+      height: 239
+    spriteID: b45a76ff1a9977c4b82995867deb2db9
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 713, y: 79}
+  - name: happy
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1736
+      y: 783
+      width: 271
+      height: 230
+    spriteID: 9d21179b657a2814ab669acd693fdc4b
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 1124, y: -678}
+  - name: anger
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1325
+      y: 818
+      width: 271
+      height: 252
+    spriteID: f3a6c0559c844df41a6875702b6bf41d
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 711, y: -639}
+  - name: Shock
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1325
+      y: 1078
+      width: 273
+      height: 250
+    spriteID: 7354ae2a55141b5449d41fef4c98cae9
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 711, y: -372}
+  - name: Normal
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 2021
+      width: 1313
+      height: 2009
+    spriteID: ae31e90ea0c11594bab03c005750a8ff
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 4, y: 2021}
+  platformSettings:
+  - name: Default
+    overridden: 1
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  mosaicLayers: 1
+  documentPivot: {x: 0, y: 0}
+  documentAlignment: 7
+  importHiddenLayers: 1
+  importedTextureWidth: 2048
+  importedTextureHeight: 4096
+  documentSize: {x: 1313, y: 2011}
+  paperDollMode: 0
+  keepDupilcateSpriteName: 0
+  spriteCategoryList:
+    categories: []
+  textureActualWidth: 2048
+  textureActualHeight: 4096
+  spritePackingTag: 
+  resliceFromLayer: 0
+  characterMode: 1
+  mosaicPSDLayers: []
+  rigPSDLayers:
+  - name: Glasses
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: 00000000000000000000000000000000
+    layerID: 35
+    mosaicPosition: {x: 0, y: 0}
+  - name: Glasses
+    spriteName: Glasses
+    isGroup: 0
+    parentIndex: 0
+    spriteID: 18f3497eaccfbc447a0081a8e12310d0
+    layerID: 21
+    mosaicPosition: {x: 1325, y: 1336}
+  - name: Lineart
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: 00000000000000000000000000000000
+    layerID: 23
+    mosaicPosition: {x: 0, y: 0}
+  - name: 0
+    spriteName: 0
+    isGroup: 0
+    parentIndex: 2
+    spriteID: 95b69848f2b2b23449ba81e55c9d8b41
+    layerID: 20
+    mosaicPosition: {x: 1325, y: 4}
+  - name: SFX
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: 00000000000000000000000000000000
+    layerID: 19
+    mosaicPosition: {x: 0, y: 0}
+  - name: Flinch
+    spriteName: Flinch
+    isGroup: 0
+    parentIndex: 4
+    spriteID: 3b26a74a9374680408ed6e47df7278bd
+    layerID: 18
+    mosaicPosition: {x: 1604, y: 1538}
+  - name: Sweat
+    spriteName: Sweat
+    isGroup: 0
+    parentIndex: 4
+    spriteID: eefdb1c217035124fb6844e6886e2413
+    layerID: 17
+    mosaicPosition: {x: 1674, y: 1336}
+  - name: Vein
+    spriteName: Vein
+    isGroup: 0
+    parentIndex: 4
+    spriteID: 3693e361dc99b574996302ad03669215
+    layerID: 15
+    mosaicPosition: {x: 1604, y: 1742}
+  - name: Blush
+    spriteName: Blush
+    isGroup: 0
+    parentIndex: 4
+    spriteID: c679ea3168fa25f4b95d2abd6f08b0fb
+    layerID: 14
+    mosaicPosition: {x: 1325, y: 544}
+  - name: Faces
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: 00000000000000000000000000000000
+    layerID: 12
+    mosaicPosition: {x: 0, y: 0}
+  - name: neutral
+    spriteName: neutral
+    isGroup: 0
+    parentIndex: 9
+    spriteID: 982b742f55d1c2c469fba8d721b6aaf2
+    layerID: 11
+    mosaicPosition: {x: 1736, y: 544}
+  - name: sad
+    spriteName: sad
+    isGroup: 0
+    parentIndex: 9
+    spriteID: b45a76ff1a9977c4b82995867deb2db9
+    layerID: 10
+    mosaicPosition: {x: 1325, y: 1538}
+  - name: happy
+    spriteName: happy
+    isGroup: 0
+    parentIndex: 9
+    spriteID: 9d21179b657a2814ab669acd693fdc4b
+    layerID: 9
+    mosaicPosition: {x: 1736, y: 783}
+  - name: anger
+    spriteName: anger
+    isGroup: 0
+    parentIndex: 9
+    spriteID: f3a6c0559c844df41a6875702b6bf41d
+    layerID: 8
+    mosaicPosition: {x: 1325, y: 818}
+  - name: Shock
+    spriteName: Shock
+    isGroup: 0
+    parentIndex: 9
+    spriteID: 7354ae2a55141b5449d41fef4c98cae9
+    layerID: 7
+    mosaicPosition: {x: 1325, y: 1078}
+  - name: Outfits
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: 
+    layerID: 37
+    mosaicPosition: {x: 0, y: 0}
+  - name: Gaymer
+    spriteName: Gaymer
+    isGroup: 0
+    parentIndex: 15
+    spriteID: d389da351a3eece41b2ef04bf68dbed3
+    layerID: 26
+    mosaicPosition: {x: 4, y: 4}
+  - name: Normal
+    spriteName: Normal
+    isGroup: 0
+    parentIndex: 15
+    spriteID: ae31e90ea0c11594bab03c005750a8ff
+    layerID: 27
+    mosaicPosition: {x: 4, y: 2021}
+  characterData:
+    bones: []
+    parts: []
+    dimension: {x: 0, y: 0}
+    characterGroups: []
+  generateGOHierarchy: 1
+  textureAssetName: Felix Texture
+  prefabAssetName: Felix Prefab
+  spriteLibAssetName: Felix Sprite Lib
+  secondarySpriteTextures: []

@@ -1,0 +1,5 @@
+@back Title visible:true time:0 wait:false
+@set trisname=T_DemonGuy
+@set catName=T_Cat
+@bgm pleasant
+@stop

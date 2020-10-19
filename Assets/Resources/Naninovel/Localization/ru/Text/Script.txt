@@ -1,0 +1,8 @@
+﻿T_Trisetar: Трисетар
+T_DemonGuy: этого парня
+T_Cat: кошка
+T_Demetrius: Деметриус
+T_Coffee: кофе
+T_Tea: чай
+T_Juice: сок
+T_Sinner: Грешник
